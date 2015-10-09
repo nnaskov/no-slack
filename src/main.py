@@ -15,7 +15,7 @@ class MainHandler(webapp2.RequestHandler):
 		'current_time': current_time,
 		}
 
-		self.response.out.write(template.render(context))
+		self.response.out.write("Darius was right!")
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
