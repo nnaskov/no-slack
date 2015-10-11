@@ -1,0 +1,15 @@
+@import "bourbon";
+@import "bootstrap";
+@import "partial";
+
+* {
+    font-family: $helvetica;
+}
+
+p{
+    color: #000000;
+}
+
+button {
+    @include button(shiny, #ff0000);
+}

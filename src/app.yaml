@@ -1,23 +1,21 @@
-application: newslack-1091
+application: no-slack
 version: 1
 runtime: python27
+threadsafe: true
 api_version: 1
-threadsafe: yes
 
 handlers:
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico
 
-- url: .*
-  script: main.app
+- url: /rest/.*
+  script: main.APP
 
-libraries:
-- name: webapp2
-  version: "2.5.2"
+- url: (.*)/
+  static_files: static\1/index.html
+  upload: static
 
-- name: jinja2
-  version: "2.6"
-
-- name: markupsafe
-  version: "0.15"
+- url: (.*)
+  static_files: static\1
+  upload: static

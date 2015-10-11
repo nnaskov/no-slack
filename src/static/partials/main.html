@@ -1,0 +1,7 @@
+<h2>Guest list</h2>
+<a class="btn btn-lg btn-primary" ng-click="invite()">Invite another guest</a>
+<div ng-repeat="guest in guests | orderBy:'last' | orderBy:'first'">
+    <a class="btn btn-lg btn-primary" ng-click="delete(guest)">delete</a>
+    <a class="btn btn-lg btn-primary" ng-click="update(guest)">update</a>
+  {{ $index + 1 }}. <b>{{ guest.first }} {{ guest.last }}</b>
+</div>
