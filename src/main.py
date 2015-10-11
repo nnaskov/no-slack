@@ -1,7 +1,6 @@
 import json
 import webapp2
 import time
-
 import model
 
 
