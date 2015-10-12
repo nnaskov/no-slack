@@ -8,7 +8,7 @@ class MainAppHandler(webapp2.RequestHandler):
         user = users.get_current_user()
 
         if user:
-            self.response.out.write("Somebody is logged in!")
+            self.response.out.write(user.email())
             print("hello")
         else:
             self.response.out.write("Nobody is logged in!")
