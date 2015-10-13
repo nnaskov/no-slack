@@ -26,6 +26,10 @@ body{
     padding-right: 20px;
 }
 
+.form-container{
+    margin: auto;
+    width: 30rem;
+}
 .large-glyph{
     font-size: 15px;
     
@@ -33,6 +37,12 @@ body{
 .task-list-item{
     padding-bottom: 0.5rem;
 }
+
+.sign-up-item
+{
+    display: block;
+}
+
 
 .cover-container {
     width: 42rem;
@@ -46,10 +56,18 @@ body{
 	right: 0;
 }
 
+.form-control{
+    border-radius: 10px;
+}
 .dashboard-container{
 
     margin: auto;
     text-align: center;
+}
+
+#create-join-house{
+    padding-top: 10px;
+
 }
 
 .analysis-container .task-container{

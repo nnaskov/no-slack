@@ -120,4 +120,3 @@ App.controller('UpdateCtrl', function($routeParams, $rootScope, $scope, $log, $h
   };
 
 });
-

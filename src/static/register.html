@@ -25,50 +25,53 @@
 
     <body>
 
-        <div ng-include src="'partials/navbar.html'"></div>
 
 
         <div class="container">
-
-
-            <!-- Stack the columns on mobile by making one full-width and the other half-width -->
-            <!-- Columns are always 50% wide, on mobile and desktop -->
-            <div class="row">
-                <div class="col-xs-6">
-                    <div class="dashboard-container">
-                        <div class="task-container">
-                            <div class="list-group">
-                                <button type="button" class="list-group-item">Cras justo odio</button>
-                                <button type="button" class="list-group-item">Dapibus ac facilisis in</button>
-                                <button type="button" class="list-group-item">Morbi leo risus</button>
-                                <button type="button" class="list-group-item">Porta ac consectetur ac</button>
-                                <button type="button" class="list-group-item">Vestibulum at eros</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6">
-                    <div class="dashboard-container">
-                        <div class="analysis-container">
-                            <div class="jumbotron">
-                                <h1>Hello, world!</h1>
-
-                            </div>
-                        </div>
-
-                        <div class="analysis-container">
-                            <div class="jumbotron">
-                                <h1>Hello, world!</h1>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>    
             </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a class="navbar-brand" href="#">No slack</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="login/">Login</a></li>
+                    <li><a href="register/">Register</a></li>
+                </ul>
+            </div>
+            </nav>
         </div>
-            <!-- Placed at the end of the document so the pages load faster -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-            <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-            <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
-        </body>
-    </html>
+        <div class="container">
+            <div class="form-container">
+                <h1>Sign up</h1>
+                <label for="firstname">First Name</label>
+                <div class="input-group-lg"><input class="form-control" type="text" name="firstname" id="name" placeholder="e.g. Adam"></div>
+                <label for="lastname">Last Name</label>
+                <div class="input-group-lg"><input class="sign-up-item form-control" type="text" name="lastname" id="name" placeholder="e.g. Noakes"></div>
+                <label for="housename">House</label>
+                <div class="input-group-lg"><input class="sign-up-item form-control" type="text" name="housename" id="name" placeholder="e.g. ourlovelyhome"></div>
+                <p id="create-join-house" class="text-center" >Create or join</p>
+                <a type="button" class="btn btn-primary btn-lg btn-block" href="#">Sign Up</a>
+                <a type="button" class="btn btn-default btn-lg btn-block" href="/">Back</a>
+            </div>
+
+
+
+        <!--    <h1>AngularJS Guest List</h1> 
+            <pre class="status" ng-bind="status"></pre>
+            <div ng-view></div>-->
+
+        </div> <!-- /container -->
+
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+    </body>
+</html>
