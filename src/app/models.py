@@ -1,14 +1,15 @@
 from google.appengine.ext import ndb
+from google.appengine.api import users
+
+class Member(ndb.Model):
+    user = ndb.UserProperty(auto_current_user_add=True)
+    #household = ndb.StructuredProperty(HouseHold)
 
 
 class HouseHold(ndb.Model):
     name = ndb.StringProperty(required=True)
     owner = ndb.StructuredProperty(Member, required=True)
     members = ndb.StructuredProperty(Member, repeated=True)
-
-
-class Member(ndb.Model):
-    user = ndb.UserProperty(auto_current_user_add=True)
 
 
 class Task(ndb.Model):
@@ -20,3 +21,24 @@ class Task(ndb.Model):
     user_modified = ndb.StructuredProperty(Member)
     positive_feedback = ndb.IntegerProperty(default=0)
     negative_feedback = ndb.IntegerProperty(default=0)
+
+
+def get_member(user_id=None):
+    if not user_id:
+        user = users.get_current_user()
+        if not user:
+            return None
+        user_id = user.user_id()
+
+    key = ndb.Key('Member', user_id)
+    member = key.get()
+
+    return member
+
+def add_member(user_id=None):
+    user = users.get_current_user()
+    user_id = user.user_id()
+
+    member = Member(id=user_id, user=user)
+    member.put()
+

@@ -1,18 +1,16 @@
 import webapp2
+from app import models
 from google.appengine.api import users
 
 
 class MainAppHandler(webapp2.RequestHandler):
 
     def get(self):
-        user = users.get_current_user()
+        models.add_member()
 
-        if user:
-            self.response.out.write(user.email())
-            print("hello")
-        else:
-            self.response.out.write("Nobody is logged in!")
-            print("goodbye")
+        my_account
+        self.response.out.write("Trying to add member to data store")
+
 
 
 app = webapp2.WSGIApplication([
