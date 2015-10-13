@@ -1,63 +1,22 @@
-import json
 import webapp2
-import time
-import model
+from google.appengine.api import users
 
 
-def AsDict(guest):
-  return {'id': guest.key.id(), 'first': guest.first, 'last': guest.last}
+class MainAppHandler(webapp2.RequestHandler):
+
+    def get(self):
+        user = users.get_current_user()
+
+        if user:
+            self.response.out.write(user.email())
+            print("hello")
+        else:
+            self.response.out.write("Nobody is logged in!")
+            print("goodbye")
 
 
-class RestHandler(webapp2.RequestHandler):
-
-  def dispatch(self):
-    #time.sleep(1)
-    super(RestHandler, self).dispatch()
-
-
-  def SendJson(self, r):
-    self.response.headers['content-type'] = 'text/plain'
-    self.response.write(json.dumps(r))
-    
-
-class QueryHandler(RestHandler):
-
-  def get(self):
-    guests = model.AllGuests()
-    r = [ AsDict(guest) for guest in guests ]
-    self.SendJson(r)
-
-
-class UpdateHandler(RestHandler):
-
-  def post(self):
-    r = json.loads(self.request.body)
-    guest = model.UpdateGuest(r['id'], r['first'], r['last'])
-    r = AsDict(guest)
-    self.SendJson(r)
-
-
-class InsertHandler(RestHandler):
-
-  def post(self):
-    r = json.loads(self.request.body)
-    guest = model.InsertGuest(r['first'], r['last'])
-    r = AsDict(guest)
-    self.SendJson(r)
-
-
-class DeleteHandler(RestHandler):
-
-  def post(self):
-    r = json.loads(self.request.body)
-    model.DeleteGuest(r['id'])
-
-
-APP = webapp2.WSGIApplication([
-    ('/rest/query', QueryHandler),
-    ('/rest/insert', InsertHandler),
-    ('/rest/delete', DeleteHandler),
-    ('/rest/update', UpdateHandler),
+app = webapp2.WSGIApplication([
+    ('/app/', MainAppHandler),
 ], debug=True)
 
 

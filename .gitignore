@@ -1,0 +1,8 @@
+src/.idea/.name
+src/.idea/misc.xml
+src/.idea/modules.xml
+src/.idea/src.iml
+src/.idea/vcs.xml
+src/.idea/workspace.xml
+
+*.pyc
