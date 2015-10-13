@@ -7,9 +7,7 @@ class MainAppHandler(webapp2.RequestHandler):
 
     def get(self):
         models.add_member()
-
-        my_account
-        self.response.out.write("Trying to add member to data store")
+        self.response.out.write("Member added to the data store!")
 
 
 

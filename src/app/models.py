@@ -3,7 +3,10 @@ from google.appengine.api import users
 
 class Member(ndb.Model):
     user = ndb.UserProperty(auto_current_user_add=True)
-    #household = ndb.StructuredProperty(HouseHold)
+    first_name = ndb.StringProperty()
+    last_name = ndb.StringProperty()
+    household = ndb.KeyProperty()
+
 
 
 class HouseHold(ndb.Model):
@@ -35,8 +38,10 @@ def get_member(user_id=None):
 
     return member
 
-def add_member(user_id=None):
+def add_member():
     user = users.get_current_user()
+    if not user:
+        return None
     user_id = user.user_id()
 
     member = Member(id=user_id, user=user)
