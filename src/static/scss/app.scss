@@ -10,6 +10,51 @@ p{
     color: #000000;
 }
 
-button {
-    @include button(shiny, #ff0000);
+body{
+    padding-top: 70px;
+}
+.navbar-brand
+{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin: auto;
+}
+
+.navbar-right{
+    padding-right: 20px;
+}
+
+.large-glyph{
+    font-size: 15px;
+    
+}
+.task-list-item{
+    padding-bottom: 0.5rem;
+}
+
+.cover-container {
+    width: 42rem;
+    height: 20rem;
+    text-align: center;
+    margin: auto;
+    position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.dashboard-container{
+
+    margin: auto;
+    text-align: center;
+}
+
+.analysis-container .task-container{
+    padding: 2rem;
+    margin: auto;
+    height: 20rem;
+    text-align: center;
 }

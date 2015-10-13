@@ -15,6 +15,16 @@
                 "outputStyle": "nested"
             },
             "linting.collapsed": false
+        },
+        "scss/material.scss": {
+            "sass.enabled": true,
+            "sass.options": {
+                "outputDir": "../css/",
+                "imagePath": null,
+                "sourceComments": false,
+                "outputStyle": "nested"
+            },
+            "linting.collapsed": false
         }
     }
 }
