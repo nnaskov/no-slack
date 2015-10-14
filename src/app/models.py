@@ -27,21 +27,13 @@ class Task(ndb.Model):
     negative_feedback = ndb.IntegerProperty(default=0)
 
 def household_exists(household_id=None):
-    print(household_id)
-
-    house_hold = HouseHold.query(HouseHold.name==household_id).fetch(1)[0]
-
-    # TO do make this work
+    key = ndb.Key('HouseHold', household_id)
+    house_hold = key.get()
 
     if house_hold:
         return True
-        print("This works!")
     else:
         return False
-
-
-
-
 
 
 def get_member(user_id=None):
