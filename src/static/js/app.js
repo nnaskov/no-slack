@@ -130,7 +130,7 @@ $(function(){
         } else {
             $.ajax({
                 type: "GET",
-                url: "/checkhouse",
+                url: "/requests/checkhousename",
                 contentType: "application/json",
                 dataType: "json",
                 data: { 'houseName': houseName },
