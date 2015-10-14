@@ -120,3 +120,27 @@ App.controller('UpdateCtrl', function($routeParams, $rootScope, $scope, $log, $h
   };
 
 });
+$(function(){
+    $('#houseName').on('keyup', function(e){
+        var houseName = $("#houseName").val();
+        if(houseName.length == 0){
+            $("#create-join-house").html("Create or join a house");
+        } else if(houseName.length < 5){
+            $("#create-join-house").html("Enter 4 or more characters");
+        } else {
+            $.ajax({
+                type: "GET",
+                url: "/checkhouse",
+                data: { 'houseName': houseName },
+                success: function(data){
+                    var result = $.parseJSON(data);
+                    if(result.exists){
+                        $("#create-join-house").html(houseName + " exists. Joining house...");
+                    } else {
+                        $("#create-join-house").html(houseName + " does not exist. Creating house...");
+                    }
+                }
+            });
+        }
+    });
+});
