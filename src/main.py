@@ -3,6 +3,13 @@ from app import models
 from google.appengine.api import users
 
 
+class HomePageHandler(webapp2.RequestHandler):
+
+    def get(self):
+        INDEX_HTML = open('./templates/index.html').read()
+        self.response.out.write(INDEX_HTML)
+
+
 class MainAppHandler(webapp2.RequestHandler):
 
     def get(self):
@@ -12,6 +19,7 @@ class MainAppHandler(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
+    ('/', HomePageHandler),
     ('/app/', MainAppHandler),
 ], debug=True)
 
