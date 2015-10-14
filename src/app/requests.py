@@ -1,26 +1,18 @@
 import webapp2
 import json
-
+import models
+from google.appengine.api import users
 
 class HouseNamesHandler(webapp2.RequestHandler):
 
     def get(self):
         housename_req = self.request.get('houseName')
 
-        #check against database and return true if it exists
+        house_exists = models.household_exists(housename_req)
 
         self.response.headers['Content-Type'] = 'application/json'
         obj = {
-            'exists': 'true'
-
-        }
-
-        self.response.out.write(json.dumps(obj))
-
-    def post(self):
-        self.response.headers['Content-Type'] = 'application/json'
-        obj = {
-            'exists': 'true'
+            'exists': house_exists
 
         }
 

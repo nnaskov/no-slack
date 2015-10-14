@@ -1,4 +1,5 @@
 from google.appengine.ext import ndb
+from google.appengine.ext import db
 from google.appengine.api import users
 
 class Member(ndb.Model):
@@ -25,6 +26,23 @@ class Task(ndb.Model):
     positive_feedback = ndb.IntegerProperty(default=0)
     negative_feedback = ndb.IntegerProperty(default=0)
 
+def household_exists(household_id=None):
+    print(household_id)
+
+    house_hold = HouseHold.query(HouseHold.name==household_id).fetch(1)[0]
+
+    # TO do make this work
+
+    if house_hold:
+        return True
+        print("This works!")
+    else:
+        return False
+
+
+
+
+
 
 def get_member(user_id=None):
     if not user_id:
@@ -38,12 +56,24 @@ def get_member(user_id=None):
 
     return member
 
-def add_member():
+def add_member(first_name, last_name):
     user = users.get_current_user()
     if not user:
         return None
     user_id = user.user_id()
 
-    member = Member(id=user_id, user=user)
+    member = Member(id=user_id, user=user, first_name=first_name, last_name=last_name)
     member.put()
+
+def add_household(household_id):
+    # to do make this actually work
+
+    user = users.get_current_user()
+    user_id = user.user_id()
+
+    member = Member(id=user_id, user=user)
+
+
+    new_household = HouseHold(id=household_id, name=household_id,owner=member)
+    new_household.put()
 
