@@ -1,10 +1,6 @@
 __author__ = 'dominicsmith'
 
 import webapp2
-import os
-from app import models
-from google.appengine.api import users
-
 
 class RegisterHandler(webapp2.RequestHandler):
 
