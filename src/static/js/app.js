@@ -131,6 +131,8 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url: "/checkhouse",
+                contentType: "application/json",
+                dataType: "json",
                 data: { 'houseName': houseName },
                 success: function(data){
                     var result = $.parseJSON(data);
