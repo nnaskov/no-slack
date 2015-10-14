@@ -161,22 +161,25 @@ function fillnames(){
     });
 };
 
-$("sign-up-btn").click(function(){
-    var firstName = $('#firstName').val();
-    var lastName = $('#lastName').val();
-    var houseName = $('#houseName').val();
-    if(houseName.length < 4){
-         
-    } else {
-        $.ajax({
-            type: "POST",
-            url: "/request/submitsignup",
-            contentType: "application/json",
-            dataType: "json",
-            data: { 'firstName': firstName, 'lastName': lastName, 'houseName': houseName },
-            success: function(data){
-                window.location.replace(data.redirect);
-            }
-        });
-    }
+$(function(){
+    $('#sign-up-btn').on('click', function (e){
+        console.log("asdas");
+        var firstName = $('#firstName').val();
+        var lastName = $('#lastName').val();
+        var houseName = $('#houseName').val();
+        if(houseName.length < 4){
+
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "/request/submitsignup",
+                contentType: "application/json",
+                dataType: "json",
+                data: { 'firstName': firstName, 'lastName': lastName, 'houseName': houseName },
+                success: function(data){
+                    window.location.replace(data.redirect);
+                }
+            });
+        }
+    });
 });
