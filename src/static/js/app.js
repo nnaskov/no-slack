@@ -172,7 +172,7 @@ $(function(){
         } else {
             $.ajax({
                 type: "POST",
-                url: "/request/register/",
+                url: "/register/",
                 contentType: "application/json",
                 dataType: "json",
                 data: { 'firstName': firstName, 'lastName': lastName, 'houseName': houseName },
