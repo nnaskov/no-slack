@@ -136,9 +136,9 @@ $(function(){
                 data: { 'houseName': houseName },
                 success: function(data){
                     if(data.exists == "true"){
-                        $("#create-join-house").html(houseName + " exists. We'll add you to it");
+                        $("#create-join-house").html(houseName + " exists. We'll add you to it.");
                     } else {
-                        $("#create-join-house").html(houseName + " does not exist. We'll create it");
+                        $("#create-join-house").html(houseName + " does not exist. We'll create it.");
                     }
                 }
             });
