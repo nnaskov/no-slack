@@ -135,8 +135,7 @@ $(function(){
                 dataType: "json",
                 data: { 'houseName': houseName },
                 success: function(data){
-                    var result = $.parseJSON(data);
-                    if(result.exists){
+                    if(data.exists){
                         $("#create-join-house").html(houseName + " exists. Joining house...");
                     } else {
                         $("#create-join-house").html(houseName + " does not exist. Creating house...");
