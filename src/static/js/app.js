@@ -120,6 +120,7 @@ App.controller('UpdateCtrl', function($routeParams, $rootScope, $scope, $log, $h
   };
 
 });
+
 $(function(){
     $('#houseName').on('keyup', function(e){
         var houseName = $("#houseName").val();
@@ -145,3 +146,17 @@ $(function(){
         }
     });
 });
+
+//may not be used, filling names of register page on sign up
+function fillnames(){
+    $.ajax({
+        type: "GET",
+        url: "/requests/fillnames",
+        contentType: "application/json",
+        dataType: "json",
+        success: function(data){
+            $("#firstName").html(data.firstName);
+            $("#lastName").html(data.lastName);
+        }
+    });
+};
