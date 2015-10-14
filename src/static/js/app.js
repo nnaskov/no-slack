@@ -126,7 +126,7 @@ $(function(){
         var houseName = $("#houseName").val();
         if(houseName.length == 0){
             $("#create-join-house").html("Create or join a house");
-        } else if(houseName.length < 5){
+        } else if(houseName.length < 4){
             $("#create-join-house").html("Enter 4 or more characters");
         } else {
             $.ajax({
@@ -160,3 +160,23 @@ function fillnames(){
         }
     });
 };
+
+$("sign-up-btn").click(function(){
+    var firstName = $('#firstName').val();
+    var lastName = $('#lastName').val();
+    var houseName = $('#houseName').val();
+    if(houseName.length < 4){
+         
+    } else {
+        $.ajax({
+            type: "POST",
+            url: "/request/submitsignup",
+            contentType: "application/json",
+            dataType: "json",
+            data: { 'firstName': firstName, 'lastName': lastName, 'houseName': houseName },
+            success: function(data){
+                window.location.replace(data.redirect);
+            }
+        });
+    }
+});
