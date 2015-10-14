@@ -13,6 +13,10 @@ handlers:
   script: main.app
   login: required
 
+- url: /register/?
+  script: register.app
+  login: required
+
 - url: (.*)/
   static_files: static\1/index.html
   upload: static
