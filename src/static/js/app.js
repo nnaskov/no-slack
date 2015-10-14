@@ -175,7 +175,7 @@ $(function(){
                 url: "/register/",
                 contentType: "application/json",
                 dataType: "json",
-                data: { 'firstName': firstName, 'lastName': lastName, 'houseName': houseName },
+                data: JSON.stringify({ 'firstName': firstName, 'lastName': lastName, 'houseName': houseName }),
                 success: function(data){
                     window.location.replace(data.redirect);
                 }

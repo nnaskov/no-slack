@@ -13,8 +13,7 @@ class HomePageHandler(webapp2.RequestHandler):
 class MainAppHandler(webapp2.RequestHandler):
 
     def get(self):
-        models.add_member()
-        self.response.out.write("Member added to the data store!")
+        self.response.out.write("This is the app page!")
 
 
 

@@ -9,10 +9,9 @@ class Member(ndb.Model):
     household = ndb.KeyProperty()
 
 
-
 class HouseHold(ndb.Model):
     name = ndb.StringProperty(required=True)
-    owner = ndb.StructuredProperty(Member, required=True)
+    owner = ndb.KeyProperty()
     members = ndb.StructuredProperty(Member, repeated=True)
 
 
@@ -34,6 +33,14 @@ def household_exists(household_id=None):
         return True
     else:
         return False
+
+def add_household_to_member(member, household_name):
+    key = ndb.Key('HouseHold', household_name)
+    member.household = key
+
+def add_owner_to_household(owner, household):
+    key = ndb.Key('Member', owner.user.user_id())
+    household.owner = key
 
 
 def get_member(user_id=None):
@@ -57,15 +64,11 @@ def add_member(first_name, last_name):
     member = Member(id=user_id, user=user, first_name=first_name, last_name=last_name)
     member.put()
 
+    return member
+
 def add_household(household_id):
-    # to do make this actually work
 
-    user = users.get_current_user()
-    user_id = user.user_id()
-
-    member = Member(id=user_id, user=user)
-
-
-    new_household = HouseHold(id=household_id, name=household_id,owner=member)
+    new_household = HouseHold(id=household_id, name=household_id)
     new_household.put()
+    return new_household
 

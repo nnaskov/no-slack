@@ -7,14 +7,24 @@ from app import models
 class RegisterHandler(webapp2.RequestHandler):
 
     def get(self):
-        models.add_household("KitchenerRd")
         REGISTRATION_HTML = open('./templates/register.html').read()
         self.response.out.write(REGISTRATION_HTML)
 
     def post(self):
-        first_name = self.request.get("firstName")
-        last_name = self.request.get("lastName")
-        house_name = self.request.get("houseName")
+        debug = self.request
+        json_data = json.loads(self.request.body)
+        first_name = json_data.get('firstName')
+        last_name = json_data.get('lastName')
+        house_name = json_data.get('houseName')
+
+        new_member = models.add_member(first_name, last_name)
+
+        if not models.household_exists(house_name):
+            household = models.add_household(house_name)
+
+        models.add_household_to_member(new_member, house_name)
+        models.add_owner_to_household(new_member, household)
+
 
         self.response.headers['Content-Type'] = 'application/json'
 
