@@ -6269,7 +6269,7 @@ header {
     color: white;
     opacity: 0;
     display: block;
-    background: fade(#f05f40, 90%);
+    background: #f4876f;
     position: absolute;
     bottom: 0;
     text-align: center;
