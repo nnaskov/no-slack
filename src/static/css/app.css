@@ -6131,6 +6131,9 @@ aside {
 .no-padding {
   padding: 0; }
 
+.navbar {
+  border-bottom: 0px; }
+
 .navbar-default {
   background-color: white;
   border-color: fade(#222, 5%);
