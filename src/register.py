@@ -17,13 +17,12 @@ class RegisterHandler(webapp2.RequestHandler):
         last_name = json_data.get('lastName')
         house_name = json_data.get('houseName')
 
-        new_member = models.add_member(first_name, last_name)
+        member_key = models.add_member(first_name, last_name)
 
         if not models.household_exists(house_name):
-            household = models.add_household(house_name)
+            models.add_household(house_name)
 
-        models.add_household_to_member(new_member, house_name)
-        models.add_owner_to_household(new_member, household)
+        models.setup_house(member_key, house_name)
 
 
         self.response.headers['Content-Type'] = 'application/json'

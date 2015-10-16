@@ -3,7 +3,6 @@ from google.appengine.ext import db
 from google.appengine.api import users
 
 class Member(ndb.Model):
-    user = ndb.UserProperty(auto_current_user_add=True)
     first_name = ndb.StringProperty()
     last_name = ndb.StringProperty()
     household = ndb.KeyProperty()
@@ -34,13 +33,14 @@ def household_exists(household_id=None):
     else:
         return False
 
-def add_household_to_member(member, household_name):
-    key = ndb.Key('HouseHold', household_name)
-    member.household = key
-
-def add_owner_to_household(owner, household):
-    key = ndb.Key('Member', owner.user.user_id())
-    household.owner = key
+def setup_house(member_key, house_name):
+    member = member_key.get()
+    member.household = ndb.Key('HouseHold', house_name)
+    member.put()
+    household = HouseHold.get_by_id(house_name)
+    household.owner = member_key
+    household.members.append(member)
+    household.put()
 
 
 def get_member(user_id=None):
@@ -61,10 +61,10 @@ def add_member(first_name, last_name):
         return None
     user_id = user.user_id()
 
-    member = Member(id=user_id, user=user, first_name=first_name, last_name=last_name)
-    member.put()
+    member = Member(id=user_id, first_name=first_name, last_name=last_name)
+    key = member.put()
 
-    return member
+    return key
 
 def add_household(household_id):
 
