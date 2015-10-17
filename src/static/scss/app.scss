@@ -28,6 +28,11 @@ body {
     width: 100%;
 }
 
+.form-container {
+    padding-top: 40px;
+  margin: auto;
+  width: 30rem; }
+
 body {
     @include serif-font();
 }
