@@ -24,7 +24,6 @@ App.config(function($httpProvider) {
 
 
 $(function(){
-    
     $('#houseName').on('keyup', function(e){
         var houseName = $("#houseName").val();
         if(houseName.length == 0){
@@ -46,6 +45,30 @@ $(function(){
                     }
                 }
             });
+        }
+    });
+});
+
+$(function(){
+    $('#houseName').on('keydown', function(e){
+        if((e.keyCode != 8) && ($('#houseName').val().length == 15) ){
+            e.preventDefault();
+        }
+    });
+});
+
+$(function(){
+    $('#firstName').on('keydown', function(e){
+        if((e.keyCode != 8) && ($('#firstName').val().length == 15) ){
+            e.preventDefault();
+        }
+    });
+});
+
+$(function(){
+    $('#lastName').on('keydown', function(e){
+        if((e.keyCode != 8) && ($('#lastName').val().length == 20) ){
+            e.preventDefault();
         }
     });
 });
