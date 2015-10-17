@@ -6143,6 +6143,11 @@ body {
   height: 100%;
   width: 100%; }
 
+.form-container {
+  padding-top: 40px;
+  margin: auto;
+  width: 30rem; }
+
 body {
   font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif; }
 

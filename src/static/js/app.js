@@ -27,8 +27,7 @@ $(function(){
     
     $('#houseName').on('keyup', function(e){
         var houseName = $("#houseName").val();
-        $("#create-join-house").html("Create or join a house");
-        /*if(houseName.length == 0){
+        if(houseName.length == 0){
             $("#create-join-house").html("Create or join a house");
         } else if(houseName.length < 4){
             $("#create-join-house").html("Enter 4 or more characters");
@@ -47,7 +46,7 @@ $(function(){
                     }
                 }
             });
-        }*/
+        }
     });
 });
 

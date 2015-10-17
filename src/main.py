@@ -16,7 +16,6 @@ class MainAppHandler(webapp2.RequestHandler):
         self.response.out.write("This is the app page!")
 
 
-
 app = webapp2.WSGIApplication([
     ('/', HomePageHandler),
     ('/app/', MainAppHandler),
