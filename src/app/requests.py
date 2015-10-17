@@ -28,7 +28,7 @@ class TaskHandler(webapp2.RequestHandler):
         for task in datastore_tasks_list:
             task_dict = {}
             task_dict["taskID"] = task.key.integer_id()
-            task_dict["taskname"] = task.name
+            task_dict["taskName"] = task.name
             task_dict["dateModified"] = str(task.date_modified)
 
             datastore_tasks.append(task_dict)

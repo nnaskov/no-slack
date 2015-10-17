@@ -39,6 +39,10 @@ def household_exists(household_id=None):
     else:
         return False
 
+def add_default_tasks():
+    add_task("Washing up", frequency=2)
+    add_task("Hoover lounge", frequency=10)
+
 def setup_house(member_key, house_name):
     member = member_key.get()
     member.household = ndb.Key('HouseHold', house_name)
@@ -47,6 +51,8 @@ def setup_house(member_key, house_name):
     household.owner = member_key
     household.members.append(member)
     household.put()
+
+    add_default_tasks()
 
 
 def get_member(user_id=None):
@@ -74,8 +80,6 @@ def add_task(task_name, frequency=None):
     household = get_member_household_key()
     new_task = Task(name=task_name, frequency=frequency, household=household, user_who_added=get_member().key)
     new_task.put()
-
-    return new_task.key
 
 def add_task_event(task_type):
     completed_by = ndb.Key('Member', users.get_current_user().user_id())
