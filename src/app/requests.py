@@ -8,7 +8,7 @@ class HouseNamesHandler(webapp2.RequestHandler):
     def get(self):
         housename_req = self.request.get('houseName')
 
-        house_exists = models.household_exists(housename_req)
+        house_exists = models.household_exists(housename_req.lower())
 
         self.response.headers['Content-Type'] = 'application/json'
         obj = {

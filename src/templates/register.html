@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="App">
+<html ng-app="app.dashboard">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +9,7 @@
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
 
-        <title>Static Top Navbar Example for Bootstrap</title>
+        <title>Register - No Slack</title>
 
         <link rel="stylesheet" href="../static/css/app.css">
 
@@ -21,7 +21,6 @@
         <!--  Form Validation Dependecies  -->
         <script src="//code.angularjs.org/1.4.0/angular.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script>
-        <script src="app.js"></script>
 
         <style> input.submitted.ng-invalid{border:2px solid red;} </style>
 
@@ -69,7 +68,7 @@
                     <h1>Sign up</h1>
                     <label for="firstname">First Name</label>
                     <div class="input-group-lg submitted" >
-                        <input class="form-control" ng-class="{submitted:submitted}" type="text" name="firstname" id="firstName" placeholder="e.g. Adam"
+                        <input class="form-control" ng-class="{submitted:submitted}" type="text" name="firstname" id="firstName" placeholder="e.g. Adam" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off"
 
                             ng-model="user.firstname"  ng-minlength="3"  ng-maxlength="8" required>
 
@@ -79,7 +78,7 @@
                     </div>
                     <label for="lastname">Last Name</label>
                     <div class="input-group-lg">
-                        <input class="sign-up-item form-control"  ng-class="{submitted:submitted}" type="text" name="lastname" id="lastName" placeholder="e.g. Noakes"
+                        <input class="sign-up-item form-control"  ng-class="{submitted:submitted}" type="text" name="lastname" id="lastName" placeholder="e.g. Noakes" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off"
                         
                             ng-model="user.lastname"  ng-minlength="3"  ng-maxlength="8" required>
 
@@ -89,9 +88,9 @@
                     </div>
                     <label for="housename">House</label>
                     <div class="input-group-lg">
-                        <input class="sign-up-item form-control"  ng-class="{submitted:submitted}" type="text" name="housename" id="houseName" placeholder="e.g. ourlovelyhome"
+                        <input class="sign-up-item form-control"  ng-class="{submitted:submitted}" type="text" name="housename" id="houseName" placeholder="e.g. ourlovelyhome" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off"
                         
-                            ng-model="user.housename"  ng-minlength="3"  ng-maxlength="8" required>
+                            ng-model="user.housename"  ng-minlength="3"  ng-maxlength="20" required>
 
                             <p ng-show="submitted && userForm.housename.$error.minlength" style="color:red">Your house name is too short</p>
                             <p ng-show="submitted && userForm.housename.$error.maxlength" style="color:red">Your house name is too long</p>

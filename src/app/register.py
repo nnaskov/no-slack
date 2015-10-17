@@ -14,7 +14,7 @@ class RegisterHandler(webapp2.RequestHandler):
         json_data = json.loads(self.request.body)
         first_name = json_data.get('firstName')
         last_name = json_data.get('lastName')
-        house_name = json_data.get('houseName')
+        house_name = json_data.get('houseName').lower()
 
         models.register_user(first_name, last_name, house_name)
 

@@ -30,12 +30,12 @@ class TaskEvent(ndb.Model):
     negative_feedback = ndb.IntegerProperty(default=0)
 
 def household_exists(house_name):
-    True if get_house(house_name) else False
+    return True if get_house(house_name) else False
 
 
 def add_default_tasks(house_key):
-    add_task2(house_key, "Washing up", 2)
-    add_task2(house_key, "Hoover lounge", 10)
+    add_task_given_key(house_key, "Washing up", 2)
+    add_task_given_key(house_key, "Hoover lounge", 10)
 
 
 def get_member(user_id=None):
@@ -58,12 +58,12 @@ def get_household_tasks():
     q = Task.query(Task.household == household)
     return q.fetch(limit=100)
 
-def add_task2(house_key, task_name, frequency=None):
+def add_task_given_key(house_key, task_name, frequency=None):
     new_task = Task(name=task_name, frequency=frequency, household=house_key, user_who_added=get_member())
     new_task.put()
 
 def add_task(task_name, frequency=None):
-    add_task2(get_member_household_key(), task_name, frequency)
+    add_task_given_key(get_member_household_key(), task_name, frequency)
 
 def add_task_event(task_type):
     completed_by = get_member()
