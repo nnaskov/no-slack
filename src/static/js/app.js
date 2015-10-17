@@ -1,8 +1,8 @@
 'use strict';
 
-var App = angular.module('App', ['ngRoute']);
+var app = angular.module('app.dashboard', ['ngRoute']);
 
-App.factory('myHttpInterceptor', function($rootScope, $q) {
+app.factory('myHttpInterceptor', function($rootScope, $q) {
   return {
     'requestError': function(config) {
       $rootScope.status = 'HTTP REQUEST ERROR ' + config;
@@ -17,14 +17,13 @@ App.factory('myHttpInterceptor', function($rootScope, $q) {
 });
 
 
-App.config(function($httpProvider) {
+app.config(function($httpProvider) {
   $httpProvider.interceptors.push('myHttpInterceptor');
 });
 
 
 
 $(function(){
-    
     $('#houseName').on('keyup', function(e){
         var houseName = $("#houseName").val();
         if(houseName.length == 0){
