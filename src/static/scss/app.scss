@@ -62,6 +62,7 @@ strong {
 
     .title {
         margin-top: 0px;
+        white-space: nowrap;
     }
 
     &.purple, &.blue, &.red, &.orange, &.green {
@@ -479,18 +480,4 @@ img::-moz-selection {
 
 body {
     webkit-tap-highlight-color: $theme-dark;
-}
-
-
-.block-grid{
-    @include span-columns(12);
-    .block-grid-item {
-        @include span-columns(3);
-        float:left;
-        margin: 0;
-        padding: 10px;
-    }
-    &::after{
-        clear: both;
-    }
 }

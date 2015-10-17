@@ -6104,7 +6104,8 @@ strong {
   margin-bottom: 30px;
   cursor: pointer; }
   .tile .title {
-    margin-top: 0px; }
+    margin-top: 0px;
+    white-space: nowrap; }
   .tile.purple, .tile.blue, .tile.red, .tile.orange, .tile.green {
     color: #fff; }
   .tile.purple {
@@ -6502,25 +6503,5 @@ img::-moz-selection {
 
 body {
   webkit-tap-highlight-color: #222; }
-
-.block-grid {
-  float: left;
-  display: block;
-  margin-right: 2.35765%;
-  width: 100%; }
-  .block-grid:last-child {
-    margin-right: 0; }
-  .block-grid .block-grid-item {
-    float: left;
-    display: block;
-    margin-right: 2.35765%;
-    width: 23.23176%;
-    float: left;
-    margin: 0;
-    padding: 10px; }
-    .block-grid .block-grid-item:last-child {
-      margin-right: 0; }
-  .block-grid::after {
-    clear: both; }
 
 /*# sourceMappingURL=app.css.map */

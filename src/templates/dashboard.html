@@ -67,16 +67,15 @@
         <div class="container">
             <div class="container">
                 
-                <div ng-init='dummyData = [{"taskName":"Washing Up","lastDone":"2015-10-17T00:00:00.511Z","dueNext":"2015-10-20T00:00:00.511Z"},{"taskName":"Mowing Lawn","lastDone":"2015-10-17T00:00:00.511Z","dueNext":"2015-10-20T00:00:00.511Z"},{"taskName":"Hoover Downstairs","lastDone":"2015-10-17T00:00:00.511Z","dueNext":"2015-10-20T00:00:00.511Z"},{"taskName": "Hoover Upstairs","lastDone":"2015-10-17T00:00:00.511Z","dueNext":"2015-10-20T00:00:00.511Z"},{"taskName":"Clean Toilet","lastDone":"2015-10-17T00:00:00.511Z","dueNext":"2015-10-20T00:00:00.511Z"}];'>
+                <div class="row" ng-init='dummyData = [{"taskName":"Washing Up","lastDone":"2015-10-17T00:00:00.511Z","dueNext":"2015-10-20T00:00:00.511Z"},{"taskName":"Mowing Lawn","lastDone":"2015-10-17T00:00:00.511Z","dueNext":"2015-10-20T00:00:00.511Z"},{"taskName":"Hoover Downstairs","lastDone":"2015-10-17T00:00:00.511Z","dueNext":"2015-10-20T00:00:00.511Z"},{"taskName": "Hoover Upstairs","lastDone":"2015-10-17T00:00:00.511Z","dueNext":"2015-10-20T00:00:00.511Z"},{"taskName":"Clean Toilet","lastDone":"2015-10-17T00:00:00.511Z","dueNext":"2015-10-20T00:00:00.511Z"}];'>
                     
-                    <ul class='block-grid'>   
-                        <li class="block-grid-item" ng-repeat="task in dummyData"> 
-                            <div class="tile purple">
-                                <h3 class="title">{{task.taskName}}</h3>
-                                <p>Hello Purple, this is a colored tile.</p>
-                            </div>
-                        </li>
-                    </ul>
+                    
+                    <div class="col-sm-3" ng-repeat="task in dummyData"> 
+                        <div class="tile purple">
+                            <h3 class="title">{{task.taskName}}</h3>
+                            <p>Hello Purple, this is a colored tile.</p>
+                        </div>
+                    </div>
                 </div>
                 
             </div>
