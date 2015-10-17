@@ -11,19 +11,12 @@ class RegisterHandler(webapp2.RequestHandler):
         self.response.out.write(REGISTRATION_HTML)
 
     def post(self):
-        debug = self.request
         json_data = json.loads(self.request.body)
         first_name = json_data.get('firstName')
         last_name = json_data.get('lastName')
-        house_name = json_data.get('houseName')
+        house_name = json_data.get('houseName').lower()
 
-        member_key = models.add_member(first_name, last_name)
-
-        if not models.household_exists(house_name):
-            models.add_household(house_name)
-
-        models.setup_house(member_key, house_name)
-
+        models.register_user(first_name, last_name, house_name)
 
         self.response.headers['Content-Type'] = 'application/json'
 

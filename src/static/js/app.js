@@ -49,6 +49,30 @@ $(function(){
     });
 });
 
+$(function(){
+    $('#houseName').on('keydown', function(e){
+        if((e.keyCode != 8) && ($('#houseName').val().length == 15) ){
+            e.preventDefault();
+        }
+    });
+});
+
+$(function(){
+    $('#firstName').on('keydown', function(e){
+        if((e.keyCode != 8) && ($('#firstName').val().length == 15) ){
+            e.preventDefault();
+        }
+    });
+});
+
+$(function(){
+    $('#lastName').on('keydown', function(e){
+        if((e.keyCode != 8) && ($('#lastName').val().length == 20) ){
+            e.preventDefault();
+        }
+    });
+});
+
 //may not be used, filling names of register page on sign up
 function fillnames(){
     $.ajax({

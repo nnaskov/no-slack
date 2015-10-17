@@ -11,7 +11,6 @@ class Member(ndb.Model):
 class HouseHold(ndb.Model):
     name = ndb.StringProperty(required=True)
     owner = ndb.KeyProperty()
-    members = ndb.StructuredProperty(Member, repeated=True)
 
 
 class Task(ndb.Model):
@@ -30,29 +29,13 @@ class TaskEvent(ndb.Model):
     positive_feedback = ndb.IntegerProperty(default=0)
     negative_feedback = ndb.IntegerProperty(default=0)
 
-def household_exists(household_id=None):
-    key = ndb.Key('HouseHold', household_id)
-    house_hold = key.get()
+def household_exists(house_name):
+    return True if get_house(house_name) else False
 
-    if house_hold:
-        return True
-    else:
-        return False
 
-def add_default_tasks():
-    add_task("Washing up", frequency=2)
-    add_task("Hoover lounge", frequency=10)
-
-def setup_house(member_key, house_name):
-    member = member_key.get()
-    member.household = ndb.Key('HouseHold', house_name)
-    member.put()
-    household = HouseHold.get_by_id(house_name)
-    household.owner = member_key
-    household.members.append(member)
-    household.put()
-
-    add_default_tasks()
+def add_default_tasks(house_key):
+    add_task_given_key(house_key, "Washing up", 2)
+    add_task_given_key(house_key, "Hoover lounge", 10)
 
 
 def get_member(user_id=None):
@@ -63,12 +46,11 @@ def get_member(user_id=None):
         user_id = user.user_id()
 
     key = ndb.Key('Member', user_id)
-    member = key.get()
 
-    return member
+    return key
 
 def get_member_household_key():
-    return get_member().household
+    return get_member().get().household
 
 
 def get_household_tasks():
@@ -76,13 +58,15 @@ def get_household_tasks():
     q = Task.query(Task.household == household)
     return q.fetch(limit=100)
 
-def add_task(task_name, frequency=None):
-    household = get_member_household_key()
-    new_task = Task(name=task_name, frequency=frequency, household=household, user_who_added=get_member().key)
+def add_task_given_key(house_key, task_name, frequency=None):
+    new_task = Task(name=task_name, frequency=frequency, household=house_key, user_who_added=get_member())
     new_task.put()
 
+def add_task(task_name, frequency=None):
+    add_task_given_key(get_member_household_key(), task_name, frequency)
+
 def add_task_event(task_type):
-    completed_by = ndb.Key('Member', users.get_current_user().user_id())
+    completed_by = get_member()
     new_task_event = TaskEvent(task_type=task_type, completed_by=completed_by)
     new_task_event.put()
 
@@ -96,15 +80,30 @@ def add_member(first_name, last_name):
     member = Member(id=user_id, first_name=first_name, last_name=last_name)
     key = member.put()
 
-    return key
+    return key.get()
 
 def add_household(household_id):
-
-    new_household = HouseHold(id=household_id, name=household_id)
+    owner = get_member()
+    new_household = HouseHold(name=household_id, owner=owner)
     new_household.put()
+    add_default_tasks(new_household.key) #SHOULD BE MOVED WHEN IN PROD
     return new_household
 
+def get_house(house_name):
+    q = HouseHold.query(HouseHold.name==house_name)
+    house_list = q.fetch(limit=1)
+    if len(house_list):
+        return house_list[0]
+    else:
+        return None
 
+def register_user(first_name, last_name, house_name):
+    user = add_member(first_name, last_name)
 
+    if not household_exists(house_name):
+        house = add_household(house_name)
+    else:
+        house = get_house(house_name)
 
-
+    user.household = house.key
+    user.put()
