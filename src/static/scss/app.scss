@@ -112,9 +112,9 @@ strong {
 
 #logo{
     font-family: Arial;
-    text-transform: lowercase;
+    text-transform: none;
     text-shadow: 1px 1px #aaa;
-    color: #fff;
+    color: $theme-primary;
     font-size: 26px;
 }
 
