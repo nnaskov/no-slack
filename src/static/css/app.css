@@ -6139,6 +6139,10 @@ strong {
 #mainNav {
   background: rgba(150, 150, 150, 0.1); }
 
+.large-glyph {
+  font-size: 28px;
+  padding: 10px; }
+
 html,
 body {
   height: 100%;
