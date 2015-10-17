@@ -59,7 +59,9 @@ strong {
     padding: 20px;
     margin-bottom: 30px;
     cursor: pointer;
-
+    
+    @include transition-all();
+    
     .title {
         margin-top: 0px;
         white-space: nowrap;
