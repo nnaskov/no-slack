@@ -15,6 +15,7 @@ class HouseHold(ndb.Model):
 
 
 class Task(ndb.Model):
+    household = ndb.KeyProperty(required=True)
     name = ndb.TextProperty(required=True)
     date_created = ndb.DateTimeProperty(auto_now_add=True)
     date_modified = ndb.DateTimeProperty(auto_now=True)
@@ -54,6 +55,29 @@ def get_member(user_id=None):
     member = key.get()
 
     return member
+
+def get_member_household():
+    user = users.get_current_user()
+    user_id = user.user_id()
+
+    user = ndb.Key('Member', user_id).get()
+    return user.house_hold
+
+def get_completed_household_tasks():
+    current_user_household = get_member_household()
+    q = Task.all()
+    q.filter("household =", current_user_household)
+    q.filter("completed", True)
+
+    return q.run()
+
+    #Returns an ITERABLE of all Task objects that are linked by the current logged in users
+    #house hold key. TO DO - filter based on date created
+
+
+
+
+
 
 def add_member(first_name, last_name):
     user = users.get_current_user()

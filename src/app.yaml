@@ -14,7 +14,7 @@ handlers:
   login: required
 
 - url: /register/?
-  script: register.app
+  script: app.register.app
   login: required
 
 - url: /requests/.*
