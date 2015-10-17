@@ -36,7 +36,16 @@ class TaskHandler(webapp2.RequestHandler):
         json_data = json.dumps(datastore_tasks)
         self.response.out.write(json_data)
 
+class TaskEventHandler(webapp2.RequestHandler):
+
+    def get(self):
+        event_id = self.request.get("taskEventID")
+
+
+
+
 app = webapp2.WSGIApplication([
     ('/requests/checkhousename', HouseNamesHandler),
     ('/requests/getalltasks', TaskHandler),
+    ('requests/taskevent', TaskEventHandler),
 ], debug=True)

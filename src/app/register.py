@@ -38,5 +38,5 @@ class RegisterHandler(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-    ('/register/', RegisterHandler),
+    (r'/register/?', RegisterHandler),
 ], debug=True)

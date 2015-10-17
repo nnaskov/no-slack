@@ -18,7 +18,7 @@ class MainAppHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', HomePageHandler),
-    ('/app/', MainAppHandler),
+    (r'/app/?', MainAppHandler),
 ], debug=True)
 
 
