@@ -13,7 +13,8 @@ class HomePageHandler(webapp2.RequestHandler):
 class MainAppHandler(webapp2.RequestHandler):
 
     def get(self):
-        self.response.out.write("This is the app page!")
+        DASHBOARD_HTML = open('./templates/dashboard.html').read()
+        self.response.out.write(DASHBOARD_HTML)
 
 
 app = webapp2.WSGIApplication([
