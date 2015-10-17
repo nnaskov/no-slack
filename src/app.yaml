@@ -9,7 +9,7 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
-- url: /app/.*
+- url: /app/?
   script: main.app
   login: required
 
