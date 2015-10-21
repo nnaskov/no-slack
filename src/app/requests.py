@@ -5,6 +5,7 @@ from google.appengine.api import users
 
 class HouseNamesHandler(webapp2.RequestHandler):
 
+
     def get(self):
         housename_req = self.request.get('houseName')
 
@@ -17,6 +18,7 @@ class HouseNamesHandler(webapp2.RequestHandler):
         }
 
         self.response.out.write(json.dumps(obj))
+
 
 class TaskHandler(webapp2.RequestHandler):
 
@@ -36,16 +38,32 @@ class TaskHandler(webapp2.RequestHandler):
         json_data = json.dumps(datastore_tasks)
         self.response.out.write(json_data)
 
+
+class AddTaskHandler(webapp2.RequestHandler):
+
+    def post(self):
+        task_name = self.request.get("taskName")
+        frequency = self.request.get("frequency")
+        models.add_task(task_name, frequency)
+
+
+class DeleteTaskHandler(webapp2.RequestHandler):
+
+    def delete(self):
+        task_id = self.request.get("taskId")
+        models.delete_task(task_id)
+
+
 class TaskEventHandler(webapp2.RequestHandler):
 
     def get(self):
         event_id = self.request.get("taskEventID")
 
 
-
-
 app = webapp2.WSGIApplication([
     ('/requests/checkhousename', HouseNamesHandler),
     ('/requests/getalltasks', TaskHandler),
-    ('requests/taskevent', TaskEventHandler),
+    ('/requests/addtask', AddTaskHandler),
+    ('/requests/deletetask', DeleteTaskHandler),
+    ('/requests/taskevent', TaskEventHandler),
 ], debug=True)
