@@ -72,9 +72,10 @@ def add_task(task_name, frequency=None):
     add_task_given_key(get_member_household_key(), task_name, frequency)
 
 
-def add_task_event(task_type):
+def add_task_event(task_id):
     completed_by = get_member()
-    new_task_event = TaskEvent(task_type=task_type, completed_by=completed_by)
+    task_key = ndb.Key("Task", task_id)
+    new_task_event = TaskEvent(task_type=task_key, completed_by=completed_by)
     new_task_event.put()
 
 
