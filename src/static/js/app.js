@@ -33,15 +33,14 @@ app.directive('username', ['$http', function($http) {
             params: {'houseName': houseName}
           }
         ).success(function(data){
-          alert(data.exists);
-        });
-
-        if(houseName === "Jill"){
-          ctrl.$setValidity('username', false);
-        }
-        else{
-          ctrl.$setValidity('username', true);
-        }
+            if(data.exists==false){
+                ctrl.$setValidity('username', true);
+            }
+            else{
+                ctrl.$setValidity('username', false);
+            }
+          }
+        );
 
         return houseName;
       }
