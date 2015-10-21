@@ -21,6 +21,36 @@ app.config(function($httpProvider) {
   $httpProvider.interceptors.push('myHttpInterceptor');
 });
 
+app.directive('username', ['$http', function($http) {
+  return {
+    require: 'ngModel',
+    link: function(scope, elm, attrs, ctrl) {
+
+      function validator(houseName) {
+
+        $http(
+          {
+            method:"GET", 
+            url: "/requests/checkhousename",
+            params: {'houseName': houseName}
+          }
+        ).success(function(data){
+          alert(data);
+        });
+
+        if(houseName === "Jill"){
+          ctrl.$setValidity('username', false);
+        }
+        else{
+          ctrl.$setValidity('username', true);
+        }
+
+        return houseName;
+      }
+      ctrl.$parsers.push(validator);
+    }
+  };
+}]);
 
 
 $(function(){
@@ -30,13 +60,10 @@ $(function(){
             $("#create-join-house").html("Create or join a house");
         } else if(houseName.length < 4){
             $("#create-join-house").html("Enter 4 or more characters");
-        } else {
+        } 
+        else {
             $.ajax({
-                type: "GET",
-                url: "/requests/checkhousename",
-                contentType: "application/json",
-                dataType: "json",
-                data: { 'houseName': houseName },
+                type: "GET", url: "/requests/checkhousename", contentType: "application/json", dataType: "json", data: { 'houseName': houseName },
                 success: function(data){
                     if(data.exists){
                         $("#create-join-house").html(houseName + " exists. We'll add you to it.");
