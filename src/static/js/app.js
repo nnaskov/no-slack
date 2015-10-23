@@ -26,6 +26,14 @@ app.directive('username', ['$http', function($http) {
     require: 'ngModel',
     link: function(scope, elm, attrs, ctrl) {
       function validator(houseName) {
+
+            if(houseName==="Jill"){
+                ctrl.$setValidity('username', true);
+            }
+            else{
+                ctrl.$setValidity('username', false);
+            }
+
         $http(
           {
             method:"GET", 
@@ -33,11 +41,11 @@ app.directive('username', ['$http', function($http) {
             params: {'houseName': houseName}
           }
         ).success(function(data){
-            if(data.exists==false){
-                ctrl.$setValidity('username', true);
+            if(data.exists==true){
+                ctrl.$setSubmitted('username', false);
             }
             else{
-                ctrl.$setValidity('username', false);
+                ctrl.$setSubmitted('username', false);
             }
           }
         );
@@ -63,6 +71,7 @@ $(function(){
             $.ajax({
                 type: "GET", url: "/requests/checkhousename", contentType: "application/json", dataType: "json", data: { 'houseName': houseName },
                 success: function(data){
+                    $("#create-join-house").html("Looking");
                     if(data.exists){
                         $("#create-join-house").html(houseName + " exists. We'll add you to it.");
                     } else {

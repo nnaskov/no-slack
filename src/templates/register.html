@@ -14,14 +14,15 @@
         <link rel="stylesheet" href="../static/css/app.css">
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular-route.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.3/angular.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.3/angular-route.js"></script>
         <script src="../static/js/app.js"></script>
 
         <!--  Form Validation Dependecies  -->
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-touch.min.js"></script>
 
-        <style> input.submitted.ng-invalid{border:2px solid red;} </style>
+        <style> input.ng-invalid.ng-touched{border:2px solid red;}</style>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -66,41 +67,48 @@
                 <div class="form-container">
                     <h1>Sign up</h1>
                     <label for="firstname">First Name</label>
-                    <div class="input-group-lg submitted" >
-                        <input class="form-control" ng-class="{submitted:submitted}" type="text" name="firstname" id="firstName" placeholder="e.g. Adam" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off"
+                    <div class="input-group-lg" >
+                        <input class="form-control" type="text" name="firstname" id="firstName" placeholder="e.g. Adam" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off"
 
                             ng-model="user.firstname"  ng-minlength="4"  ng-maxlength="8" ng-pattern="/^([a-zA-Z]|\-|\_)*$/" required>
 
-                            <p ng-show="userForm.firstname.$error.minlength" style="color:red">Your first name is too short</p>
-                            <p ng-show="userForm.firstname.$error.maxlength" style="color:red">Your first name is too long</p>
-                            <p ng-show="userForm.firstname.$dirty && userForm.firstname.$error.required" style="color:red">Your first name is required</p>
-                            <p ng-show="userForm.firstname.$error.pattern" style="color:red">Invalid form</p>
+                            <p ng-show="userForm.firstname.$touched && userForm.firstname.$error.minlength" style="color:red">Your first name is too short</p>
+                            <p ng-show="userForm.firstname.$touched && userForm.firstname.$error.maxlength" style="color:red">Your first name is too long</p>
+                            <p ng-show="userForm.firstname.$touched && userForm.firstname.$error.required" style="color:red">Your first name is required</p>
+                            <p ng-show="userForm.firstname.$touched && userForm.firstname.$error.pattern" style="color:red">Invalid form</p>
                     </div>
                     <label for="lastname">Last Name</label>
                     <div class="input-group-lg">
-                        <input class="sign-up-item form-control"  ng-class="{submitted:submitted}" type="text" name="lastname" id="lastName" placeholder="e.g. Noakes" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off"
+                        <input class="sign-up-item form-control" type="text" name="lastname" id="lastName" placeholder="e.g. Noakes" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off"
                         
                             ng-model="user.lastname"  ng-minlength="4"  ng-maxlength="8" ng-pattern="/^([a-zA-Z]|\-|\_)*$/" required>
 
-                            <p ng-show="userForm.lastname.$error.minlength" style="color:red">Your last name is too short</p>
-                            <p ng-show="userForm.lastname.$error.maxlength" style="color:red">Your last name is too long</p>
-                            <p ng-show="userForm.lastname.$dirty && userForm.lastname.$error.required" style="color:red">Your last name is required</p>
-                            <p ng-show="userForm.lastname.$error.pattern" style="color:red">Invalid form</p>
+                            <p ng-show="userForm.lastname.$touched && userForm.lastname.$error.minlength" style="color:red">Your last name is too short</p>
+                            <p ng-show="userForm.lastname.$touched && userForm.lastname.$error.maxlength" style="color:red">Your last name is too long</p>
+                            <p ng-show="userForm.lastname.$touched && userForm.lastname.$error.required" style="color:red">Your last name is required</p>
+                            <p ng-show="userForm.lastname.$touched && userForm.lastname.$error.pattern" style="color:red">Invalid form</p>
                     </div>
                     <label for="housename">House</label>
                     <div class="input-group-lg">
-                        <input class="sign-up-item form-control"  ng-class="{submitted:submitted}" type="text" name="housename" id="houseName"  placeholder="e.g. ourlovelyhome" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off"
+                        <input class="sign-up-item form-control" type="text" name="housename" id="houseName"  placeholder="e.g. ourlovelyhome" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off"
                         
-                            ng-model="user.housename"  ng-minlength="4"  ng-maxlength="20" record-availability-validator="/static/js.app.js"required username />{{name}}<br />
+                             ng-model="user.housename" ng-minlength="4"  ng-maxlength="20" username required/>
 
-                            <p ng-show="userForm.housename.$error.minlength" style="color:red">Your house name is too short</p>
-                            <p ng-show="userForm.housename.$error.maxlength" style="color:red">Your house name is too long</p>
-                            <p ng-show="userForm.housename.$dirty && userForm.housename.$error.required" style="color:red">Your house name is required</p>
-                            <p ng-show="userForm.housename.$pending.username" style="color:blue">Checking if this name is available...</p>
-                            <p ng-show="userForm.housename.$error.username" style="color:blue">This username is already taken!</p>
+                            <p ng-show="userForm.housename.$touched && userForm.housename.$error.minlength" style="color:red">Your house name is too short</p>
+                            <p ng-show="userForm.housename.$touched && userForm.housename.$error.maxlength" style="color:red">Your house name is too long</p>
+                            <p ng-show="userForm.housename.$touched && userForm.housename.$error.required" style="color:red">Your house name is required</p>
+                            <p ng-show="userForm.housename.$pending.username" style="color:blue">Checking if house exists...</p>
+                            <p ng-show="userForm.housename.$dirty &&
+                                        !userForm.housename.$error.minlength &&
+                                        !userForm.housename.$error.maxlength &&
+                                        !userForm.housename.$error.required &&
+                                        userForm.housename.$error.username" style="color:blue">{{user.housename}} does not exist. We'll create it.</p>
+                            <p ng-show="userForm.housename.$valid" style="color:green">{{user.housename}} exists. We'll add you to it.</p>
+
                     </div>
                     <p id="create-join-house" class="text-center" >Create or join a house</p>
-                    <button id="sign-up-btn" class="btn btn-primary btn-lg btn-block" ng-disabled="userForm.$invalid">Sign Up</button>
+                    <p></p>
+                    <button id="sign-up-btn" class="btn btn-primary btn-lg btn-block" ng-disabled="userForm.housename.$error.required">Sign Up</button>
                     <a type="button" class="btn btn-default btn-lg btn-block" href="/">Back</a>
                 </div>
             </form>
