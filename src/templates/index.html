@@ -20,14 +20,11 @@
 
         <!-- Plugin CSS -->
         <link rel="stylesheet" href="../static/css/animate.min.css" type="text/css">
-
-        <!-- Custom CSS -->
-        <!--<link rel="stylesheet" href="../static/css/creative.css" type="text/css">-->
         
 
         <style type="text/css"> 
             .form-group{
-                margin-bottom: 40px;
+                margin-bottom: 25px;
             }
             #userForm{
                 width: 50em;
@@ -81,41 +78,47 @@
 
                         <h2>Register now. No slack guaranteed.</h2>
 
-                        <div class="row form-group" ng-class="{ 'has-error': userForm.firstname.$invalid && userForm.firstname.$dirty, 'has-success': userForm.firstname.$valid && userForm.firstname.$dirty, }">
+                        <div class="row form-group" ng-class="{ 'has-error': userForm.firstname.$invalid && userForm.firstname.$dirty, 'has-success': userForm.firstname.$valid && userForm.firstname.$dirty }">
                             <div class="col-md-12">
                                
-                                <input class="form-control input-lg" type="text" name="firstname" id="firstname" placeholder="e.g. Adam" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-model="firstname" ng-minlength="4" ng-maxlength="12" ng-pattern="/^([a-zA-Z]|\-|\_)*$/" required>
-                                <p class="help-block" ng-show="userForm.firstname.$touched && userForm.firstname.$valid">First name ok</p>
+                                <div class="input-group">
+                                    <input class="form-control input-lg" type="text" name="firstname" id="firstname" placeholder="e.g. Adam" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-model="firstname" ng-minlength="4" ng-maxlength="12" ng-pattern="/^([a-zA-Z]|\-|\_)*$/" required/>
+                                    <div class="input-group-addon">?</div>
+                                </div>
+                                
+                                <p class="help-block" ng-show="userForm.firstname.$valid">First name ok</p>
 
-                                <p class="help-block" ng-show="userForm.firstname.$touched && userForm.firstname.$error.minlength" >Your first name is too short</p>
-                                <p class="help-block" ng-show="userForm.firstname.$touched && userForm.firstname.$error.maxlength" >Your first name is too long</p>
-                                <p class="help-block" ng-show="userForm.firstname.$touched && userForm.firstname.$error.required" >Your first name is required</p>
-                                <p class="help-block" ng-show="userForm.firstname.$touched && userForm.firstname.$error.pattern" >Invalid first name</p>
+                                <p class="help-block" ng-show="userForm.firstname.$error.minlength" >Your first name is too short</p>
+                                <p class="help-block" ng-show="userForm.firstname.$error.maxlength" >Your first name is too long</p>
+                                <p class="help-block" ng-show="userForm.firstname.$error.required" >Your first name is required</p>
+                                <p class="help-block" ng-show="userForm.firstname.$error.pattern" >Invalid first name</p>
                             </div>
                         </div>
 
-                        <div class="row form-group" ng-class="{ 'has-error': userForm.lastname.$invalid && userForm.lastname.$dirty, 'has-success': userForm.lastname.$valid && userForm.lastname.$dirty, }">
+                        <div class="row form-group" ng-class="{ 'has-error': userForm.lastname.$invalid && userForm.lastname.$dirty, 'has-success': userForm.lastname.$valid && userForm.lastname.$dirty }">
                             <div class="col-md-12">
-                                
-                                <input class="sign-up-item form-control input-lg" type="text" name="lastname" id="lastName" placeholder="e.g. Noakes" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-model="lastname"  ng-minlength="4"  ng-maxlength="14" ng-pattern="/^([a-zA-Z]|\-|\_)*$/" required>
-                                <p class="help-block" ng-show="userForm.lastname.$touched && userForm.lastname.$valid" >Last name ok</p>
-                                <p class="help-block" ng-show="userForm.lastname.$touched && userForm.lastname.$error.minlength" >Your last name is too short</p>
-                                <p class="help-block" ng-show="userForm.lastname.$touched && userForm.lastname.$error.maxlength" >Your last name is too long</p>
-                                <p class="help-block" ng-show="userForm.lastname.$touched && userForm.lastname.$error.required" >Your last name is required</p>
-                                <p class="help-block" ng-show="userForm.lastname.$touched && userForm.lastname.$error.pattern" >Invalid form</p>
+                                <div class="input-group">
+                                    <input class="sign-up-item form-control input-lg" type="text" name="lastname" id="lastName" placeholder="e.g. Noakes" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-model="lastname"  ng-minlength="4"  ng-maxlength="14" ng-pattern="/^([a-zA-Z]|\-|\_)*$/" required>
+                                    <div class="input-group-addon">?</div>
+                                </div>
+                                <p class="help-block" ng-show="userForm.lastname.$valid" >Last name ok</p>
+                                <p class="help-block" ng-show="userForm.lastname.$error.minlength" >Your last name is too short</p>
+                                <p class="help-block" ng-show="userForm.lastname.$error.maxlength" >Your last name is too long</p>
+                                <p class="help-block" ng-show="userForm.lastname.$error.required" >Your last name is required</p>
+                                <p class="help-block" ng-show="userForm.lastname.$error.pattern" >Invalid form</p>
                             </div>
                         </div>
 
                         <div class="row form-group" ng-class="{ 'has-error': userForm.housename.$invalid && userForm.housename.$dirty, 'has-success': userForm.housename.$valid && userForm.housename.$dirty && !houseNameExists, 'has-warning': userForm.housename.$valid && userForm.housename.$dirty && houseNameExists}">
                             <div class="col-md-12">
-                                
-                                <input class="sign-up-item form-control input-lg" type="text" name="housename" id="housename" placeholder="e.g. 1 The Mayflowers SO16 7PD" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-model="housename" ng-minlength="4"  ng-maxlength="20" validate-housename required/>
+                                <div class="input-group">
+                                    <input class="sign-up-item form-control input-lg" type="text" name="housename" id="housename" placeholder="e.g. 1 The Mayflowers SO16 7PD" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-model="housename" ng-minlength="4"  ng-maxlength="20" validate-housename required/>
+                                    <div class="input-group-addon">?</div>
+                                </div>
 
-                                <p class="help-block" ng-show="userForm.$pristine" id="create-join-house" class="text-center" >Create or join a house</p>
-
-                                <p class="help-block" ng-show="userForm.housename.$touched && userForm.housename.$error.minlength" >Your house name is too short</p>
-                                <p class="help-block" ng-show="userForm.housename.$touched && userForm.housename.$error.maxlength" >Your house name is too long</p>
-                                <p class="help-block" ng-show="userForm.housename.$touched && userForm.housename.$error.required" >Your house name is required</p>
+                                <p class="help-block" ng-show="userForm.housename.$error.minlength" >Your house name is too short</p>
+                                <p class="help-block" ng-show="userForm.housename.$error.maxlength" >Your house name is too long</p>
+                                <p class="help-block" ng-show="userForm.housename.$error.required" >Your house name is required</p>
                                 <p class="help-block" ng-show="userForm.housename.$pending.housename" style="color:blue">Checking if house exists...</p>
                                 <p class="help-block" ng-show="userForm.housename.$dirty &&
                                                                !userForm.housename.$error.minlength &&

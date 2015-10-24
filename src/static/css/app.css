@@ -3640,8 +3640,8 @@ tbody.collapse.in {
   line-height: 1;
   color: #555555;
   text-align: center;
-  background-color: #eeeeee;
-  border: 1px solid #ccc;
+  background-color: #c1904b;
+  border: 1px solid #c1904b;
   border-radius: 4px; }
   .input-group-addon.input-sm, .input-group-sm > .input-group-addon,
   .input-group-sm > .input-group-btn > .input-group-addon.btn {
@@ -4117,8 +4117,8 @@ tbody.collapse.in {
       margin-right: 0; } }
 
 .navbar-default {
-  background-color: #f8f8f8;
-  border-color: #e7e7e7; }
+  background-color: transparent;
+  border-color: transparent; }
   .navbar-default .navbar-brand {
     color: #777; }
     .navbar-default .navbar-brand:hover,
@@ -4137,7 +4137,7 @@ tbody.collapse.in {
   .navbar-default .navbar-nav > .active > a:hover,
   .navbar-default .navbar-nav > .active > a:focus {
     color: #555;
-    background-color: #e7e7e7; }
+    background-color: transparent; }
   .navbar-default .navbar-nav > .disabled > a,
   .navbar-default .navbar-nav > .disabled > a:hover,
   .navbar-default .navbar-nav > .disabled > a:focus {
@@ -4152,11 +4152,11 @@ tbody.collapse.in {
       background-color: #888; }
   .navbar-default .navbar-collapse,
   .navbar-default .navbar-form {
-    border-color: #e7e7e7; }
+    border-color: transparent; }
   .navbar-default .navbar-nav > .open > a,
   .navbar-default .navbar-nav > .open > a:hover,
   .navbar-default .navbar-nav > .open > a:focus {
-    background-color: #e7e7e7;
+    background-color: transparent;
     color: #555; }
   @media (max-width: 767px) {
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
@@ -4169,7 +4169,7 @@ tbody.collapse.in {
     .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
     .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
       color: #555;
-      background-color: #e7e7e7; }
+      background-color: transparent; }
     .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,
     .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,
     .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {
@@ -6153,9 +6153,6 @@ body {
   margin: auto;
   width: 30rem; }
 
-body {
-  font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif; }
-
 hr {
   border-color: #c1904b;
   border-width: 1px;
@@ -6324,7 +6321,8 @@ header {
     header .header-content .header-content-inner p {
       font-weight: 300;
       color: white;
-      font-size: 20px; }
+      font-size: 16px;
+      padding-top: 3px; }
 
 .section-heading {
   margin-top: 0; }

@@ -1,3 +1,13 @@
+//Customizing variables
+$navbar-default-bg: transparent;
+$navbar-default-border:transparent;
+
+$theme-primary: #c1904b;
+$theme-dark: #222;
+
+$input-group-addon-bg: $theme-primary;
+$input-group-addon-border-color: $input-group-addon-bg;
+
 @import "bourbon";
 @import "neat";
 @import "bootstrap";
@@ -8,13 +18,7 @@
 @import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light);
 
 
-//Customizing variables
-$navbar-default-bg: transparent;
-$navbar-default-border:transparent;
-    
-    
-$theme-primary: #c1904b;
-$theme-dark: #222;
+
 
 //Tile colours
 $color_purple: #5133AB;
@@ -144,11 +148,9 @@ body {
 .form-container {
     padding-top: 40px;
   margin: auto;
-  width: 30rem; }
-
-body {
-    @include serif-font();
+  width: 30rem; 
 }
+
 
 hr {
     border-color: $theme-primary;
@@ -330,7 +332,8 @@ header {
             p {
                 font-weight: 300;
                 color: lighten(white, 70%);
-                font-size: 20px;
+                font-size: 16px;
+                padding-top: 3px;
             }
         }
     }
