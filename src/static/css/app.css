@@ -6102,10 +6102,13 @@ strong {
   width: 100%;
   display: inline-block;
   box-sizing: border-box;
-  background: #fff;
   padding: 20px;
   margin-bottom: 30px;
   cursor: pointer;
+  background-image: url("../img/washing-up.jpg");
+  background-size: cover;
+  background-position: center center;
+  height: 240px;
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   transition: all 0.35s; }
@@ -6118,10 +6121,8 @@ strong {
     background: #5133AB; }
     .tile.purple:hover {
       background: #3e2784; }
-  .tile.red {
-    background: #AC193D; }
-    .tile.red:hover {
-      background: #7f132d; }
+  .tile.red:hover {
+    background: #7f132d; }
   .tile.green {
     background: #00A600; }
     .tile.green:hover {

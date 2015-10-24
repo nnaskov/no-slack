@@ -67,11 +67,14 @@ strong {
 .tile {  
     width: 100%;
     display: inline-block;
-    box-sizing: border-box;
-    background: #fff;		
+    box-sizing: border-box;		
     padding: 20px;
     margin-bottom: 30px;
     cursor: pointer;
+    background-image: url('../img/washing-up.jpg');
+    background-size: cover;
+    background-position: center center;
+    height: 240px;
     
     @include transition-all();
     
@@ -93,7 +96,7 @@ strong {
     }
 
     &.red {
-        background: $color_red;
+        //background: $color_red;
 
         &:hover {
             background: darken($color_red, 10%);
