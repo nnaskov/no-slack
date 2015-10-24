@@ -104,12 +104,12 @@
                     </div>
                 </div>
                 
-                <div class="row form-group" ng-class="{ 'has-error': userForm.housename.$invalid && userForm.housename.$dirty, 'has-success': userForm.housename.$valid && userForm.housename.$dirty, }">
+                <div class="row form-group" ng-class="{ 'has-error': userForm.housename.$invalid && userForm.housename.$dirty, 'has-success': userForm.housename.$valid && userForm.housename.$dirty && !houseNameExists, 'has-warning': userForm.housename.$valid && userForm.housename.$dirty && houseNameExists}">
                     <div class="col-md-12">
                         <label for="housename">House</label>
                         <input class="sign-up-item form-control input-lg" type="text" name="housename" id="housename" placeholder="e.g. ourlovelyhome" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-model="housename" ng-minlength="4"  ng-maxlength="20" validate-housename required/>
                         
-                        <p class="help-block" ng-show="userForm.housename.$pristine" id="create-join-house" class="text-center" >Create or join a house</p>
+                        <p class="help-block" ng-show="userForm.$pristine" id="create-join-house" class="text-center" >Create or join a house</p>
                         
                         <p class="help-block" ng-show="userForm.housename.$touched && userForm.housename.$error.minlength" >Your house name is too short</p>
                         <p class="help-block" ng-show="userForm.housename.$touched && userForm.housename.$error.maxlength" >Your house name is too long</p>
@@ -118,8 +118,8 @@
                         <p class="help-block" ng-show="userForm.housename.$dirty &&
                                     !userForm.housename.$error.minlength &&
                                     !userForm.housename.$error.maxlength &&
-                                    !userForm.housename.$error.required && !userForm.houseNameExists">{{housename}} does not exist. We'll create it.</p>
-                        <p class="help-block" ng-show="userForm.housename.$valid && userForm.houseNameExists" >{{housename}} exists. We'll add you to it.</p>
+                                    !userForm.housename.$error.required && !houseNameExists">{{housename}} does not exist. We'll create it.</p>
+                        <p class="help-block" ng-show="userForm.housename.$valid && houseNameExists" >{{housename}} exists. We'll add you to it.</p>
                     </div>
                 </div>   
                 

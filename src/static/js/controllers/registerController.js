@@ -4,7 +4,7 @@ app.controller('RegisterController', ['$scope', '$http', function($scope, $http)
             method: "GET",
             url: "/requests/checkhousename",
             params: {
-                'houseName': housename
+                'houseName': newValue
             }
         }).success(function (data) {
             $scope.houseNameExists = data.exists;
