@@ -7,7 +7,13 @@
 @import url(https://fonts.googleapis.com/css?family=Pacifico);
 @import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light);
 
-$theme-primary: #f05f40;
+
+//Customizing variables
+$navbar-default-bg: transparent;
+$navbar-default-border:transparent;
+    
+    
+$theme-primary: #c1904b;
 $theme-dark: #222;
 
 //Tile colours
@@ -121,9 +127,7 @@ strong {
     font-size: 26px;
 }
 
-#mainNav{
-    background: rgba(150,150,150,0.1);    
-}
+
 
 .large-glyph {
   font-size: 28px;
@@ -295,22 +299,24 @@ aside {
 // Homepage Header
 
 header {
-    text-shadow: 1px 1px #000;
     position: relative;
     width: 100%;
     min-height: auto;
     @include background-cover();
-    background-position: center;
-    background-image: url('../img/header.jpg');
-    text-align: center;
-    color: white;
+    
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../img/header.jpg'), no-repeat;
+    background-size:   cover;    
+    background-repeat: no-repeat;
+    background-position: center center;
+    
     .header-content {
         position: relative;
-        text-align: center;
+        //text-align: center;
         padding: 100px 15px 100px;
         width: 100%;
         .header-content-inner {
             h1 {
+                color: white;
                 font-weight: 700;
                 text-transform: uppercase;
                 margin-top: 0;
@@ -323,7 +329,6 @@ header {
                 font-weight: 300;
                 color: lighten(white, 70%);
                 font-size: 20px;
-                margin-bottom: 50px;
             }
         }
     }
@@ -342,9 +347,6 @@ header {
                 margin-right: auto;
                 p {
                     font-size: 18px;
-                    max-width: 80%;
-                    margin-left: auto;
-                    margin-right: auto;
                 }
             }
         }
