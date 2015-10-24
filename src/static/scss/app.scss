@@ -2,7 +2,7 @@
 $navbar-default-bg: transparent;
 $navbar-default-border:transparent;
 
-$theme-primary: #c1904b;
+$theme-primary: #993333;
 $theme-dark: #222;
 
 $input-group-addon-bg: $theme-primary;
@@ -19,6 +19,9 @@ $input-group-addon-border-color: $input-group-addon-bg;
 
 
 
+.input-group-addon{
+    color: #fff;
+}
 
 //Tile colours
 $color_purple: #5133AB;
