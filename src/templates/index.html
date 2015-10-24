@@ -24,19 +24,10 @@
         <!-- Custom CSS -->
         <!--<link rel="stylesheet" href="../static/css/creative.css" type="text/css">-->
         
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.3/angular.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.3/angular-route.js"></script>
-        <script src="../static/js/app.js"></script>
-
-        <!--  Form Validation Dependecies  -->
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script>
-        <script src="../static/js/controllers/registerController.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-touch.min.js"></script>
 
         <style type="text/css"> 
             .form-group{
-                margin-bottom: 20px;
+                margin-bottom: 40px;
             }
             #userForm{
                 width: 50em;
@@ -50,11 +41,7 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-
     <body>
-
-        
-
         <header>
             <nav id="mainNav" class="navbar navbar-default navbar-static-top">
                 <div class="container-fluid">
@@ -66,17 +53,17 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a id="logo" class="navbar-brand page-scroll" href="/"><img src="../static/img/logo.png" height="48" alt="No Slack ltd."></a>
+                        <a id="logo" class="navbar-brand " href="/"><img src="../static/img/logo.png" height="48" alt="No Slack ltd."></a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
                             <li>
-                                <a class="page-scroll" href="/app">Login</a>
+                                <a href="/app">Login</a>
                             </li>
                             <li>
-                                <a class="page-scroll" href="/about-us">About Us</a>
+                                <a href="#about">About Us</a>
                             </li>
                         </ul>
                     </div>
@@ -92,7 +79,7 @@
                         <input type="text" name="prevent_autofill" id="prevent_autofill" value="" style="display:none;" />
                         <input type="password" name="password_fake" id="password_fake" value="" style="display:none;" />
 
-                        <h1>Sign up</h1>
+                        <h2>Register now. No slack guaranteed.</h2>
 
                         <div class="row form-group" ng-class="{ 'has-error': userForm.firstname.$invalid && userForm.firstname.$dirty, 'has-success': userForm.firstname.$valid && userForm.firstname.$dirty, }">
                             <div class="col-md-12">
@@ -133,7 +120,7 @@
                                 <p class="help-block" ng-show="userForm.housename.$dirty &&
                                                                !userForm.housename.$error.minlength &&
                                                                !userForm.housename.$error.maxlength &&
-                                                               !userForm.housename.$error.required && !houseNameExists">{{housename}} does not exist. We'll create it.</p>
+                                                               !userForm.housename.$error.required && !houseNameExists">{{housename}} does not exist. We'll create it for you.</p>
                                 <p class="help-block" ng-show="userForm.housename.$valid && houseNameExists" >{{housename}} exists. We'll add you to it.</p>
                             </div>
                         </div>   
@@ -150,33 +137,46 @@
             </div>
         </header>
         
+        <section class="bg-primary" id="about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 text-center">
+                        <h2 class="section-heading">What is No Slack?</h2>
+                        <hr class="light">
+                        <p class="text-faded">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam consequuntur animi omnis nam similique voluptate sapiente amet et praesentium eaque!</p>
+                        <a href="#top" class="btn btn-default btn-xl">Get Started!</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
         <div id="footer">
             <div id="footer-content" class="container text-white">
                 <div class="row" style="margin-top:30px;">
                     <div class="col-xs-12">
                         <div class="row">
                             <div class="col-xs-3">
-                                <strong><a href="https://flairexpress.bucklehosting.com/service">Our Service</a></strong>
+                                <b>Our Service</b>
                             </div>
                             <div class="col-xs-3">
-                                <strong><a href="https://flairexpress.bucklehosting.com/help">Help &amp; Advice</a></strong>
+                                <b>Help & Advice</b>
                             </div>
                             <div class="col-xs-3">
-                                <strong>Destinations</strong>
+                                <b>Advertisement</b>
                             </div>
                             <div class="col-xs-3">
-                                <strong>Contact &amp; Support</strong>
+                                <b>Contact &amp; Support</b>
                             </div>
                         </div>
                         <div class="row" style="margin-top:20px;">
                             <div class="col-xs-3">
-                                <a href="https://flairexpress.bucklehosting.com/about_us">About Us</a>
+                                <a href="#">Lorem ipsum dolor.</a>
                             </div>
                             <div class="col-xs-3">
-                                <a href="https://flairexpress.bucklehosting.com/faq">FAQ</a>
+                                <a href="#">Lorem ipsum dolor.</a>
                             </div>
                             <div class="col-xs-3">
-                                <a href="https://flairexpress.bucklehosting.com/parcel_usa">Parcel to USA</a>
+                                <a href="#">Lorem ipsum dolor.</a>
                             </div>
                             <div class="col-xs-3">
                                 Tel: <span class="skype_c2c_print_container notranslate">020 8756 6350</span><span id="skype_c2c_container" class="skype_c2c_container notranslate" dir="ltr" tabindex="-1" onmouseover="SkypeClick2Call.MenuInjectionHandler.showMenu(this, event)" onmouseout="SkypeClick2Call.MenuInjectionHandler.hideMenu(this, event)" onclick="SkypeClick2Call.MenuInjectionHandler.makeCall(this, event)" data-numbertocall="+442087566350" data-numbertype="paid" data-isfreecall="false" data-isrtl="false" data-ismobile="false"><span class="skype_c2c_highlighting_inactive_common" dir="ltr" skypeaction="skype_dropdown"><span class="skype_c2c_textarea_span" id="non_free_num_ui"><img width="0" height="0" class="skype_c2c_logo_img" src="chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/call_skype_logo.png"><span class="skype_c2c_text_span">020 8756 6350</span><span class="skype_c2c_free_text_span"></span></span></span></span>
@@ -184,13 +184,13 @@
                         </div>
                         <div class="row" style="margin-top:10px;">
                             <div class="col-xs-3">
-                                <a href="https://flairexpress.bucklehosting.com/uk_deliveries">UK Deliveries</a>
+                                <a href="#">Lorem ipsum dolor.</a>
                             </div>
                             <div class="col-xs-3">
-                                <a href="https://flairexpress.bucklehosting.com/service">Service Overview</a>
+                                <a href="#">Lorem ipsum dolor.</a>
                             </div>
                             <div class="col-xs-3">
-                                <a href="https://flairexpress.bucklehosting.com/parcel_aus">Parcel to Australia</a>
+                                <a href="#">Lorem ipsum dolor.</a>
                             </div>
                             <div class="col-xs-3">
                                 Fax: 020 8756 6351
@@ -198,56 +198,68 @@
                         </div>
                         <div class="row" style="margin-top:10px;">
                             <div class="col-xs-3">
-                                <a href="https://flairexpress.bucklehosting.com/int_deliveries">International Deliveries</a>
+                                <a href="#">Lorem ipsum dolor.</a>
                             </div>
                             <div class="col-xs-3">
-                                <a href="https://flairexpress.bucklehosting.com/packaging_advice">Packaging Advice</a>
+                                <a href="#">Lorem ipsum dolor.</a>
                             </div>
                             <div class="col-xs-3">
-                                <a href="https://flairexpress.bucklehosting.com/parcel_ger">Parcel to Germany</a>
+                                <a href="#">Lorem ipsum dolor.</a>
                             </div>
                             <div class="col-xs-3">
-                                Email: info@flairforwarding.co.uk
+                                Email: info@no-slack.appspot.com
                             </div>
                         </div>
                         <div class="row" style="margin-top:10px;">
                             <div class="col-xs-3 col-xs-offset-3">
-                                <a href="https://flairexpress.bucklehosting.com/restrictions">Prohibited and Restricted Items</a>
+                                <a href="#">Lorem ipsum dolor.</a>
                             </div>
                         </div>
                         <div class="row" style="margin-top:10px;">
                             <div class="col-xs-3 col-xs-offset-3">
-                                <a href="https://flairexpress.bucklehosting.com/customs_advice">Customs Advice</a>
+                                <a href="#">Lorem ipsum dolor.</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row" style="margin-top:40px; margin-bottom:20px">
-                    <div class="col-xs-7" style="padding-top:15px">
-                        <small class="text-arial">© Copyright Flair Express 2015. <a href="https://flairexpress.bucklehosting.com/terms">Terms and Conditions</a>. <a href="https://flairexpress.bucklehosting.com/privacy">Privacy Policy</a>. <a href="http://www.buckleconsulting.com" target="_blank">Website by Buckle Consulting</a></small>
+                    <div class="col-xs-7">
+                        <small class="text-arial">© Copyright No Slack 2015. <a href="#">Terms and Conditions</a>. <a href="#">Privacy Policy</a>. <a href="#" target="_blank">Website by ECS Soton</a></small>
                     </div>
-                    <div class="col-xs-5">
-                        <img src="/images/footer_cards_graphics_4.png">
-                        <img src="/images/worldpay.png">
+                    <div class="col-xs-2">
+                       <div class="row">
+                           <div class="col-xs-4"><img src="../static/img/fcbk.png"/></div>
+                           <div class="col-xs-4"><img src="../static/img/twt.png"/></div>
+                           <div class="col-xs-4"><img src="../static/img/lnkdn.png"/></div>
+                       </div>
                     </div>
                 </div>
             </div><!-- /#footer-content -->
         </div>
 
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+        
+        
+        
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js" type="text/javascript" charset="utf-8"></script>
         
         <!-- Plugin JavaScript -->
         <script src="../static/js/jquery.easing.min.js"></script>
         <script src="../static/js/jquery.fittext.js"></script>
         <script src="../static/js/wow.min.js"></script>
 
-        <!-- Custom Theme JavaScript -->
-        <script src="../static/js/creative.js"></script>
-        
         <!-- Bootstrap Core JavaScript -->
         <script src="../static/js/bootstrap.min.js"></script>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.3/angular.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.3/angular-route.js"></script>
+        <script src="../static/js/app.js"></script>
+
+        <!--  Form Validation Dependecies  -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script>
+        <script src="../static/js/controllers/registerController.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-touch.min.js"></script>
     </body>
 </html>
