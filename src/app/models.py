@@ -82,11 +82,26 @@ def add_task_event(task_id):
     completed_by = get_member()
     task_key = ndb.Key("Task", task_id)
     new_task_event = TaskEvent(task_type=task_key, completed_by=completed_by)
-    new_task_event.put()
+    key = new_task_event.put()
+
+    update_task(task_key, key)
+
+def update_task(task_key, task_event_key):
+        task = task_key.get()
+        if not task:
+            return None
+        else:
+            task.most_recent = task_event_key
+            task.put()
 
 
 def delete_task(id):
     ndb.Key('Task', id).delete()
+
+
+def get_task(id):
+    task = ndb.Key('Task', id).get()
+    return task
 
 
 def add_member(first_name, last_name):
