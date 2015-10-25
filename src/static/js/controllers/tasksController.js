@@ -17,7 +17,7 @@ app.controller('TasksController', ['$scope', '$http', function($scope, $http) {
         // or server returns response with an error status.
     });
 
-    $scope.updateDateModified = function(taskID){
+    $scope.addTaskEvent = function(taskID){
     	$http({
             method: 'POST',
             data: {'taskID': taskID},
@@ -26,17 +26,19 @@ app.controller('TasksController', ['$scope', '$http', function($scope, $http) {
             var data = response.data;
             var tile = angular.element(document.getElementById(data.taskID));
             var date;//10:00 11:00
-                data.dateModified = moment(data[i].dateModified, "YYYY-MM-DD HH:mm:ss");
-                data.duration = (data.frequency * 60 * 60) + "s";
+                data.dateModified = moment(data.dateModified, "YYYY-MM-DD HH:mm:ss");
+                //data.duration = (data.frequency * 60 * 60) + "s";
                 //Works out starting point for colour change.
-                data.delay = (data.dateModified.valueOf() - moment().valueOf()) + "s";
+                //data.delay = (data.dateModified.valueOf() - moment().valueOf()) + "s";
+                tile[0].style["background-color"] = "#00A600";
                 tile[0].style.animation = 'none';
 	    		
 	    		setTimeout(function() {
 			        tile[0].style.animation = '';
-	    			tile[0].style["animation-duration"] = "10s";
-	    			tile[0].style["animation-delay"] = "0s";
-			    }, 10);
+	    			tile[0].style["animation-duration"] = (data.frequency * 60 * 60) + "s"; //"4s";
+	    			tile[0].style["animation-delay"] = (data.dateModified.valueOf() - moment().valueOf())/1000 + "s";//"0s";
+	    			tile[0].style["background-color"] = "#AC193D";
+			    }, 2);
             });
  
 
