@@ -6149,11 +6149,7 @@ strong {
   .tile.tile-animated {
     -webkit-animation-name: example;
     /* Chrome, Safari, Opera */
-    -webkit-animation-duration: 4s;
-    /* Chrome, Safari, Opera */
-    animation-name: example;
-    animation-duration: 50s;
-    animation-delay: -24s; }
+    animation-name: example; }
 
 .row [class*="col-"] {
   margin-bottom: -99999px;
