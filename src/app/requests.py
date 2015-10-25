@@ -61,18 +61,19 @@ class DeleteTaskHandler(webapp2.RequestHandler):
 class TaskEventHandler(webapp2.RequestHandler):
 
     def post(self):
-        task_id = self.request.get("taskID")
+        json_data = json.loads(self.request.body)
+        task_id = json_data.get("taskID")
         models.add_task_event(task_id)
-        task = models.get_task()
+        task = models.get_task(task_id)
 
         obj = {
-            "taskID": task.id(),
-            "dataModified": str(task.date_modified),
+            "taskID": task_id,
+            "dateModified": str(task.date_modified),
             "frequency" :  task.frequency
         }
 
-        json_data = json.dump(obj)
-        self.response.out(json_data)
+        json_data = json.dumps(obj)
+        self.response.out.write(json_data)
 
 
 app = webapp2.WSGIApplication([
