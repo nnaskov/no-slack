@@ -32,6 +32,7 @@ class TaskHandler(webapp2.RequestHandler):
             task_dict["taskID"] = task.key.integer_id()
             task_dict["taskName"] = task.name
             task_dict["dateModified"] = str(task.date_modified)
+            task_dict["frequency"] = task.frequency
             task_dict["taskStyle"] = task.style
 
             datastore_tasks.append(task_dict)

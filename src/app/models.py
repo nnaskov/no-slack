@@ -15,6 +15,9 @@ class HouseHold(ndb.Model):
 
 
 class Task(ndb.Model):
+    """
+    frequency is stored in hours
+    """
     household = ndb.KeyProperty(required=True)
     name = ndb.TextProperty(required=True)
     date_created = ndb.DateTimeProperty(auto_now_add=True)
@@ -23,6 +26,7 @@ class Task(ndb.Model):
     frequency = ndb.IntegerProperty(required=True)
     most_recent = ndb.KeyProperty()
     style = ndb.TextProperty()
+
 
 
 class TaskEvent(ndb.Model):
