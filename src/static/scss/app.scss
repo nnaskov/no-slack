@@ -64,6 +64,20 @@ strong {
     font-weight: 400;
 }
 
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+    min-width: 430px;
+}
+
 .tile {  
     width: 100%;
     display: inline-block;
@@ -71,16 +85,18 @@ strong {
     padding: 20px;
     margin-bottom: 30px;
     cursor: pointer;
-    background-image: url('../img/washing-up.jpg');
-    background-size: cover;
-    background-position: center center;
-    height: 240px;
+    //removed for colour changing animation
+    //background-image: url('../img/washing-up.jpg');
+    //background-size: cover;
+    //background-position: center center;
+    //height: 240px;
     
     @include transition-all();
     
     .title {
         margin-top: 0px;
-        white-space: nowrap;
+        line-height: 1.1em;
+        //white-space: nowrap;
     }
 
     &.purple, &.blue, &.red, &.orange, &.green {
@@ -96,7 +112,7 @@ strong {
     }
 
     &.red {
-        //background: $color_red;
+        background: $color_red;
 
         &:hover {
             background: darken($color_red, 10%);
@@ -126,8 +142,71 @@ strong {
             background: darken($color_orange, 10%);
         }	
     }
+    
+    &.tile-animated {
+        -webkit-animation-name: example; /* Chrome, Safari, Opera */
+        -webkit-animation-duration: 4s; /* Chrome, Safari, Opera */
+        animation-name: example;
+        animation-duration: 50s;
+        animation-delay: -24s;
+    }
+
 }
 
+.row [class*="col-"]{
+  margin-bottom: -99999px;
+  padding-bottom: 99999px;
+}
+
+.row{
+  overflow: hidden; 
+}
+
+.top-row{
+    height: 80px;
+}
+
+.glyph-thumbs{
+    font-size: 1.5em;
+    margin-top: 20px;
+    float: left;
+    margin-bottom: -15px;
+    margin-left: -10px;
+}
+
+.glyph-actions{
+    font-size: 1.5em;
+    float: right;
+    margin-top: 20px;
+    margin-bottom: -15px;
+    margin-right: -10px;
+}
+
+.rotate-180{
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+}
+.glyph-box{
+    width: 33%;
+    font-size: 5em;
+    text-align: center;
+    float: left;
+}
+
+.title-box{
+    width: 66%;
+    float: right;
+    text-align: right;
+}
+
+
+
+@keyframes example {
+    0%   {background-color:$color_green;}
+    65%   {background-color:$color_orange;}
+    100%  {background-color:$color_red;}
+}
 
 #logo{
     font-family: Arial;
@@ -219,7 +298,8 @@ aside {
 
 // Navigation
 .navbar{
-    border-bottom: 0px;    
+    border-bottom: 0px;
+    border-radius: 0px;
 }
 
 .navbar-default {

@@ -31,14 +31,14 @@ app.config(function($httpProvider) {
     });
 
     // Fit Text Plugin for Main Header
-    $("h1").fitText(
+    /*$("h1").fitText(
         1.2, {
             minFontSize: '35px',
             maxFontSize: '65px'
         }
-    );
+    );*/
 
     // Initialize WOW.js Scrolling Animations
-    new WOW().init();
+    //new WOW().init();
 
 })(jQuery); // End of use strict

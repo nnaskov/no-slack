@@ -61,14 +61,50 @@
         
 
         <!-- container -->
-        <div class="container-fluid">             
-            <div ng-controller="TasksController" class="row">
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="task in list"> 
-                    <div class="tile red">
-                        <h3 class="title">{{task.taskName}}</h3>
-                        <p>{{task.taskID}}</p>
+        <div class="container-fluid tile-container">             
+            <div ng-controller="TasksController" class="row row-centered">
+                <div class="col-xs-12 col-sm-3 col-md-3 col-centered" ng-repeat="task in list">
+                    <div class="tile red tile-animated" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
+                        <div class="top-row">
+                            <div class="glyph-box glyphicon glyphicon-tint"></div>
+                            <div class="title-box">
+                                <h2 class="title">{{task.taskName}}</h2>
+                            </div>
+                        </div>
+                        <div class="bottom-row">
+                            <div class="glyph-thumbs">
+                                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-thumbs-up rotate-180" aria-hidden="true"></span>
+                            </div>
+                            <div class="glyph-actions">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <!--Example animation, can be deleted later on-->
+                <div class="col-xs-12 col-sm-6 col-md-3 col-centered">
+                    <div class="tile green tile-animated" style="animation-iteration-count: infinite; animation-duration: 5s; animation-delay: 2s;">
+                        <div class="top-row">
+                            <div class="glyph-box glyphicon glyphicon-shopping-cart"></div>
+                            <div class="title-box">
+                                <h2 class="title">Example</h2>
+                            </div>
+                        </div>
+                        <div class="bottom-row">
+                            <div class="glyph-thumbs">
+                                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-thumbs-up rotate-180" aria-hidden="true"></span>
+                            </div>
+                            <div class="glyph-actions">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>              
         </div> 
         <!-- /container -->
@@ -80,6 +116,7 @@
         <script src="../static/js/jquery.easing.min.js"></script>
         <script src="../static/js/jquery.fittext.js"></script>
         <script src="../static/js/wow.min.js"></script>
+        <script src="../static/js/moment.min.js"></script>
 
         <!-- Bootstrap Core JavaScript -->
         <script src="../static/js/bootstrap.min.js"></script>
@@ -87,11 +124,12 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.3/angular.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.3/angular-route.js"></script>
         <script src="../static/js/app.js"></script>
-
+        
         <!--  Form Validation Dependecies  -->
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script>
         <script src="../static/js/controllers/registerController.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-touch.min.js"></script>
         <script src="../static/js/controllers/tasksController.js"></script>
+        <script
     </body>
 </html>

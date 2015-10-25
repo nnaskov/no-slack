@@ -6098,6 +6098,19 @@ h1, h2, h3, h4, h5, h6 {
 strong {
   font-weight: 400; }
 
+/* centered columns styles */
+.row-centered {
+  text-align: center; }
+
+.col-centered {
+  display: inline-block;
+  float: none;
+  /* reset the text-align */
+  text-align: left;
+  /* inline-block space fix */
+  margin-right: -4px;
+  min-width: 430px; }
+
 .tile {
   width: 100%;
   display: inline-block;
@@ -6105,24 +6118,22 @@ strong {
   padding: 20px;
   margin-bottom: 30px;
   cursor: pointer;
-  background-image: url("../img/washing-up.jpg");
-  background-size: cover;
-  background-position: center center;
-  height: 240px;
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   transition: all 0.35s; }
   .tile .title {
     margin-top: 0px;
-    white-space: nowrap; }
+    line-height: 1.1em; }
   .tile.purple, .tile.blue, .tile.red, .tile.orange, .tile.green {
     color: #fff; }
   .tile.purple {
     background: #5133AB; }
     .tile.purple:hover {
       background: #3e2784; }
-  .tile.red:hover {
-    background: #7f132d; }
+  .tile.red {
+    background: #AC193D; }
+    .tile.red:hover {
+      background: #7f132d; }
   .tile.green {
     background: #00A600; }
     .tile.green:hover {
@@ -6135,6 +6146,64 @@ strong {
     background: #DC572E; }
     .tile.orange:hover {
       background: #b8431f; }
+  .tile.tile-animated {
+    -webkit-animation-name: example;
+    /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 4s;
+    /* Chrome, Safari, Opera */
+    animation-name: example;
+    animation-duration: 50s;
+    animation-delay: -24s; }
+
+.row [class*="col-"] {
+  margin-bottom: -99999px;
+  padding-bottom: 99999px; }
+
+.row {
+  overflow: hidden; }
+
+.top-row {
+  height: 80px; }
+
+.glyph-thumbs {
+  font-size: 1.5em;
+  margin-top: 20px;
+  float: left;
+  margin-bottom: -15px;
+  margin-left: -10px; }
+
+.glyph-actions {
+  font-size: 1.5em;
+  float: right;
+  margin-top: 20px;
+  margin-bottom: -15px;
+  margin-right: -10px; }
+
+.rotate-180 {
+  -ms-transform: rotate(180deg);
+  /* IE 9 */
+  -webkit-transform: rotate(180deg);
+  /* Chrome, Safari, Opera */
+  transform: rotate(180deg); }
+
+.glyph-box {
+  width: 33%;
+  font-size: 5em;
+  text-align: center;
+  float: left; }
+
+.title-box {
+  width: 66%;
+  float: right;
+  text-align: right; }
+
+@keyframes example {
+  0% {
+    background-color: #00A600; }
+  65% {
+    background-color: #DC572E; }
+  100% {
+    background-color: #AC193D; } }
 
 #logo {
   font-family: Arial;
@@ -6207,7 +6276,8 @@ aside {
   padding: 0; }
 
 .navbar {
-  border-bottom: 0px; }
+  border-bottom: 0px;
+  border-radius: 0px; }
 
 .navbar-default {
   background-color: white;
