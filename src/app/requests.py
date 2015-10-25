@@ -32,6 +32,7 @@ class TaskHandler(webapp2.RequestHandler):
             task_dict["taskID"] = task.key.integer_id()
             task_dict["taskName"] = task.name
             task_dict["dateModified"] = str(task.date_modified)
+            task_dict["taskStyle"] = task.style
 
             datastore_tasks.append(task_dict)
 
@@ -44,7 +45,9 @@ class AddTaskHandler(webapp2.RequestHandler):
     def post(self):
         task_name = self.request.get("taskName")
         frequency = self.request.get("frequency")
-        models.add_task(task_name, frequency)
+        style = self.request.get("taskStyle")
+
+        models.add_task(task_name, frequency, style)
 
 
 class DeleteTaskHandler(webapp2.RequestHandler):

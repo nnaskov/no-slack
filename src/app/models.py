@@ -22,6 +22,7 @@ class Task(ndb.Model):
     user_who_added = ndb.KeyProperty(required=True)
     frequency = ndb.IntegerProperty(required=True)
     most_recent = ndb.KeyProperty()
+    style = ndb.TextProperty()
 
 
 class TaskEvent(ndb.Model):
@@ -63,13 +64,14 @@ def get_household_tasks():
     return q.fetch(limit=100)
 
 
-def add_task_given_key(house_key, task_name, frequency=None):
-    new_task = Task(name=task_name, frequency=frequency, household=house_key, user_who_added=get_member())
+def add_task_given_key(house_key, task_name, frequency=None, style=None):
+    new_task = Task(name=task_name, frequency=frequency, household=house_key,
+                    user_who_added=get_member(), style=style)
     new_task.put()
 
 
-def add_task(task_name, frequency=None):
-    add_task_given_key(get_member_household_key(), task_name, frequency)
+def add_task(task_name, frequency=None, style=None):
+    add_task_given_key(get_member_household_key(), task_name, frequency, style)
 
 
 def add_task_event(task_id):
