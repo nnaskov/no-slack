@@ -60,7 +60,7 @@ class DeleteTaskHandler(webapp2.RequestHandler):
 
 class TaskEventHandler(webapp2.RequestHandler):
 
-    def get(self):
+    def post(self):
         task_id = self.request.get("taskID")
         models.add_task_event(task_id)
         task = models.get_task()
