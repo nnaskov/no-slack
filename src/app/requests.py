@@ -1,10 +1,10 @@
 import webapp2
 import json
+import jsons
 import models
 from google.appengine.api import users
 
 class HouseNamesHandler(webapp2.RequestHandler):
-
 
     def get(self):
         housename_req = self.request.get('houseName')
@@ -12,6 +12,7 @@ class HouseNamesHandler(webapp2.RequestHandler):
         house_exists = models.household_exists(housename_req.lower())
 
         self.response.headers['Content-Type'] = 'application/json'
+
         obj = {
             'exists': house_exists
 
@@ -28,21 +29,7 @@ class TaskHandler(webapp2.RequestHandler):
         datastore_tasks = []
 
         for task in datastore_tasks_list:
-            task_dict = {}
-            task_dict["taskID"] = task.key.integer_id()
-            task_dict["taskName"] = task.name
-            task_dict["dateModified"] = str(task.date_modified)
-            task_dict["frequency"] = task.frequency
-            task_dict["taskStyle"] = task.style
-            task_dict["everCompleted"] = False
-
-            if task.most_recent:
-                task_dict["everCompleted"] = True
-                most_recent = task.most_recent.get()
-                task_dict["positiveFeedback"] = most_recent.positive_feedback
-                task_dict["negativeFeedback"] = most_recent.negative_feedback
-
-
+            task_dict = jsons.get_task_json(task)
             datastore_tasks.append(task_dict)
 
         json_data = json.dumps(datastore_tasks)
@@ -74,11 +61,7 @@ class TaskEventHandler(webapp2.RequestHandler):
         models.add_task_event(task_id)
         task = models.get_task(task_id)
 
-        obj = {
-            "taskID": task_id,
-            "dateModified": str(task.date_modified),
-            "frequency" :  task.frequency
-        }
+        obj = jsons.get_task_json()
 
         json_data = json.dumps(obj)
         self.response.out.write(json_data)
@@ -94,14 +77,7 @@ class TaskFeedbackHandler(webapp2.RequestHandler):
         task = models.get_task(task_id)
         most_recent = task.most_recent.get()
 
-        obj = {
-            "taskID": task_id,
-            "dateModified": str(task.date_modified),
-            "frequency" :  task.frequency,
-            "positiveFeedback" : most_recent.positive_feedback,
-            "negativeFeedback" : most_recent.negative_feedback
-
-        }
+        obj = jsons.get_task_json(task)
 
         json_data = json.dumps(obj)
         self.response.out.write(json_data)
