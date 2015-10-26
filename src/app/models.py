@@ -28,13 +28,18 @@ class Task(ndb.Model):
     style = ndb.TextProperty()
 
 
-
 class TaskEvent(ndb.Model):
     task_type = ndb.KeyProperty()
     date_completed = ndb.DateTimeProperty(auto_now_add=True)
     completed_by = ndb.KeyProperty(Member)
     positive_feedback = ndb.IntegerProperty(default=0)
     negative_feedback = ndb.IntegerProperty(default=0)
+
+
+class EventFeedback(ndb.Model):
+    task_event = ndb.KeyProperty()
+    user = ndb.KeyProperty()
+    was_positive = ndb.BooleanProperty()
 
 
 def household_exists(house_name):
@@ -86,16 +91,33 @@ def add_task_event(task_id):
 
     update_task(task_key, key)
 
+
 def update_task_event_feedback(id, was_positive):
     task = get_task(id)
-    task_event = task.most_recent.get()
+    if task.most_recent:
+        task_event = task.most_recent.get()
+        user_key = get_member()
+        q = EventFeedback.query(EventFeedback.user == user_key)
+        event_feedback = q.fetch(limit=1)
 
-    if was_positive:
-        task_event.positive_feedback += 1
-    else:
-        task_event.negative_feedback += 1
+        if len(event_feedback) > 0:
+            event_feedback = event_feedback[0]
+            if event_feedback.was_positive != was_positive:
+                event_feedback.was_positive = was_positive
+                event_feedback.put()
+                change = 1 if was_positive else -1
+                task_event.positive_feedback += change
+                task_event.negative_feedback += -change
+                task_event.put()
+        else:
+            if was_positive:
+                task_event.positive_feedback += 1
+            else:
+                task_event.negative_feedback += 1
+            task_event.put()
+            new_event_feedback = EventFeedback(task_event=task_event.key, user=user_key, was_positive=was_positive)
+            new_event_feedback.put()
 
-    task_event.put()
 
 def update_task(task_key, task_event_key):
         task = task_key.get()

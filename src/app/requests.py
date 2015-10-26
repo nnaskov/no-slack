@@ -61,7 +61,7 @@ class TaskEventHandler(webapp2.RequestHandler):
         models.add_task_event(task_id)
         task = models.get_task(task_id)
 
-        obj = jsons.get_task_json()
+        obj = jsons.get_task_json(task)
 
         json_data = json.dumps(obj)
         self.response.out.write(json_data)
