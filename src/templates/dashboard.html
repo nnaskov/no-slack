@@ -73,8 +73,10 @@
                         </div>
                         <div class="bottom-row">
                             <div class="glyph-thumbs">
-                                <span class="glyphicon glyphicon-thumbs-up glyph-button" aria-hidden="true"></span>
-                                <span class="glyphicon glyphicon-thumbs-up rotate-180 glyph-button" aria-hidden="true"></span>
+                                <span ng-click="addTaskEvent(task.taskID, true)" class="glyphicon glyphicon-thumbs-up glyph-button" aria-hidden="true"></span>
+                                <span class="positive-feedback">0</span>
+                                <span ng-click="addTaskEvent(task.taskID, false)" class="glyphicon glyphicon-thumbs-up rotate-180 glyph-button" aria-hidden="true"></span>
+                                <span class="negative-feedback">0</span>
                             </div>
                             <div class="glyph-actions">
                                 <span ng-click="addTaskEvent(task.taskID)" class="glyphicon glyphicon-ok glyph-button" aria-hidden="true"></span>
@@ -83,6 +85,48 @@
                         </div>
                     </div>
                 </div>
+                <!--Example animation, can be deleted later on
+                <div class="col-xs-12 col-sm-6 col-md-3 col-centered">
+                    <div class="tile green tile-animated" style="animation-iteration-count: infinite; animation-duration: 10s; animation-delay: 0s;">
+                        <div class="top-row">
+                            <div class="glyph-box glyphicon glyphicon-shopping-cart"></div>
+                            <div class="title-box">
+                                <h2 class="title">Example</h2>
+                            </div>
+                        </div>
+                        <div class="bottom-row">
+                            <div class="glyph-thumbs">
+                                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-thumbs-up rotate-180" aria-hidden="true"></span>
+                            </div>
+                            <div class="glyph-actions">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Example animation, can be deleted later on
+                <div class="col-xs-12 col-sm-6 col-md-3 col-centered">
+                    <div class="tile green tile-animated" style="animation-iteration-count: infinite; animation-duration: 30s; animation-delay: -5s;">
+                        <div class="top-row">
+                            <div class="glyph-box glyphicon glyphicon-trash"></div>
+                            <div class="title-box">
+                                <h2 class="title">Another Example</h2>
+                            </div>
+                        </div>
+                        <div class="bottom-row">
+                            <div class="glyph-thumbs">
+                                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-thumbs-up rotate-180" aria-hidden="true"></span>
+                            </div>
+                            <div class="glyph-actions">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
             </div>              
         </div> 
         <!-- /container -->

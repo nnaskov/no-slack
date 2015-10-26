@@ -6099,9 +6099,6 @@ strong {
   font-weight: 400; }
 
 /* centered columns styles */
-.row-centered {
-  text-align: center; }
-
 .col-centered {
   display: inline-block;
   float: none;
@@ -6109,7 +6106,7 @@ strong {
   text-align: left;
   /* inline-block space fix */
   margin-right: -4px;
-  min-width: 430px; }
+  min-width: 350px; }
 
 .tile {
   width: 100%;
