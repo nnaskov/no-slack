@@ -86,6 +86,17 @@ def add_task_event(task_id):
 
     update_task(task_key, key)
 
+def update_task_event_feedback(id, was_positive):
+    task = get_task(id)
+    task_event = task.most_recent.get()
+
+    if was_positive:
+        task_event.positive_feedback += 1
+    else:
+        task_event.negative_feedback += 1
+
+    task_event.put()
+
 def update_task(task_key, task_event_key):
         task = task_key.get()
         if not task:
