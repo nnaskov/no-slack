@@ -35,6 +35,11 @@ class TaskHandler(webapp2.RequestHandler):
             task_dict["frequency"] = task.frequency
             task_dict["taskStyle"] = task.style
 
+            most_recent = task.most_recent.get()
+            
+            task_dict["positiveFeedback"] = most_recent.positive_feedback
+            task_dict["negativeFeedback"] = most_recent.negative_feedback
+
             datastore_tasks.append(task_dict)
 
         json_data = json.dumps(datastore_tasks)
