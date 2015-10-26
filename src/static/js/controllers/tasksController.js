@@ -43,16 +43,22 @@ app.controller('TasksController', ['$scope', '$http', function($scope, $http) {
 	};
 
 	$scope.addFeedback = function(taskID, goodJob){
+		/*var pos = angular.element(document.getElementById(taskID + "-" + "positive-feedback"))[0];//.find("positive-feedback")[0];
+        	var neg = angular.element(document.getElementById(taskID)).find("negative-feedback");
+        	console.log(pos);
+        	pos.innerHTML = "5";
+        	neg.html = "5";*/
     	$http({
             method: 'POST',
             data: {'taskID': taskID, 'goodJob': goodJob},
             url: '/requests/tasks/feedback'
         }).then(function successCallback(response) {
+        	console.log(response.data);
         	var data = response.data;
-        	var pos = angular.element(document.getElementById(data.taskID)).find("positive-feedback");
-        	var neg = angular.element(document.getElementById(data.taskID)).find("negative-feedback");
-        	pos.html = data.positiveFeedback;
-        	neg.html = data.negativeFeedback;
+        	var pos = angular.element(document.getElementById(taskID + "-" + "positive-feedback"))[0];
+        	var neg = angular.element(document.getElementById(taskID + "-" + "negative-feedback"))[0];
+        	pos.innerHTML = data.positiveFeedback;
+        	neg.innerHTML = data.negativeFeedback;
         	console.log("Feedback recieved");
         });
 	};

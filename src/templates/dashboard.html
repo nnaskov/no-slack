@@ -73,10 +73,10 @@
                         </div>
                         <div class="bottom-row">
                             <div class="glyph-thumbs">
-                                <span ng-click="addTaskEvent(task.taskID, true)" class="glyphicon glyphicon-thumbs-up glyph-button" aria-hidden="true"></span>
-                                <span class="positive-feedback">0</span>
-                                <span ng-click="addTaskEvent(task.taskID, false)" class="glyphicon glyphicon-thumbs-up rotate-180 glyph-button" aria-hidden="true"></span>
-                                <span class="negative-feedback">0</span>
+                                <span ng-click="addFeedback(task.taskID, true)" class="glyphicon glyphicon-thumbs-up glyph-button" aria-hidden="true"></span>
+                                <span id="{{task.taskID}}-positive-feedback">{{task.positiveFeedback}}</span>
+                                <span ng-click="addFeedback(task.taskID, false)" class="glyphicon glyphicon-thumbs-up rotate-180 glyph-button" aria-hidden="true"></span>
+                                <span id="{{task.taskID}}-negative-feedback">{{task.negativeFeedback}}</span>
                             </div>
                             <div class="glyph-actions">
                                 <span ng-click="addTaskEvent(task.taskID)" class="glyphicon glyphicon-ok glyph-button" aria-hidden="true"></span>
