@@ -83,8 +83,20 @@ class TaskFeedbackHandler(webapp2.RequestHandler):
         was_positive = json.data.get("goodJob")
 
         models.update_task_event_feedback(task_id, was_positive)
+        task = models.get_task(task_id)
+        most_recent = task.most_recent.get()
 
+        obj = {
+            "taskID": task_id,
+            "dateModified": str(task.date_modified),
+            "frequency" :  task.frequency,
+            "positiveFeedback" : most_recent.positive_feedback,
+            "negativeFeedback" : most_recent.negative_feedback
 
+        }
+
+        json_data = json.dumps(obj)
+        self.response.out.write(json_data)
 
 
 app = webapp2.WSGIApplication([
