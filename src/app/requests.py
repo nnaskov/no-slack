@@ -80,9 +80,9 @@ class TaskFeedbackHandler(webapp2.RequestHandler):
     def post(self):
         json_data = json.loads(self.request.body)
         task_id = json_data.get("taskID")
-        feedback = json.data.get("goodJob")
+        was_positive = json.data.get("goodJob")
 
-        models.update_task_event_feedback(task_id)
+        models.update_task_event_feedback(task_id, was_positive)
 
 
 
