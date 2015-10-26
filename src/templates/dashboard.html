@@ -72,7 +72,7 @@
                             </div>
                         </div>
                         <div class="bottom-row">
-                            <div class="glyph-thumbs">
+                            <div ng-show="task.everCompleted" class="glyph-thumbs">
                                 <span ng-click="addFeedback(task.taskID, true)" class="glyphicon glyphicon-thumbs-up glyph-button" aria-hidden="true"></span>
                                 <span id="{{task.taskID}}-positive-feedback">{{task.positiveFeedback}}</span>
                                 <span ng-click="addFeedback(task.taskID, false)" class="glyphicon glyphicon-thumbs-up rotate-180 glyph-button" aria-hidden="true"></span>
