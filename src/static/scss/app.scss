@@ -84,7 +84,7 @@ strong {
     box-sizing: border-box;		
     padding: 20px;
     margin-bottom: 30px;
-    cursor: pointer;
+    
     //removed for colour changing animation
     //background-image: url('../img/washing-up.jpg');
     //background-size: cover;
@@ -178,6 +178,15 @@ strong {
     margin-top: 20px;
     margin-bottom: -15px;
     margin-right: -10px;
+}
+
+.glyph-button:hover{
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.glyph-button:active{
+    opacity: 1;
 }
 
 .rotate-180{
