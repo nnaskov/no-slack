@@ -97,7 +97,8 @@ def update_task_event_feedback(id, was_positive):
     if task.most_recent:
         task_event = task.most_recent.get()
         user_key = get_member()
-        q = EventFeedback.query(EventFeedback.user == user_key)
+        q = EventFeedback.query(ndb.AND(EventFeedback.user == user_key,
+                                        EventFeedback.task_event == task_event.key))
         event_feedback = q.fetch(limit=1)
 
         if len(event_feedback) > 0:
