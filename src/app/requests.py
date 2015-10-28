@@ -24,19 +24,17 @@ class HouseNamesHandler(webapp2.RequestHandler):
 class TaskHandler(webapp2.RequestHandler):
 
     def get(self):
-        datastore_tasks_list = models.get_household_tasks()
-
-        datastore_tasks = []
-
-        for task in datastore_tasks_list:
-            task_dict = jsons.get_task_json(task)
-            datastore_tasks.append(task_dict)
-
-        json_data = json.dumps(datastore_tasks)
+        tasks_list = models.get_household_tasks()
+        task_list_json = jsons.get_all_tasks_json(tasks_list)
+        json_data = json.dumps(task_list_json)
         self.response.out.write(json_data)
 
 
 class AddTaskHandler(webapp2.RequestHandler):
+    '''
+    AddTaskHandler adds a Task to data store and returns all the tasks that a house
+    has in JSON format.
+    '''
 
     def post(self):
         task_name = self.request.get("taskName")
@@ -45,15 +43,35 @@ class AddTaskHandler(webapp2.RequestHandler):
 
         models.add_task(task_name, frequency, style)
 
+        tasks_list = models.get_household_tasks()
+        task_list_json = jsons.get_all_tasks_json(tasks_list)
+        json_data = json.dumps(task_list_json)
+        self.response.out.write(json_data)
+
 
 class DeleteTaskHandler(webapp2.RequestHandler):
+    '''
+    DeleteTaskHandler get tasksId sent from front end and deletes this task from the data store.
+    Returns a JSON containing all of the Tasks a house has associated with it (minus the deleted
+    task
+    '''
 
     def delete(self):
         task_id = self.request.get("taskId")
         models.delete_task(task_id)
 
+        tasks_list = models.get_household_tasks()
+        task_list_json = jsons.get_all_tasks_json(tasks_list)
+        json_data = json.dumps(task_list_json)
+        self.response.out.write(json_data)
+
 
 class TaskEventHandler(webapp2.RequestHandler):
+    '''
+    The is the handler called when a user has done a Task. The taskId is sent via JSON and the datastore
+    is updated to reflect that the task is done. A JSON containing the updated version / info of the task
+    that has been done is sent back via JSON.
+    '''
 
     def post(self):
         json_data = json.loads(self.request.body)
@@ -67,6 +85,10 @@ class TaskEventHandler(webapp2.RequestHandler):
         self.response.out.write(json_data)
 
 class TaskFeedbackHandler(webapp2.RequestHandler):
+    '''
+    This is called when a user gives a Task positive or negative feedback. Updated in model and
+    returns the updated version of the Task JSON
+    '''
 
     def post(self):
         json_data = json.loads(self.request.body)
@@ -75,7 +97,6 @@ class TaskFeedbackHandler(webapp2.RequestHandler):
 
         models.update_task_event_feedback(task_id, was_positive)
         task = models.get_task(task_id)
-        most_recent = task.most_recent.get()
 
         obj = jsons.get_task_json(task)
 
