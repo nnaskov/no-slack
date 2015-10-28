@@ -68,7 +68,7 @@ def get_member_household_key():
 
 def get_household_tasks():
     household = get_member_household_key()
-    q = Task.query(Task.household == household)
+    q = Task.query(Task.household == household).order(Task.date_created)
     return q.fetch(limit=100)
 
 
