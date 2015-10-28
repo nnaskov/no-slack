@@ -20,6 +20,9 @@ def get_task_json(task):
         most_recent = task.most_recent.get()
         task_dict["positiveFeedback"] = most_recent.positive_feedback
         task_dict["negativeFeedback"] = most_recent.negative_feedback
+        user_feedback = most_recent.get_user_feedback()
+        if len(user_feedback):
+            task_dict['userFeedback'] = user_feedback[0].was_positive
 
     return task_dict
 

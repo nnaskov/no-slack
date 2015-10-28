@@ -34,6 +34,11 @@ class TaskEvent(ndb.Model):
     positive_feedback = ndb.IntegerProperty(default=0)
     negative_feedback = ndb.IntegerProperty(default=0)
 
+    def get_user_feedback(self):
+        q = EventFeedback.query(ndb.AND(EventFeedback.user == get_member(),
+                                        EventFeedback.task_event == self.key))
+        return q.fetch(limit=1)
+
 
 class EventFeedback(ndb.Model):
     task_event = ndb.KeyProperty()
@@ -96,11 +101,9 @@ def update_task_event_feedback(id, was_positive):
     if task.most_recent:
         task_event = task.most_recent.get()
         user_key = get_member()
-        q = EventFeedback.query(ndb.AND(EventFeedback.user == user_key,
-                                        EventFeedback.task_event == task_event.key))
-        event_feedback = q.fetch(limit=1)
+        event_feedback = task_event.get_user_feedback()
 
-        if len(event_feedback) > 0:
+        if len(event_feedback):
             event_feedback = event_feedback[0]
             if event_feedback.was_positive != was_positive:
                 event_feedback.was_positive = was_positive
@@ -126,6 +129,9 @@ def update_task(task_key, task_event_key):
         else:
             task.most_recent = task_event_key
             task.put()
+
+
+
 
 
 def delete_task(id):
