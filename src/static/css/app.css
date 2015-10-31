@@ -6116,9 +6116,24 @@ strong {
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   transition: all 0.35s; }
+  .tile .row-margin-25 {
+    margin-top: 25px; }
   .tile .title {
     margin-top: 0px;
-    line-height: 1.1em; }
+    line-height: 1.1em;
+    white-space: nowrap;
+    /* Small */
+    /* Medium */
+    /* Large */ }
+    @media (min-width: 768px) and (max-width: 991px) {
+      .tile .title {
+        font-size: 20px; } }
+    @media (min-width: 992px) and (max-width: 1399px) {
+      .tile .title {
+        font-size: 25px; } }
+    @media (min-width: 1400px) {
+      .tile .title {
+        font-size: 30px; } }
   .tile.purple, .tile.blue, .tile.red, .tile.orange, .tile.green {
     color: #fff; }
   .tile.purple {
@@ -6146,30 +6161,14 @@ strong {
     /* Chrome, Safari, Opera */
     animation-name: example; }
 
-.row [class*="col-"] {
+/*.row [class*="col-"]{
   margin-bottom: -99999px;
-  padding-bottom: 99999px; }
+  padding-bottom: 99999px;
+}
 
-.row {
-  overflow: hidden; }
-
-.top-row {
-  height: 80px; }
-
-.glyph-thumbs {
-  font-size: 1.5em;
-  margin-top: 20px;
-  float: left;
-  margin-bottom: -15px;
-  margin-left: -10px; }
-
-.glyph-actions {
-  font-size: 1.5em;
-  float: right;
-  margin-top: 20px;
-  margin-bottom: -15px;
-  margin-right: -10px; }
-
+.row{
+  overflow: hidden; 
+}*/
 .fa-thumbs-o-down .fa-thumbs-o-up {
   font-size: 92%; }
 
@@ -6186,17 +6185,6 @@ strong {
   -webkit-transform: rotate(180deg);
   /* Chrome, Safari, Opera */
   transform: rotate(180deg); }
-
-.glyph-box {
-  width: 33%;
-  font-size: 5em;
-  text-align: center;
-  float: left; }
-
-.title-box {
-  width: 66%;
-  float: right;
-  text-align: right; }
 
 @keyframes example {
   0% {
@@ -6272,9 +6260,6 @@ section {
 
 aside {
   padding: 50px 0; }
-
-.no-padding {
-  padding: 0; }
 
 .navbar {
   border-bottom: 0px;
@@ -6597,6 +6582,7 @@ body {
   display: inline;
   margin: 0;
   padding: 15px;
+  padding-bottom: 0px;
   height: auto;
   float: left;
   list-style: none; }
@@ -6906,5 +6892,20 @@ body {
       clear: none; }
     .block-grid-lg-12 > .block-grid-item:nth-of-type(12n+1) {
       clear: both; } }
+
+.no-padding-left {
+  padding-left: 0 !important; }
+
+.no-padding-right {
+  padding-right: 0 !important; }
+
+.no-padding-top {
+  padding-top: 0 !important; }
+
+.no-padding-bottom {
+  padding-bottom: 0 !important; }
+
+.no-padding {
+  padding: 0 !important; }
 
 /*# sourceMappingURL=app.css.map */

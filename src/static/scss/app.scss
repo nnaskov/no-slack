@@ -90,10 +90,29 @@ strong {
     
     @include transition-all();
     
+    & .row-margin-25{
+        margin-top: 25px;    
+    }
+    
     .title {
         margin-top: 0px;
         line-height: 1.1em;
-        //white-space: nowrap;
+        white-space: nowrap;
+        
+        /* Small */
+        @media(min-width:768px) and (max-width:991px){
+            font-size: 20px;
+        }
+
+        /* Medium */
+        @media(min-width:992px) and (max-width:1399px){
+            font-size: 25px;
+        }
+
+        /* Large */
+        @media(min-width:1400px){
+            font-size: 30px;   
+        }
     }
 
     &.purple, &.blue, &.red, &.orange, &.green {
@@ -148,40 +167,18 @@ strong {
 
 }
 
-.row [class*="col-"]{
+/*.row [class*="col-"]{
   margin-bottom: -99999px;
   padding-bottom: 99999px;
 }
 
 .row{
   overflow: hidden; 
-}
-
-.top-row{
-    height: 80px;
-}
-
-.glyph-thumbs{
-    font-size: 1.5em;
-    margin-top: 20px;
-    float: left;
-    margin-bottom: -15px;
-    margin-left: -10px;
-}
-
-.glyph-actions{
-    font-size: 1.5em;
-    float: right;
-    margin-top: 20px;
-    margin-bottom: -15px;
-    margin-right: -10px;
-}
+}*/
 
 .fa-thumbs-o-down .fa-thumbs-o-up{
     font-size: 92%;
 }
-
-
 
 .glyph-button:hover{
     opacity: 0.5;
@@ -197,20 +194,6 @@ strong {
     -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
     transform: rotate(180deg);
 }
-.glyph-box{
-    width: 33%;
-    font-size: 5em;
-    text-align: center;
-    float: left;
-}
-
-.title-box{
-    width: 66%;
-    float: right;
-    text-align: right;
-}
-
-
 
 @keyframes example {
     0%   {background-color:$color_green;}
@@ -300,10 +283,6 @@ section {
 
 aside {
     padding: 50px 0;
-}
-
-.no-padding {
-    padding: 0;
 }
 
 // Navigation
@@ -612,6 +591,7 @@ body {
     display: inline;
     margin: 0;
     padding: ($grid-gutter-width/2);
+    padding-bottom: 0px;
     height: auto;
     float: left;
     list-style: none;
@@ -646,3 +626,21 @@ body {
 @media (min-width: $screen-sm-min) { @include block-grids(sm) }
 @media (min-width: $screen-md-min) { @include block-grids(md) }
 @media (min-width: $screen-lg-min) { @include block-grids(lg) }
+
+@mixin no-padding($side) {
+    @if $side == 'all' {
+        .no-padding {
+            padding: 0 !important;
+        }
+    } @else {
+        .no-padding-#{$side} {
+            padding-#{$side}: 0 !important;
+        }
+    }
+}
+
+@include no-padding("left");
+@include no-padding("right");
+@include no-padding("top");
+@include no-padding("bottom");
+@include no-padding("all");
