@@ -5,9 +5,11 @@ app.controller('TasksController', ['$scope', '$http', function($scope, $http) {
     }).then(function successCallback(response) {
     	var data = response.data;
     	var date;//10:00 11:00
-    	for(i=0; i<data.length;i++){
+
+		for(i=0; i<data.length;i++){
     		data[i].dateModified = moment(data[i].dateModified, "YYYY-MM-DD HH:mm:ss");
     		data[i].duration = (data[i].frequency * 60 * 60) + "s";
+
     		//Works out starting point for colour change.
     		data[i].delay = (data[i].dateModified.valueOf() - moment().valueOf())/1000 + "s";
     	}
@@ -59,6 +61,22 @@ app.controller('TasksController', ['$scope', '$http', function($scope, $http) {
         	var neg = angular.element(document.getElementById(taskID + "-" + "negative-feedback"))[0];
         	pos.innerHTML = data.positiveFeedback;
         	neg.innerHTML = data.negativeFeedback;
+
+
+			/*
+			Change the thumbs icons.
+			 */
+			var thumbsUp = angular.element(document.getElementById(taskID + "-" + "thumbs-up"))[0];
+        	var thumbsDown = angular.element(document.getElementById(taskID + "-" + "thumbs-down"))[0];
+
+			if(goodJob){
+				thumbsUp.className = "fa fa-thumbs-up glyph-button";
+				thumbsDown.className = "fa-thumbs-o-down fa glyph-button";
+			}else{
+				thumbsUp.className = "fa-thumbs-o-up fa glyph-button";
+				thumbsDown.className = "fa fa-thumbs-down glyph-button";
+			}
+
         	console.log("Feedback recieved");
         });
 	};

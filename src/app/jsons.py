@@ -23,6 +23,8 @@ def get_task_json(task):
         user_feedback = most_recent.get_user_feedback()
         if len(user_feedback):
             task_dict['userFeedback'] = user_feedback[0].was_positive
+        else:
+            task_dict['userFeedback'] = None
 
     return task_dict
 
