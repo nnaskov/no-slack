@@ -126,8 +126,8 @@ def update_task_event_feedback(id, was_positive):
 
 
 def get_task_events(task_id):
-    get_task(task_id)
-    q = TaskEvent.query(TaskEvent.task_type == ndb.Key('Task', task_id))
+    task = get_task(task_id)
+    q = TaskEvent.query(TaskEvent.task_type == task.key)
     return q.fetch(limit=100)
 
 
