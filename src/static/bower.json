@@ -1,0 +1,26 @@
+{
+  "name": "no-slack",
+  "homepage": "https://github.com/domsmith94/cloudapplicationdev",
+  "authors": [
+    "Bogomil Gospodinov <bg1g13@soton.ac.uk>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-bootstrap": "~0.14.3",
+    "bootstrap-sass": "~3.3.5",
+    "angular-vertilize": "~1.0.1",
+    "bourbon": "4.2.0",
+    "neat": "~1.7.2"
+  }
+}

@@ -6110,12 +6110,27 @@ strong {
 
 .tile {
   width: 100%;
+  margin-right: 10px;
+  height: 100%;
   display: inline-block;
   box-sizing: border-box;
   padding: 20px;
+  cursor: pointer;
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   transition: all 0.35s; }
+  .tile#addTaskTile {
+    border: 2px solid #888;
+    text-align: center;
+    height: 100%;
+    display: table; }
+    .tile#addTaskTile span {
+      font-size: 60px;
+      display: table-cell;
+      vertical-align: middle; }
+    .tile#addTaskTile:hover {
+      background: #888;
+      color: #fff; }
   .tile .row-margin-25 {
     margin-top: 25px; }
   .tile .title {
@@ -6907,5 +6922,8 @@ body {
 
 .no-padding {
   padding: 0 !important; }
+
+.nav, .pagination, .carousel, .panel-title a {
+  cursor: pointer; }
 
 /*# sourceMappingURL=app.css.map */

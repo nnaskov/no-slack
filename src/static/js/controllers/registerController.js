@@ -1,4 +1,4 @@
-app.controller('RegisterController', ['$scope', '$http', function($scope, $http) {
+index_app.controller('RegisterController', ['$scope', '$http', function($scope, $http) {
     $scope.$watch('housename', function(newValue, oldValue) {
         $http({
             method: "GET",

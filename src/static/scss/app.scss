@@ -78,15 +78,29 @@ strong {
 
 .tile {  
     width: 100%;
+    margin-right:10px; 
+    height:100%;
     display: inline-block;
     box-sizing: border-box;		
     padding: 20px;
+    cursor: pointer;
     
-    //removed for colour changing animation
-    //background-image: url('../img/washing-up.jpg');
-    //background-size: cover;
-    //background-position: center center;
-    //height: 240px;
+    &#addTaskTile{
+        border: 2px solid #888;
+        text-align: center;
+        height:100%; 
+        display:table;
+        span{
+            font-size: 60px;
+            display:table-cell; 
+            vertical-align:middle;
+        }
+        
+        &:hover{
+            background: #888;
+            color: #fff;
+        }
+    }
     
     @include transition-all();
     
@@ -644,3 +658,6 @@ body {
 @include no-padding("top");
 @include no-padding("bottom");
 @include no-padding("all");
+
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
