@@ -6171,6 +6171,9 @@ strong {
   margin-bottom: -15px;
   margin-right: -10px; }
 
+.fa-thumbs-o-down .fa-thumbs-o-up {
+  font-size: 92%; }
+
 .glyph-button:hover {
   opacity: 0.5;
   cursor: pointer; }
