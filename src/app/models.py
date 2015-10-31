@@ -19,6 +19,7 @@ class Task(ndb.Model):
     """
     household = ndb.KeyProperty(required=True)
     name = ndb.TextProperty(required=True)
+    description = ndb.TextProperty()
     date_created = ndb.DateTimeProperty(auto_now_add=True)
     date_modified = ndb.DateTimeProperty(auto_now=True)
     user_who_added = ndb.KeyProperty(required=True)
@@ -51,8 +52,10 @@ def household_exists(house_name):
 
 
 def add_default_tasks(house_key):
-    add_task_given_key(house_key, "Washing up", 2)
-    add_task_given_key(house_key, "Hoover lounge", 10)
+    add_task_given_key(house_key=house_key, task_name="Washing up", frequency=2,
+                       description="Please clean the dirty plates and dishes")
+    add_task_given_key(house_key=house_key, task_name="Hoover lounge", frequency=10,
+                       description="Get rid of all the bits on the floor")
 
 
 def get_member(user_id=None):
@@ -77,13 +80,13 @@ def get_household_tasks():
     return q.fetch(limit=100)
 
 
-def add_task_given_key(house_key, task_name, frequency=None, style=None):
+def add_task_given_key(house_key, task_name, description=None, frequency=None, style=None):
     new_task = Task(name=task_name, frequency=frequency, household=house_key,
-                    user_who_added=get_member(), style=style)
+                    user_who_added=get_member(), style=style, description=description)
     new_task.put()
 
 
-def add_task(task_name, frequency=None, style=None):
+def add_task(task_name, description=None, frequency=None, style=None):
     add_task_given_key(get_member_household_key(), task_name, frequency, style)
 
 
