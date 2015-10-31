@@ -41,6 +41,24 @@ app.controller('TasksController', ['$scope', '$http', function($scope, $http) {
     			tile[0].style["animation-delay"] = (data.dateModified.valueOf() - moment().valueOf())/1000 + "s";//"0s";
     			tile[0].style["background-color"] = "#AC193D";
 		    }, 2);
+
+
+			/*
+			Change feedback icons.
+			 */
+
+			var pos = angular.element(document.getElementById(taskID + "-" + "positive-feedback"))[0];
+        	var neg = angular.element(document.getElementById(taskID + "-" + "negative-feedback"))[0];
+        	pos.innerHTML = 0;
+        	neg.innerHTML = 0;
+
+
+			var thumbsUp = angular.element(document.getElementById(taskID + "-" + "thumbs-up"))[0];
+        	var thumbsDown = angular.element(document.getElementById(taskID + "-" + "thumbs-down"))[0];
+
+			thumbsDown.className = "fa-thumbs-o-down fa glyph-button";
+			thumbsUp.className = "fa-thumbs-o-up fa glyph-button";
+
         });
 	};
 
