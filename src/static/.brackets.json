@@ -15,7 +15,7 @@
                 "sourceComments": false,
                 "outputStyle": "nested"
             },
-            "linting.collapsed": true
+            "linting.collapsed": false
         },
         "scss/material.scss": {
             "sass.enabled": true,

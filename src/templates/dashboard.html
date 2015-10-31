@@ -64,9 +64,9 @@
 
         <!-- container -->
         <div class="container-fluid tile-container">             
-            <div ng-controller="TasksController" class="row row-centered">
-                <div class="col-xs-12 col-sm-3 col-md-3 col-centered" ng-repeat="task in list">
-                    <div id="{{task.taskID}}" class="tile red tile-animated" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
+            <div ng-controller="TasksController" class="block-grid-lg-4 block-grid-md-3 block-grid-sm-2 block-grid-xs-1">   
+                <div ng-repeat="task in list" class="block-grid-item">
+                    <div id="{{task.taskID}}" class="tile red tile-animated" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}}; margin:0 10px;">
                         <div class="top-row">
                             <div class="glyph-box glyphicon glyphicon-tint"></div>
                             <div class="title-box">
@@ -88,8 +88,12 @@
                                 <span class="glyphicon glyphicon-list glyph-button" aria-hidden="true"></span>
                             </div>
                         </div>
-                    </div>
+                    </div> 
                 </div>
+                   
+               
+                
+                
                 <!--Example animation, can be deleted later on
                 <div class="col-xs-12 col-sm-6 col-md-3 col-centered">
                     <div class="tile green tile-animated" style="animation-iteration-count: infinite; animation-duration: 10s; animation-delay: 0s;">
