@@ -167,6 +167,116 @@ strong {
 
 }
 
+.dark-red{
+    background-color: #933333;
+    color: white;
+}
+.person-list {
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.person-list > .tile{
+    padding: 20px;
+}
+
+.person-list > .tile > img{
+    float: left;
+}
+
+.person-list > .tile > h2{
+    margin-left: 20px;
+    float: left;
+}
+
+.person-detail-list{
+    float: left;
+    list-style: none;
+    margin-left: -23px;
+    margin-bottom: 0px;
+}
+
+.task-list{
+    min-width: 440px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.task-list-item{
+    margin: auto;
+    width: 100%;
+    display: inline-block;
+    box-sizing: border-box;		
+    padding: 10px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    background-color: #933333;
+    color: white;
+}
+
+.task-list-item > .col-sm-2 {
+    min-width: 200px;
+}
+
+.task-list-item > .col-sm-4 {
+    min-width: 230px;
+}
+
+.task-list-item > .col-sm-2 > .glyphicon{
+    float: left;
+    font-size: 1.5em;
+    line-height: 30px;
+}
+.task-list-item > .col-sm-2 > h3{
+    margin-top: 0px;
+    float: left;
+    margin-left: 10px;
+    line-height: 30px;
+
+}
+
+.task-list-item > .col-sm-4 > .input-group {
+    margin-left: -10px;
+    max-width: 240px;
+}
+
+#frequency-button{
+    margin-left: -10px;
+    padding-left: 0px;
+    background-color: #933333;
+    color: white;
+    border-color: #933333;
+}
+
+.form-control{
+    height: 33px;
+}
+
+.input-group-addon{
+    background: none;
+    border: none;
+}
+
+.frequency-dropdown{
+    width: 80px;
+}
+
+.frequency-caret{
+    margin-left: 5px;
+}
+
+#frequency-input{
+    background-color: #822d2d;
+    color: white;
+    border-color: #933333;
+    text-align: center;
+    padding: 0px;
+    width: 24px;
+}
+.input-group-btn:last-child > .btn{
+    margin-left: 2px;
+}
 /*.row [class*="col-"]{
   margin-bottom: -99999px;
   padding-bottom: 99999px;
@@ -373,6 +483,7 @@ aside {
     }
 }
 
+
 // Homepage Header
 
 header {
@@ -536,7 +647,6 @@ header {
 
 .btn {
     @include sans-serif-font();
-    border: none;
     border-radius: 300px;
     font-weight: 700;
     text-transform: uppercase;

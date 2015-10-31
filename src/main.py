@@ -14,6 +14,10 @@ class MainAppHandler(webapp2.RequestHandler):
         DASHBOARD_HTML = open('./templates/dashboard.html').read()
         self.response.out.write(DASHBOARD_HTML)
 
+class HouseHandler(webapp2.RequestHandler):
+    def get(self):
+        HOUSE_HTML = open('./templates/house.html').read()
+        self.response.out.write(HOUSE_HTML)
 
 class UnitTestsHandler(webapp2.RequestHandler):
     """
@@ -50,5 +54,6 @@ class UnitTestsHandler(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/', HomePageHandler),
     (r'/app/?', MainAppHandler),
+    (r'/house/?', HouseHandler),
     (r'/tests/?', UnitTestsHandler)
 ], debug=True)
