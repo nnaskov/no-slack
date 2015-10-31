@@ -102,10 +102,11 @@ app.controller('TasksController', ['$scope', '$http', function($scope, $http) {
     $scope.getAllForTask = function(taskID){
         $http({
             method: 'GET',
-            data: {'taskID': taskID},
+            params: {'taskID': taskID},
             url: '/requests/taskevent/getAllForTask'
         }).then(function successCallback(response) {
             console.log(response.data);
+            /*
             var data = response.data;
             var name = angular.element(document.getElementbyId(taskID + "-" + "name"))[0];
             var date = angular.element(document.getElementById(taskID + "-" + "Date"))[0];
@@ -117,11 +118,9 @@ app.controller('TasksController', ['$scope', '$http', function($scope, $http) {
             pos.innerHTML = data.positiveFeedback;
             neg.innerHTML = data.negativeFeedback;
 
-            /*
-             Change the history icon.
-             */
             var historyIcon = angular.element(document.getElementById(taskID + "-" + "get-all-for-task"))[0];
             historyIcon.className = "fa fa-get-all-for-task glyph-button";
+            */
         });
     };
 }]);
