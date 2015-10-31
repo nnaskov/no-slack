@@ -10,6 +10,7 @@ def get_task_json(task):
     task_dict = {}
     task_dict["taskID"] = task.key.integer_id()
     task_dict["taskName"] = task.name
+    task_dict["description"] = task.description
     task_dict["dateModified"] = str(task.date_modified)
     task_dict["frequency"] = task.frequency
     task_dict["taskStyle"] = task.style

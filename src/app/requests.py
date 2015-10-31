@@ -2,7 +2,7 @@ import webapp2
 import json
 import jsons
 import models
-from google.appengine.api import users
+
 
 class HouseNamesHandler(webapp2.RequestHandler):
 
