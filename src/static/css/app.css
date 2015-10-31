@@ -6121,7 +6121,19 @@ strong {
   .tile .title {
     margin-top: 0px;
     line-height: 1.1em;
-    white-space: nowrap; }
+    white-space: nowrap;
+    /* Small */
+    /* Medium */
+    /* Large */ }
+    @media (min-width: 768px) and (max-width: 991px) {
+      .tile .title {
+        font-size: 20px; } }
+    @media (min-width: 992px) and (max-width: 1399px) {
+      .tile .title {
+        font-size: 25px; } }
+    @media (min-width: 1400px) {
+      .tile .title {
+        font-size: 30px; } }
   .tile.purple, .tile.blue, .tile.red, .tile.orange, .tile.green {
     color: #fff; }
   .tile.purple {

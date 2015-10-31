@@ -98,6 +98,21 @@ strong {
         margin-top: 0px;
         line-height: 1.1em;
         white-space: nowrap;
+        
+        /* Small */
+        @media(min-width:768px) and (max-width:991px){
+            font-size: 20px;
+        }
+
+        /* Medium */
+        @media(min-width:992px) and (max-width:1399px){
+            font-size: 25px;
+        }
+
+        /* Large */
+        @media(min-width:1400px){
+            font-size: 30px;   
+        }
     }
 
     &.purple, &.blue, &.red, &.orange, &.green {
