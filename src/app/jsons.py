@@ -40,3 +40,20 @@ def get_all_tasks_json(tasks_list):
     return datastore_tasks
 
 
+def get_event_json(event):
+    event_dict = {}
+    event_dict["name"] = event.completed_by.get().first_name
+    event_dict["date"] = event.date_completed
+    event_dict["positiveFeedback"] = event.positive_feedback
+    event_dict["negativeFeedback"] = event.negative_feedback
+    return event_dict
+
+def get_all_events_json(events_list):
+
+    datastore_events = []
+
+    for event in events_list:
+        event_dict = get_task_json(event)
+        datastore_events.append(event_dict)
+
+    return datastore_events

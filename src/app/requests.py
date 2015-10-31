@@ -84,6 +84,18 @@ class TaskEventHandler(webapp2.RequestHandler):
         json_data = json.dumps(obj)
         self.response.out.write(json_data)
 
+
+class GetTaskEventsHandler(webapp2.RequestHandler):
+
+    def get(self):
+        json_data = json.loads(self.request.body)
+        task_id = json_data.get("taskID")
+        datastore_events_list = models.get_task_events(task_id)
+        datastore_events = jsons.get_all_events_json(datastore_events_list)
+        json_data = json.dumps(datastore_events)
+        self.response.out.write(json_data)
+
+
 class TaskFeedbackHandler(webapp2.RequestHandler):
     '''
     This is called when a user gives a Task positive or negative feedback. Updated in model and
@@ -110,5 +122,6 @@ app = webapp2.WSGIApplication([
     ('/requests/addtask', AddTaskHandler),
     ('/requests/deletetask', DeleteTaskHandler),
     ('/requests/taskevent/add', TaskEventHandler),
-    ('/requests/tasks/feedback', TaskFeedbackHandler,)
+    ('/requests/taskevent/getAllForTask', GetTaskEventsHandler),
+    ('/requests/tasks/feedback', TaskFeedbackHandler)
 ], debug=True)

@@ -122,6 +122,12 @@ def update_task_event_feedback(id, was_positive):
             new_event_feedback.put()
 
 
+def get_task_events(task_id):
+    get_task(task_id)
+    q = TaskEvent.query(TaskEvent.task_type == ndb.Key('Task', task_id))
+    return q.fetch(limit=100)
+
+
 def update_task(task_key, task_event_key):
         task = task_key.get()
         if not task:
