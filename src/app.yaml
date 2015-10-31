@@ -16,6 +16,10 @@ handlers:
   script: main.app
   login: required
 
+- url: /house/?
+  script: main.app
+  login: required  
+
 - url: /register/?
   script: app.register.app
   login: required

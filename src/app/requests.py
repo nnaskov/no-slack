@@ -88,9 +88,8 @@ class TaskEventHandler(webapp2.RequestHandler):
 class GetTaskEventsHandler(webapp2.RequestHandler):
 
     def get(self):
-        json_data = json.loads(self.request.body)
-        task_id = json_data.get("taskID")
-        datastore_events_list = models.get_task_events(task_id)
+        task_id = self.request.get("taskID")
+        datastore_events_list = models.get_task_events(int(task_id))
         datastore_events = jsons.get_all_events_json(datastore_events_list)
         json_data = json.dumps(datastore_events)
         self.response.out.write(json_data)
