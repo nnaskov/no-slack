@@ -1,7 +1,7 @@
 'use strict';
 
 var index_app = angular.module('app.index',[]);
-var app = angular.module('app.dashboard', ['ngRoute', 'ui.bootstrap','angular.vertilize']);
+var app = angular.module('app.dashboard', ['ui.router', 'ui.bootstrap','angular.vertilize']);
 
 app.factory('myHttpInterceptor', function($rootScope, $q) {
   return {

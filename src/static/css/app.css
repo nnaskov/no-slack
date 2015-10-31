@@ -6246,13 +6246,17 @@ strong {
   color: white;
   border-color: #933333; }
 
-.form-control {
-  height: 33px; }
+/*
+Nest into another class because you are interfering with homepage styling
+.form-control{
+    height: 33px;
+}
 
-.input-group-addon {
-  background: none;
-  border: none; }
-
+.input-group-addon{
+    background: none;
+    border: none;
+}
+*/
 .frequency-dropdown {
   width: 80px; }
 

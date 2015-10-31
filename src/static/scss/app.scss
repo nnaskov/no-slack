@@ -263,6 +263,8 @@ strong {
     border-color: #933333;
 }
 
+/*
+Nest into another class because you are interfering with homepage styling
 .form-control{
     height: 33px;
 }
@@ -271,6 +273,7 @@ strong {
     background: none;
     border: none;
 }
+*/
 
 .frequency-dropdown{
     width: 80px;
