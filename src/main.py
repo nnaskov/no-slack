@@ -1,12 +1,29 @@
 import webapp2
-from app import models
+import jinja2
+import os
 from google.appengine.api import users
+
+JINJA_ENVIRONMENT = jinja2.Environment(
+   loader=jinja2.FileSystemLoader(os.path.dirname('./templates/')),
+   extensions=['jinja2.ext.autoescape'],
+   autoescape=True)
 
 
 class HomePageHandler(webapp2.RequestHandler):
-    def get(self):
-        INDEX_HTML = open('./templates/index.html').read()
-        self.response.out.write(INDEX_HTML)
+   def get(self):
+       user = users.get_current_user()
+       if user:
+           DASHBOARD_HTML = open('./templates/dashboard.html').read()
+           self.response.out.write(DASHBOARD_HTML)
+       else:
+           login_url = users.create_login_url(self.request.url)
+
+           template_values = {
+               'login_url' : login_url
+           }
+
+           template = JINJA_ENVIRONMENT.get_template('index.html')
+           self.response.write(template.render(template_values))
 
 
 class MainAppHandler(webapp2.RequestHandler):

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html ng-app="app.index">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="assets/img/favicon.png">
+
+    <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEACABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAA////APv8+wD2+fcAUIpgAJe5oACau6MAx9nMAGuceQCcvaYAd6SEACxyQABilnEAWZBpAFqQaQBEglYAL3RDAGGVcAArcT8ALnNCAFSMZABPiWAAbJx6ADF1RQB4pIUALXJBANPi1wBFglcA/P38AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABcSEhISEhISEhcAAAAAAAASCxMSEhISEwsSAAAAAAAAEgUBDRISDQEFEgAAAAAAABIFAQ4SEg4BBRIAAAAAAAASBQEUEhIUAQUSAAAAAAkREgUBGgcHGgEFEhEJAAASEhcGAQEBAQEBBhcSEgAAEhkDHAEBAQEBARwDGRIAABgSGxwBAQEBAQEcGxIKAAAAFhIEHAEBAQEcBBIIAAAAAAASEhUcAQEcBBIMAAAAAAAAEhISDwICGxIMAAAAAAAAABISEBIZGRIIAAAAAAAAAAASEgAYEhIKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AADgBwAA4AcAAOAHAADgBwAA4AcAAIABAACAAQAAgAEAAIABAADAAwAA4AcAAOAPAADgHwAA5D8AAP//AAA=" rel="icon" type="image/x-icon" />
+
+        <title>No Slack - House Management System</title>
+
+        <link rel="stylesheet" href="../static/css/app.css">
+        
+        <!-- Custom Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="../static/font-awesome/css/font-awesome.min.css" type="text/css">
+        <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
+        <!-- Plugin CSS -->
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><b>No Slack</b></a>
+        </div>
+      </div>
+    </div>
+		<div id="signup-container"class="container">
+			<div class="row">
+				<div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4">
+					<form id="userForm" ng-submit="submit()" name="userForm" ng-controller="RegisterController" novalidate autocomplete="false">
+                        <!-- fake fields are a workaround for chrome autofill getting the wrong fields -->
+                        <input type="text" name="prevent_autofill" id="prevent_autofill" value="" style="display:none;" />
+                        <input type="password" name="password_fake" id="password_fake" value="" style="display:none;" />
+
+                        <h2>Register now.</h2>
+
+                        <div class="row form-group" ng-class="{ 'has-error': userForm.firstname.$invalid && userForm.firstname.$dirty, 'has-success': userForm.firstname.$valid && userForm.firstname.$dirty }">
+                            <div class="col-md-12">
+                               
+                                <div class="input-group">
+                                    <input class="form-control input-lg" type="text" name="firstname" id="firstname" placeholder="e.g. John" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-model="firstname" ng-minlength="2" ng-maxlength="12" ng-pattern="/^([a-zA-Z]|\-|\_)*$/" required/>
+                                    <div class="input-group-addon">?</div>
+                                </div>
+                                
+                                <p class="help-block" ng-show="userForm.firstname.$valid">First name ok</p>
+
+                                <p class="help-block" ng-show="userForm.firstname.$error.minlength" >Your first name is too short</p>
+                                <p class="help-block" ng-show="userForm.firstname.$error.maxlength" >Your first name is too long</p>
+                                <p class="help-block" ng-show="userForm.firstname.$error.required" >Your first name is required</p>
+                                <p class="help-block" ng-show="userForm.firstname.$error.pattern" >Invalid first name</p>
+                            </div>
+                        </div>
+
+                        <div class="row form-group" ng-class="{ 'has-error': userForm.lastname.$invalid && userForm.lastname.$dirty, 'has-success': userForm.lastname.$valid && userForm.lastname.$dirty }">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <input class="sign-up-item form-control input-lg" type="text" name="lastname" id="lastName" placeholder="e.g. Smith" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-model="lastname"  ng-minlength="2"  ng-maxlength="14" ng-pattern="/^([a-zA-Z]|\-|\_)*$/" required>
+                                    <div class="input-group-addon">?</div>
+                                </div>
+                                <p class="help-block" ng-show="userForm.lastname.$valid" >Last name ok</p>
+                                <p class="help-block" ng-show="userForm.lastname.$error.minlength" >Your last name is too short</p>
+                                <p class="help-block" ng-show="userForm.lastname.$error.maxlength" >Your last name is too long</p>
+                                <p class="help-block" ng-show="userForm.lastname.$error.required" >Your last name is required</p>
+                                <p class="help-block" ng-show="userForm.lastname.$error.pattern" >Invalid last name</p>
+                            </div>
+                        </div>
+
+                        <div class="row form-group" ng-class="{ 'has-error': userForm.housename.$invalid && userForm.housename.$dirty, 'has-success': userForm.housename.$valid && userForm.housename.$dirty && !houseNameExists, 'has-warning': userForm.housename.$valid && userForm.housename.$dirty && houseNameExists}">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <input class="sign-up-item form-control input-lg" type="text" name="housename" id="housename" placeholder="e.g. TheMayflowerBoys" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-model="housename" ng-minlength="4"  ng-maxlength="20" ng-pattern="/^([a-zA-Z]|\-|\_)*$/" validate-housename required/>
+                                    <div class="input-group-addon">?</div>
+                                </div>
+
+                                <p class="help-block" ng-show="userForm.housename.$error.minlength" >Your house name is too short</p>
+                                <p class="help-block" ng-show="userForm.housename.$error.maxlength" >Your house name is too long</p>
+                                <p class="help-block" ng-show="userForm.housename.$error.required" >Your house name is required</p>
+                                <p class="help-block" ng-show="userForm.housename.$error.pattern" >Invalid last name</p>
+                                <p class="help-block" ng-show="userForm.housename.$pending.housename" style="color:blue">Checking if house exists...</p>
+                                <p class="help-block" ng-show="userForm.housename.$dirty &&
+                                                               !userForm.housename.$error.minlength &&
+                                                               !userForm.housename.$error.maxlength &&
+                                                               !userForm.housename.$error.required && !houseNameExists">{{housename}} does not exist. We'll create it for you.</p>
+                                <p class="help-block" ng-show="userForm.housename.$valid && houseNameExists" >{{housename}} exists. We'll add you to it.</p>
+                            </div>
+                        </div>   
+
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <input type="submit" class="btn btn-primary btn-lg btn-block" ng-disabled="userForm.$invalid" value="Sign Up"/>
+                                <button type="button" class="btn btn-default btn-lg btn-block" href="/">Back</button>
+                            </div>
+                        </div>
+                    </form>
+				</div>
+			</div><!-- /row -->
+		</div><!-- /container -->
+		
+		<div class="container">
+		<hr>
+		<p class="centered">Created by ECS Southampton - COMP3201 - 2013</p>
+	</div><!-- /container -->
+	
+	
+
+    	<script src="../static/bower_components/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        
+        <!-- Plugin JavaScript -->
+        <script src="../static/js/jquery.easing.min.js"></script>
+        <script src="../static/js/jquery.fittext.js"></script>
+        <script src="../static/js/wow.min.js"></script>
+        <script src="../static/js/moment.min.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="../static/js/bootstrap.min.js"></script>
+        
+        <script src="../static/bower_components/angular/angular.min.js"></script>
+       
+        <script src="../static/js/app.js"></script>
+        
+        <!-- Controllers -->
+        <script src="../static/js/controllers/registerController.js"></script> 
+  </body>
+</html>
