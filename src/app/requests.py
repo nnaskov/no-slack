@@ -116,11 +116,11 @@ class TaskFeedbackHandler(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-    ('/requests/checkhousename', HouseNamesHandler),
-    ('/requests/getalltasks', TaskHandler),
-    ('/requests/addtask', AddTaskHandler),
-    ('/requests/deletetask', DeleteTaskHandler),
+    ('/requests/house/check', HouseNamesHandler),
+    ('/requests/tasks/all', TaskHandler),
+    ('/requests/tasks/add', AddTaskHandler),
+    ('/requests/tasks/delete', DeleteTaskHandler),
     ('/requests/taskevent/add', TaskEventHandler),
-    ('/requests/taskevent/getAllForTask', GetTaskEventsHandler),
-    ('/requests/tasks/feedback', TaskFeedbackHandler)
+    ('/requests/taskevent/all', GetTaskEventsHandler),
+    ('/requests/taskevent/feedback', TaskFeedbackHandler)
 ], debug=True)
