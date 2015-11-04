@@ -7,6 +7,8 @@ class Member(ndb.Model):
     last_name = ndb.StringProperty()
     household = ndb.KeyProperty()
 
+    def is_owner(self):
+        return True if(self.household.get().owner == self.key) else False
 
 class HouseHold(ndb.Model):
     name = ndb.StringProperty(required=True)
@@ -140,9 +142,6 @@ def update_task(task_key, task_event_key):
             task.put()
 
 
-
-
-
 def delete_task(id):
     ndb.Key('Task', id).delete()
 
@@ -162,6 +161,12 @@ def add_member(first_name, last_name):
     key = member.put()
 
     return key.get()
+
+
+def get_members_list():
+    house_key = get_member_household_key()
+    q = Member.query(Member.household == house_key)
+    return q.fetch(limit=12)
 
 
 def add_household(household_id):

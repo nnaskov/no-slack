@@ -76,8 +76,9 @@ class TaskEventHandler(webapp2.RequestHandler):
 
 
     def post(self, task_id):
-        models.add_task_event(int(task_id))
-        task = models.get_task(int(task_id))
+        task_id = int(task_id)
+        models.add_task_event(task_id)
+        task = models.get_task(task_id)
 
         obj = jsons.get_task_json(task)
 
@@ -85,27 +86,41 @@ class TaskEventHandler(webapp2.RequestHandler):
         self.response.out.write(json_data)
 
     def get(self, task_id):
-        datastore_events_list = models.get_task_events(int(task_id))
+        task_id = int(task_id)
+        datastore_events_list = models.get_task_events(task_id)
         datastore_events = jsons.get_all_events_json(datastore_events_list)
         json_data = json.dumps(datastore_events)
         self.response.out.write(json_data)
 
     def put(self, task_id):
+        task_id = int(task_id)
         json_data = json.loads(self.request.body)
         was_positive = json_data.get("goodJob")
 
-        models.update_task_event_feedback(int(task_id), was_positive)
-        task = models.get_task(int(task_id))
+        models.update_task_event_feedback(task_id, was_positive)
+        task = models.get_task(task_id)
 
         obj = jsons.get_task_json(task)
 
         json_data = json.dumps(obj)
         self.response.out.write(json_data)
 
+class MemberHandler(webapp2.RequestHandler):
+    '''
+    GET request - Given the user who is logged in, this returns a list of all members of the household in the JSON format
+    outlined in jsons.get_member_json
+    '''
+
+    def get(self):
+        members_list = models.get_members_list()
+        members = jsons.get_all_members_json(members_list)
+        json_data = json.dumps(members)
+        self.response.out.write(json_data)
 
 
 app = webapp2.WSGIApplication([
     (r'/requests/house/check/(\w+)/?', HouseNamesHandler),
     ('/requests/task/?', TaskHandler),
     (r'/requests/task/(\d+)/taskevent/?', TaskEventHandler),
+    ('/requests/member/?', MemberHandler),
 ], debug=True)

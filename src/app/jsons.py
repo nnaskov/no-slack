@@ -58,3 +58,21 @@ def get_all_events_json(events_list):
         datastore_events.append(event_dict)
 
     return datastore_events
+
+def get_member_json(member):
+    member_dict = {}
+    member_dict["userID"] = member.key.id()
+    member_dict["firstName"] = member.first_name
+    member_dict["lastName"] = member.last_name
+    member_dict["isOwner"] = member.is_owner()
+    return member_dict
+
+
+def get_all_members_json(members_list):
+    all_members = []
+
+    for member in members_list:
+        member_dict = get_member_json(member)
+        all_members.append(member_dict)
+
+    return all_members
