@@ -3,8 +3,7 @@ app.controller('TaskController', ['$scope', '$http', function($scope, $http) {
     $scope.addTaskEvent = function(){
     	$http({
             method: 'POST',
-            data: {'taskID': $scope.task.taskID},
-            url: '/requests/taskevent/add'
+            url: '/requests/task/' + $scope.task.taskID + '/taskevent'
         }).then(function successCallback(response) {
             var data = response.data;
             var tile = angular.element(document.getElementById(data.taskID));
@@ -47,9 +46,9 @@ app.controller('TaskController', ['$scope', '$http', function($scope, $http) {
 
     $scope.addFeedback = function(goodJob){
         $http({
-            method: 'POST',
+            method: 'PUT',
             data: {'taskID': $scope.task.taskID, 'goodJob': goodJob},
-            url: '/requests/tasks/feedback'
+            url: '/requests/task/' + $scope.task.taskID + '/taskevent'
         }).then(function successCallback(response) {
             console.log(response.data);
             var data = response.data;
@@ -81,7 +80,7 @@ app.controller('TaskController', ['$scope', '$http', function($scope, $http) {
         $http({
             method: 'GET',
             params: {'taskID': $scope.task.taskID},
-            url: '/requests/taskevent/getAllForTask'
+            url: '/requests/task/' + $scope.task.taskID + '/taskevent'
         }).then(function successCallback(response) {
             console.log(response.data);
             /*

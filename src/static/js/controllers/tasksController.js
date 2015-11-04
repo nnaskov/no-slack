@@ -1,7 +1,7 @@
 app.controller('TasksController', ['$scope', '$http', function($scope, $http) {
     $http({
         method: 'GET',
-        url: '/requests/getalltasks'
+        url: '/requests/task'
     }).then(function successCallback(response) {
     	var data = response.data;
     	var date;//10:00 11:00

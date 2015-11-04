@@ -76,8 +76,8 @@ class TaskEventHandler(webapp2.RequestHandler):
 
 
     def post(self, task_id):
-        models.add_task_event(task_id)
-        task = models.get_task(task_id)
+        models.add_task_event(int(task_id))
+        task = models.get_task(int(task_id))
 
         obj = jsons.get_task_json(task)
 
@@ -94,8 +94,8 @@ class TaskEventHandler(webapp2.RequestHandler):
         json_data = json.loads(self.request.body)
         was_positive = json_data.get("goodJob")
 
-        models.update_task_event_feedback(task_id, was_positive)
-        task = models.get_task(task_id)
+        models.update_task_event_feedback(int(task_id), was_positive)
+        task = models.get_task(int(task_id))
 
         obj = jsons.get_task_json(task)
 
@@ -105,7 +105,7 @@ class TaskEventHandler(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-    (r'/requests/house/check/[\w]+', HouseNamesHandler),
-    ('/requests/task/', TaskHandler),
-    (r'/requests/task/[\d]+/taskevent/', TaskEventHandler),
+    (r'/requests/house/check/(\w+)/?', HouseNamesHandler),
+    ('/requests/task/?', TaskHandler),
+    (r'/requests/task/(\d+)/taskevent/?', TaskEventHandler),
 ], debug=True)
