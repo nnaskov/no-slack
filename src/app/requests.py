@@ -5,11 +5,12 @@ import models
 
 
 class HouseNamesHandler(webapp2.RequestHandler):
+    '''
+    Checks if a house exist in the name given
+    '''
 
-    def get(self):
-        housename_req = self.request.get('houseName')
-
-        house_exists = models.household_exists(housename_req.lower())
+    def get(self, house_name):
+        house_exists = models.household_exists(house_name.lower())
 
         self.response.headers['Content-Type'] = 'application/json'
 
@@ -22,6 +23,16 @@ class HouseNamesHandler(webapp2.RequestHandler):
 
 
 class TaskHandler(webapp2.RequestHandler):
+    '''
+    GET returns all Tasks relevant to the user logged in
+
+    DELETE method get tasksId sent from front end and deletes this task from the data store.
+    Returns a JSON containing all of the Tasks a house has associated with it (minus the deleted
+    task
+
+    POST adds a Task to data store and returns all the tasks that a house
+    has in JSON format.
+    '''
 
     def get(self):
         tasks_list = models.get_household_tasks()
@@ -30,11 +41,15 @@ class TaskHandler(webapp2.RequestHandler):
         self.response.out.write(json_data)
 
 
-class AddTaskHandler(webapp2.RequestHandler):
-    '''
-    AddTaskHandler adds a Task to data store and returns all the tasks that a house
-    has in JSON format.
-    '''
+    def delete(self):
+        task_id = self.request.get("taskId")
+        models.delete_task(task_id)
+
+        tasks_list = models.get_household_tasks()
+        task_list_json = jsons.get_all_tasks_json(tasks_list)
+        json_data = json.dumps(task_list_json)
+        self.response.out.write(json_data)
+
 
     def post(self):
         task_name = self.request.get("taskName")
@@ -49,29 +64,16 @@ class AddTaskHandler(webapp2.RequestHandler):
         self.response.out.write(json_data)
 
 
-class DeleteTaskHandler(webapp2.RequestHandler):
-    '''
-    DeleteTaskHandler get tasksId sent from front end and deletes this task from the data store.
-    Returns a JSON containing all of the Tasks a house has associated with it (minus the deleted
-    task
-    '''
-
-    def delete(self):
-        task_id = self.request.get("taskId")
-        models.delete_task(task_id)
-
-        tasks_list = models.get_household_tasks()
-        task_list_json = jsons.get_all_tasks_json(tasks_list)
-        json_data = json.dumps(task_list_json)
-        self.response.out.write(json_data)
-
-
 class TaskEventHandler(webapp2.RequestHandler):
     '''
     The is the handler called when a user has done a Task. The taskId is sent via JSON and the datastore
     is updated to reflect that the task is done. A JSON containing the updated version / info of the task
     that has been done is sent back via JSON.
+
+    PUT is called when a user gives a Task positive or negative feedback. Updated in model and
+    returns the updated version of the Task JSON
     '''
+
 
     def post(self):
         json_data = json.loads(self.request.body)
@@ -84,9 +86,6 @@ class TaskEventHandler(webapp2.RequestHandler):
         json_data = json.dumps(obj)
         self.response.out.write(json_data)
 
-
-class GetTaskEventsHandler(webapp2.RequestHandler):
-
     def get(self):
         task_id = self.request.get("taskID")
         datastore_events_list = models.get_task_events(int(task_id))
@@ -94,14 +93,7 @@ class GetTaskEventsHandler(webapp2.RequestHandler):
         json_data = json.dumps(datastore_events)
         self.response.out.write(json_data)
 
-
-class TaskFeedbackHandler(webapp2.RequestHandler):
-    '''
-    This is called when a user gives a Task positive or negative feedback. Updated in model and
-    returns the updated version of the Task JSON
-    '''
-
-    def post(self):
+    def put(self):
         json_data = json.loads(self.request.body)
         task_id = json_data.get("taskID")
         was_positive = json_data.get("goodJob")
@@ -115,12 +107,9 @@ class TaskFeedbackHandler(webapp2.RequestHandler):
         self.response.out.write(json_data)
 
 
+
 app = webapp2.WSGIApplication([
-    ('/requests/checkhousename', HouseNamesHandler),
-    ('/requests/getalltasks', TaskHandler),
-    ('/requests/addtask', AddTaskHandler),
-    ('/requests/deletetask', DeleteTaskHandler),
-    ('/requests/taskevent/add', TaskEventHandler),
-    ('/requests/taskevent/getAllForTask', GetTaskEventsHandler),
-    ('/requests/tasks/feedback', TaskFeedbackHandler)
+    (r'/requests/house/check/[\w]+', HouseNamesHandler),
+    ('/requests/task/', TaskHandler),
+    ('/requests/taskevent/', TaskEventHandler),
 ], debug=True)
