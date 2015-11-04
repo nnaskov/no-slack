@@ -21,7 +21,7 @@ class HouseNamesHandler(webapp2.RequestHandler):
         self.response.out.write(json.dumps(obj))
 
 
-class TaskHandler(webapp2.RequestHandler):
+class AllTasksHandler(webapp2.RequestHandler):
 
     def get(self):
         tasks_list = models.get_household_tasks()
@@ -30,11 +30,25 @@ class TaskHandler(webapp2.RequestHandler):
         self.response.out.write(json_data)
 
 
-class AddTaskHandler(webapp2.RequestHandler):
+class TaskHandler(webapp2.RequestHandler):
     '''
-    AddTaskHandler adds a Task to data store and returns all the tasks that a house
+    DELETE method get tasksId sent from front end and deletes this task from the data store.
+    Returns a JSON containing all of the Tasks a house has associated with it (minus the deleted
+    task
+
+    POST adds a Task to data store and returns all the tasks that a house
     has in JSON format.
     '''
+
+    def delete(self):
+        task_id = self.request.get("taskId")
+        models.delete_task(task_id)
+
+        tasks_list = models.get_household_tasks()
+        task_list_json = jsons.get_all_tasks_json(tasks_list)
+        json_data = json.dumps(task_list_json)
+        self.response.out.write(json_data)
+
 
     def post(self):
         task_name = self.request.get("taskName")
@@ -47,24 +61,7 @@ class AddTaskHandler(webapp2.RequestHandler):
         task_list_json = jsons.get_all_tasks_json(tasks_list)
         json_data = json.dumps(task_list_json)
         self.response.out.write(json_data)
-
-
-class DeleteTaskHandler(webapp2.RequestHandler):
-    '''
-    DeleteTaskHandler get tasksId sent from front end and deletes this task from the data store.
-    Returns a JSON containing all of the Tasks a house has associated with it (minus the deleted
-    task
-    '''
-
-    def delete(self):
-        task_id = self.request.get("taskId")
-        models.delete_task(task_id)
-
-        tasks_list = models.get_household_tasks()
-        task_list_json = jsons.get_all_tasks_json(tasks_list)
-        json_data = json.dumps(task_list_json)
-        self.response.out.write(json_data)
-
+        
 
 class TaskEventHandler(webapp2.RequestHandler):
     '''
@@ -117,9 +114,8 @@ class TaskFeedbackHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/requests/house/check', HouseNamesHandler),
-    ('/requests/tasks/all', TaskHandler),
-    ('/requests/tasks/add', AddTaskHandler),
-    ('/requests/tasks/delete', DeleteTaskHandler),
+    ('/requests/tasks/all', AllTasksHandler),
+    ('/requests/tasks/', TaskHandler),
     ('/requests/taskevent/add', TaskEventHandler),
     ('/requests/taskevent/all', GetTaskEventsHandler),
     ('/requests/taskevent/feedback', TaskFeedbackHandler)
