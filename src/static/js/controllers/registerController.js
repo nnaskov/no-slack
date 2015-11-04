@@ -2,10 +2,7 @@ index_app.controller('RegisterController', ['$scope', '$http', function($scope, 
     $scope.$watch('housename', function(newValue, oldValue) {
         $http({
             method: "GET",
-            url: "/requests/checkhousename",
-            params: {
-                'houseName': newValue
-            }
+            url: "/requests/house/check/" + newValue,
         }).success(function (data) {
             $scope.houseNameExists = data.exists;
         });
