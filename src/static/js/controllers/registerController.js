@@ -14,7 +14,6 @@ index_app.controller('RegisterController', ['$scope', '$http', function($scope, 
         var res = $http.post('/register', data);
         
         res.success(function(data, status, headers, config) {
-            alert("Registration successful, "+ $scope.firstname+"!");
             window.location.replace(data.redirect); 
         });
         

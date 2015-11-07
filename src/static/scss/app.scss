@@ -85,6 +85,7 @@ $display_font_family: 'Lato', sans-serif;
         margin-top: 0px;
         line-height: 1.1em;
         white-space: nowrap;
+        width: 300px;
         
         /* Small */
         @media(min-width:768px) and (max-width:991px){
@@ -173,15 +174,15 @@ $display_font_family: 'Lato', sans-serif;
     margin-left: auto;
     margin-right: auto;
 }
-.person-list > .tile{
+.person-list > .row > .tile{
     padding: 20px;
 }
 
-.person-list > .tile > img{
+.person-list > .row > .tile > img{
     float: left;
 }
 
-.person-list > .tile > h2{
+.person-list > .row > .tile > h2{
     margin-left: 20px;
     float: left;
 }
@@ -204,7 +205,7 @@ $display_font_family: 'Lato', sans-serif;
 .task-list-item-content{
     margin-left: auto;
     margin-right: auto;
-    width: 360px;
+   width: 430px;
 }
 
 .task-list-item{
@@ -219,14 +220,22 @@ $display_font_family: 'Lato', sans-serif;
     color: white;
 }
 
+.task-list-item-content > .task-list-left {
+    width: 250px;
+    float: left;
+}
 
-.task-list-item > .task-list-item-content > .glyphicon{
+.task-list-item-content > .task-list-right {
+    width: 180px;
+    float: left;
+}
+.task-list-item > .task-list-item-content > .task-list-left > .glyphicon{
     float: left;
     font-size: 1.5em;
     line-height: 30px;
     margin-top: 5px;
 }
-.task-list-item > .task-list-item-content > h3{
+.task-list-item > .task-list-item-content > .task-list-left > h3{
     color: white;
     margin-top: 5px;
     float: left;
@@ -235,11 +244,11 @@ $display_font_family: 'Lato', sans-serif;
 
 }
 
-.task-list-item > .task-list-item-content > .input-group {
+.task-list-item > .task-list-item-content > .task-list-right > .input-group {
     line-height: 30px;
 }
 
-.task-list-item > .task-list-item-content > .input-group-addon {
+.task-list-item > .task-list-item-content > .task-list-right > .input-group-addon {
     margin-left: -10px;
     max-width: 240px;
     line-height: 30px;
