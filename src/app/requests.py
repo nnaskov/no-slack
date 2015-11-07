@@ -33,13 +33,11 @@ class TaskHandler(webapp2.RequestHandler):
     POST adds a Task to data store and returns all the tasks that a house
     has in JSON format.
     '''
-
     def get(self):
         tasks_list = models.get_household_tasks()
         task_list_json = jsons.get_all_tasks_json(tasks_list)
         json_data = json.dumps(task_list_json)
         self.response.out.write(json_data)
-
 
     def delete(self):
         task_id = self.request.get("taskId")
@@ -50,13 +48,15 @@ class TaskHandler(webapp2.RequestHandler):
         json_data = json.dumps(task_list_json)
         self.response.out.write(json_data)
 
-
     def post(self):
-        task_name = self.request.get("taskName")
-        frequency = self.request.get("frequency")
-        style = self.request.get("taskStyle")
+        json_data = json.loads(self.request.body)
+        task_name = json_data.get("taskName")
+        frequency = json_data.get("frequency")
+        description = json_data.get("description")
+        difficulty = json_data.get("difficulty")
+        style = json_data.get("taskStyle")
 
-        models.add_task(task_name, frequency, style)
+        models.add_task(task_name, difficulty, description, frequency, style)
 
         tasks_list = models.get_household_tasks()
         task_list_json = jsons.get_all_tasks_json(tasks_list)
@@ -73,8 +73,6 @@ class TaskEventHandler(webapp2.RequestHandler):
     PUT is called when a user gives a Task positive or negative feedback. Updated in model and
     returns the updated version of the Task JSON
     '''
-
-
     def post(self, task_id):
         task_id = int(task_id)
         models.add_task_event(task_id)
@@ -105,6 +103,7 @@ class TaskEventHandler(webapp2.RequestHandler):
         json_data = json.dumps(obj)
         self.response.out.write(json_data)
 
+
 class MemberHandler(webapp2.RequestHandler):
     '''
     GET request - Given the user who is logged in, this returns a list of all members of the household in the JSON format
@@ -114,9 +113,11 @@ class MemberHandler(webapp2.RequestHandler):
     def get(self):
         members_list = models.get_members_list()
         members = jsons.get_all_members_json(members_list)
-        json_data = json.dumps(members)
+        json_data = {}
+        json_data["houseName"] = models.get_member_household_key().get().name
+        json_data["members"] = members
+        json_data = json.dumps(json_data)
         self.response.out.write(json_data)
-
 
 app = webapp2.WSGIApplication([
     (r'/requests/house/check/(\w+)/?', HouseNamesHandler),
