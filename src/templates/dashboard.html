@@ -64,12 +64,17 @@
     <!-- container -->
     <div class="container-fluid tile-container">
         <div ng-controller="TasksController" class="block-grid-lg-4 block-grid-md-3 block-grid-sm-2 block-grid-xs-1" vertilize-container>
+
+            <!-- Show all tasks-->
+
             <div ng-repeat="task in list" class="block-grid-item" vertilize>
                 <div ng-controller="TaskController" ng-init="task=task" id="{{task.taskID}}" class="tile red tile-animated" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
+                    <!-- Each Task Tile -->
                     <div class="row">
+                        <!-- ICON + FEEDBACK -->
                         <div class="col-xs-6 col-sm-4">
                            <div class="row">
-                               <div class="glyph-box glyphicon glyphicon-tint" style="font-size: 60px;"></div>
+                               <div class="glyph-box {{task.taskStyle}}" style="font-size: 60px;"></div>
                            </div>
                             <div class="row row-margin-25 no-padding">
                                <div ng-show="task.everCompleted" class="col-xs-12">
@@ -86,6 +91,8 @@
                                </div>
                            </div>
                         </div>
+
+                        <!-- NAME + DESCRIPTION-->
                         <div class="col-xs-6 col-sm-8">
                             <div class="row">
                                 <div class="col-xs-12 text-right">
@@ -113,7 +120,8 @@
                     </div>
                 </div>
             </div>
-            
+
+            <!-- Add Task Tile -->
             <div class="block-grid-item" vertilize>
                 <div id="addTaskTile" class="tile">
                     <span>+</span>
