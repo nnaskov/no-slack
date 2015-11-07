@@ -71,6 +71,19 @@ def get_member(user_id=None):
 
     return key
 
+def get_users_accounts(user_id=None):
+    if not user_id:
+        user = users.get_current_user()
+        if not user:
+            return None
+        user_id = user.user_id()
+
+    key = ndb.Key('Member', user_id)
+
+    return key.get()
+
+
+
 
 def get_member_household_key():
     return get_member().get().household

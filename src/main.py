@@ -14,7 +14,7 @@ class HomePageHandler(webapp2.RequestHandler):
    def get(self):
        user = users.get_current_user()
        if user:
-           if models.get_member():
+           if models.get_users_accounts():
                DASHBOARD_HTML = open('./templates/dashboard.html').read()
                self.response.out.write(DASHBOARD_HTML)
 
