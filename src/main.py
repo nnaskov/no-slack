@@ -1,6 +1,7 @@
 import webapp2
 import jinja2
 import os
+from app import models
 from google.appengine.api import users
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -13,8 +14,14 @@ class HomePageHandler(webapp2.RequestHandler):
    def get(self):
        user = users.get_current_user()
        if user:
-           DASHBOARD_HTML = open('./templates/dashboard.html').read()
-           self.response.out.write(DASHBOARD_HTML)
+           if models.get_member():
+               DASHBOARD_HTML = open('./templates/dashboard.html').read()
+               self.response.out.write(DASHBOARD_HTML)
+
+           else:
+               INDEX_HTML = open('./templates/index.html').read()
+               self.response.out.write(INDEX_HTML)
+
        else:
            login_url = users.create_login_url(self.request.url)
 
@@ -24,6 +31,12 @@ class HomePageHandler(webapp2.RequestHandler):
 
            template = JINJA_ENVIRONMENT.get_template('index.html')
            self.response.write(template.render(template_values))
+
+class IndexHandler(webapp2.RequestHandler):
+    def get(self):
+        INDEX_HTML = open('./templates/index.html').read()
+        self.response.out.write(INDEX_HTML)
+
 
 
 class MainAppHandler(webapp2.RequestHandler):
@@ -70,6 +83,7 @@ class UnitTestsHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', HomePageHandler),
+    (r'/index/?', IndexHandler),
     (r'/app/?', MainAppHandler),
     (r'/house/?', HouseHandler),
     (r'/tests/?', UnitTestsHandler)
