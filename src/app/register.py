@@ -3,12 +3,24 @@ __author__ = 'dominicsmith'
 import webapp2
 import json
 from app import models
+from google.appengine.api import users
 
 class RegisterHandler(webapp2.RequestHandler):
 
     def get(self):
-        REGISTRATION_HTML = open('./templates/register.html').read()
-        self.response.out.write(REGISTRATION_HTML)
+        user = users.get_current_user()
+        if user:
+            if models.get_member():
+                DASHBOARD_HTML = open('./templates/dashboard.html').read()
+                self.response.out.write(DASHBOARD_HTML)
+
+            else:
+                REGISTRATION_HTML = open('./templates/register.html').read()
+                self.response.out.write(REGISTRATION_HTML)
+
+        else:
+            login_url = users.create_login_url(self.request.url)
+            self.redirect(login_url)
 
     def post(self):
         json_data = json.loads(self.request.body)
