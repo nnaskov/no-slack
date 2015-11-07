@@ -33,7 +33,7 @@ class RegisterHandler(webapp2.RequestHandler):
         self.response.headers['Content-Type'] = 'application/json'
 
         obj = {
-            'redirect': '/app/'
+            'redirect': '/'
         }
 
         self.response.out.write(json.dumps(obj))
