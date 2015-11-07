@@ -6096,11 +6096,19 @@ button.close {
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   transition: all 0.35s; }
+  .tile a {
+    color: #fff !important; }
   .tile#addTaskTile {
     border: 2px solid #888;
     text-align: center;
     height: 100%;
     display: table; }
+    a > .tile#addTaskTile {
+      color: #888;
+      text-decoration: none !important; }
+      a > .tile#addTaskTile:focus, a > .tile#addTaskTile:hover {
+        text-decoration: none !important;
+        color: #fff; }
     .tile#addTaskTile span {
       font-size: 60px;
       display: table-cell;
@@ -6462,34 +6470,33 @@ aside {
 .navbar-default .navbar-nav > li > a {
   color: white; }
 
-body {
-  background-color: #f2f2f2;
-  font-family: 'Lato', sans-serif;
-  color: #555;
-  -webkit-font-smoothing: antialiased;
-  -webkit-overflow-scrolling: touch; }
-
 .centered {
   text-align: center; }
 
 /* Links */
+/*
 a {
-  color: #3498db;
-  word-wrap: break-word;
-  -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
-  -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
-  -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
-  -o-transition: color 0.1s ease-in, background 0.1s ease-in;
-  transition: color 0.1s ease-in, background 0.1s ease-in; }
+    color: #3498db;
+    word-wrap: break-word;
+
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+
 
 a:before,
 a:after {
-  -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
-  -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
-  -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
-  -o-transition: color 0.1s ease-in, background 0.1s ease-in;
-  transition: color 0.1s ease-in, background 0.1s ease-in; }
-
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+*/
 hr {
   display: block;
   height: 1px;

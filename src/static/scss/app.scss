@@ -57,7 +57,21 @@ $display_font_family: 'Lato', sans-serif;
     padding: 20px;
     cursor: pointer;
     
+    a{
+        color: #fff !important;    
+    }
+    
     &#addTaskTile{
+        
+        a > &{
+            color: #888;
+            text-decoration: none !important;
+            &:focus,&:hover{
+                text-decoration: none !important;
+                color: #fff;
+            }
+        }
+        
         border: 2px solid #888;
         text-align: center;
         height:100%; 
@@ -434,14 +448,6 @@ aside {
 	color: white;
 }
 
-body {
-  background-color: #f2f2f2;
-    font-family: 'Lato', sans-serif;
-    color: #555;
-
-    -webkit-font-smoothing: antialiased;
-    -webkit-overflow-scrolling: touch;
-}
 
 
 .centered {
@@ -449,6 +455,7 @@ body {
 }
 
 /* Links */
+/*
 a {
     color: #3498db;
     word-wrap: break-word;
@@ -470,6 +477,7 @@ a:after {
     -o-transition: color 0.1s ease-in, background 0.1s ease-in;
     transition: color 0.1s ease-in, background 0.1s ease-in;
 }
+*/
 
  hr {
     display: block;

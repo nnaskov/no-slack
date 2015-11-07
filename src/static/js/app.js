@@ -2,7 +2,7 @@
 
 var index_app = angular.module('app.index',[]);
 
-var app = angular.module('app.dashboard', ['ui.router', 'ui.bootstrap','angular.vertilize']);
+var app = angular.module('app.dashboard', ['ui.router', 'ui.bootstrap','ui.bootstrap.tpls','angular.vertilize']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/dashboard");
@@ -14,10 +14,27 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: "static/partials/dashboard.html",
             controller: 'TasksController'
         })
+        .state("dashboard.addTask", {
+        url: "/add/task",
+        onEnter: function($stateParams, $state, $uibModal) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'static/partials/addTask.html',
+                controller: 'AddTaskController'
+            });
+            
+            modalInstance.result.then(function success(){
+                //Do success things
+            },function fail(reason){
+                if( ~reason.indexOf('backdrop') ){ 
+                    $state.go("dashboard");
+                }
+            });
+        }})
         .state('house', {
             url: "/house",
             templateUrl: "static/partials/house.html",
-            controller: function($scope){
+            controller: function(){
             }
         })
     ;
