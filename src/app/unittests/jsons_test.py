@@ -1,5 +1,4 @@
 import unittest
-import mock
 from app import jsons
 from google.appengine.ext import ndb
 
@@ -16,7 +15,6 @@ class TaskTestModel(ndb.Model):
     style = ndb.TextProperty("glpyh")
 
 class JSONSTestCase(unittest.TestCase):
-    from mock import MagicMock
 
     def test_task_json(self):
         task = TaskTestModel()
