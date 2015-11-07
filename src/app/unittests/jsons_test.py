@@ -19,7 +19,6 @@ class TaskTestModel(ndb.Model):
 class JSONSTestCase(unittest.TestCase):
 
 
-    @mock.patch()
     def test_task_json(self):
         task = TaskTestModel()
         task.frequency = 5
