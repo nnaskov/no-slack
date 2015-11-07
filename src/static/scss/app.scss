@@ -346,12 +346,6 @@ h6 {
     @include sans-serif-font();
 }
 
-p {
-    font-size: 14px;
-    line-height: 1.5;
-    margin-bottom: 20px;
-}
-
 .bg-primary {
     background-color: $theme-primary;
 }

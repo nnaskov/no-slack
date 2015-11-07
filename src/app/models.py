@@ -55,9 +55,9 @@ def household_exists(house_name):
 
 def add_default_tasks(house_key):
     add_task_given_key(house_key=house_key, task_name="Washing up", frequency=2,
-                       description="Please clean the dirty plates and dishes")
+                       description="Please clean the dirty plates and dishes",  style="glyphicon glyphicon-tint")
     add_task_given_key(house_key=house_key, task_name="Hoover lounge", frequency=10,
-                       description="Get rid of all the bits on the floor")
+                       description="Get rid of all the bits on the floor", style="fa fa-dot-circle-o")
 
 
 def get_member(user_id=None):
@@ -95,7 +95,7 @@ def get_household_tasks():
     return q.fetch(limit=100)
 
 
-def add_task_given_key(house_key, task_name, description=None, frequency=None, style=None):
+def add_task_given_key(house_key, task_name, description=None, frequency=None, style="glyphicon glyphicon-remove-circle"):
     new_task = Task(name=task_name, frequency=frequency, household=house_key,
                     user_who_added=get_member(), style=style, description=description)
     new_task.put()

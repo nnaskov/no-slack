@@ -50,7 +50,7 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/">Dashboard</a></li>
-                    <li><a href="#">House</a></li>
+                    <li><a href="">House</a></li>
                     <li><a class="page-scroll" href="/settings"><span class="glyphicon glyphicon-cog small-glyph" aria-hidden="true"></span></a></li>
                 </ul>
                 <form class="navbar-form navbar-right">
@@ -61,54 +61,54 @@
         </div>
     </nav>
          
-         <h1 style="margin-left: 20px; margin-bottom: 20px;">13HulseRoad's House Info [Unfinished]</h1>
-        <!-- container -->
-        <div class="container-fluid tile-container">
-            <div class="row center-row">
-                <div class="col-sm-6">
-                    <div ng-controller="TasksController" class="row row-centered">
-                        <div class="person-list">
-                            <div id="none" class="tile dark-red tile-animated" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
-                                <img src="../static/img/blank-picture.jpg" height="150px">
-                                <h2 class="title">Adam Noakes</h2>
-                                <ul class="person-detail-list">
-                                    <li><b>Favourite task: </b>Hoovering Lounge</li>
-                                    <li><b>Last task: </b>Washing Up</li>
-                                    <li><b>Next task: </b>Gardening</li>
-                                    <li><b>Task share:</b><span style="font-size: 24px; font-weight: 100;"> 23%</span></li>
-                                    <li><b>Average Score:</b><span style="font-size: 24px; font-weight: 100;"> 80%</span></li>
-                                </ul>
-                            </div>
+     <h1 style="margin-left: 20px; margin-bottom: 20px;">13HulseRoad's House Info [Unfinished]</h1>
+    <!-- container -->
+    <div class="container-fluid tile-container">
+        <div class="row center-row">
+            <div class="col-sm-6">
+                <div ng-controller="TasksController" class="row row-centered">
+                    <div class="person-list">
+                        <div id="none" class="tile dark-red tile-animated" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
+                            <img src="../static/img/blank-picture.jpg" height="150px">
+                            <h2 class="title">Adam Noakes</h2>
+                            <ul class="person-detail-list">
+                                <li><b>Favourite task: </b>Hoovering Lounge</li>
+                                <li><b>Last task: </b>Washing Up</li>
+                                <li><b>Next task: </b>Gardening</li>
+                                <li><b>Task share:</b><span style="font-size: 24px; font-weight: 100;"> 23%</span></li>
+                                <li><b>Average Score:</b><span style="font-size: 24px; font-weight: 100;"> 80%</span></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div ng-controller="TasksController">
-                        <div class="task-list" ng-repeat="task in list">
-                            <div id="{{task.taskID}}" class="task-list-item dark-red tile-animated row" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
-                                <div class="task-list-item-content">
-                                    <span class="glyphicon glyphicon-tint glyph-button" aria-hidden="true" style="font-size: 1.5em;"></span>
-                                    <h3>Washing Up</h3>
-                                    <div class="input-group">
-                                    <span class="input-group-addon" id="sizing-addon1">Frequency</span>
-                                      <input type="text" class="form-control frequency-input" value="{{task.frequency}}" aria-label="...">
-                                      <div class="input-group-btn frequency-dropdown">
-                                        <button type="button" id="frequency-button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hours<span class="caret frequency-caret"></span></button>
-                                        <ul class="dropdown-menu dropdown-menu-right">
-                                          <li><a href="#">Hours</a></li>
-                                          <li><a href="#">Days</a></li>
-                                          <li><a href="#">Weeks</a></li>
-                                        </ul>
-                                      </div><!-- /btn-group -->
-                                    </div><!-- /input-group -->
-                                </div>
+            </div>
+            <div class="col-sm-6">
+                <div ng-controller="TasksController">
+                    <div class="task-list" ng-repeat="task in list">
+                        <div id="{{task.taskID}}" class="task-list-item dark-red tile-animated row" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
+                            <div class="task-list-item-content">
+                                <span class="glyphicon glyphicon-tint glyph-button" aria-hidden="true" style="font-size: 1.5em;"></span>
+                                <h3>Washing Up</h3>
+                                <div class="input-group">
+                                <span class="input-group-addon" id="sizing-addon1">Frequency</span>
+                                  <input type="text" class="form-control frequency-input" value="{{task.frequency}}" aria-label="...">
+                                  <div class="input-group-btn frequency-dropdown">
+                                    <button type="button" id="frequency-button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hours<span class="caret frequency-caret"></span></button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                      <li><a href="#">Hours</a></li>
+                                      <li><a href="#">Days</a></li>
+                                      <li><a href="#">Weeks</a></li>
+                                    </ul>
+                                  </div><!-- /btn-group -->
+                                </div><!-- /input-group -->
                             </div>
                         </div>
-                    </div>              
+                    </div>
+                </div>              
 
-                </div>
-            </div>       
-        </div> 
+            </div>
+        </div>       
+    </div> 
         <!-- /container -->
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js" type="text/javascript" charset="utf-8"></script>
