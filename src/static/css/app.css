@@ -5582,12 +5582,15 @@ button.close {
   margin: 0;
   padding: 8px 14px;
   font-size: 14px;
-  background-color: #f7f7f7;
+  font-weight: bold;
+  background-color: darkgrey;
   border-bottom: 1px solid #ebebeb;
   border-radius: 5px 5px 0 0; }
 
 .popover-content {
-  padding: 9px 14px; }
+  padding: 0px 0px;
+  color: black;
+    }
 
 .popover > .arrow,
 .popover > .arrow:after {
