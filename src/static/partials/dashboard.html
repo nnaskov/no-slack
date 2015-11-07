@@ -1,0 +1,64 @@
+<div class="block-grid-lg-4 block-grid-md-3 block-grid-sm-2 block-grid-xs-1" vertilize-container>
+    <!-- Show all tasks-->
+
+    <div ng-repeat="task in list" class="block-grid-item" vertilize>
+        <div ng-controller="TaskController" ng-init="task=task" id="{{task.taskID}}" class="tile red tile-animated" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
+            <!-- Each Task Tile -->
+            <div class="row">
+                <!-- ICON + FEEDBACK -->
+                <div class="col-xs-6 col-sm-4">
+                    <div class="row">
+                        <div class="glyph-box {{task.taskStyle}}" style="font-size: 60px;"></div>
+                    </div>
+                    <div class="row row-margin-25 no-padding">
+                        <div ng-show="task.everCompleted" class="col-xs-12">
+                            <div class="row no-padding">
+                                <div class="col-xs-6 no-padding-right">
+                                    <span id="{{task.taskID}}-thumbs-up" ng-click="addFeedback(true)" class="{{task.userFeedback == true ? 'fa fa-thumbs-up' : 'fa-thumbs-o-up fa'}} glyph-button" aria-hidden="true"></span>
+                                    <span id="{{task.taskID}}-positive-feedback">{{task.positiveFeedback}}</span>     
+                                </div>
+                                <div class="col-xs-6 no-padding">
+                                    <span id="{{task.taskID}}-thumbs-down" ng-click="addFeedback(false)" class="{{task.userFeedback == false ? 'fa fa-thumbs-down' : 'fa-thumbs-o-down fa'}} glyph-button" aria-hidden="true"></span>
+                                    <span id="{{task.taskID}}-negative-feedback">{{task.negativeFeedback}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NAME + DESCRIPTION-->
+                <div class="col-xs-6 col-sm-8">
+                    <div class="row">
+                        <div class="col-xs-12 text-right">
+                            <h2 class="title">{{task.taskName}}</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 text-right">
+                            <span>{{task.description}}</span>
+                        </div>
+                    </div>
+                    <div class="row row-margin-25">
+                        <div class="col-xs-6 col-xs-offset-6 col-sm-8 col-sm-offset-4">
+                            <div class="row">
+                                <div class="col-sm-3 col-sm-offset-4 col-xs-6 text-right">
+                                    <span ng-click="addTaskEvent()" class="glyphicon glyphicon-ok glyph-button" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-sm-3 col-xs-6 text-right pull-right">
+                                    <span ng-click="getAllForTask()" class="glyphicon glyphicon-list glyph-button" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Task Tile -->
+    <div class="block-grid-item" vertilize>
+        <div id="addTaskTile" class="tile">
+            <span>+</span>
+        </div>
+    </div>
+</div>

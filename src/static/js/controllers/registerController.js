@@ -12,9 +12,9 @@ index_app.controller('RegisterController', ['$scope', '$http', function($scope, 
         var data = {'firstName': $scope.firstname, 'lastName': $scope.lastname, 'houseName': $scope.housename};
         
         var res = $http.post('/register', data);
-        
+
         res.success(function(data, status, headers, config) {
-            window.location.replace(data.redirect); 
+            window.location.replace(data.redirect);
         });
         
         res.error(function(data, status, headers, config) {
