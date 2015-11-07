@@ -6115,7 +6115,6 @@ button.close {
     margin-top: 0px;
     line-height: 1.1em;
     white-space: nowrap;
-    width: 300px;
     /* Small */
     /* Medium */
     /* Large */ }
@@ -6180,7 +6179,8 @@ button.close {
 
 .person-list > .row > .tile > h2 {
   margin-left: 20px;
-  float: left; }
+  float: left;
+  width: 300px; }
 
 .person-detail-list {
   float: left;
