@@ -6075,29 +6075,6 @@ button.close {
 .input-group-addon {
   color: #fff; }
 
-body {
-  font-family: "Lato", sans-serif;
-  font-size: 14px;
-  line-height: 1.1em;
-  font-weight: 400; }
-
-p, span, a, ul, li, button {
-  font-family: inherit;
-  font-size: inherit;
-  font-weight: inherit;
-  line-height: inherit; }
-
-strong {
-  font-weight: 600; }
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Lato", sans-serif;
-  line-height: 1.1em;
-  font-weight: 300; }
-
-strong {
-  font-weight: 400; }
-
 /* centered columns styles */
 .col-centered {
   display: inline-block;
@@ -6190,7 +6167,7 @@ strong {
   min-width: 460px; }
 
 .person-list {
-  max-width: 460px;
+  max-width: 480px;
   margin-left: auto;
   margin-right: auto; }
 
@@ -6261,17 +6238,6 @@ strong {
   color: white;
   border-color: #993333; }
 
-/*
-Nest into another class because you are interfering with homepage styling
-.form-control{
-    height: 33px;
-}
-
-.input-group-addon{
-    background: none;
-    border: none;
-}
-*/
 .frequency-caret {
   margin-left: 5px; }
 
@@ -6287,14 +6253,6 @@ Nest into another class because you are interfering with homepage styling
 .input-group-btn:last-child > .btn {
   margin-left: 2px; }
 
-/*.row [class*="col-"]{
-  margin-bottom: -99999px;
-  padding-bottom: 99999px;
-}
-
-.row{
-  overflow: hidden; 
-}*/
 .fa-thumbs-o-down .fa-thumbs-o-up {
   font-size: 92%; }
 
@@ -6361,7 +6319,7 @@ h6 {
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif; }
 
 p {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.5;
   margin-bottom: 20px; }
 
@@ -6503,35 +6461,9 @@ aside {
 body {
   background-color: #f2f2f2;
   font-family: 'Lato', sans-serif;
-  font-weight: 300;
-  font-size: 16px;
   color: #555;
   -webkit-font-smoothing: antialiased;
   -webkit-overflow-scrolling: touch; }
-
-/* Titles */
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Lato', sans-serif;
-  font-weight: 300;
-  color: #333; }
-
-h1 {
-  font-size: 40px; }
-
-h3 {
-  color: #95a5a6;
-  font-weight: 400; }
-
-h4 {
-  color: #95a5a6;
-  font-weight: 400;
-  font-size: 20px; }
-
-/* Paragraph & Typographic */
-p {
-  line-height: 28px;
-  margin-bottom: 25px;
-  font-size: 16px; }
 
 .centered {
   text-align: center; }
