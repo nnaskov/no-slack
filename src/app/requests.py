@@ -114,7 +114,10 @@ class MemberHandler(webapp2.RequestHandler):
     def get(self):
         members_list = models.get_members_list()
         members = jsons.get_all_members_json(members_list)
-        json_data = json.dumps(members)
+        json_data = {}
+        json_data["houseName"] = models.get_member_household_key().get().name
+        json_data["members"] = members
+        json_data = json.dumps(json_data)
         self.response.out.write(json_data)
 
 
