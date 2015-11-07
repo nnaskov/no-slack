@@ -11,8 +11,8 @@ class RegisterHandler(webapp2.RequestHandler):
         user = users.get_current_user()
         if user:
             if models.get_users_accounts():
-                DASHBOARD_HTML = open('./templates/dashboard.html').read()
-                self.response.out.write(DASHBOARD_HTML)
+                self.redirect('/')
+
 
             else:
                 REGISTRATION_HTML = open('./templates/register.html').read()
