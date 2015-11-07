@@ -122,5 +122,5 @@ app = webapp2.WSGIApplication([
     (r'/requests/house/check/(\w+)/?', HouseNamesHandler),
     ('/requests/task/?', TaskHandler),
     (r'/requests/task/(\d+)/taskevent/?', TaskEventHandler),
-    ('/requests/member/?', MemberHandler),
+    (r'/requests/member/?', MemberHandler),
 ], debug=True)
