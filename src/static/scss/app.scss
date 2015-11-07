@@ -183,8 +183,18 @@ strong {
 }
 
 .dark-red{
-    background-color: #933333;
+    background-color: $theme_primary;
     color: white;
+}
+
+.center-row{
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center-row > .col-sm-6 {
+    min-width: 460px;
 }
 .person-list {
     max-width: 480px;
@@ -209,6 +219,7 @@ strong {
     list-style: none;
     margin-left: -23px;
     margin-bottom: 0px;
+    line-height: 22px;
 }
 
 .task-list{
@@ -216,6 +227,12 @@ strong {
     max-width: 480px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.task-list-item-content{
+    margin-left: auto;
+    margin-right: auto;
+    width: 360px;
 }
 
 .task-list-item{
@@ -226,42 +243,43 @@ strong {
     padding: 10px;
     padding-bottom: 5px;
     margin-bottom: 10px;
-    background-color: #933333;
+    background-color: $theme_primary;
     color: white;
 }
 
-.task-list-item > .col-sm-2 {
-    min-width: 200px;
-}
 
-.task-list-item > .col-sm-4 {
-    min-width: 230px;
-}
-
-.task-list-item > .col-sm-2 > .glyphicon{
+.task-list-item > .task-list-item-content > .glyphicon{
     float: left;
     font-size: 1.5em;
     line-height: 30px;
+    margin-top: 5px;
 }
-.task-list-item > .col-sm-2 > h3{
-    margin-top: 0px;
+.task-list-item > .task-list-item-content > h3{
+    color: white;
+    margin-top: 5px;
     float: left;
     margin-left: 10px;
     line-height: 30px;
 
 }
 
-.task-list-item > .col-sm-4 > .input-group {
+.task-list-item > .task-list-item-content > .input-group {
+    line-height: 30px;
+}
+
+.task-list-item > .task-list-item-content > .input-group-addon {
     margin-left: -10px;
     max-width: 240px;
+    line-height: 30px;
 }
 
 #frequency-button{
-    margin-left: -10px;
+  
     padding-left: 0px;
-    background-color: #933333;
+    line-height: 30px;
+    background-color: $theme_primary;
     color: white;
-    border-color: #933333;
+    border-color: $theme_primary;
 }
 
 /*
@@ -276,20 +294,18 @@ Nest into another class because you are interfering with homepage styling
 }
 */
 
-.frequency-dropdown{
-    width: 80px;
-}
 
 .frequency-caret{
     margin-left: 5px;
 }
 
-#frequency-input{
-    background-color: #822d2d;
+.frequency-input{
+    background-color: darken($theme_primary, 2%);
     color: white;
-    border-color: #933333;
+    border-color: $theme_primary;
     text-align: center;
     padding: 0px;
+    width: 24px;
     width: 24px;
 }
 .input-group-btn:last-child > .btn{
@@ -446,8 +462,10 @@ aside {
 .navbar{
     border-radius: 0px;
 }
+
+
 .navbar-default {
-	background-color: #933333;
+	background-color: $theme_primary;
 	border-color: transparent;
 }
 
@@ -515,12 +533,7 @@ a {
     transition: color 0.1s ease-in, background 0.1s ease-in;
 }
 
-a:hover,
-a:focus {
-    color: #7b7b7b;
-    text-decoration: none;
-    outline: 0;
-}
+
 
 a:before,
 a:after {
@@ -541,7 +554,7 @@ a:after {
 }
 
 .navbar-default {
-	background-color: #933333;
+	background-color: $theme_primary;
 	border-color: transparent;
 }
 
@@ -549,8 +562,16 @@ a:after {
 	color: white;
 }
 
+.navbar-default .navbar-brand:hover {
+	color: darken(white, 20%);
+}
+
 .navbar-default .navbar-nav > li > a {
 	color: white;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+	color: darken(white, 20%);
 }
 
 /* Helpers */
@@ -571,11 +592,10 @@ i {
 	color: #3498db; 
 }
 
-
 /* HeaderWrap */
 #headerwrap {
 	/* background: url(../img/bg01.jpg) no-repeat center top; */
-	background-color: #933333;
+	background-color: $theme_primary;
 	margin-top: -20px;
 	padding-top:200px;
 	background-attachment: relative;
