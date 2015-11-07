@@ -2,6 +2,8 @@ import unittest
 from app import jsons
 from google.appengine.ext import ndb
 
+import mock
+
 
 class TaskTestModel(ndb.Model):
     household = ndb.KeyProperty()
@@ -16,6 +18,8 @@ class TaskTestModel(ndb.Model):
 
 class JSONSTestCase(unittest.TestCase):
 
+
+    @mock.patch()
     def test_task_json(self):
         task = TaskTestModel()
         task.frequency = 5
