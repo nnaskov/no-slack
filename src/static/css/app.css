@@ -5582,15 +5582,12 @@ button.close {
   margin: 0;
   padding: 8px 14px;
   font-size: 14px;
-  font-weight: bold;
-  background-color: darkgrey;
+  background-color: #f7f7f7;
   border-bottom: 1px solid #ebebeb;
   border-radius: 5px 5px 0 0; }
 
 .popover-content {
-  padding: 0px 0px;
-  color: black;
-    }
+  padding: 9px 14px; }
 
 .popover > .arrow,
 .popover > .arrow:after {
@@ -6074,6 +6071,73 @@ button.close {
 
 .partial-style {
   color: red; }
+
+/* ANIMATIONS
+============================================================================= */
+/* leaving animations ----------------------------------------- */
+/* rotate and fall */
+@keyframes rotateFall {
+  0% {
+    transform: rotateZ(0deg); }
+  20% {
+    transform: rotateZ(10deg);
+    animation-timing-function: ease-out; }
+  40% {
+    transform: rotateZ(17deg); }
+  60% {
+    transform: rotateZ(16deg); }
+  100% {
+    transform: translateY(100%) rotateZ(17deg); } }
+
+@-webkit-keyframes slideOutLeft {
+  to {
+    transform: translateX(-100%); } }
+
+/* slide in from the bottom */
+@keyframes slideOutLeft {
+  to {
+    transform: translateX(-100%); } }
+
+/* rotate out newspaper */
+@keyframes rotateOutNewspaper {
+  to {
+    transform: translateZ(-3000px) rotateZ(360deg);
+    opacity: 0; } }
+
+/* entering animations --------------------------------------- */
+/* scale up */
+@keyframes scaleUp {
+  from {
+    opacity: 0.3;
+    -webkit-transform: scale(0.8); } }
+
+@-webkit-keyframes slideInRight {
+  from {
+    transform: translateX(100%); }
+  to {
+    transform: translateX(0); } }
+
+/* slide in from the right */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%); }
+  to {
+    transform: translateX(0); } }
+
+/* slide in from the bottom */
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%); }
+  to {
+    transform: translateY(0); } }
+
+.ng-enter {
+  animation: slideInRight 1.2s both ease;
+  z-index: 8888; }
+
+.ng-leave {
+  animation: slideOutLeft 0.8s both ease;
+  z-index: 9999; }
 
 .input-group-addon {
   color: #fff; }
