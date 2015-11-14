@@ -18,6 +18,11 @@ $input-group-addon-border-color: $input-group-addon-bg;
 @import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light);
 
 
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}
+
 /* ANIMATIONS
 ============================================================================= */
 
@@ -70,9 +75,32 @@ $input-group-addon-border-color: $input-group-addon-bg;
 .ng-enter           { animation: slideInRight 1.2s both ease; z-index: 8888; }
 .ng-leave           { animation: slideOutLeft 0.8s both ease; z-index: 9999; }
 
+.btn.focus{
+    outline-style:none;
+    box-shadow:none;
+}
 
-.input-group-addon{
+.boxSizingBorder {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.text-left{
+    text-align: left !important;
+}
+
+.input-group-addon, .input-group-btn{
     color: #fff;
+    padding: 0!important;
+    background: white !important;
+    border: none !important;
+    
+    button{
+        border-bottom-left-radius: 0px;
+        border-top-left-radius: 0px;
+        padding: 1px 12px;
+    }
 }
 
 //Tile colours
@@ -455,6 +483,7 @@ aside {
     padding-left:0;
 }
 
+/*
 // Button Styles
 .btn-default {
     @include button-variant($theme-dark,white,white);
@@ -463,7 +492,7 @@ aside {
 .btn-primary {
     @include button-variant(white,$theme-primary,$theme-primary);
 }
-
+*/
 
 
 .btn-xl {
@@ -566,12 +595,6 @@ a:after {
 .mt {
 	margin-top: 40px;
 	margin-bottom: 40px;
-}
-
-.form-control {
-	height: 42px;
-	font-size: 18px;
-	width: 280px;
 }
 
 i {
@@ -710,3 +733,4 @@ body {
 
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+

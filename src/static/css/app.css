@@ -6072,6 +6072,10 @@ button.close {
 .partial-style {
   color: red; }
 
+.no-gutter > [class*='col-'] {
+  padding-right: 0;
+  padding-left: 0; }
+
 /* ANIMATIONS
 ============================================================================= */
 /* leaving animations ----------------------------------------- */
@@ -6139,8 +6143,27 @@ button.close {
   animation: slideOutLeft 0.8s both ease;
   z-index: 9999; }
 
-.input-group-addon {
-  color: #fff; }
+.btn.focus {
+  outline-style: none;
+  box-shadow: none; }
+
+.boxSizingBorder {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.text-left {
+  text-align: left !important; }
+
+.input-group-addon, .input-group-btn {
+  color: #fff;
+  padding: 0 !important;
+  background: white !important;
+  border: none !important; }
+  .input-group-addon button, .input-group-btn button {
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    padding: 1px 12px; }
 
 /* centered columns styles */
 .col-centered {
@@ -6425,94 +6448,16 @@ aside {
   padding-right: 0;
   padding-left: 0; }
 
+/*
+// Button Styles
 .btn-default {
-  color: #222;
-  background-color: white;
-  border-color: white;
-  -webkit-transition: all 0.35s;
-  -moz-transition: all 0.35s;
-  transition: all 0.35s; }
-  .btn-default:hover,
-  .btn-default:focus,
-  .btn-default.focus,
-  .btn-default:active,
-  .btn-default.active,
-  .open > .dropdown-toggle .btn-default {
-    color: #222;
-    background-color: #f2f2f2;
-    border-color: #ededed; }
-  .btn-default:active,
-  .btn-default.active,
-  .open > .dropdown-toggle .btn-default {
-    background-image: none; }
-  .btn-default.disabled,
-  .btn-default.disabled:hover,
-  .btn-default.disabled:focus,
-  .btn-default.disabled.focus,
-  .btn-default.disabled:active,
-  .btn-default.disabled.active,
-  .btn-default[disabled],
-  .btn-default[disabled]:hover,
-  .btn-default[disabled]:focus,
-  .btn-default[disabled].focus,
-  .btn-default[disabled]:active,
-  .btn-default[disabled].active,
-  fieldset[disabled] .btn-default,
-  fieldset[disabled] .btn-default:hover,
-  fieldset[disabled] .btn-default:focus,
-  fieldset[disabled] .btn-default.focus,
-  fieldset[disabled] .btn-default:active,
-  fieldset[disabled] .btn-default.active {
-    background-color: white;
-    border-color: white; }
-  .btn-default .badge {
-    color: white;
-    background-color: #222; }
+    @include button-variant($theme-dark,white,white);
+}
 
 .btn-primary {
-  color: white;
-  background-color: #993333;
-  border-color: #993333;
-  -webkit-transition: all 0.35s;
-  -moz-transition: all 0.35s;
-  transition: all 0.35s; }
-  .btn-primary:hover,
-  .btn-primary:focus,
-  .btn-primary.focus,
-  .btn-primary:active,
-  .btn-primary.active,
-  .open > .dropdown-toggle .btn-primary {
-    color: white;
-    background-color: #862d2d;
-    border-color: #7e2a2a; }
-  .btn-primary:active,
-  .btn-primary.active,
-  .open > .dropdown-toggle .btn-primary {
-    background-image: none; }
-  .btn-primary.disabled,
-  .btn-primary.disabled:hover,
-  .btn-primary.disabled:focus,
-  .btn-primary.disabled.focus,
-  .btn-primary.disabled:active,
-  .btn-primary.disabled.active,
-  .btn-primary[disabled],
-  .btn-primary[disabled]:hover,
-  .btn-primary[disabled]:focus,
-  .btn-primary[disabled].focus,
-  .btn-primary[disabled]:active,
-  .btn-primary[disabled].active,
-  fieldset[disabled] .btn-primary,
-  fieldset[disabled] .btn-primary:hover,
-  fieldset[disabled] .btn-primary:focus,
-  fieldset[disabled] .btn-primary.focus,
-  fieldset[disabled] .btn-primary:active,
-  fieldset[disabled] .btn-primary.active {
-    background-color: #993333;
-    border-color: #993333; }
-  .btn-primary .badge {
-    color: #993333;
-    background-color: white; }
-
+    @include button-variant(white,$theme-primary,$theme-primary);
+}
+*/
 .btn-xl {
   padding: 15px 30px; }
 
@@ -6592,11 +6537,6 @@ hr {
 .mt {
   margin-top: 40px;
   margin-bottom: 40px; }
-
-.form-control {
-  height: 42px;
-  font-size: 18px;
-  width: 280px; }
 
 i {
   margin: 8px;
