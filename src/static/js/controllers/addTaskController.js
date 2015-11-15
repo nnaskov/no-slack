@@ -14,7 +14,7 @@ app.controller('AddTaskController', function ($scope, $state, $uibModalInstance)
     };
     $scope.minDate = $scope.minDate ? null : new Date();
     $scope.maxDate = new Date(2020, 5, 22);
-    $scope.format = 'dd-mm-yyyy';
+    $scope.format = 'dd-MM-yyyy';
     
     $scope.open = function($event) {
         $scope.status.opened = true;

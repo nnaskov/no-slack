@@ -1,18 +1,18 @@
 <!-- container -->
 <div class="container-fluid tile-container">
-<div ng-controller="MembersController"><!--quick fix-->
+<div><!--quick fix-->
     <div class="row center-row">
         <div class="col-12">
-            <h1>{{list.houseName}}'s House Info</h1>
+            <h1>{{houseData.houseName}}'s House Info</h1>
         </div>
     </div>
     </div>
     <div class="row center-row">
         <div class="col-sm-6">
-            <div ng-controller="MembersController">
-                <div class="person-list" ng-repeat="member in list.members">
+            <div>
+                <div class="person-list" ng-repeat="member in houseData.members">
                     <div class="row row-centered">
-                        <div id="none" class="tile dark-red tile-animated" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
+                        <div id="none" class="tile dark-red tile-animated">
                             <img src="../static/img/blank-picture.jpg" height="150px">
                             <h2 class="title">{{member.firstName}} {{member.lastName}}</h2>
                             <ul class="person-detail-list">
@@ -28,8 +28,8 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <div ng-controller="TasksController">
-                <div class="task-list" ng-repeat="task in list">
+            <div>
+                <div class="task-list" ng-repeat="task in tasks">
                     <div id="{{task.taskID}}" class="task-list-item dark-red tile-animated row" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
                         <div class="task-list-item-content">
                             <div class="task-list-left">

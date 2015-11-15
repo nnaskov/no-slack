@@ -72,8 +72,71 @@ $input-group-addon-border-color: $input-group-addon-bg;
     to      { transform: translateY(0); }
 }
 
-.ng-enter           { animation: slideInRight 1.2s both ease; z-index: 8888; }
-.ng-leave           { animation: slideOutLeft 0.8s both ease; z-index: 9999; }
+.mainContent.ng-enter           { animation: slideInRight 1.2s both ease; z-index: 8888; }
+.mainContent.ng-leave           { animation: slideOutLeft 0.8s both ease; z-index: 9999; }
+
+.ng-enter, .ng-move {
+    -webkit-transition:0.5s linear all;
+    -moz-transition:0.5s linear all;
+    -o-transition:0.5s linear all;
+    transition:0.5s linear all;
+    opacity:0;
+}
+
+/*
+The ng-enter-active and ng-move-active
+are where the transition destination properties
+are set so that the animation knows what to
+animate.
+*/
+.ng-enter.ng-enter-active,
+.ng-move.ng-move-active {
+    opacity:1;
+}
+
+/*
+We're using CSS keyframe animations for when
+the leave event is triggered for the element
+that has the .repeated-item class
+*/
+.ng-leave {
+    -webkit-animation:0.5s my_animation;
+    -moz-animation:0.5s my_animation;
+    -o-animation:0.5s my_animation;
+    animation:0.5s my_animation;
+}
+
+@keyframes my_animation {
+    from { opacity:1; }
+    to { opacity:0; }
+}
+
+/*
+Unfortunately each browser vendor requires
+its own definition of keyframe animation code...
+*/
+@-webkit-keyframes my_animation {
+    from { opacity:1; }
+    to { opacity:0; }
+}
+
+@-moz-keyframes my_animation {
+    from { opacity:1; }
+    to { opacity:0; }
+}
+
+@-o-keyframes my_animation {
+    from { opacity:1; }
+    to { opacity:0; }
+}
+
+@mixin vertical-align($position: relative) {
+    position: $position;
+    top: 50% !important;
+    -webkit-transform: translateY(-50%) !important;
+    -ms-transform: translateY(-50%) !important;
+    transform: translateY(-50%) !important;
+}
 
 .btn.focus{
     outline-style:none;
