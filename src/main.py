@@ -19,8 +19,14 @@ class HomePageHandler(webapp2.RequestHandler):
                self.response.out.write(DASHBOARD_HTML)
 
            else:
-               INDEX_HTML = open('./templates/index.html').read()
-               self.response.out.write(INDEX_HTML)
+                login_url = users.create_login_url(self.request.url)
+
+                template_values = {
+                    'login_url' : login_url
+                }
+
+                template = JINJA_ENVIRONMENT.get_template('index.html')
+                self.response.write(template.render(template_values))
 
        else:
            login_url = users.create_login_url(self.request.url)
@@ -37,17 +43,6 @@ class IndexHandler(webapp2.RequestHandler):
         INDEX_HTML = open('./templates/index.html').read()
         self.response.out.write(INDEX_HTML)
 
-
-
-class MainAppHandler(webapp2.RequestHandler):
-    def get(self):
-        DASHBOARD_HTML = open('./templates/dashboard.html').read()
-        self.response.out.write(DASHBOARD_HTML)
-
-class HouseHandler(webapp2.RequestHandler):
-    def get(self):
-        HOUSE_HTML = open('./templates/house.html').read()
-        self.response.out.write(HOUSE_HTML)
 
 class UnitTestsHandler(webapp2.RequestHandler):
     """
@@ -85,7 +80,5 @@ class UnitTestsHandler(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/', HomePageHandler),
     (r'/index/?', IndexHandler),
-    (r'/app/?', MainAppHandler),
-    (r'/house/?', HouseHandler),
     (r'/tests/?', UnitTestsHandler)
 ], debug=True)

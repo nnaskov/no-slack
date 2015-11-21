@@ -2,8 +2,6 @@ import unittest
 from app import jsons
 from google.appengine.ext import ndb
 
-import mock
-
 
 class TaskTestModel(ndb.Model):
     household = ndb.KeyProperty()

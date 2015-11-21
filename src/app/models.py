@@ -103,7 +103,7 @@ def add_task_given_key(house_key, task_name, difficulty, description=None, frequ
 
 
 def add_task(task_name, difficulty, description=None, frequency=None, style=None):
-    add_task_given_key(get_member_household_key(), task_name, difficulty, frequency, style)
+    add_task_given_key(get_member_household_key(), task_name, difficulty, description=description, frequency=frequency, style=style)
 
 
 def add_task_event(task_id):

@@ -3,3 +3,6 @@ src/.idea/
 *.css.map
 *.pyc
 bower_components/
+src/static/bower_components/
+
+

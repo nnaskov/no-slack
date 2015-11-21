@@ -119,6 +119,7 @@ class MemberHandler(webapp2.RequestHandler):
         json_data = json.dumps(json_data)
         self.response.out.write(json_data)
 
+
 app = webapp2.WSGIApplication([
     (r'/requests/house/check/(\w+)/?', HouseNamesHandler),
     ('/requests/task/?', TaskHandler),
