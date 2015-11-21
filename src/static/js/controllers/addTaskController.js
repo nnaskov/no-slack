@@ -1,4 +1,4 @@
-app.controller('AddTaskController', function ($scope, $state, $http, $uibModalInstance, $state, $stateParams) {
+app.controller('AddTaskController', ['$scope', '$state', '$http', '$uibModalInstance', '$state', '$stateParams', '$log','taskService' , function ($scope, $state, $http, $uibModalInstance, $state, $stateParams, $log, taskService) {
     $scope.recurringOptions = ["Yes", "No"];
     $scope.recurring = "Yes";
     
@@ -42,8 +42,9 @@ app.controller('AddTaskController', function ($scope, $state, $http, $uibModalIn
             data: {'name': $scope.nameField, 'iconClass': $scope.iconClass, 'description': $scope.descriptionField, 'frequency': frequency, 'difficulty': 1},
             url: '/requests/task/'
         }).then(function (response) {
-            $uibModalInstance.close($scope);
-            $state.go("dashboard", null, { reload: true, inherit: true, notify: true });  
+            $log.log($state.current.name);
+            window.location.href = $state.href('dashboard', null);
+            window.location.reload();
         });
     };
 
@@ -51,4 +52,4 @@ app.controller('AddTaskController', function ($scope, $state, $http, $uibModalIn
         $uibModalInstance.dismiss('cancel');
         $state.go("dashboard");
     };
-});
+}]);

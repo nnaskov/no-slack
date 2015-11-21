@@ -2,7 +2,6 @@
     <h3 class="modal-title">Create new task</h3>
 </div>
 <div class="modal-body">
-    <strong>Requires validation, and cannot currenntly use recurring or set times</strong>
     <form name="addTaskForm" class="form-horizontal">
         <fieldset>            
             <div class="form-group">
@@ -49,15 +48,7 @@
                                 <input name="frequencyValue" ng-model="frequencyValue" type="number" class="form-control" min="1" max="51" value="1" ng-pattern="/^[0-9]+$/" required>
                             </div>
                             <div class="col-xs-4">
-<<<<<<< HEAD
-                                <select ng-model="frequencyUnit" class="form-control" ng-options="frequencyUnitOption.value as frequencyUnitOption.name for frequencyUnitOption in frequencyUnitOptions">  
-=======
-                                <select ng-model="frequencyUnit" class="form-control" required>
-                                    <option>hours</option>
-                                    <option>days</option>
-                                    <option>weeks</option>
-                                    <option>months</option>
->>>>>>> 000c1dcc507426bb258692106968ea6d4dac22da
+                                <select ng-model="frequencyUnit" class="form-control" ng-options="frequencyUnitOption.value as frequencyUnitOption.name for frequencyUnitOption in frequencyUnitOptions"> 
                                 </select>
                             </div>
                             
