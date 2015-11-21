@@ -2,3 +2,4 @@ src/.idea/
 .idea/
 *.css.map
 *.pyc
+bower_components/
