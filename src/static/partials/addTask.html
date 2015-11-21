@@ -2,13 +2,14 @@
     <h3 class="modal-title">Create new task</h3>
 </div>
 <div class="modal-body">
+    <strong>Requires validation, and cannot currenntly use recurring or set times</strong>
     <form class="form-horizontal">
         <fieldset>            
             <div class="form-group">
                 <label class="col-xs-3 col-xs-offset-1 text-left control-label" for="textinput">Name</label>  
                 <div class="col-xs-7">
                     <div class="input-group">
-                        <input type="text" placeholder="e.g. Hoovering" class="form-control">
+                        <input ng-model="nameField" type="text" placeholder="e.g. Hoovering" class="form-control">
                         <input type="hidden" ng-model="iconClass" />
                         <span class="input-group-addon">
                             <ui-iconpicker ng-model="iconClass"></ui-iconpicker>
@@ -21,7 +22,7 @@
             <div class="form-group">
                 <label class="col-xs-3 col-xs-offset-1 text-left control-label" for="textarea">Description</label>
                 <div class="col-xs-7">                     
-                    <textarea class="form-control boxSizingBorder" style="width:100%;" name="textarea"></textarea>
+                    <textarea ng-model="descriptionField" class="form-control boxSizingBorder" style="width:100%;" name="textarea"></textarea>
                     <span class="help-block">How would you explain the task to an idiot?</span> 
                 </div>
             </div>
@@ -37,16 +38,16 @@
             </div>
             
             <div class="form-group" ng-show="recurring=='Yes'">
-                <label class="col-xs-3 col-xs-offset-1 text-left control-label" for="textinput">Repeat</label> 
+                <label class="col-xs-3 col-xs-offset-1 text-left control-label" for="textinput">Frequency</label> 
                 <div class="col-xs-8">
                     <div class="form-horizontal">
                         <div class="form-group row">
                             <label for="inputPassword" class="col-xs-2 control-label text-left">every</label>
                             <div class="col-xs-4">
-                                <input type="number" class="form-control" min="1" max="51" value="1">
+                                <input ng-model="frequencyValue" type="number" class="form-control" min="1" max="51" value="1">
                             </div>
                             <div class="col-xs-4">
-                                <select class="form-control">
+                                <select ng-model="frequencyUnit" class="form-control">
                                     <option>hours</option>
                                     <option>days</option>
                                     <option>weeks</option>
