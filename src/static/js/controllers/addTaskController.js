@@ -1,4 +1,4 @@
-app.controller('AddTaskController', function ($scope, $state, $uibModalInstance) {
+app.controller('AddTaskController', function ($scope, $state, $http, $uibModalInstance) {
     $scope.recurringOptions = ["Yes", "No"];
     $scope.recurring = "Yes";
     
@@ -21,7 +21,26 @@ app.controller('AddTaskController', function ($scope, $state, $uibModalInstance)
     };
     
     $scope.ok = function () {
-        $uibModalInstance.close($scope.selected.item);
+        var frequency = undefined;
+        switch($scope.frequencyValue) {
+            case 'days':
+                frequency = $scope.frequencyValue*24;
+                break;
+            case 'weeks':
+                frequency = $scope.frequencyValue*24*7;
+                break;
+            default:
+                frequency = $scope.frequencyValue
+                break;
+        }
+        $http({
+            method: 'POST',
+            data: {'name': $scope.nameField, 'iconClass': $scope.iconClass, 'description': $scope.descriptionField, 'frequency': frequency, 'difficulty': 1},
+            url: '/requests/task/'
+        }).then(function successCallback(response) {
+            $uibModalInstance.close($scope);
+            $state.go("dashboard");
+        });
     };
 
     $scope.cancel = function () {

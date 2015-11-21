@@ -50,11 +50,11 @@ class TaskHandler(webapp2.RequestHandler):
 
     def post(self):
         json_data = json.loads(self.request.body)
-        task_name = json_data.get("taskName")
-        frequency = json_data.get("frequency")
+        task_name = json_data.get("name")
+        frequency = int(json_data.get("frequency"))
         description = json_data.get("description")
-        difficulty = json_data.get("difficulty")
-        style = json_data.get("taskStyle")
+        difficulty = int(json_data.get("difficulty"))
+        style = json_data.get("iconClass")
 
         models.add_task(task_name, difficulty, description, frequency, style)
 

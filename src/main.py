@@ -3,6 +3,7 @@ import jinja2
 import os
 from app import models
 from google.appengine.api import users
+from google.appengine.api import channel
 
 JINJA_ENVIRONMENT = jinja2.Environment(
    loader=jinja2.FileSystemLoader(os.path.dirname('./templates/')),
@@ -15,8 +16,12 @@ class HomePageHandler(webapp2.RequestHandler):
        user = users.get_current_user()
        if user:
            if models.get_users_accounts():
-               DASHBOARD_HTML = open('./templates/dashboard.html').read()
-               self.response.out.write(DASHBOARD_HTML)
+               token = channel.create_channel(user.user_id())
+               template_values = {
+                   'token' : token
+               }
+               template = JINJA_ENVIRONMENT.get_template('dashboard.html')
+               self.response.out.write(template.render(template_values))
 
            else:
                 login_url = users.create_login_url(self.request.url)

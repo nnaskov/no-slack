@@ -1,5 +1,6 @@
 from google.appengine.ext import ndb
 from google.appengine.api import users
+import publisher
 
 
 class Member(ndb.Model):
@@ -111,6 +112,8 @@ def add_task_event(task_id):
     task_key = ndb.Key("Task", task_id)
     new_task_event = TaskEvent(task_type=task_key, completed_by=completed_by)
     key = new_task_event.put()
+    json = 'test'
+    publisher.update_clients(completed_by.id(), get_members_list(), json)
 
     update_task(task_key, key)
 
