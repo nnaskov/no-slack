@@ -3,18 +3,20 @@
 </div>
 <div class="modal-body">
     <strong>Requires validation, and cannot currenntly use recurring or set times</strong>
-    <form class="form-horizontal">
+    <form name="addTaskForm" class="form-horizontal">
         <fieldset>            
             <div class="form-group">
-                <label class="col-xs-3 col-xs-offset-1 text-left control-label" for="textinput">Name</label>  
+                <label class="col-xs-3 col-xs-offset-1 text-left control-label" for="textinput">Name <span style="color: red">*</span></label>  
                 <div class="col-xs-7">
                     <div class="input-group">
-                        <input ng-model="nameField" type="text" placeholder="e.g. Hoovering" class="form-control">
+                        <input name="nameField" ng-model="nameField" type="text" placeholder="e.g. Hoovering" class="form-control" ng-pattern="/^([a-zA-Z]|\-|\_)*$/" required>
                         <input type="hidden" ng-model="iconClass" />
                         <span class="input-group-addon">
                             <ui-iconpicker ng-model="iconClass"></ui-iconpicker>
                         </span>
                     </div>
+                    <p class="help-block" ng-show="addTaskForm.nameField.$error.pattern" >Please enter a valid name</p>
+
                 </div>
             </div>
             
@@ -28,7 +30,7 @@
             </div>
             
             <div class="form-group">
-                <label class="col-xs-3 col-xs-offset-1 text-left control-label" for="textinput">Recurring?</label>  
+                <label class="col-xs-3 col-xs-offset-1 text-left control-label" for="textinput">Recurring? <span style="color: red">*</span></label>  
                 <div class="col-xs-7">
                     <div class="input-group">
                         <buttons-radio class="btn-group" data-toggle="buttons-radio" model="recurring" options="recurringOptions">
@@ -38,22 +40,23 @@
             </div>
             
             <div class="form-group" ng-show="recurring=='Yes'">
-                <label class="col-xs-3 col-xs-offset-1 text-left control-label" for="textinput">Frequency</label> 
+                <label class="col-xs-3 col-xs-offset-1 text-left control-label" for="textinput">Frequency <span style="color: red">*</span></label> 
                 <div class="col-xs-8">
                     <div class="form-horizontal">
                         <div class="form-group row">
                             <label for="inputPassword" class="col-xs-2 control-label text-left">every</label>
                             <div class="col-xs-4">
-                                <input ng-model="frequencyValue" type="number" class="form-control" min="1" max="51" value="1">
+                                <input name="frequencyValue" ng-model="frequencyValue" type="number" class="form-control" min="1" max="51" value="1" ng-pattern="/^[0-9]+$/" required>
                             </div>
                             <div class="col-xs-4">
-                                <select ng-model="frequencyUnit" class="form-control">
+                                <select ng-model="frequencyUnit" class="form-control" required>
                                     <option>hours</option>
                                     <option>days</option>
                                     <option>weeks</option>
                                     <option>months</option>
                                 </select>
                             </div>
+                            
                             <!--
                             <div class="col-xs-1">
                                 <input type="radio" ng-model="recurringType" name="recurringType" value="nOfPeriod">
@@ -61,6 +64,7 @@
                             -->
                         </div>
                     </div>
+                    <p class="help-block" ng-show="addTaskForm.frequencyValue.$error.pattern">Please enter a valid number</p>
                 </div>
             </div>
             <!--
@@ -169,6 +173,6 @@
 
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    <button class="btn btn-primary" type="button" ng-disabled="addTaskForm.$invalid" ng-click="ok()">OK</button>
     <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
 </div>
