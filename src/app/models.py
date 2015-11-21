@@ -1,12 +1,12 @@
 from google.appengine.ext import ndb
 from google.appengine.api import users
-import publisher
-
+from google.appengine.api import channel
 
 class Member(ndb.Model):
     first_name = ndb.StringProperty()
     last_name = ndb.StringProperty()
     household = ndb.KeyProperty()
+    channel_token = ndb.StringProperty()
 
     def is_owner(self):
         return True if(self.household.get().owner == self.key) else False
@@ -174,7 +174,8 @@ def add_member(first_name, last_name):
         return None
     user_id = user.user_id()
 
-    member = Member(id=user_id, first_name=first_name, last_name=last_name)
+    channel_token = channel.create_channel(user_id)
+    member = Member(id=user_id, first_name=first_name, last_name=last_name, channel_token=channel_token)
     key = member.put()
 
     return key.get()
@@ -190,7 +191,7 @@ def add_household(household_id):
     owner = get_member()
     new_household = HouseHold(name=household_id, owner=owner)
     new_household.put()
-    add_default_tasks(new_household.key) #SHOULD BE MOVED WHEN IN PROD
+    add_default_tasks(new_household.key)  # SHOULD BE MOVED WHEN IN PROD
     return new_household
 
 
