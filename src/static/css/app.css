@@ -6990,4 +6990,10 @@ body {
 .nav, .pagination, .carousel, .panel-title a {
   cursor: pointer; }
 
+.popover-content {
+  min-width: 1000px; }
+
+.popover-title {
+  color: #000; }
+
 /*# sourceMappingURL=app.css.map */

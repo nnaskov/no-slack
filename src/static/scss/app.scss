@@ -306,7 +306,6 @@ $display_font_family: 'Lato', sans-serif;
     
     &.tile-animated {
         -webkit-animation-name: example; /* Chrome, Safari, Opera */
-        
         animation-name: example;
     }
 
@@ -797,3 +796,10 @@ body {
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
+.popover-content{
+    min-width: 1000px;    
+}
+
+.popover-title{
+    color: #000;
+}
