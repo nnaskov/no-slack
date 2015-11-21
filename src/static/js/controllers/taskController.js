@@ -50,7 +50,6 @@ app.controller('TaskController', ['$scope', '$http', function($scope, $http) {
             data: {'taskID': $scope.task.taskID, 'goodJob': goodJob},
             url: '/requests/task/' + $scope.task.taskID + '/taskevent'
         }).then(function successCallback(response) {
-            console.log(response.data);
             var data = response.data;
             var pos = angular.element(document.getElementById($scope.task.taskID + "-" + "positive-feedback"))[0];
             var neg = angular.element(document.getElementById($scope.task.taskID + "-" + "negative-feedback"))[0];
@@ -71,8 +70,6 @@ app.controller('TaskController', ['$scope', '$http', function($scope, $http) {
                 thumbsUp.className = "fa-thumbs-o-up fa glyph-button";
                 thumbsDown.className = "fa fa-thumbs-down glyph-button";
             }
-
-            console.log("Feedback recieved");
         });
     };
 
@@ -82,7 +79,6 @@ app.controller('TaskController', ['$scope', '$http', function($scope, $http) {
             params: {'taskID': $scope.task.taskID},
             url: '/requests/task/' + $scope.task.taskID + '/taskevent'
         }).then(function successCallback(response) {
-            console.log(response.data);
             /*
             var data = response.data;
             var name = angular.element(document.getElementbyId(taskID + "-" + "name"))[0];

@@ -17,7 +17,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 tasks: ['taskService', function (taskService) {
                     return taskService.getTasks();
                 }]
-            }
+            },
+            reload: true,
         })
         .state("dashboard.addTask", {
             url: "/add/task",
@@ -51,3 +52,4 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             }
         });
 });
+

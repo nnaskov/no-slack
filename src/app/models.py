@@ -3,11 +3,13 @@ from google.appengine.api import users
 import publisher
 import random
 import threading
+from google.appengine.api import channel
 
 class Member(ndb.Model):
     first_name = ndb.StringProperty()
     last_name = ndb.StringProperty()
     household = ndb.KeyProperty()
+    channel_token = ndb.StringProperty()
 
     def is_owner(self):
         return True if(self.household.get().owner == self.key) else False
@@ -277,6 +279,7 @@ def update_task_event_feedback_given_key(task_key, was_positive, member_key=None
                 task_event.positive_feedback += change
                 task_event.negative_feedback += -change
                 task_event.put()
+                return task_event
         else:
             if was_positive:
                 task_event.positive_feedback += 1
@@ -285,6 +288,7 @@ def update_task_event_feedback_given_key(task_key, was_positive, member_key=None
             task_event.put()
             new_event_feedback = EventFeedback(task_event=task_event.key, user=member_key, was_positive=was_positive)
             new_event_feedback.put()
+            return task_event
 
 
 def get_task_events(task_id):
@@ -333,7 +337,8 @@ def add_member(first_name, last_name, user_id=None):
             return None
         user_id = user.user_id()
 
-    member = Member(id=user_id, first_name=first_name, last_name=last_name)
+    channel_token = channel.create_channel(user_id)
+    member = Member(id=user_id, first_name=first_name, last_name=last_name, channel_token=channel_token)
     key = member.put()
 
     return key
@@ -349,6 +354,7 @@ def add_household(household_id):
     owner = get_member()
     new_household = HouseHold(name=household_id, owner=owner)
     new_household.put()
+    add_default_tasks(new_household.key)  # SHOULD BE MOVED WHEN IN PROD
     return new_household
 
 

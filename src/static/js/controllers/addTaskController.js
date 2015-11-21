@@ -1,4 +1,4 @@
-app.controller('AddTaskController', function ($scope, $state, $http, $uibModalInstance) {
+app.controller('AddTaskController', ['$scope', '$state', '$http', '$uibModalInstance', '$state', '$stateParams', '$log','taskService' , function ($scope, $state, $http, $uibModalInstance, $state, $stateParams, $log, taskService) {
     $scope.recurringOptions = ["Yes", "No"];
     $scope.recurring = "Yes";
     
@@ -20,9 +20,12 @@ app.controller('AddTaskController', function ($scope, $state, $http, $uibModalIn
         $scope.status.opened = true;
     };
     
+    $scope.frequencyUnitOptions = [ {name: 'hours', value: 'hours'}, {name: 'days', value: 'days'}, {name: 'weeks', value: 'weeks'}, {name: 'months', value: 'months'}]; 
+    $scope.frequencyUnit = $scope.frequencyUnitOptions[0].value;
+        
     $scope.ok = function () {
         var frequency = undefined;
-        switch($scope.frequencyValue) {
+        switch($scope.frequencyUnit) {
             case 'days':
                 frequency = $scope.frequencyValue*24;
                 break;
@@ -30,16 +33,18 @@ app.controller('AddTaskController', function ($scope, $state, $http, $uibModalIn
                 frequency = $scope.frequencyValue*24*7;
                 break;
             default:
-                frequency = $scope.frequencyValue
+                frequency = $scope.frequencyValue;
                 break;
         }
+        
         $http({
             method: 'POST',
             data: {'name': $scope.nameField, 'iconClass': $scope.iconClass, 'description': $scope.descriptionField, 'frequency': frequency, 'difficulty': 1},
             url: '/requests/task/'
-        }).then(function successCallback(response) {
-            $uibModalInstance.close($scope);
-            $state.go("dashboard");
+        }).then(function (response) {
+            $log.log($state.current.name);
+            window.location.href = $state.href('dashboard', null);
+            window.location.reload();
         });
     };
 
@@ -47,4 +52,4 @@ app.controller('AddTaskController', function ($scope, $state, $http, $uibModalIn
         $uibModalInstance.dismiss('cancel');
         $state.go("dashboard");
     };
-});
+}]);
