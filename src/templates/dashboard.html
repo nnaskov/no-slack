@@ -66,6 +66,7 @@
 </head>
 
 <body>
+    <input type="hidden" name="channelClientId" value="{{ token }}"><!--sent by server-->
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -95,5 +96,5 @@
     <div class="container-fluid tile-container">
         <div class="mainContent" ui-view></div>
     </div>
-</body>    
+</body>   
 </html>
