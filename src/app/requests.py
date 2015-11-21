@@ -119,10 +119,28 @@ class MemberHandler(webapp2.RequestHandler):
         json_data = json.dumps(json_data)
         self.response.out.write(json_data)
 
+class AnalysisHandler(webapp2.RequestHandler):
+    """ type of graph and the data
+    # switch statement
+    # depending on the type of graph dispatch to appropiate method in stats.py
+    # returns the json data
+    # self.response.out.write(json_data)
+    """
+    def get(self):
+        self.response.out.write("""{"house_name":"House 22","user_name":"Norebrt","task_name":"Washing up","pie_elemnts":[{"name":"Norbert Naskov","value":10},{"name":"Ivan Naskov","value":3},{"name":"Pesho Naskov","value":18},{"name":"Adam Naskov","value":7}]}""")
+
+
+class DBResetHandler:
+     def get(self):
+        models.populate_default_values()
+        self.response.out.write("DONE")
 
 app = webapp2.WSGIApplication([
     (r'/requests/house/check/(\w+)/?', HouseNamesHandler),
     ('/requests/task/?', TaskHandler),
     (r'/requests/task/(\d+)/taskevent/?', TaskEventHandler),
     (r'/requests/member/?', MemberHandler),
+    (r'/requests/analysis/?', AnalysisHandler),
+    (r'/dbres/?', DBResetHandler),
+
 ], debug=True)
