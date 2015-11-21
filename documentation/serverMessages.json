@@ -1,0 +1,26 @@
+/*
+ * Server message schema
+ */
+
+{
+	eventType: addTask,
+	task: task 	//where task is an object of the same format sent in 
+				//the original get tasks function
+}
+
+{
+	eventType: deleteTask,
+	taskId: taskId
+}
+
+{
+	eventType: taskEvent,	//this will probably change when we add
+	taskId: taskId			//delegation functionality
+}
+
+{
+	eventType: taskFeedback,
+	taskId: taskId,
+	positive: positive,	//send both as both values may be changed
+	negative: negative	//if a user changes their feedback 
+}
