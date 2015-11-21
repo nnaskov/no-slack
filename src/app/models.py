@@ -101,10 +101,11 @@ def add_task_given_key(house_key, task_name, difficulty, description=None, frequ
     new_task = Task(name=task_name, frequency=frequency, difficulty=difficulty, household=house_key,
                     user_who_added=get_member(), style=style, description=description)
     new_task.put()
+    return new_task
 
 
 def add_task(task_name, difficulty, description=None, frequency=None, style=None):
-    add_task_given_key(get_member_household_key(), task_name, difficulty, description=description, frequency=frequency, style=style)
+    return add_task_given_key(get_member_household_key(), task_name, difficulty, description=description, frequency=frequency, style=style)
 
 
 def add_task_event(task_id):
@@ -112,9 +113,6 @@ def add_task_event(task_id):
     task_key = ndb.Key("Task", task_id)
     new_task_event = TaskEvent(task_type=task_key, completed_by=completed_by)
     key = new_task_event.put()
-    json = 'test'
-    publisher.update_clients(completed_by.id(), get_members_list(), json)
-
     update_task(task_key, key)
 
 
@@ -134,6 +132,7 @@ def update_task_event_feedback(id, was_positive):
                 task_event.positive_feedback += change
                 task_event.negative_feedback += -change
                 task_event.put()
+                return task_event
         else:
             if was_positive:
                 task_event.positive_feedback += 1
@@ -142,6 +141,7 @@ def update_task_event_feedback(id, was_positive):
             task_event.put()
             new_event_feedback = EventFeedback(task_event=task_event.key, user=user_key, was_positive=was_positive)
             new_event_feedback.put()
+            return task_event
 
 
 def get_task_events(task_id):

@@ -2,6 +2,7 @@ import webapp2
 import json
 import jsons
 import models
+import publisher
 
 
 class HouseNamesHandler(webapp2.RequestHandler):
@@ -43,9 +44,15 @@ class TaskHandler(webapp2.RequestHandler):
         task_id = self.request.get("taskId")
         models.delete_task(task_id)
 
-        tasks_list = models.get_household_tasks()
-        task_list_json = jsons.get_all_tasks_json(tasks_list)
-        json_data = json.dumps(task_list_json)
+        obj = {
+            'taskId': task_id
+        }
+        update_json = {}
+        update_json['eventType'] = 'deleteTask'
+        update_json['taskId'] = task_id
+        json_data = json.dumps(obj)
+        update_data = json.dumps(update_json)
+        publisher.update_clients(models.get_members_list(), update_data)
         self.response.out.write(json_data)
 
     def post(self):
@@ -56,11 +63,15 @@ class TaskHandler(webapp2.RequestHandler):
         difficulty = int(json_data.get("difficulty"))
         style = json_data.get("iconClass")
 
-        models.add_task(task_name, difficulty, description, frequency, style)
+        task = models.add_task(task_name, difficulty, description, frequency, style)
 
-        tasks_list = models.get_household_tasks()
-        task_list_json = jsons.get_all_tasks_json(tasks_list)
-        json_data = json.dumps(task_list_json)
+        task_json = jsons.get_task_json(task)
+        update_json = {}
+        update_json['eventType'] = 'addTask'
+        update_json['task'] = task_json
+        json_data = json.dumps(task_json)
+        update_data = json.dumps(update_json)
+        publisher.update_clients(models.get_members_list(), update_data)
         self.response.out.write(json_data)
 
 
@@ -80,7 +91,12 @@ class TaskEventHandler(webapp2.RequestHandler):
 
         obj = jsons.get_task_json(task)
 
+        update_json = {}
+        update_json['eventType'] = 'taskEvent'
+        update_json['taskId'] = task_id
         json_data = json.dumps(obj)
+        update_data = json.dumps(update_json)
+        publisher.update_clients(models.get_members_list(), update_data)
         self.response.out.write(json_data)
 
     def get(self, task_id):
@@ -95,12 +111,19 @@ class TaskEventHandler(webapp2.RequestHandler):
         json_data = json.loads(self.request.body)
         was_positive = json_data.get("goodJob")
 
-        models.update_task_event_feedback(task_id, was_positive)
+        task_event = models.update_task_event_feedback(task_id, was_positive)
         task = models.get_task(task_id)
 
         obj = jsons.get_task_json(task)
 
+        update_json = {}
+        update_json['eventType'] = 'taskFeedback'
+        update_json['taskId'] = task_id
+        update_json['positive'] = task_event.positive_feedback
+        update_json['negative'] = task_event.negative_feedback
         json_data = json.dumps(obj)
+        update_data = json.dumps(update_json)
+        publisher.update_clients(models.get_members_list(), update_data)
         self.response.out.write(json_data)
 
 
