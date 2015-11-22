@@ -158,17 +158,17 @@ class AnalysisHandler(webapp2.RequestHandler):
 
             self.response.headers['Content-Type'] = 'application/json'
             if charttype == "housechart":
-                self.response.out.write("""{"house_name":"House 22","pie_elemnts":[{"name":"Norbert Naskov","value":10},{"name":"Ivan Naskov","value":3},{"name":"Pesho Naskov","value":18},{"name":"Adam Naskov","value":7}]}""")
+                self.response.out.write("""{"house_name":"House 22","pie_elements":[{"name":"Norbert Naskov","value":10},{"name":"Ivan Naskov","value":3},{"name":"Pesho Naskov","value":18},{"name":"Adam Naskov","value":7}]}""")
             elif charttype == "userchart":
-                self.response.out.write("""{"pie_elemnts":[{"name":"Washing up","value":10},{"name":"Cleaning","value":3},{"name":"Hoovering","value":18},{"name":"Gardening","value":7}]}""");
+                self.response.out.write("""{"pie_elements":[{"name":"Washing up","value":10},{"name":"Cleaning","value":3},{"name":"Hoovering","value":18},{"name":"Gardening","value":7}]}""");
             elif charttype == "thumbschart":
-                self.response.out.write("""{"pie_elemnts":[{"name":"thumbs_up","value":4},{"name":"thumbs_down","value":1}]}""");
+                self.response.out.write("""{"pie_elements":[{"name":"thumbs_up","value":4},{"name":"thumbs_down","value":1}]}""");
             elif charttype == "taskchart":
-                self.response.out.write("""{"pie_elemnts":[{"name":"Norbert Naskov","value":4},{"name":"Ivan Naskov","value":1},{"name":"Pesho Naskov","value":2},{"name":"Adam Naskov","value":6}]}""");
+                self.response.out.write("""{"pie_elements":[{"name":"Norbert Naskov","value":4},{"name":"Ivan Naskov","value":1},{"name":"Pesho Naskov","value":2},{"name":"Adam Naskov","value":6}]}""");
 
         except:
             # THIS IS ERROR. The chartype must be specified !!!! But for now just send it like that
-            self.response.out.write("""{"house_name":"House 22","pie_elemnts":[{"name":"Norbert Naskov","value":10},{"name":"Ivan Naskov","value":3},{"name":"Pesho Naskov","value":18},{"name":"Adam Naskov","value":7}]}""")
+            self.response.out.write("""{"house_name":"House 22","pie_elements":[{"name":"Norbert Naskov","value":10},{"name":"Ivan Naskov","value":3},{"name":"Pesho Naskov","value":18},{"name":"Adam Naskov","value":7}]}""")
 
 
 class PopulateHandler(webapp2.RequestHandler):
