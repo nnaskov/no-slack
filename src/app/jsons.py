@@ -19,12 +19,12 @@ def get_task_json(task):
     task_dict[strings.taskStyle] = task.style
     task_dict[strings.everCompleted] = False
 
-    if task.most_recent:
+    if task.most_recent_event:
         task_dict[strings.everCompleted] = True
-        most_recent = task.most_recent.get()
-        task_dict[strings.positiveFeedback] = most_recent.positive_feedback
-        task_dict[strings.negativeFeedback] = most_recent.negative_feedback
-        user_feedback = most_recent.get_user_feedback()
+        most_recent_event = task.most_recent_event.get()
+        task_dict[strings.positiveFeedback] = most_recent_event.positive_feedback
+        task_dict[strings.negativeFeedback] = most_recent_event.negative_feedback
+        user_feedback = most_recent_event.get_user_feedback()
         if len(user_feedback):
             task_dict[strings.userFeedback] = user_feedback[0].was_positive
         else:

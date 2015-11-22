@@ -110,21 +110,22 @@ class TaskEventHandler(webapp2.RequestHandler):
         task_id = int(task_id)
         json_data = json.loads(self.request.body)
         was_positive = json_data.get("goodJob")
-
         task_event = models.update_task_event_feedback(task_id, was_positive)
-        task = models.get_task(task_id)
 
-        obj = jsons.get_task_json(task)
+        if task_event:
+            task = models.get_task(task_id)
 
-        update_json = {}
-        update_json['eventType'] = 'taskFeedback'
-        update_json['taskId'] = task_id
-        update_json['positive'] = task_event.positive_feedback
-        update_json['negative'] = task_event.negative_feedback
-        json_data = json.dumps(obj)
-        update_data = json.dumps(update_json)
-        publisher.update_clients(models.get_members_list(), update_data)
-        self.response.out.write(json_data)
+            obj = jsons.get_task_json(task)
+
+            update_json = {}
+            update_json['eventType'] = 'taskFeedback'
+            update_json['taskId'] = task_id
+            update_json['positive'] = task_event.positive_feedback
+            update_json['negative'] = task_event.negative_feedback
+            json_data = json.dumps(obj)
+            update_data = json.dumps(update_json)
+            publisher.update_clients(models.get_members_list(), update_data)
+            self.response.out.write(json_data)
 
 
 class MemberHandler(webapp2.RequestHandler):

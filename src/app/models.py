@@ -31,7 +31,7 @@ class Task(ndb.Model):
     user_who_added = ndb.KeyProperty(required=True)
     frequency = ndb.IntegerProperty(required=True)
     difficulty = ndb.IntegerProperty(required=True)
-    most_recent = ndb.KeyProperty()
+    most_recent_event = ndb.KeyProperty()
     style = ndb.TextProperty()
 
 
@@ -68,6 +68,7 @@ def add_default_tasks(house_key):
 
     :param house_key:
     :return:
+    
     """
     taskKeys = []
     taskKeys.append(add_task_given_key(house_key=house_key, task_name="Washing up", frequency=2, difficulty=1,
@@ -244,28 +245,29 @@ def add_task_event_given_task_key(task_key, member_key=None):
         member_key = get_member()
     new_task_event = TaskEvent(task_type=task_key, completed_by=member_key)
     task_event_key = new_task_event.put()
-    json = 'test'
-    publisher.update_clients(member_key.id(), get_members_list(), json)
 
     update_task(task_key, task_event_key)
 
     return task_event_key
 
 def update_task_event_feedback(task_id, was_positive, member_key=None):
-    task_key = get_task_key()
-    update_task_event_feedback_given_key(task_key,was_positive, member_key)
+    task_key = get_task_key(task_id)
+    return update_task_event_feedback_given_key(task_key,was_positive, member_key)
 
 def update_task_event_feedback_given_key(task_key, was_positive, member_key=None):
     """
-    Updates the feedback, only on most recent task!!!!!!
+    Updates the TaskEvent object's feedback, only on most recent task_event!!!!!!
 
     :param task_id:
     :param was_positive:
-    :return:
+    :return: ndb.Key for the Task Event
     """
+    # Get the task
     task = task_key.get()
-    if task.most_recent:
-        task_event = task.most_recent.get()
+    if task and task.most_recent_event:
+        # We can change the feedback only on the most recent task_event.
+        # TODO: Maybe change that?!
+        task_event = task.most_recent_event.get()
         if not member_key:
             member_key = get_member()
         event_feedback = task_event.get_user_feedback()
@@ -279,7 +281,7 @@ def update_task_event_feedback_given_key(task_key, was_positive, member_key=None
                 task_event.positive_feedback += change
                 task_event.negative_feedback += -change
                 task_event.put()
-                return task_event
+
         else:
             if was_positive:
                 task_event.positive_feedback += 1
@@ -288,8 +290,8 @@ def update_task_event_feedback_given_key(task_key, was_positive, member_key=None
             task_event.put()
             new_event_feedback = EventFeedback(task_event=task_event.key, user=member_key, was_positive=was_positive)
             new_event_feedback.put()
-            return task_event
 
+        return task_event
 
 def get_task_events(task_id):
     task = get_task(task_id)
@@ -309,7 +311,7 @@ def update_task(task_key, task_event_key):
         if not task:
             return None
         else:
-            task.most_recent = task_event_key
+            task.most_recent_event = task_event_key
             task.put()
 
 
@@ -321,7 +323,7 @@ def get_task(id):
     return ndb.Key('Task', id).get()
 
 def get_task_key(task_id):
-    return ndb.Key('Task', id)
+    return ndb.Key('Task', task_id)
 
 
 def add_member(first_name, last_name, user_id=None):
@@ -344,8 +346,15 @@ def add_member(first_name, last_name, user_id=None):
     return key
 
 
-def get_members_list():
-    house_key = get_household_key_for_current_user()
+def get_members_list(house_key=None):
+    """
+    Returns a list of ndb.Key for each member in the house. If no house_key is specified,
+    uses the current logged in user
+    :param house_key:
+    :return: array of ndb.Key
+    """
+    if not house_key:
+        house_key = get_household_key_for_current_user()
     q = Member.query(Member.household == house_key)
     return q.fetch(limit=12)
 

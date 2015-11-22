@@ -11,7 +11,7 @@ class TaskTestModel(ndb.Model):
     date_modified = ndb.DateTimeProperty(auto_now=True)
     user_who_added = ndb.KeyProperty()
     frequency = ndb.IntegerProperty()
-    most_recent = ndb.KeyProperty()
+    most_recent_event = ndb.KeyProperty()
     style = ndb.TextProperty("glpyh")
 
 class JSONSTestCase(unittest.TestCase):
