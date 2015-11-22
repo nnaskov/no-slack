@@ -137,7 +137,7 @@ class MemberHandler(webapp2.RequestHandler):
         members_list = models.get_members_list()
         members = jsons.get_all_members_json(members_list)
         json_data = {}
-        json_data["houseName"] = models.get_member_household_key().get().name
+        json_data["houseName"] = models.get_household_key_for_current_user().get().name
         json_data["members"] = members
         json_data = json.dumps(json_data)
         self.response.out.write(json_data)
@@ -149,14 +149,36 @@ class AnalysisHandler(webapp2.RequestHandler):
     # returns the json data
     # self.response.out.write(json_data)
     """
+
     def get(self):
-        self.response.out.write("""{"house_name":"House 22","user_name":"Norebrt","task_name":"Washing up","pie_elemnts":[{"name":"Norbert Naskov","value":10},{"name":"Ivan Naskov","value":3},{"name":"Pesho Naskov","value":18},{"name":"Adam Naskov","value":7}]}""")
+
+        try:
+            charttype = self.request.GET['charttype']
+
+            self.response.headers['Content-Type'] = 'application/json'
+            if charttype == "housechart":
+                self.response.out.write("""{"house_name":"House 22","pie_elemnts":[{"name":"Norbert Naskov","value":10},{"name":"Ivan Naskov","value":3},{"name":"Pesho Naskov","value":18},{"name":"Adam Naskov","value":7}]}""")
+            elif charttype == "userchart":
+                self.response.out.write("""{"pie_elemnts":[{"name":"Washing up","value":10},{"name":"Cleaning","value":3},{"name":"Hoovering","value":18},{"name":"Gardening","value":7}]}""");
+            elif charttype == "thumbschart":
+                self.response.out.write("""{"pie_elemnts":[{"name":"thumbs_up","value":4},{"name":"thumbs_down","value":1}]}""");
+            elif charttype == "taskchart":
+                self.response.out.write("""{"pie_elemnts":[{"name":"Norbert Naskov","value":4},{"name":"Ivan Naskov","value":1},{"name":"Pesho Naskov","value":2},{"name":"Adam Naskov","value":6}]}""");
+
+        except:
+            # THIS IS ERROR. The chartype must be specified !!!! But for now just send it like that
+            self.response.out.write("""{"house_name":"House 22","pie_elemnts":[{"name":"Norbert Naskov","value":10},{"name":"Ivan Naskov","value":3},{"name":"Pesho Naskov","value":18},{"name":"Adam Naskov","value":7}]}""")
 
 
-class DBResetHandler:
-     def get(self):
-        models.populate_default_values()
-        self.response.out.write("DONE")
+class PopulateHandler(webapp2.RequestHandler):
+
+    def get(self):
+
+        models.populate_default_values(models.get_household_key_for_current_user())
+        self.response.out.write("All the data has been populated. <br> NOTE: If you open this URL again, it will be added again.")
+        # JSON object containing info variable called redirect whose values is where
+        # we are going to redirect the person
+
 
 app = webapp2.WSGIApplication([
     (r'/requests/house/check/(\w+)/?', HouseNamesHandler),
@@ -164,6 +186,6 @@ app = webapp2.WSGIApplication([
     (r'/requests/task/(\d+)/taskevent/?', TaskEventHandler),
     (r'/requests/member/?', MemberHandler),
     (r'/requests/analysis/?', AnalysisHandler),
-    (r'/dbres/?', DBResetHandler),
+    (r'/requests/populate/?', PopulateHandler),
 
 ], debug=True)

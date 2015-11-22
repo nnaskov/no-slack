@@ -13,7 +13,6 @@ class RegisterHandler(webapp2.RequestHandler):
             if models.get_users_accounts():
                 self.redirect('/')
 
-
             else:
                 REGISTRATION_HTML = open('./templates/register.html').read()
                 self.response.out.write(REGISTRATION_HTML)
@@ -28,7 +27,7 @@ class RegisterHandler(webapp2.RequestHandler):
         last_name = json_data.get('lastName')
         house_name = json_data.get('houseName').lower()
 
-        models.register_user(first_name, last_name, house_name)
+        models.register_user(first_name, last_name, house_name, needs_default_items=True)
 
         self.response.headers['Content-Type'] = 'application/json'
 
@@ -42,6 +41,9 @@ class RegisterHandler(webapp2.RequestHandler):
         # we are going to redirect the person
 
 
+
 app = webapp2.WSGIApplication([
     (r'/register/?', RegisterHandler),
+
+
 ], debug=True)
