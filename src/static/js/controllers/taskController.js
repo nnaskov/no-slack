@@ -1,4 +1,5 @@
 app.controller('TaskController', ['$scope', '$http', function($scope, $http) {
+    $scope.name = "Bogomil";
     
     $scope.addTaskEvent = function(){
     	$http({
@@ -70,30 +71,6 @@ app.controller('TaskController', ['$scope', '$http', function($scope, $http) {
                 thumbsUp.className = "fa-thumbs-o-up fa glyph-button";
                 thumbsDown.className = "fa fa-thumbs-down glyph-button";
             }
-        });
-    };
-
-    $scope.getAllForTask = function(){
-        $http({
-            method: 'GET',
-            params: {'taskID': $scope.task.taskID},
-            url: '/requests/task/' + $scope.task.taskID + '/taskevent'
-        }).then(function successCallback(response) {
-            /*
-            var data = response.data;
-            var name = angular.element(document.getElementbyId(taskID + "-" + "name"))[0];
-            var date = angular.element(document.getElementById(taskID + "-" + "Date"))[0];
-            var pos = angular.element(document.getElementById(taskID + "-" + "Positive Feedback"))[0];
-            var neg = angular.element(document.getElementById(taskID + "-" + "Negative Feedback"))[0];
-
-            name.innerHTML = data.name;
-            date.innerHTML = data.date;
-            pos.innerHTML = data.positiveFeedback;
-            neg.innerHTML = data.negativeFeedback;
-
-            var historyIcon = angular.element(document.getElementById(taskID + "-" + "get-all-for-task"))[0];
-            historyIcon.className = "fa fa-get-all-for-task glyph-button";
-            */
         });
     };
 }]);
