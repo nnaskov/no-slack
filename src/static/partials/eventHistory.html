@@ -1,0 +1,10 @@
+<div>
+    <div ng-show="taskEvents.length > 0">
+        <div ng-repeat="event in taskEvents">
+            {{event.name}}
+        </div>
+    </div>
+    <div ng-show="taskEvents.length == 0">
+        No history related to the task.
+    </div>
+</div>

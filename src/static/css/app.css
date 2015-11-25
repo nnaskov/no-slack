@@ -6991,7 +6991,8 @@ body {
   cursor: pointer; }
 
 .popover-content {
-  min-width: 1000px; }
+  min-width: 1000px;
+  color: #000; }
 
 .popover-title {
   color: #000; }

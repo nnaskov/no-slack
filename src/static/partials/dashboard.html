@@ -45,11 +45,7 @@
                                     <span ng-click="addTaskEvent()" class="glyphicon glyphicon-ok glyph-button" aria-hidden="true"></span>
                                 </div>
                                 <div class="col-sm-3 col-xs-6 text-right pull-right">
-                                    <history-popover item="{{task.taskID}}"></history-popover>
-                                    
-                                    <script type="text/ng-template" id="eventHistory.html">
-                                        <div>fdfdfd</div>
-                                    </script>
+                                    <history-popover task-id="{{task.taskID}}"></history-popover>
                                 </div>
                             </div>
                         </div>
@@ -58,6 +54,7 @@
             </div>
         </div>
     </div>
+    
     
   
 
