@@ -1,3 +1,3 @@
-app.controller('TasksController', ['$scope', '$http', 'moment', 'tasks', '$uibModal', function($scope, $http, moment, tasks) {
+app.controller('TasksController', ['$scope', '$http', 'tasks', '$uibModal', function($scope, $http, tasks) {
     $scope.tasks=tasks;  
 }]);

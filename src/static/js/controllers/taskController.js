@@ -1,28 +1,24 @@
-app.controller('TaskController', ['$scope', '$http', function($scope, $http) {
-    $scope.name = "Bogomil";
-    
+app.controller('TaskController', ['$scope', '$http', '$element', function($scope, $http, $element) {    
     $scope.addTaskEvent = function(){
     	$http({
             method: 'POST',
             url: '/requests/task/' + $scope.task.taskID + '/taskevent'
         }).then(function successCallback(response) {
-            
             var data = response.data;
-            var tile = angular.element(document.getElementById(data.taskID));
-            var date;
+            //var tile = angular.element(document.getElementById(data.taskID));
+            //data.dateModified = moment(data.dateModified, "YYYY-MM-DD HH:mm:ss");
 
-            data.dateModified = moment(data.dateModified, "YYYY-MM-DD HH:mm:ss");
-
-            tile[0].style["background-color"] = "#00A600";
-            tile[0].style.animation = 'none';
+            $element.css("background-color", "#00A600");
+            $element.css("animation", "none");
     		
+            /*
     		setTimeout(function() {
 		        tile[0].style.animation = '';
-    			tile[0].style["animation-duration"] = (data.frequency * 60 * 60) + "s"; //"4s";
-    			tile[0].style["animation-delay"] = (data.dateModified.valueOf() - moment().valueOf())/1000 + "s";//"0s";
+    			tile[0].style["animation-duration"] = (data.frequency * 60 * 60) + "s"; 
+    			tile[0].style["animation-delay"] = (data.dateModified.valueOf() - moment().valueOf())/1000 + "s";
     			tile[0].style["background-color"] = "#AC193D";
 		    }, 2);
-
+            */
 
 			/*
 			Change feedback icons.
