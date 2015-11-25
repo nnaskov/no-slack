@@ -55,6 +55,21 @@ class TaskHandler(webapp2.RequestHandler):
         publisher.update_clients(models.get_members_list(), update_data)
         self.response.out.write(json_data)
 
+    def put(self):
+        json_data = json.loads(self.request.body)
+        task_id = json_data.get("taskID")
+        task = models.edit_task(task_id, json_data)
+
+        task_json = jsons.get_task_json()
+        update_json = {}
+        update_json['eventType'] = 'editTask'
+        update_json['task'] = task_json
+        json_data = json.dumps(task_json)
+        update_data = json.dumps(update_json)
+        publisher.update_clients(models.get_members_list(), update_data)
+        self.response.out.write(json_data)
+
+
     def post(self):
         json_data = json.loads(self.request.body)
         task_name = json_data.get("name")

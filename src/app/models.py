@@ -318,6 +318,17 @@ def update_task(task_key, task_event_key):
 def delete_task(id):
     ndb.Key('Task', id).delete()
 
+def edit_task(task_id, json):
+    task = get_task(id)
+
+    task.name = json.get("name")
+    task.frequency = int(json.get("frequency"))
+    task.description = json.get("description")
+    task.difficulty = int(json.get("difficulty"))
+    task.style = json.get("iconClass")
+
+    task.put()
+    return task
 
 def get_task(id):
     return ndb.Key('Task', id).get()
