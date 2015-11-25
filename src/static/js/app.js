@@ -33,7 +33,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                     //Do success things
                 }, function fail(reason) {
                     if (~reason.indexOf('backdrop')) {
-                        $state.go("dashboard");
+                        $state.go("dashboard", null);
                     }
                 });
             }

@@ -52,6 +52,6 @@ app.controller('AddTaskController', ['$scope', '$state', '$http', '$uibModalInst
 
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
-        $state.go("dashboard");
+        $state.go("dashboard", null);
     };
 }]);

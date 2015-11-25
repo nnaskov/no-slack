@@ -1,4 +1,4 @@
-app.directive('historyPopover', ['$http', '$compile', '$templateCache', '$log', function($http, $compile, $templateCache, $log) {
+app.directive('historyPopover', ['$http', '$log', function($http, $log) {
     return {
         restrict: 'EA',
         replace: true,
