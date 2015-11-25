@@ -79,6 +79,7 @@ class TaskHandler(webapp2.RequestHandler):
         style = json_data.get("iconClass")
 
         task = models.add_task(task_name, difficulty, description, frequency, style)
+        task = task.get()
 
         task_json = jsons.get_task_json(task)
         update_json = {}
