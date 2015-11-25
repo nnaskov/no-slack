@@ -20,6 +20,8 @@
     <!-- ui-iconpicker CSS -->
     
     <link rel="stylesheet" href="../static/bower_components/ui-iconpicker-angular/dist/styles/ui-iconpicker.css">
+    <link rel="stylesheet" href="../static/bower_components/ng-sortable/dist/ng-sortable.min.css">
+    <link rel="stylesheet" href="../static/bower_components/ng-sortable/dist/ng-sortable.style.min.css">
 
     <!-- Plugin CSS -->
     <link rel="stylesheet" href="../static/css/animate.min.css" type="text/css">
@@ -48,9 +50,11 @@
     <script src="../static/bower_components/angular-moment/angular-moment.min.js"></script>
     <script src="../static/bower_components/Chart.js/Chart.min.js"></script>
     <script src="../static/bower_components/angular-chart.js/dist/angular-chart.js"></script>
+    <script src="../static/bower_components/ng-sortable/dist/ng-sortable.min.js"></script>
     
-    <!-- fixed ui-iconpicker Script -->
+    <!-- forked ui-iconpicker script fix DON'T CHANGE LINE 56 -->
     <script type="text/javascript" src="//rawgithub.com/bgospodinov/ui-iconpicker-angular/master/dist/scripts/ui-iconpicker.js"></script>
+    
     <script src="../static/js/app.js"></script>
 
     <!-- Controllers -->
@@ -73,7 +77,7 @@
 </head>
 
 <body>
-    <input type="hidden" name="channelClientId" value="{{ token }}"><!--sent by server-->
+    <input type="hidden" name="channelClientId" value="{{token}}"><!--sent by server-->
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -100,7 +104,6 @@
 
         </div>
     </nav>
-
     <div class="container-fluid tile-container">
         <div class="mainContent" ui-view></div>
     </div>

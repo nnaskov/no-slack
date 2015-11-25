@@ -2,7 +2,13 @@
   "name": "no-slack",
   "homepage": "https://github.com/domsmith94/cloudapplicationdev",
   "authors": [
-    "Bogomil Gospodinov <bg1g13@soton.ac.uk>"
+    "Adam Noakes",
+    "Bogomil Gospodinov <bg1g13@soton.ac.uk>",
+    "Damyan Rusinov",
+    "Darius Keeley",
+    "Dominic Smith",
+    "Norbert Naskov",
+    "Richard Bata"
   ],
   "description": "",
   "main": "",

@@ -2,7 +2,7 @@
 
 var index_app = angular.module('app.index', []);
 
-var app = angular.module('app.dashboard', ['ui.router', 'ui.bootstrap', 'ui.bootstrap.tpls', 'angular.vertilize', 'angularMoment', 'ngAnimate', 'ui-iconpicker', 'chart.js']);
+var app = angular.module('app.dashboard', ['ui.router', 'ui.bootstrap', 'ui.bootstrap.tpls', 'angular.vertilize', 'angularMoment', 'ngAnimate', 'ui-iconpicker', 'chart.js', 'as.sortable']);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/dashboard");

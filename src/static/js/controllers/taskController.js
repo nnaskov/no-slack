@@ -6,13 +6,13 @@ app.controller('TaskController', ['$scope', '$http', function($scope, $http) {
             method: 'POST',
             url: '/requests/task/' + $scope.task.taskID + '/taskevent'
         }).then(function successCallback(response) {
+            
             var data = response.data;
             var tile = angular.element(document.getElementById(data.taskID));
-            var date;//10:00 11:00
+            var date;
+
             data.dateModified = moment(data.dateModified, "YYYY-MM-DD HH:mm:ss");
-            //data.duration = (data.frequency * 60 * 60) + "s";
-            //Works out starting point for colour change.
-            //data.delay = (data.dateModified.valueOf() - moment().valueOf()) + "s";
+
             tile[0].style["background-color"] = "#00A600";
             tile[0].style.animation = 'none';
     		
