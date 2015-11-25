@@ -406,17 +406,21 @@ $display_font_family: 'Lato', sans-serif;
     line-height: 30px;
 }
 
-.task-list-item > .task-list-item-content > .task-list-right > .input-group-addon {
+.task-list-item > .task-list-item-content > .task-list-right > .input-group > .input-group-addon {
     margin-left: -10px;
     max-width: 240px;
     line-height: 30px;
+    background: none !important;
+}
+.task-list-item > .task-list-item-content > .task-list-right > .input-group > .input-group-btn {
+    background: none !important;
 }
 
 #frequency-button{
   
     padding-left: 0px;
     line-height: 30px;
-    background-color: $theme_primary;
+    background-color: $theme_primary !important;
     color: white;
     border-color: $theme_primary;
 }
