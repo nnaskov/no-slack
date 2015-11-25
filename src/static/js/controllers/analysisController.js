@@ -7,7 +7,7 @@ app.controller("AnalysisController", function ($scope, $http) {
         $http({
             method: "GET",
     		params: {charttype: "housechart"},
-            url: "http://localhost:8080/requests/analysis",
+            url: "/requests/analysis",
         }).success(function (data) {
         	$scope.houseName = data.house_name;
 
