@@ -13,19 +13,9 @@
                 "outputDir": "../css/",
                 "imagePath": null,
                 "sourceComments": false,
-                "outputStyle": "nested"
+                "outputStyle": "compressed"
             },
             "linting.collapsed": true
-        },
-        "scss/material.scss": {
-            "sass.enabled": true,
-            "sass.options": {
-                "outputDir": "../css/",
-                "imagePath": null,
-                "sourceComments": false,
-                "outputStyle": "nested"
-            },
-            "linting.collapsed": false
         }
     }
 }

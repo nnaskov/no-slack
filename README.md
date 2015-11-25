@@ -13,8 +13,15 @@ You're only supposed to do this once.
 Afterwards go in static/ and type:
 
 ```
+bower install
+```
+
+or if you have any problems try
+
+```
 bower install --force
 ```
+
 
 You're only supposed to this once unless someone has added a new bower component to bower.json.
 

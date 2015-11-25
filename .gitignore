@@ -4,9 +4,5 @@ src/.idea/
 *.pyc
 bower_components/
 src/static/bower_components/
-
-
-
 .DS_Store
-
-.DS_Store
+.project
