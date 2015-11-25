@@ -1,6 +1,4 @@
-var myApp = angular.module("app", ['chart.js']);
-
-myApp.controller("DoughnutController", function ($scope, $http) {
+app.controller("AnalysisController", function ($scope, $http) {
 
 	$scope.data = [];
 	$scope.labels = [];
@@ -9,7 +7,7 @@ myApp.controller("DoughnutController", function ($scope, $http) {
         $http({
             method: "GET",
     		params: {charttype: "housechart"},
-            url: "http://127.0.0.1:8080/requests/analysis",
+            url: "http://localhost:8080/requests/analysis",
         }).success(function (data) {
         	$scope.houseName = data.house_name;
 

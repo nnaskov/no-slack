@@ -2,7 +2,7 @@
 
 var index_app = angular.module('app.index', []);
 
-var app = angular.module('app.dashboard', ['ui.router', 'ui.bootstrap', 'ui.bootstrap.tpls', 'angular.vertilize', 'angularMoment', 'ngAnimate', 'ui-iconpicker']);
+var app = angular.module('app.dashboard', ['ui.router', 'ui.bootstrap', 'ui.bootstrap.tpls', 'angular.vertilize', 'angularMoment', 'ngAnimate', 'ui-iconpicker', 'chart.js']);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/dashboard");
@@ -50,6 +50,10 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                     return memberService.getHouseData();
                 }]
             }
+        })
+        .state('analysis', {
+            url: "/analysis",
+            templateUrl: "static/partials/analysis.html",
+            controller: "AnalysisController"
         });
 });
-
