@@ -191,6 +191,12 @@ $display_font_family: 'Lato', sans-serif;
     min-width: 350px;
 }
 
+.delegated{
+    border-color: #0d0d5c !important;//may want to alert colour
+    border-style: solid;
+    border-width: 3px;
+}
+
 .tile {  
     width: 100%;
     margin-right:10px; 
@@ -801,11 +807,15 @@ body {
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
 .popover{
+    background-color: $theme-primary;
     max-width: 1000px !important;
-    .popover-content{   
-        color: #000;
+    .popover-content{
+        background-color: lighten($theme-primary,5%);
+        color: white;
     }
     .popover-title{
-        color: #000;
+        background-color: $theme-primary;
+        color: white;
+        border-bottom: none;
     }
 }
