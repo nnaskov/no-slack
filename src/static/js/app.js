@@ -10,7 +10,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     // Now set up the states
     $stateProvider
         .state('dashboard', {
-            url: "/dashboard",
+            url: "/dashboard?refresh",
             templateUrl: "static/partials/dashboard.html",
             controller: 'TasksController',
             resolve: {
@@ -18,7 +18,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                     return taskService.getTasks();
                 }]
             },
-            reload: true,
+            reloadOnSearch: false,
         })
         .state("dashboard.addTask", {
             url: "/add/task",

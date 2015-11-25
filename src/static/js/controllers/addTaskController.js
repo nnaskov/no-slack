@@ -43,8 +43,10 @@ app.controller('AddTaskController', ['$scope', '$state', '$http', '$uibModalInst
             url: '/requests/task/'
         }).then(function (response) {
             $log.log($state.current.name);
-            window.location.href = $state.href('dashboard', null);
-            window.location.reload();
+            $uibModalInstance.dismiss('cancel');
+            $state.transitionTo('dashboard', {refresh:"true"}, { 
+                reload: true, inherit: true, notify: true
+            });
         });
     };
 
