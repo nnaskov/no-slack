@@ -1,7 +1,9 @@
 <div>
     <div ng-show="taskEvents.length > 0">
         <div ng-repeat="event in taskEvents">
-            {{event.name}}
+            <div style="width:400px;">
+                <b>{{event.name}}</b> completed the task on {{event.date | date:'dd/MM/yyyy hh:mm'}} (+{{event.positiveFeedback}} -{{event.negativeFeedback}})
+            </div>
         </div>
     </div>
     <div ng-show="taskEvents.length == 0">

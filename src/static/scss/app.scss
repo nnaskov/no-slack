@@ -796,11 +796,16 @@ body {
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
-.popover-content{
-    min-width: 1000px;    
-    color: #000;
-}
+.popover{
+    max-width: 1000px !important;
+    
+    .popover-content{   
+        color: #000;
+    }
 
-.popover-title{
-    color: #000;
+    .popover-title{
+        color: #000;
+    }
+
+    
 }
