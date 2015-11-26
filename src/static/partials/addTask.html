@@ -8,7 +8,7 @@
                 <label class="col-xs-3 col-xs-offset-1 text-left control-label" for="textinput">Name <span style="color: red">*</span></label>  
                 <div class="col-xs-7">
                     <div class="input-group">
-                        <input name="nameField" ng-model="nameField" type="text" placeholder="e.g. Hoovering" class="form-control" max="13" required>
+                        <input name="nameField" ng-model="nameField" ng-model-options="{ debounce: 1000 }" type="text" placeholder="e.g. Hoovering" class="form-control" max="13" required>
                         <input type="hidden" ng-model="iconClass" />
                         <span class="input-group-addon">
                             <ui-iconpicker ng-model="iconClass"></ui-iconpicker>
@@ -21,7 +21,7 @@
             <div class="form-group">
                 <label class="col-xs-3 col-xs-offset-1 text-left control-label" for="textarea">Description</label>
                 <div class="col-xs-7">                     
-                    <textarea ng-model="descriptionField" class="form-control boxSizingBorder" style="width:100%;" max="50" name="textarea"></textarea>
+                    <textarea ng-model="descriptionField" ng-model-options="{ debounce: 1000 }" class="form-control boxSizingBorder" style="width:100%;" max="50" name="textarea"></textarea>
                     <span class="help-block">How would you explain the task to an idiot?</span> 
                 </div>
             </div>
