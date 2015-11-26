@@ -12,7 +12,7 @@ app.controller('TaskController', ['$scope', '$http', '$element', 'taskService', 
             $scope.feedback.positive = 0;
             $scope.feedback.negative = 0;
             
-            $scope.task.userFeedback = undefined;
+            $scope.task.userFeedback = null;
             
             $scope.task.everCompleted = true;
         });

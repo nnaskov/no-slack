@@ -24,7 +24,10 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'static/partials/taskForm.html',
-                    controller: 'TaskFormController'
+                    controller: 'TaskFormController',
+                    resolve: {
+                        task: function(){ return {}; }
+                    }
                 });
                 modalInstance.result.then(function success() {
                     //Do success things
@@ -37,11 +40,14 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state("dashboard.editTask", {
             url: "/edit/task/:taskID",
-            onEnter: function ($stateParams, $state, $uibModal) {
+            onEnter: function ($stateParams, $state, $uibModal, task) {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'static/partials/taskForm.html',
-                    controller: 'TaskFormController'
+                    controller: 'TaskFormController',
+                    resolve: {
+                        task: function(){return task;}
+                    }
                 });
                 modalInstance.result.then(function success() {
                     //Do success things
@@ -50,6 +56,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                         $state.go("dashboard", null);
                     }
                 });
+            },
+            resolve: {
+                task: function(){ 
+                    return {taskName: "taskName"};
+                }
             }
         })
         .state('house', {
@@ -75,7 +86,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 app.run(function($rootScope, ngProgressFactory) {
     $rootScope.$on("$stateChangeStart", function () {
         $rootScope.progressbar = ngProgressFactory.createInstance();
-        $rootScope.progressbar.setColor("#fff");
+        $rootScope.progressbar.setColor("#000");
         $rootScope.progressbar.start();
     });
 

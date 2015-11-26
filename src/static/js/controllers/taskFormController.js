@@ -1,4 +1,9 @@
-app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalInstance', '$state', '$stateParams', '$log','taskService' , function ($scope, $state, $http, $uibModalInstance, $state, $stateParams, $log, taskService) {
+app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalInstance', '$state', '$stateParams', '$log','taskService', 'task' , function ($scope, $state, $http, $uibModalInstance, $state, $stateParams, $log, taskService, task) {
+    
+    if(task != null){
+        $scope.nameField = task.taskName;
+    }
+        
     //typeahead
     $scope.commonTasks = ['Washing up', 'Clean kitchen', 'Hoovering', 'Rinse bathroom'];
     

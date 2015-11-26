@@ -10,8 +10,9 @@
                     </div>
                     <div class="col-xs-9 col-xs-offset-1">
                         <div class="text-right edit-tile-icon">
-                            <span class="fa fa-pencil glyph-button"></span>
-                            
+                            <a class="edit-tile" ui-sref="dashboard.editTask({taskID: task.taskID})">
+                                <span class="fa fa-pencil glyph-button"></span>
+                            </a>
                         </div>
                         <div class="text-right" style="margin-top: -5px;">
                             <h2 class="title">{{task.taskName}}</h2>
@@ -23,10 +24,10 @@
                 <div class="row"><!-- Bottom Row-->
                     <div class="col-xs-6">
                         <div ng-show="task.everCompleted">
-                            <span id="thumbs-up" ng-click="addFeedback(true)" class="glyph-button" ng-class="{'fa fa-thumbs-up': task.userFeedback, 'fa-thumbs-o-up fa': !task.userFeedback}" aria-hidden="true"></span>
+                            <span id="thumbs-up" ng-click="addFeedback(true)" class="glyph-button" ng-class="{'fa fa-thumbs-up': task.userFeedback == true, 'fa-thumbs-o-up fa': !task.userFeedback}" aria-hidden="true"></span>
                             <span id="positive-feedback" ng-bind-html="feedback.positive"></span>
                        
-                            <span id="thumbs-down" ng-click="addFeedback(false)" class="glyph-button" ng-class="{'fa fa-thumbs-down': !task.userFeedback, 'fa-thumbs-o-down fa': task.userFeedback}" aria-hidden="true"></span>
+                            <span id="thumbs-down" ng-click="addFeedback(false)" class="glyph-button" ng-class="{'fa fa-thumbs-down': task.userFeedback == false, 'fa-thumbs-o-down fa': (task.userFeedback == true || task.userFeedback == null) }" aria-hidden="true"></span>
                             <span id="negative-feedback" ng-bind-html="feedback.negative"></span>
                         </div>
                     </div>
