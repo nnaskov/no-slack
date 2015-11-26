@@ -4,15 +4,17 @@
         <div ng-repeat="task in tasks" class="block-grid-item">
             <div ng-controller="TaskController" ng-init="task=task" id="{{task.taskID}}" ng-class="task.delegated ? 'delegated' : ''" class="tile red tile-animated" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
                 <!-- Each Task Tile -->
-                <div class="row" style="min-height: 100px"><!-- Top Row-->
+                <div class="row" style="min-height: 110px"><!-- Top Row-->
                     <div class="col-xs-2">
-                        <div class="glyph-box {{task.taskStyle}}" style="font-size: 60px;"></div>
+                        <div class="glyph-box {{task.taskStyle}}" style="font-size: 60px; margin-top: 15px;"></div>
                     </div>
                     <div class="col-xs-9 col-xs-offset-1">
-                        <div class="text-right">
-                            <h2 class="title">{{task.taskName}}</h2>
+                        <div class="text-right edit-tile-icon">
+                            <span class="fa fa-pencil glyph-button"></span>
+                            
                         </div>
-                        <div class="text-right">
+                        <div class="text-right" style="margin-top: -5px;">
+                            <h2 class="title">{{task.taskName}}</h2>
                             <span>{{task.description}}</span>
                         </div>
                     </div>
