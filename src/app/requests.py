@@ -34,14 +34,14 @@ class TaskHandler(webapp2.RequestHandler):
     POST adds a Task to data store and returns all the tasks that a house
     has in JSON format.
     '''
-    def get(self, task_id = None):
-        if task_id == None:
+    def get(self, task_id=None):
+        if task_id is None:
             tasks_list = models.get_household_tasks()
             task_list_json = jsons.get_all_tasks_json(tasks_list)
             json_data = json.dumps(task_list_json)
             self.response.out.write(json_data)
         else:
-            task = models.get_task(task_id)
+            task = models.get_task(int(task_id))
             task_json = jsons.get_task_json(task)
             json_data = json.dumps(task_json)
             self.response.out.write(json_data)
