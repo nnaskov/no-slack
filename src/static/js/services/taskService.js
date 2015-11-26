@@ -1,4 +1,4 @@
-app.factory('taskService', function ($http, $q, $timeout) {
+app.factory('taskService', ['$http', '$q', '$timeout', '$log', function($http, $q, $timeout, $log) {
     return {
         getTasks: function() {
             var deferred = $q.defer();
@@ -16,7 +16,50 @@ app.factory('taskService', function ($http, $q, $timeout) {
                 $log.error(msg, code);
             });
             return deferred.promise;
+        },
+        
+        addTaskEvent: function(taskID){
+            var deferred = $q.defer();
+            $http({
+                method: 'POST',
+                url: '/requests/task/' + taskID + '/taskevent'
+            }).success(function(response) {
+                deferred.resolve(response);
+            }).error(function(msg, code) {
+                deferred.reject(msg);
+                $log.error(msg, code);
+            });  
+            return deferred.promise;
+        },
+        
+        addFeedback: function(taskID, positive){
+            var deferred = $q.defer();
+            $http({
+                method: 'PUT',
+                data: {'taskID': taskID, 'goodJob': positive},
+                url: '/requests/task/' + taskID + '/taskevent'
+            }).success(function(response) {
+                deferred.resolve(response);
+            }).error(function(msg, code) {
+                deferred.reject(msg);
+                $log.error(msg, code);
+            });  
+            return deferred.promise;
+        },
+        
+        createTask: function(nameField, iconClass, descriptionField, frequency){
+            var deferred = $q.defer();
+            $http({
+                method: 'POST',
+                data: {'name': nameField, 'iconClass': iconClass, 'description': descriptionField, 'frequency': frequency, 'difficulty': 1},
+                url: '/requests/task/'
+            }).success(function(response) {
+                deferred.resolve(response);
+            }).error(function(msg, code) {
+                deferred.reject(msg);
+                $log.error(msg, code);
+            });  
+            return deferred.promise;
         }
     }
-}
-);
+}]);

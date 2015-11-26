@@ -21,12 +21,12 @@
                 <div class="row"><!-- Bottom Row-->
                     <div class="col-xs-6">
                         <div ng-show="task.everCompleted">
-                            <span id="{{task.taskID}}-thumbs-up" ng-click="addFeedback(true)" class="{{task.userFeedback == true ? 'fa fa-thumbs-up' : 'fa-thumbs-o-up fa'}} glyph-button" aria-hidden="true"></span>
-                            <span id="{{task.taskID}}-positive-feedback" ng-bind-html="feedback.positive"></span>
+                            <span id="thumbs-up" ng-click="addFeedback(true)" class="{{task.userFeedback == true ? 'fa fa-thumbs-up' : 'fa-thumbs-o-up fa'}} glyph-button" aria-hidden="true"></span>
+                            <span id="positive-feedback" ng-bind-html="feedback.positive"></span>
                        
                        
-                            <span id="{{task.taskID}}-thumbs-down" ng-click="addFeedback(false)" class="{{task.userFeedback == false ? 'fa fa-thumbs-down' : 'fa-thumbs-o-down fa'}} glyph-button" aria-hidden="true"></span>
-                            <span id="{{task.taskID}}-negative-feedback" ng-bind-html="feedback.negative"></span>
+                            <span id="thumbs-down" ng-click="addFeedback(false)" class="{{task.userFeedback == false ? 'fa fa-thumbs-down' : 'fa-thumbs-o-down fa'}} glyph-button" aria-hidden="true"></span>
+                            <span id="negative-feedback" ng-bind-html="feedback.negative"></span>
                         </div>
                     </div>
                     <div class="col-xs-6 text-right">

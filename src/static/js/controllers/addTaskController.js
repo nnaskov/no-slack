@@ -37,12 +37,7 @@ app.controller('AddTaskController', ['$scope', '$state', '$http', '$uibModalInst
                 break;
         }
         
-        $http({
-            method: 'POST',
-            data: {'name': $scope.nameField, 'iconClass': $scope.iconClass, 'description': $scope.descriptionField, 'frequency': frequency, 'difficulty': 1},
-            url: '/requests/task/'
-        }).then(function (response) {
-            $log.log($state.current.name);
+        taskService.createTask($scope.nameField, $scope.iconClass, $scope.descriptionField, frequency).then(function (response) {
             $uibModalInstance.dismiss('cancel');
             $state.transitionTo('dashboard', {refresh:"true"}, { 
                 reload: true, inherit: true, notify: true
