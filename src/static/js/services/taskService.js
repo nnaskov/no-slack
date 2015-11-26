@@ -60,6 +60,17 @@ app.factory('taskService', ['$http', '$q', '$timeout', '$log', function($http, $
                 $log.error(msg, code);
             });  
             return deferred.promise;
+        },
+        
+        getTaskByID: function(taskID){
+            var deferred = $q.defer();
+            $http.get('/requests/task/'+taskID).success(function(data) { 
+                deferred.resolve(data);
+            }).error(function(msg, code) {
+                deferred.reject(msg);
+                $log.error(msg, code);
+            });
+            return deferred.promise;
         }
     }
 }]);

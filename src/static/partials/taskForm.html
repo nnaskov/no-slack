@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h3 class="modal-title">Create new task</h3>
+    <h3 class="modal-title" ng-bind-html="title"></h3>
 </div>
 <div class="modal-body">
     <form name="addTaskForm" class="form-horizontal">
@@ -9,9 +9,9 @@
                 <div class="col-xs-7">
                     <div class="input-group">
                         <input name="nameField" ng-model="nameField"  uib-typeahead="task for task in commonTasks | filter:$viewValue | limitTo:8" ng-model-options="{ debounce: 1000 }" type="text" placeholder="e.g. Hoovering" class="form-control" max="13" required>
-                        <input type="hidden" ng-model="iconClass" />
+                        
                         <span class="input-group-addon">
-                            <ui-iconpicker ng-model="iconClass"></ui-iconpicker>
+                            <ui-iconpicker ng-model="iconClass" value="{{defaultIcon}}"></ui-iconpicker>
                         </span>
                     </div>
                 </div>

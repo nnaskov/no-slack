@@ -26,7 +26,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                     templateUrl: 'static/partials/taskForm.html',
                     controller: 'TaskFormController',
                     resolve: {
-                        task: function(){ return {}; }
+                        task: function(){ return null; }
                     }
                 });
                 modalInstance.result.then(function success() {
@@ -58,9 +58,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 });
             },
             resolve: {
-                task: function(){ 
-                    return {taskName: "taskName"};
-                }
+                task: ['taskService', '$stateParams', function (taskService, $stateParams) {
+                    return taskService.getTaskByID($stateParams.taskID);
+                }]
             }
         })
         .state('house', {
