@@ -1,4 +1,7 @@
 app.controller('AddTaskController', ['$scope', '$state', '$http', '$uibModalInstance', '$state', '$stateParams', '$log','taskService' , function ($scope, $state, $http, $uibModalInstance, $state, $stateParams, $log, taskService) {
+    //typeahead
+    $scope.commonTasks = ['Washing up', 'Clean kitchen', 'Hoovering', 'Rinse bathroom'];
+    
     $scope.recurringOptions = ["Yes", "No"];
     $scope.recurring = "Yes";
     

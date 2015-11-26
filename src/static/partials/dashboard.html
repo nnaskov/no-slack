@@ -2,7 +2,7 @@
     <div class="block-grid-lg-4 block-grid-md-3 block-grid-sm-2 block-grid-xs-1">
         <!-- Show all tasks-->
         <div ng-repeat="task in tasks" class="block-grid-item">
-            <div ng-controller="TaskController" ng-init="task=task" id="{{task.taskID}}" ng-class="task.delegated ? 'delegated' : ''" class="tile red tile-animated" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
+            <div ng-controller="TaskController" ng-init="task=task" id="{{task.taskID}}" ng-class="{delegated: task.delegated}" class="tile red tile-animated" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
                 <!-- Each Task Tile -->
                 <div class="row" style="min-height: 110px"><!-- Top Row-->
                     <div class="col-xs-2">
@@ -23,11 +23,11 @@
                 <div class="row"><!-- Bottom Row-->
                     <div class="col-xs-6">
                         <div ng-show="task.everCompleted">
-                            <span id="thumbs-up" ng-click="addFeedback(true)" class="{{task.userFeedback == true ? 'fa fa-thumbs-up' : 'fa-thumbs-o-up fa'}} glyph-button" aria-hidden="true"></span>
+                            <span id="thumbs-up" ng-click="addFeedback(true)" class="glyph-button" ng-class="{'fa fa-thumbs-up': task.userFeedback, 'fa-thumbs-o-up fa': !task.userFeedback}" aria-hidden="true"></span>
                             <span id="positive-feedback" ng-bind-html="feedback.positive"></span>
                        
                        
-                            <span id="thumbs-down" ng-click="addFeedback(false)" class="{{task.userFeedback == false ? 'fa fa-thumbs-down' : 'fa-thumbs-o-down fa'}} glyph-button" aria-hidden="true"></span>
+                            <span id="thumbs-down" ng-click="addFeedback(false)" class="glyph-button" ng-class="{'fa fa-thumbs-down': !task.userFeedback, 'fa-thumbs-o-down fa': task.userFeedback}" aria-hidden="true"></span>
                             <span id="negative-feedback" ng-bind-html="feedback.negative"></span>
                         </div>
                     </div>

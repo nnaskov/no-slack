@@ -6,8 +6,6 @@ var app = angular.module('app.dashboard', ['ui.router', 'ui.bootstrap', 'ui.boot
 
 app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/dashboard");
-    //
-    // Now set up the states
     $stateProvider
         .state('dashboard', {
             url: "/dashboard?refresh",
