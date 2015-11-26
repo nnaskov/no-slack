@@ -23,10 +23,26 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             onEnter: function ($stateParams, $state, $uibModal) {
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    templateUrl: 'static/partials/addTask.html',
-                    controller: 'AddTaskController'
+                    templateUrl: 'static/partials/taskForm.html',
+                    controller: 'TaskFormController'
                 });
-
+                modalInstance.result.then(function success() {
+                    //Do success things
+                }, function fail(reason) {
+                    if (~reason.indexOf('backdrop')) {
+                        $state.go("dashboard", null);
+                    }
+                });
+            }
+        })
+        .state("dashboard.editTask", {
+            url: "/edit/task/:taskID",
+            onEnter: function ($stateParams, $state, $uibModal) {
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'static/partials/taskForm.html',
+                    controller: 'TaskFormController'
+                });
                 modalInstance.result.then(function success() {
                     //Do success things
                 }, function fail(reason) {
