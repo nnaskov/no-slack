@@ -2,7 +2,7 @@
 
 var index_app = angular.module('app.index', []);
 
-var app = angular.module('app.dashboard', ['ui.router', 'ui.bootstrap', 'ui.bootstrap.tpls', 'ngAnimate', 'ui-iconpicker', 'chart.js', 'as.sortable', 'ngSanitize']);
+var app = angular.module('app.dashboard', ['ui.router', 'ui.bootstrap', 'ui.bootstrap.tpls', 'ngAnimate', 'ui-iconpicker', 'chart.js', 'as.sortable', 'ngSanitize', 'ngProgress']);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/dashboard");
@@ -56,4 +56,16 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: "static/partials/analysis.html",
             controller: "AnalysisController"
         });
+});
+
+app.run(function($rootScope, ngProgressFactory) {
+    $rootScope.$on("$stateChangeStart", function () {
+        $rootScope.progressbar = ngProgressFactory.createInstance();
+        $rootScope.progressbar.setColor("#fff");
+        $rootScope.progressbar.start();
+    });
+
+    $rootScope.$on("$stateChangeSuccess", function () {
+        $rootScope.progressbar.complete();
+    });
 });
