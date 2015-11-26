@@ -34,11 +34,17 @@ class TaskHandler(webapp2.RequestHandler):
     POST adds a Task to data store and returns all the tasks that a house
     has in JSON format.
     '''
-    def get(self):
-        tasks_list = models.get_household_tasks()
-        task_list_json = jsons.get_all_tasks_json(tasks_list)
-        json_data = json.dumps(task_list_json)
-        self.response.out.write(json_data)
+    def get(self, task_id = None):
+        if task_id == None:
+            tasks_list = models.get_household_tasks()
+            task_list_json = jsons.get_all_tasks_json(tasks_list)
+            json_data = json.dumps(task_list_json)
+            self.response.out.write(json_data)
+        else:
+            task = models.get_task(task_id)
+            task_json = jsons.get_task_json(task)
+            json_data = json.dumps(task_json)
+            self.response.out.write(json_data)
 
     def delete(self):
         task_id = self.request.get("taskId")
@@ -199,7 +205,8 @@ class PopulateHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     (r'/requests/house/check/(\w+)/?', HouseNamesHandler),
-    ('/requests/task/?', TaskHandler),
+    (r'/requests/task/?', TaskHandler),
+    (r'/requests/task/(\d+)/?', TaskHandler),
     (r'/requests/task/(\d+)/taskevent/?', TaskEventHandler),
     (r'/requests/member/?', MemberHandler),
     (r'/requests/analysis/?', AnalysisHandler),
