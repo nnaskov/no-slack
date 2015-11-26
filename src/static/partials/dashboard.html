@@ -1,7 +1,7 @@
 <div class="container-fluid tile-container">
-    <div class="block-grid-lg-4 block-grid-md-3 block-grid-sm-2 block-grid-xs-1" vertilize-container>
+    <div class="block-grid-lg-4 block-grid-md-3 block-grid-sm-2 block-grid-xs-1">
         <!-- Show all tasks-->
-        <div ng-repeat="task in tasks" class="block-grid-item" vertilize>
+        <div ng-repeat="task in tasks" class="block-grid-item">
             <div ng-controller="TaskController" ng-init="task=task" id="{{task.taskID}}" ng-class="task.delegated ? 'delegated' : ''" class="tile red tile-animated" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
                 <!-- Each Task Tile -->
                 <div class="row" style="min-height: 100px"><!-- Top Row-->
@@ -38,7 +38,7 @@
         </div>
 
         <!-- Add Task Tile -->
-        <div class="block-grid-item" vertilize>
+        <div class="block-grid-item">
             <a ui-sref="dashboard.addTask">
                 <div id="addTaskTile" class="tile">
                     <span>+</span>
