@@ -23,7 +23,8 @@ app.directive('historyPopover', ['$http', '$log', function($http, $log) {
                     url: '/requests/task/' + scope.task.taskID + '/taskevent'
                 }).then(function successCallback(response) {
                     scope.taskEvents = response.data;  
-                    scope.taskEvents.map((event) => (event.date = new Date(event.date).getTime()));
+                    scope.taskEvents.map((event) = (event.date = new Date(event.date).getTime()));
+                    //BOGOMIL - this was previously => , changing it to = works in Safari and seems to work ok, is this ok?
                 });
             };
             
