@@ -197,6 +197,24 @@ $display_font_family: 'Lato', sans-serif;
     border-width: 3px;
 }
 
+.fa-pencil{
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+     -webkit-transition:.5s;
+    /* ...and now for the proper property */
+    transition:.5s;
+}
+.tile:hover .edit-tile-icon{
+    color: white;
+}
+
+.edit-tile-icon{
+    margin-top: -12px;
+    margin-right: -10px;
+    color: transparent;
+}
+
 .tile {  
     width: 100%;
     margin-right:10px; 
