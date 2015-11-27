@@ -1,7 +1,7 @@
 app.controller('TaskController', ['$scope', '$http', '$element', 'taskService', function($scope, $http, $element, taskService) {    
     $scope.feedback = {
-        positive: $scope.task.positiveFeedback,
-        negative: $scope.task.negativeFeedback,
+        positive: $scope.task.positiveFeedback ? $scope.task.positiveFeedback : 0,
+        negative: $scope.task.negativeFeedback ? $scope.task.negativeFeedback : 0,
     };
     
     $scope.addTaskEvent = function(){

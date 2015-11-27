@@ -72,6 +72,10 @@ $input-group-addon-border-color: $input-group-addon-bg;
     to      { transform: translateY(0); }
 }
 
+#ngProgress {
+    height: 5px!important;
+}
+
 .mainContent.ng-enter           { animation: slideInRight 1.2s both ease; z-index: 8888; }
 .mainContent.ng-leave           { animation: slideOutLeft 0.8s both ease; z-index: 9999; }
 
