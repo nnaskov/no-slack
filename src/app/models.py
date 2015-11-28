@@ -184,6 +184,7 @@ def get_users_accounts(user_id=None):
 
 
 
+
 def get_household_key_for_current_user():
     """
     Get the household key for a memebr
@@ -299,6 +300,20 @@ def get_task_events(task_id):
     return q.fetch(limit=100)
 
 
+def get_all_task_events_for_member(member_key):
+    """
+    
+    NOTE: This function relies that you cannot change your household. It must  be re written if this functionality is
+    implemented because it doesn't check if the current task_events are for the same household.
+    :param member_key:
+    :return:
+    """
+    pass
+
+def get_all_members_for_household(house_key):
+    pass
+
+
 def update_task(task_key, task_event_key):
         """
         Add task event to the Task
@@ -357,17 +372,18 @@ def add_member(first_name, last_name, user_id=None):
     return key
 
 
-def get_members_list(house_key=None):
+def get_members_list(house_key=None, limit=12):
     """
     Returns a list of ndb.Key for each member in the house. If no house_key is specified,
     uses the current logged in user
-    :param house_key:
-    :return: array of ndb.Key
+    :param house_key: (ndb.Key) - of the house
+    :param limit: (int) - max number of members
+    :return: (list) of ndb.Key
     """
     if not house_key:
         house_key = get_household_key_for_current_user()
     q = Member.query(Member.household == house_key)
-    return q.fetch(limit=12)
+    return q.fetch(limit)
 
 
 def add_household(household_id):

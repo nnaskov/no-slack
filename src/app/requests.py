@@ -189,6 +189,7 @@ class AnalysisHandler(webapp2.RequestHandler):
                 self.response.out.write("""{"pie_elements":[{"name":"Norbert Naskov","value":4},{"name":"Ivan Naskov","value":1},{"name":"Pesho Naskov","value":2},{"name":"Adam Naskov","value":6}]}""");
 
         except:
+            # TODO: Return errors.
             # THIS IS ERROR. The chartype must be specified !!!! But for now just send it like that
             self.response.out.write("""{"house_name":"House 22","pie_elements":[{"name":"Norbert Naskov","value":10},{"name":"Ivan Naskov","value":3},{"name":"Pesho Naskov","value":18},{"name":"Adam Naskov","value":7}]}""")
 
