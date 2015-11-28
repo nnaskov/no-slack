@@ -52,13 +52,15 @@
     <!-- forked ui-iconpicker script fix DON'T CHANGE LINE BELOW -->
     <script type="text/javascript" src="//rawgithub.com/bgospodinov/ui-iconpicker-angular/master/dist/scripts/ui-iconpicker.js"></script>
     
+
+    <script type="text/javascript" src="/_ah/channel/jsapi"></script>
     <script src="../static/js/app.js"></script>
 
     <!-- Channel -->
-    <script type="text/javascript" src="/_ah/channel/jsapi"></script>
     <script type="text/javascript">
         app.value('channelClientID', '{{ token }}'); //sent by server
     </script>
+    
     
     <!-- Controllers -->
     <script src="../static/js/controllers/dashboardController.js"></script>
