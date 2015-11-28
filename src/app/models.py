@@ -386,7 +386,7 @@ def update_task(task_key, task_event_key):
             house = get_household_key_for_current_user().get()
             house.total_difficulty += task.difficulty
             house.put()
-            member_key = get_member()
+            member_key = get_member_key()
             member = member_key.get()
             member.difficulty_done += task.difficulty
             if task.assigned == member_key:

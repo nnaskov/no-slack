@@ -20,7 +20,7 @@ def get_task_json(task):
     task_dict[strings.everCompleted] = False
     task_dict[strings.assigned] = False
 
-    if task.assigned == models.get_member():
+    if task.assigned == models.get_member_key():
         task_dict[strings.assigned] = True
 
     if task.most_recent_event:
