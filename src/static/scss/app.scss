@@ -1,9 +1,18 @@
 //Customizing variables
-$navbar-default-bg: transparent;
-$navbar-default-border:transparent;
-
 $theme-primary: #993333;
 $theme-dark: #222;
+
+$navbar-default-color: #fff;
+$navbar-default-bg: $theme-primary;
+
+$navbar-height: 60px !default;
+
+$navbar-default-link-color:                #fff !default;
+$navbar-default-link-hover-color:          #fff !default;
+$navbar-default-link-hover-bg:             darken($navbar-default-bg, 6.5%) !default;
+$navbar-default-link-active-color:         #fff !default;
+$navbar-default-link-active-bg:            darken($navbar-default-bg, 6.5%) !default;
+    
 
 $input-group-addon-bg: $theme-primary;
 $input-group-addon-border-color: $input-group-addon-bg;
@@ -609,6 +618,19 @@ aside {
 
 .navbar{
     border-radius: 0px;
+    ul:not(.dropdown-menu){
+        li{
+            a{
+                line-height: ($navbar-height+10)/2;
+                height: $navbar-height+10;
+            }
+            height:($navbar-height+10);
+            line-height: ($navbar-height+10);
+            &:hover{
+                @include transition-all();
+            }
+        }
+    }
 }
 
 
