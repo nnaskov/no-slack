@@ -4,8 +4,8 @@
         <div ng-repeat="task in tasks" class="block-grid-item">
             <div ng-controller="TaskController" ng-init="task=task" id="{{task.taskID}}" ng-class="{delegated: task.assigned}" class="tile red tile-animated" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
                 <!-- Each Task Tile -->
-                <div class="row" style="min-height: 110px"><!-- Top Row-->
-                    <div class="col-xs-2">
+                <div class="row" style="min-height: 95px"><!-- Top Row-->
+                    <div class="col-xs-2" style="padding-left: 10px">
                         <div class="glyph-box {{task.taskStyle}}" style="font-size: 60px; margin-top: 15px;"></div>
                     </div>
                     <div class="col-xs-9 col-xs-offset-1">
@@ -20,7 +20,9 @@
                         </div>
                     </div>
                 </div><!-- End top Row-->
-
+                <div class="row">
+                    <span class="badge" style="margin-left: 24px; margin-bottom 2px;">AN</span>
+                </div>
                 <div class="row"><!-- Bottom Row-->
                     <div class="col-xs-6">
                         <div ng-show="task.everCompleted">
