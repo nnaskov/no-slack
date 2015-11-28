@@ -5,7 +5,7 @@ we want to add a new field to send back to Front end we can add it here and the 
 throughout the code.
 '''
 
-
+import models
 import strings
 
 def get_task_json(task):
@@ -18,6 +18,10 @@ def get_task_json(task):
     task_dict[strings.frequency] = task.frequency
     task_dict[strings.taskStyle] = task.style
     task_dict[strings.everCompleted] = False
+    task_dict[strings.assigned] = False
+
+    if task.assigned == models.get_member_key():
+        task_dict[strings.assigned] = True
 
     if task.most_recent_event:
         task_dict[strings.everCompleted] = True

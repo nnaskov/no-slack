@@ -10,6 +10,8 @@ class Member(ndb.Model):
     last_name = ndb.StringProperty()
     household = ndb.KeyProperty()
     channel_token = ndb.StringProperty()
+    difficulty_done = ndb.IntegerProperty(default=0)
+    difficulty_assigned = ndb.IntegerProperty(default=0)
 
     def is_owner(self):
         return True if(self.household.get().owner == self.key) else False
@@ -17,6 +19,7 @@ class Member(ndb.Model):
 class HouseHold(ndb.Model):
     name = ndb.StringProperty(required=True)
     owner = ndb.KeyProperty()
+    total_difficulty = ndb.IntegerProperty(default=0)
 
 
 class Task(ndb.Model):
@@ -32,6 +35,7 @@ class Task(ndb.Model):
     frequency = ndb.IntegerProperty(required=True)
     difficulty = ndb.IntegerProperty(required=True)
     most_recent_event = ndb.KeyProperty()
+    assigned = ndb.KeyProperty()
     style = ndb.TextProperty()
 
 
@@ -43,7 +47,7 @@ class TaskEvent(ndb.Model):
     negative_feedback = ndb.IntegerProperty(default=0)
 
     def get_user_feedback(self):
-        q = EventFeedback.query(ndb.AND(EventFeedback.user == get_member(),
+        q = EventFeedback.query(ndb.AND(EventFeedback.user == get_member_key(),
                                         EventFeedback.task_event == self.key))
         return q.fetch(limit=1)
 
@@ -166,7 +170,7 @@ def populate_default_values(house_key):
 
 
 
-def get_member(user_id=None):
+def get_member_key(user_id=None):
     """
     Returns the user as a ndb.Key
 
@@ -203,13 +207,12 @@ def get_users_accounts(user_id=None):
 
 
 
-
 def get_household_key_for_current_user():
     """
     Get the household key for a memebr
     :return:
     """
-    return get_member().get().household
+    return get_member_key().get().household
 
 
 def get_household_tasks(limit = 100):
@@ -231,7 +234,7 @@ def add_task_given_key(house_key, task_name, difficulty, description=None, frequ
     :return: ndb.Key of the task
     """
     new_task = Task(name=task_name, frequency=frequency, difficulty=difficulty, household=house_key,
-                    user_who_added=get_member(), style=style, description=description)
+                    user_who_added=get_member_key(), style=style, description=description)
     return new_task.put()
 
 
@@ -262,12 +265,11 @@ def add_task_event_given_task_key(task_key, member_key=None):
     :return: ndb.Key for the new TaskEvent
     """
     if not member_key:
-        member_key = get_member()
+        member_key = get_member_key()
     new_task_event = TaskEvent(task_type=task_key, completed_by=member_key)
     task_event_key = new_task_event.put()
 
     update_task(task_key, task_event_key)
-
     return task_event_key
 
 def update_task_event_feedback(task_id, was_positive, member_key=None):
@@ -289,7 +291,7 @@ def update_task_event_feedback_given_key(task_key, was_positive, member_key=None
         # TODO: Maybe change that?!
         task_event = task.most_recent_event.get()
         if not member_key:
-            member_key = get_member()
+            member_key = get_member_key()
         event_feedback = task_event.get_user_feedback()
 
         if len(event_feedback):
@@ -344,6 +346,28 @@ def get_all_members_for_household(house_key):
 
     return membersKeys
 
+def get_all_tasks_for_household(house_key):
+    """
+    Return a list of Task keys
+    :param house_key:
+    :return:
+    """
+    tasksKeys = []
+    q = Task.query(Task.household == house_key)
+    for task in q.fetch():
+        tasksKeys.append(task.key)
+
+    return tasksKeys
+
+def get_all_task_events_count_for_task_and_member(task_key, member_key):
+    """
+    Return the number of Tasks events for this member of the speicifc task.
+    :param task_key:
+    :param member_key:
+    :return:
+    """
+    q = TaskEvent.query(TaskEvent.completed_by == member_key, TaskEvent.task_type == task_key)
+    return q.count()
 
 def update_task(task_key, task_event_key):
         """
@@ -359,6 +383,16 @@ def update_task(task_key, task_event_key):
         else:
             task.most_recent_event = task_event_key
             task.put()
+            house = get_household_key_for_current_user().get()
+            house.total_difficulty += task.difficulty
+            house.put()
+            member_key = get_member_key()
+            member = member_key.get()
+            member.difficulty_done += task.difficulty
+            if task.assigned == member_key:
+                member.difficulty_assigned -= task.difficulty
+            member.put()
+
 
 
 def delete_task(id):
@@ -380,7 +414,8 @@ def get_task(task_id):
     return ndb.Key('Task', task_id).get()
 
 def get_task_key(task_id):
-    return ndb.Key('Task', task_id)
+    return ndb.Key("Task", int(task_id))
+
 
 
 def add_member(first_name, last_name, user_id=None):
@@ -418,7 +453,7 @@ def get_members_list(house_key=None, limit=12):
 
 
 def add_household(household_id):
-    owner = get_member()
+    owner = get_member_key()
     new_household = HouseHold(name=household_id, owner=owner)
     new_household.put()
     add_default_tasks(new_household.key)  # SHOULD BE MOVED WHEN IN PROD
