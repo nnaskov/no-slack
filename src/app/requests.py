@@ -46,16 +46,16 @@ class TaskHandler(webapp2.RequestHandler):
             json_data = json.dumps(task_json)
             self.response.out.write(json_data)
 
-    def delete(self):
-        task_id = self.request.get("taskId")
-        models.delete_task(task_id)
+    def delete(self, task_id):
+        task_id_int = int(task_id)
+        models.delete_task(task_id_int)
 
         obj = {
-            'taskId': task_id
+            'taskId': task_id_int
         }
         update_json = {}
         update_json['eventType'] = 'deleteTask'
-        update_json['taskId'] = task_id
+        update_json['taskId'] = task_id_int
         json_data = json.dumps(obj)
         update_data = json.dumps(update_json)
         publisher.update_clients(models.get_members_list(), update_data)
@@ -66,7 +66,7 @@ class TaskHandler(webapp2.RequestHandler):
         task_id = json_data.get("taskID")
         task = models.edit_task(task_id, json_data)
 
-        task_json = jsons.get_task_json()
+        task_json = jsons.get_task_json(task)
         update_json = {}
         update_json['eventType'] = 'editTask'
         update_json['task'] = task_json
@@ -189,6 +189,7 @@ class AnalysisHandler(webapp2.RequestHandler):
                 self.response.out.write("""{"pie_elements":[{"name":"Norbert Naskov","value":4},{"name":"Ivan Naskov","value":1},{"name":"Pesho Naskov","value":2},{"name":"Adam Naskov","value":6}]}""");
 
         except:
+            # TODO: Return errors.
             # THIS IS ERROR. The chartype must be specified !!!! But for now just send it like that
             self.response.out.write("""{"house_name":"House 22","pie_elements":[{"name":"Norbert Naskov","value":10},{"name":"Ivan Naskov","value":3},{"name":"Pesho Naskov","value":18},{"name":"Adam Naskov","value":7}]}""")
 

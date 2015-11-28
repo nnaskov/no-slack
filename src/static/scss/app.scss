@@ -350,6 +350,11 @@ $display_font_family: 'Lato', sans-serif;
 
 }
 
+.person-tile{
+    min-height: 190px !important;
+    cursor: auto;
+}
+
 .dark-red{
     background-color: $theme_primary;
     color: white;
