@@ -112,7 +112,7 @@ class TaskEventHandler(webapp2.RequestHandler):
         task_id = int(task_id)
         models.add_task_event(task_id)
         task = models.get_task(task_id)
-        task = delegator.delegate_task(task.get())
+        task = delegator.delegate_task(task)
 
         obj = jsons.get_task_json(task)
 
