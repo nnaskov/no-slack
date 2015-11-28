@@ -12,15 +12,18 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 
 class HomePageHandler(webapp2.RequestHandler):
-   def get(self):
-       user = users.get_current_user()
-       if user:
-           user_model = models.get_users_accounts()
-           if user_model:
-               template = JINJA_ENVIRONMENT.get_template('dashboard.html')
-               self.response.out.write(template.render())
+    def get(self):
+        user = users.get_current_user()
+        if user:
+            user_model = models.get_users_accounts()
+            if user_model:
+                template_values = {
+                    'token' : user_model.channel_token
+                }
+                template = JINJA_ENVIRONMENT.get_template('dashboard.html')
+                self.response.out.write(template.render(template_values))
 
-           else:
+            else:
                 login_url = users.create_login_url(self.request.url)
 
                 template_values = {
@@ -30,15 +33,16 @@ class HomePageHandler(webapp2.RequestHandler):
                 template = JINJA_ENVIRONMENT.get_template('index.html')
                 self.response.write(template.render(template_values))
 
-       else:
-           login_url = users.create_login_url(self.request.url)
+        else:
+            login_url = users.create_login_url(self.request.url)
 
-           template_values = {
-               'login_url' : login_url
-           }
+            template_values = {
+                'login_url' : login_url
+            }
 
-           template = JINJA_ENVIRONMENT.get_template('index.html')
-           self.response.write(template.render(template_values))
+            template = JINJA_ENVIRONMENT.get_template('index.html')
+            self.response.write(template.render(template_values))
+
 
 class IndexHandler(webapp2.RequestHandler):
     def get(self):

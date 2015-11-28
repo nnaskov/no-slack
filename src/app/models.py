@@ -10,6 +10,7 @@ class Member(ndb.Model):
     household = ndb.KeyProperty()
     difficulty_done = ndb.IntegerProperty(default=0)
     difficulty_assigned = ndb.IntegerProperty(default=0)
+    channel_token = ndb.StringProperty()
 
     def is_owner(self):
         return True if(self.household.get().owner == self.key) else False

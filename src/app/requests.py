@@ -281,7 +281,10 @@ class TokenHandler(webapp2.RequestHandler):
     def get(self):
         user_id = models.get_member_id()
         if user_id:
+            user = models.get_member(user_id)
             token = channel.create_channel(user_id)
+            user.channel_token = token
+            user.put()
             obj = {
                 'token' : token
             }
