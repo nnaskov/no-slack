@@ -36,7 +36,7 @@ app.factory('taskService', ['$http', '$q', '$timeout', '$log', function($http, $
             var deferred = $q.defer();
             $http({
                 method: 'PUT',
-                data: {'taskID': taskID, 'goodJob': positive},
+                data: {'goodJob': positive},
                 url: '/requests/task/' + taskID + '/taskevent'
             }).success(function(response) {
                 deferred.resolve(response);
