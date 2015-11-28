@@ -4,7 +4,7 @@ import jsons
 import models
 import publisher
 import delegator
-
+from google.appengine.api import channel
 
 class HouseNamesHandler(webapp2.RequestHandler):
     '''
@@ -273,6 +273,18 @@ class PopulateHandler(webapp2.RequestHandler):
         # we are going to redirect the person
 
 
+class TokenHandler(webapp2.RequestHandler):
+
+    def get(self):
+        user_id = models.get_member_id()
+        if user_id:
+            token = channel.create_channel(user_id)
+            obj = {
+                'token' : token
+            }
+            self.response.out.write(json.dumps(obj))
+
+
 app = webapp2.WSGIApplication([
     (r'/requests/house/check/(\w+)/?', HouseNamesHandler),
     (r'/requests/task/?', TaskHandler),
@@ -281,5 +293,6 @@ app = webapp2.WSGIApplication([
     (r'/requests/member/?', MemberHandler),
     (r'/requests/analysis/?', AnalysisHandler),
     (r'/requests/populate/?', PopulateHandler),
+    (r'/requests/token/?', TokenHandler),
 
 ], debug=True)
