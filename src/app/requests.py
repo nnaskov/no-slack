@@ -173,6 +173,18 @@ class AnalysisHandler(webapp2.RequestHandler):
     # self.response.out.write(json_data)
     """
 
+    def get_pie_elements(self,keys, method, name_attribute_of_key):
+        pie_elements = []
+        for key in keys:
+            numOfTasks = method(key)
+            if numOfTasks > 0:
+                element = {
+                    'name': getattr(key.get(),name_attribute_of_key ),
+                    'value': numOfTasks
+                }
+                pie_elements.append(element)
+        return pie_elements
+
     def get(self):
 
         try:
@@ -188,17 +200,8 @@ class AnalysisHandler(webapp2.RequestHandler):
                 membersKeys = models.get_all_members_for_household(houseKey)
 
                 response = {"house_name":houseKey.get().name }
-                pie_elements = []
-                for memberKey in membersKeys:
-                    numOfTasks = models.get_all_task_events_count_for_member(memberKey)
-                    if numOfTasks > 0:
-                        element = {
-                            'name': memberKey.get().first_name,
-                            'value': numOfTasks
-                        }
-                        pie_elements.append(element)
 
-                response['pie_elements'] = pie_elements
+                response['pie_elements'] = self.get_pie_elements(membersKeys,models.get_all_task_events_count_for_member, 'first_name')
 
                 self.response.out.write(json.dumps(response))
 
@@ -209,7 +212,7 @@ class AnalysisHandler(webapp2.RequestHandler):
                     self.response.out.write("ERROR: userid must be present")
                     pass
                 else:
-                    memberKey = models.get_member(self.request.GET['userid'])
+                    memberKey = models.get_member_key(self.request.GET['userid'])
                     # Get the household key
                     houseKey = models.get_household_key_for_current_user()
 
@@ -217,22 +220,35 @@ class AnalysisHandler(webapp2.RequestHandler):
                     taskKeys = models.get_all_tasks_for_household(houseKey)
 
                     response = {}
-                    pie_elements = []
-                    for taskKey in taskKeys:
-                        numOfTaskEvents = models.get_all_task_events_count_for_task_and_member(taskKey,memberKey)
-                        if numOfTaskEvents > 0:
-                            element = {
-                                'name': taskKey.get().name,
-                                'value': numOfTaskEvents
-                            }
-                            pie_elements.append(element)
 
-                    response['pie_elements'] = pie_elements
+                    def get_all_task_events_for_this_task(taskKey):
+                        return models.get_all_task_events_count_for_task_and_member(taskKey, memberKey)
+
+                    response['pie_elements'] = self.get_pie_elements(taskKeys, get_all_task_events_for_this_task , 'name')
 
                     self.response.out.write(json.dumps(response))
 
             elif charttype == "taskchart":
-                self.response.out.write("""{"pie_elements":[{"name":"Norbert Naskov","value":4},{"name":"Ivan Naskov","value":1},{"name":"Pesho Naskov","value":2},{"name":"Adam Naskov","value":6}]}""");
+                if not 'taskid' in self.request.GET.keys():
+                    #TODO return an error
+                    self.response.out.write("ERROR: taskid must be present")
+                    pass
+                else:
+                    taskKey = models.get_task_key(self.request.GET['taskid'])
+                    # Get the household key
+                    houseKey = models.get_household_key_for_current_user()
+
+                    #Get all members
+                    membersKeys = models.get_all_members_for_household(houseKey)
+                    response = {}
+
+                    def get_all_task_events_for_member(memberKey):
+                        return models.get_all_task_events_count_for_task_and_member(taskKey, memberKey)
+
+                    response['pie_elements'] = self.get_pie_elements(membersKeys, get_all_task_events_for_member, 'first_name')
+
+                    self.response.out.write(json.dumps(response))
+
 
             elif charttype == "thumbschart":
                 self.response.out.write("""{"pie_elements":[{"name":"thumbs_up","value":4},{"name":"thumbs_down","value":1}]}""");
