@@ -166,8 +166,7 @@
 
 </div>
 <div class="modal-footer">
-    <!--DO NOT ENABLE DELETE-->
-    <button ng-if="false" class="btn btn-primary" type="button" ng-disabled="addTaskForm.$invalid" ng-click="delete()" style="float: left; background-color: darkred;">Delete</button>
+    <button ng-if="edit" class="btn btn-primary" type="button" ng-disabled="addTaskForm.$invalid" ng-click="delete()" style="float: left; background-color: darkred;">Delete</button>
     <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
     <button ng-if="!edit" class="btn btn-primary" type="button" ng-disabled="addTaskForm.$invalid" ng-click="ok()">OK</button>
     <button ng-if="edit" class="btn btn-primary" type="button" ng-disabled="addTaskForm.$invalid" ng-click="update()">Update</button>
