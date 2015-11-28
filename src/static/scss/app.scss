@@ -624,8 +624,8 @@ aside {
 .navbar{
     border-radius: 0px;
     ul:not(.dropdown-menu){
-        li{
-            a{
+        & > li{
+            & > a{
                 line-height: ($navbar-height+10)/2;
                 height: $navbar-height+10;
             }
