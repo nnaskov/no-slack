@@ -66,7 +66,7 @@ class TaskHandler(webapp2.RequestHandler):
         task_id = json_data.get("taskID")
         task = models.edit_task(task_id, json_data)
 
-        task_json = jsons.get_task_json()
+        task_json = jsons.get_task_json(task)
         update_json = {}
         update_json['eventType'] = 'editTask'
         update_json['task'] = task_json

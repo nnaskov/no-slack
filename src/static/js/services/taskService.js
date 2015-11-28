@@ -61,6 +61,20 @@ app.factory('taskService', ['$http', '$q', '$timeout', '$log', function($http, $
             });  
             return deferred.promise;
         },
+
+        deleteTask: function(taskID){
+            var deferred = $q.defer();
+            $http({
+                method: 'DELETE',
+                url: '/requests/task/' + taskID
+            }).success(function(response) {
+                deferred.resolve(response);
+            }).error(function(msg, code) {
+                deferred.reject(msg);
+                $log.error(msg, code);
+            });  
+            return deferred.promise;
+        },
         
         getTaskByID: function(taskID){
             var deferred = $q.defer();

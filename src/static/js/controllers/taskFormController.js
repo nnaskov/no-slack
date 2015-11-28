@@ -86,6 +86,15 @@ app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalIns
         });
     };
 
+    $scope.delete = function (){
+        taskService.deleteTask(task.taskID).then(function (response) {
+            $uibModalInstance.dismiss('cancel');
+            $state.transitionTo('dashboard', {refresh:"true"}, { 
+                reload: true, inherit: true, notify: true
+            });
+        });
+    };
+
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
         $state.go("dashboard", null);
