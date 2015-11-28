@@ -47,14 +47,15 @@ class TaskHandler(webapp2.RequestHandler):
             self.response.out.write(json_data)
 
     def delete(self, task_id):
-        models.delete_task(task_id)
+        task_id_int = int(task_id)
+        models.delete_task(task_id_int)
 
         obj = {
-            'taskId': task_id
+            'taskId': task_id_int
         }
         update_json = {}
         update_json['eventType'] = 'deleteTask'
-        update_json['taskId'] = task_id
+        update_json['taskId'] = task_id_int
         json_data = json.dumps(obj)
         update_data = json.dumps(update_json)
         publisher.update_clients(models.get_members_list(), update_data)
