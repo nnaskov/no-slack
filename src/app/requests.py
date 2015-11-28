@@ -3,6 +3,7 @@ import json
 import jsons
 import models
 import publisher
+import delegator
 
 
 class HouseNamesHandler(webapp2.RequestHandler):
@@ -87,6 +88,7 @@ class TaskHandler(webapp2.RequestHandler):
         task = models.add_task(task_name, difficulty, description, frequency, style)
         task = task.get()
 
+        task = delegator.delegate_task(task)
         task_json = jsons.get_task_json(task)
         update_json = {}
         update_json['eventType'] = 'addTask'
@@ -110,6 +112,7 @@ class TaskEventHandler(webapp2.RequestHandler):
         task_id = int(task_id)
         models.add_task_event(task_id)
         task = models.get_task(task_id)
+        task = delegator.delegate_task(task.get())
 
         obj = jsons.get_task_json(task)
 

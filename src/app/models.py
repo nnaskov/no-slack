@@ -10,6 +10,8 @@ class Member(ndb.Model):
     last_name = ndb.StringProperty()
     household = ndb.KeyProperty()
     channel_token = ndb.StringProperty()
+    difficulty_done = ndb.IntegerProperty(default=0)
+    difficulty_assigned = ndb.IntegerProperty(default=0)
 
     def is_owner(self):
         return True if(self.household.get().owner == self.key) else False
@@ -17,6 +19,7 @@ class Member(ndb.Model):
 class HouseHold(ndb.Model):
     name = ndb.StringProperty(required=True)
     owner = ndb.KeyProperty()
+    total_difficulty = ndb.IntegerProperty(default=0)
 
 
 class Task(ndb.Model):
@@ -32,6 +35,7 @@ class Task(ndb.Model):
     frequency = ndb.IntegerProperty(required=True)
     difficulty = ndb.IntegerProperty(required=True)
     most_recent_event = ndb.KeyProperty()
+    assigned = ndb.KeyProperty()
     style = ndb.TextProperty()
 
 
@@ -266,7 +270,6 @@ def add_task_event_given_task_key(task_key, member_key=None):
     task_event_key = new_task_event.put()
 
     update_task(task_key, task_event_key)
-
     return task_event_key
 
 def update_task_event_feedback(task_id, was_positive, member_key=None):
@@ -380,6 +383,16 @@ def update_task(task_key, task_event_key):
         else:
             task.most_recent_event = task_event_key
             task.put()
+            house = get_household_key_for_current_user().get()
+            house.total_difficulty += task.difficulty
+            house.put()
+            member_key = get_member()
+            member = member_key.get()
+            member.difficulty_done += task.difficulty
+            if task.assigned == member_key:
+                member.difficulty_assigned -= task.difficulty
+            member.put()
+
 
 
 def delete_task(id):

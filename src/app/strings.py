@@ -8,6 +8,7 @@ dateModified = "dateModified"
 frequency = "frequency"
 taskStyle = "taskStyle"
 everCompleted = "everCompleted"
+assigned = 'assigned'
 positiveFeedback = "positiveFeedback"
 negativeFeedback = "negativeFeedback"
 userFeedback = "userFeedback"
