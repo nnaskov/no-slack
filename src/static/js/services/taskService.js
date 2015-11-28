@@ -1,4 +1,4 @@
-app.factory('taskService', ['$http', '$q', '$timeout', '$log', function($http, $q, $timeout, $log) {
+app.factory('taskService', ['$http', '$q', '$timeout', '$log', 'moment', function($http, $q, $timeout, $log, moment) {
     return {
         getTasks: function() {
             var deferred = $q.defer();
@@ -7,7 +7,7 @@ app.factory('taskService', ['$http', '$q', '$timeout', '$log', function($http, $
                 
                 data.forEach(function(datum){
                     datum.duration = (datum.frequency * 60 * 60) + "s";
-                    datum.delay = ((new Date(datum.dateModified).getTime() - now)/1000) + "s";
+                    datum.delay = ((moment(datum.dateModified).toDate().getTime() - now)/1000) + "s";
                 });
                 
                 deferred.resolve(data);
