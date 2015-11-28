@@ -19,4 +19,5 @@ def delegate_task(task):
             largest_bin = bin_size
             assign = member_key
     task.assigned = member_key
-    return task.put()
+    task.put()
+    return task

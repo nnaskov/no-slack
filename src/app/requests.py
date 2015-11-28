@@ -88,7 +88,7 @@ class TaskHandler(webapp2.RequestHandler):
         task = models.add_task(task_name, difficulty, description, frequency, style)
         task = task.get()
 
-        task = delegator.delegate_task(task).get()
+        task = delegator.delegate_task(task)
         task_json = jsons.get_task_json(task)
         update_json = {}
         update_json['eventType'] = 'addTask'
