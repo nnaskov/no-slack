@@ -8,12 +8,49 @@
     </div>
     </div>
     <div class="row center-row">
+        <style>
+            #fileUpload {
+               position: relative;
+               overflow: hidden;
+               float: left;
+            }
+            #fileUpload input#upload {
+               position: absolute;
+               top: 0;
+               right: 0;
+               margin: 0;
+               padding: 0;
+               font-size: 20px;
+               cursor: pointer;
+               opacity: 0;
+               filter: alpha(opacity=0);
+            }
+        </style>
         <div class="col-sm-6">
             <div>
                 <div class="person-list" ng-repeat="member in houseData.members">
                     <div class="row row-centered">
                         <div id="none" class="person-tile tile dark-red">
-                            <img src="../static/img/blank-picture.jpg" height="150px">
+
+                        <form id="fileUpload" action="/upload" method="post" contentType="form/multi-part" enctype="multipart/form-data" class="link">
+                        <img id="myImg" name="user_image " src="../static/img/blank-picture.jpg" height="150px" width="150px">
+                        <input id="upload" type="file" name="movieInfo" style="height: 150px;"/>
+                        </form>
+                            <script>
+                                $(function (uploadImg) {
+                                    $(":file").change(function () {
+                                        if (this.files && this.files[0]) {
+                                            var reader = new FileReader();
+                                            reader.onload = imageIsLoaded;
+                                            reader.readAsDataURL(this.files[0]);
+                                        }
+                                    });
+                                });
+
+                                function imageIsLoaded(e) {
+                                    $('#myImg').attr('src', e.target.result);
+                                };
+                            </script>
                             <h2 class="title">{{member.firstName}} {{member.lastName}}</h2>
                             <ul class="person-detail-list">
                                 <li><b>Favourite task: </b>Hoovering Lounge</li>
