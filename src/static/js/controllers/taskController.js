@@ -1,4 +1,13 @@
 app.controller('TaskController', ['$scope', '$http', '$element', 'taskService', function($scope, $http, $element, taskService) {    
+    //listeners
+    $scope.$on('taskFeedback', function(ev, args){
+        if(args.taskId === $scope.task.taskID){
+            $scope.feedback.positive = args.positive;
+            $scope.feedback.negative = args.negative;
+            $scope.$apply();
+        }
+    });
+    
     $scope.feedback = {
         positive: $scope.task.positiveFeedback ? $scope.task.positiveFeedback : 0,
         negative: $scope.task.negativeFeedback ? $scope.task.negativeFeedback : 0,

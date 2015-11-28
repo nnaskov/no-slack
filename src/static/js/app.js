@@ -83,7 +83,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         });
 });
 
-app.run(function($rootScope, ngProgressFactory) {
+app.run(function($rootScope, ngProgressFactory) {    
     $rootScope.$on("$stateChangeStart", function () {
         $rootScope.progressbar = ngProgressFactory.createInstance();
         $rootScope.progressbar.setColor("#000");
