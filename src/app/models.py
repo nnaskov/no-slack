@@ -203,7 +203,6 @@ def get_users_accounts(user_id=None):
 
 
 
-
 def get_household_key_for_current_user():
     """
     Get the household key for a memebr
@@ -344,6 +343,28 @@ def get_all_members_for_household(house_key):
 
     return membersKeys
 
+def get_all_tasks_for_household(house_key):
+    """
+    Return a list of Task keys
+    :param house_key:
+    :return:
+    """
+    tasksKeys = []
+    q = Task.query(Task.household == house_key)
+    for task in q.fetch():
+        tasksKeys.append(task.key)
+
+    return tasksKeys
+
+def get_all_task_events_count_for_task_and_member(task_key, member_key):
+    """
+    Return the number of Tasks events for this member of the speicifc task.
+    :param task_key:
+    :param member_key:
+    :return:
+    """
+    q = TaskEvent.query(TaskEvent.completed_by == member_key, TaskEvent.task_type == task_key)
+    return q.count()
 
 def update_task(task_key, task_event_key):
         """

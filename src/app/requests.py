@@ -201,12 +201,41 @@ class AnalysisHandler(webapp2.RequestHandler):
                 response['pie_elements'] = pie_elements
 
                 self.response.out.write(json.dumps(response))
+
             elif charttype == "userchart":
-                self.response.out.write("""{"pie_elements":[{"name":"Washing up","value":10},{"name":"Cleaning","value":3},{"name":"Hoovering","value":18},{"name":"Gardening","value":7}]}""");
-            elif charttype == "thumbschart":
-                self.response.out.write("""{"pie_elements":[{"name":"thumbs_up","value":4},{"name":"thumbs_down","value":1}]}""");
+
+                if not 'userid' in self.request.GET.keys():
+                    #TODO return an error
+                    self.response.out.write("ERROR: userid must be present")
+                    pass
+                else:
+                    memberKey = models.get_member(self.request.GET['userid'])
+                    # Get the household key
+                    houseKey = models.get_household_key_for_current_user()
+
+                    #Get all members
+                    taskKeys = models.get_all_tasks_for_household(houseKey)
+
+                    response = {}
+                    pie_elements = []
+                    for taskKey in taskKeys:
+                        numOfTaskEvents = models.get_all_task_events_count_for_task_and_member(taskKey,memberKey)
+                        if numOfTaskEvents > 0:
+                            element = {
+                                'name': taskKey.get().name,
+                                'value': numOfTaskEvents
+                            }
+                            pie_elements.append(element)
+
+                    response['pie_elements'] = pie_elements
+
+                    self.response.out.write(json.dumps(response))
+
             elif charttype == "taskchart":
                 self.response.out.write("""{"pie_elements":[{"name":"Norbert Naskov","value":4},{"name":"Ivan Naskov","value":1},{"name":"Pesho Naskov","value":2},{"name":"Adam Naskov","value":6}]}""");
+
+            elif charttype == "thumbschart":
+                self.response.out.write("""{"pie_elements":[{"name":"thumbs_up","value":4},{"name":"thumbs_down","value":1}]}""");
 
         except Exception as e:
             # TODO: Return errors.
