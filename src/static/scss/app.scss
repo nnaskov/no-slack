@@ -229,6 +229,19 @@ $display_font_family: 'Lato', sans-serif;
     }
 }
 
+.panel-red{
+    color: white;
+    background-color: lighten($theme-primary,5%);
+    & .panel-heading{
+        font-weight: 800;
+        color: white;
+        background-color: $theme-primary;
+        margin-bottom: 20px;
+        border-bottom: none;
+    }
+    padding-bottom: 10px;
+}
+
 .tile {  
     width: 100%;
     margin-right:10px; 
@@ -350,6 +363,9 @@ $display_font_family: 'Lato', sans-serif;
 
 }
 
+.house-title{
+    margin-top: 0px;
+}
 .person-tile{
     min-height: 190px !important;
     cursor: auto;
@@ -370,23 +386,20 @@ $display_font_family: 'Lato', sans-serif;
     min-width: 460px;
 }
 .person-list {
-    max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
+    
 }
 
-.person-list > .row > .tile{
+.person-list & .tile{
     padding: 20px;
 }
 
-.person-list > .row > .tile > img{
+.person-list & img{
     float: left;
 }
 
-.person-list > .row > .tile > h2{
+.person-list & h2{
     margin-left: 20px;
     float: left;
-    width: 300px;
 }
 
 .person-detail-list{

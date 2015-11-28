@@ -1,38 +1,33 @@
 <!-- container -->
 <div class="container-fluid tile-container">
 <div><!--quick fix-->
-    <div class="row center-row">
-        <div class="col-12">
-            <h1>{{houseData.houseName}}'s House Info</h1>
-        </div>
-    </div>
-    </div>
-    <div class="row center-row">
-        <style>
-            #fileUpload {
-               position: relative;
-               overflow: hidden;
-               float: left;
-            }
-            #fileUpload input#upload {
-               position: absolute;
-               top: 0;
-               right: 0;
-               margin: 0;
-               padding: 0;
-               font-size: 20px;
-               cursor: pointer;
-               opacity: 0;
-               filter: alpha(opacity=0);
-            }
-        </style>
-        <div class="col-sm-6">
-            <div>
-                <div class="person-list" ng-repeat="member in houseData.members">
-                    <div class="row row-centered">
-                        <div id="none" class="person-tile tile dark-red">
-
-                        <form id="fileUpload" action="/upload" method="post" contentType="form/multi-part" enctype="multipart/form-data" class="link">
+<style>
+    #fileUpload {
+       position: relative;
+       overflow: hidden;
+       float: left;
+    }
+    #fileUpload input#upload {
+       position: absolute;
+       top: 0;
+       right: 0;
+       margin: 0;
+       padding: 0;
+       font-size: 20px;
+       cursor: pointer;
+       opacity: 0;
+       filter: alpha(opacity=0);
+    }
+</style>
+    <div class="row">
+        <h1 class="house-title">{{houseData.houseName}}'s House Info</h1>
+        <div class="col-sm-6 col-md-5" style="min-width: 500px;">
+            <div class="person-list" ng-repeat="member in houseData.members">
+                <div class="row" style="min-width: 470px; width: 470px; margin-left: auto; margin-right: auto;">
+                    <div id="none" class="person-tile tile dark-red">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <form id="fileUpload" action="/upload" method="post" contentType="form/multi-part" enctype="multipart/form-data" class="link">
                         <img id="myImg" name="user_image " src="../static/img/blank-picture.jpg" height="150px" width="150px">
                         <input id="upload" type="file" name="movieInfo" style="height: 150px;"/>
                         </form>
@@ -51,21 +46,40 @@
                                     $('#myImg').attr('src', e.target.result);
                                 };
                             </script>
-                            <h2 class="title">{{member.firstName}} {{member.lastName}}</h2>
-                            <ul class="person-detail-list">
-                                <li><b>Favourite task: </b>Hoovering Lounge</li>
-                                <li><b>Last task: </b>Washing Up</li>
-                                <li><b>Next task: </b>Gardening</li>
-                                <li><b>Task share:</b><span style="font-size: 24px; font-weight: 100;"> 23%</span></li>
-                                <li><b>Average Score:</b><span style="font-size: 24px; font-weight: 100;"> 80%</span></li>
-                            </ul>
+                            </div>
+                            <div class="col-sm-8">
+                                <h2 class="title">{{member.firstName}} {{member.lastName}}</h2>
+                                <ul class="person-detail-list">
+                                    <li><b>Favourite task: </b>Hoovering Lounge</li>
+                                    <li><b>Last task: </b>Washing Up</li>
+                                    <li><b>Next task: </b>Gardening</li>
+                                    <li><b>Task share:</b><span style="font-size: 24px; font-weight: 100;"> 23%</span></li>
+                                    <li><b>Average Score:</b><span style="font-size: 24px; font-weight: 100;"> 80%</span></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div>
+        <div class="col-sm-6 col-md-7">
+           <div ng-controller="AnalysisController">
+                <div class="row">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">Chart name</div>
+                        <canvas id="houseAnalysis" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-options="options" width="250px;"></canvas>
+                    </div>
+                    <div class="panel panel-red">
+                        <div class="panel-heading">Chart name</div>
+                        <canvas id="houseAnalysis" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-options="options" width="250px;"></canvas>
+                    </div>
+                    <div class="panel panel-red">
+                        <div class="panel-heading">Chart name</div>
+                        <canvas id="houseAnalysis" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-options="options" width="250px;"></canvas>
+                    </div>
+                </div>
+            </div>
+            <!--<div>
                 <div class="task-list" ng-repeat="task in tasks">
                     <div id="{{task.taskID}}" class="task-list-item dark-red tile-animated row" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
                         <div class="task-list-item-content">
@@ -84,14 +98,13 @@
                                             <li><a href="#">Days</a></li>
                                             <li><a href="#">Weeks</a></li>
                                         </ul>
-                                    </div><!-- /btn-group -->
-                                </div><!-- /input-group -->
+                                    </div><!-- /btn-group
+                                </div><!-- /input-group
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>              
-
+            </div> -->              
         </div>
     </div>       
 </div> 
