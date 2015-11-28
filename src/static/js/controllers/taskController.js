@@ -32,8 +32,6 @@ app.controller('TaskController', ['$scope', '$http', '$element', 'taskService', 
         negative: $scope.task.negativeFeedback ? $scope.task.negativeFeedback : 0,
     };
     
-    
-    
     $scope.addTaskEvent = function(){
         taskService.addTaskEvent($scope.task.taskID).then(addTaskEventCb);
 	};

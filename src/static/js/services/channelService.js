@@ -67,11 +67,13 @@ app.factory('channelService', ['$http', '$rootScope', '$timeout', '$log' , funct
                 })
         }
 
+        /*
         service.pingCallback = function() {
             $log.log('Got a ping from the server.');
             isConnectionAlive = true;
         }
-
+        */
+        /*
         service.checkConnection = function() {
             if (isConnectionAlive) {
                 $log.log('Connection is alive.');
@@ -87,6 +89,7 @@ app.factory('channelService', ['$http', '$rootScope', '$timeout', '$log' , funct
             $log.log('Not receiving a ping, closing the connection');
             service.socket.close();
         }
+        */
 
         return service;
 }]);
