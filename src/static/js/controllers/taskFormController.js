@@ -26,6 +26,7 @@ app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalIns
     
     if(task != null){
         $scope.title = "Edit task "+task.taskName;
+        $scope.edit = true;
         $scope.nameField = task.taskName;
         $scope.descriptionField = task.description;
         $scope.iconClass = task.taskStyle;
@@ -55,7 +56,29 @@ app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalIns
                 break;
         }
         
-        taskService.createTask($scope.nameField, $scope.iconClass, $scope.descriptionField, frequency).then(function (response) {
+        taskService.sendTask(undefined, $scope.nameField, $scope.iconClass, $scope.descriptionField, frequency).then(function (response) {
+            $uibModalInstance.dismiss('cancel');
+            $state.transitionTo('dashboard', {refresh:"true"}, { 
+                reload: true, inherit: true, notify: true
+            });
+        });
+    };
+
+    $scope.update = function (){
+        var frequency = undefined;
+        switch($scope.frequencyUnit) {
+            case 'days':
+                frequency = $scope.frequencyValue*24;
+                break;
+            case 'weeks':
+                frequency = $scope.frequencyValue*24*7;
+                break;
+            default:
+                frequency = $scope.frequencyValue;
+                break;
+        }
+        
+        taskService.sendTask(task.taskID, $scope.nameField, $scope.iconClass, $scope.descriptionField, frequency).then(function (response) {
             $uibModalInstance.dismiss('cancel');
             $state.transitionTo('dashboard', {refresh:"true"}, { 
                 reload: true, inherit: true, notify: true
