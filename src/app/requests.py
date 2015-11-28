@@ -46,8 +46,7 @@ class TaskHandler(webapp2.RequestHandler):
             json_data = json.dumps(task_json)
             self.response.out.write(json_data)
 
-    def delete(self):
-        task_id = self.request.get("taskId")
+    def delete(self, task_id):
         models.delete_task(task_id)
 
         obj = {
