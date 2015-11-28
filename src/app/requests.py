@@ -227,7 +227,10 @@ class AnalysisHandler(webapp2.RequestHandler):
                     def get_all_task_events_for_this_task(taskKey):
                         return models.get_all_task_events_count_for_task_and_member(taskKey, memberKey)
 
-                    response['pie_elements'] = self.get_pie_elements(taskKeys, get_all_task_events_for_this_task , 'name')
+                    response['taskeventspertask'] = self.get_pie_elements(taskKeys, get_all_task_events_for_this_task , 'name')
+
+
+                    response['feedbackevents'] = models.get_all_positive_negative_labels_for_member(memberKey, taskKeys)
 
                     self.response.out.write(json.dumps(response))
 

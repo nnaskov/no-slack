@@ -369,6 +369,37 @@ def get_all_task_events_count_for_task_and_member(task_key, member_key):
     q = TaskEvent.query(TaskEvent.completed_by == member_key, TaskEvent.task_type == task_key)
     return q.count()
 
+def get_all_positive_negative_labels_for_member(member_key, task_keys = None):
+    """
+    :param member_key: 
+    :param task_keys:
+    :return: (dictionary) -
+    'labels' - array of string labels of each task.
+    'positive' - array of int of positive feedback for each task
+    'negative' - array of int of negative feedback for each task
+
+    """
+    if not task_keys:
+        task_keys = get_all_tasks_for_household(member_key.get().household)
+    positive_feedbacks = []
+    negative_feedbacks = []
+    labels = []
+    # For each task we sum up all negative and positive feedbacks
+    for taskKey in task_keys:
+        task = taskKey.get()
+        labels.append(task.name)
+        # Get the TaskEvents of this specific member.
+        q = TaskEvent.query(TaskEvent.completed_by == member_key, TaskEvent.task_type == taskKey)
+        positive = 0; negative = 0
+        # Sum up all positive and negative feedbacks
+        for event in q.fetch():
+            positive += event.positive_feedback
+            negative += event.negative_feedback
+        positive_feedbacks.append(positive)
+        negative_feedbacks.append(negative)
+
+    return {'labels': labels, 'positive':positive_feedbacks, 'negative': negative_feedbacks}
+
 def update_task(task_key, task_event_key):
         """
         Add task event to the Task

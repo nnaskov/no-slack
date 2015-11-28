@@ -63,19 +63,15 @@
             </div>
         </div>
         <div class="col-sm-6 col-md-7">
-           <div ng-controller="AnalysisController">
+           <div ng-controller="UserChartController">
                 <div class="row">
                     <div class="panel panel-red">
-                        <div class="panel-heading">Chart name</div>
-                        <canvas id="houseAnalysis" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-options="options" width="250px;"></canvas>
+                        <div class="panel-heading">Task events per task</div>
+                        <canvas id="analysisUserChartTaskEventPerTask" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-options="options" width="250px;" chart-legend="true"></canvas>
                     </div>
-                    <div class="panel panel-red">
-                        <div class="panel-heading">Chart name</div>
-                        <canvas id="houseAnalysis" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-options="options" width="250px;"></canvas>
-                    </div>
-                    <div class="panel panel-red">
-                        <div class="panel-heading">Chart name</div>
-                        <canvas id="houseAnalysis" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-options="options" width="250px;"></canvas>
+                    <div class="panel ">
+                        <div class="panel-heading">Task events per task</div>
+                        <canvas id="chart2" class="chart chart-bar" chart-data="dataBar" chart-series="seriesNames" chart-labels="labelsBar" chart-options="options" width="250px;" chart-legend="true" chart-colours="colorsBar"></canvas>
                     </div>
                 </div>
             </div>

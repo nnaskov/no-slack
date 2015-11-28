@@ -1,26 +1,52 @@
-app.controller("AnalysisController", function ($scope, $http) {
+app.controller("UserChartController", function ($scope, $http) {
 
+
+	//For the donought chart
 	$scope.data = [];
 	$scope.labels = [];
 
-	$scope.$watch('houseAnalysis', function() {
+	//For the thumbs bar chart
+	$scope.seriesNames = ['Positive', 'Negative'];
+	$scope.labelsBar = [];
+	$scope.dataBar = [];
+	$scope.$watch('analysisUserChartTaskEventPerTask', function() {
         $http({
             method: "GET",
-    		params: {charttype: "housechart"},
+            //The parameter userid must be the id of the loaded user.
+			//TODO Bogomil please add the userid on click from different users on house page.
+    		params: {charttype: "userchart", userid: "id1"},
             url: "/requests/analysis",
         }).success(function (data) {
-        	$scope.houseName = data.house_name;
 
-        	for(var i = 0; i < data.pie_elements.length; i ++){
-        		$scope.data[i] = data.pie_elements[i].value;
-        		$scope.labels[i] = data.pie_elements[i].name;
+			//For the donought chart
+        	for(var i = 0; i < data.taskeventspertask.length; i ++){
+        		$scope.data[i] = data.taskeventspertask[i].value;
+        		$scope.labels[i] = data.taskeventspertask[i].name;
         	}
+
+			//For the bar chart
+			$scope.labelsBar = data.feedbackevents.labels;
+			$scope.dataBar = [data.feedbackevents.positive, data.feedbackevents.negative]
+
+
+
         });
     });
- 	$scope.options = {
-	    tooltipEvents: [],
-	    onAnimationComplete: function () {
-	        this.showTooltip(this.segments, true);
-    	},
-	};
+
+	// This is testing for bar charts
+
+
+
+
+	//TODO: Have to deal with the colors. Currently it is displayed in a panel-red and looks very ugly
+	//Colors for the thumbs bar chart - green/ red
+	$scope.colorsBar = ['#42A76B', '#8A0801'];
+
+
+ 	//$scope.options = {
+	//    tooltipEvents: [],
+	//    onAnimationComplete: function () {
+	//        this.showTooltip(this.segments, true);
+    	//},
+	//};
 });
