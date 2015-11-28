@@ -7,10 +7,18 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
         });
     }
     
-    $scope.$on('addTask', function(ev, args){
+    $scope.refreshDashboard = function(){
         $state.transitionTo('dashboard', {refresh:"true"}, { 
             reload: true, inherit: true, notify: true
         });
+    }
+    
+    $scope.$on('addTask', function(ev, args){
+        $scope.refreshDashboard();
+    });
+    
+    $scope.$on('deleteTask', function(ev, args){
+        $scope.refreshDashboard();
     });
     
     if($stateParams.refresh==="true"){
