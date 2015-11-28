@@ -3,13 +3,11 @@ from google.appengine.api import users
 import publisher
 import random
 import threading
-from google.appengine.api import channel
 
 class Member(ndb.Model):
     first_name = ndb.StringProperty()
     last_name = ndb.StringProperty()
     household = ndb.KeyProperty()
-    channel_token = ndb.StringProperty()
     difficulty_done = ndb.IntegerProperty(default=0)
     difficulty_assigned = ndb.IntegerProperty(default=0)
 
@@ -167,8 +165,8 @@ def populate_default_values(house_key):
     add_default_task_events_and_feedback(member_keys,task_keys)
 
 
-
-
+def get_member_id():
+    return users.get_current_user().user_id()
 
 def get_member_key(user_id=None):
     """
@@ -462,8 +460,7 @@ def add_member(first_name, last_name, user_id=None):
             return None
         user_id = user.user_id()
 
-    channel_token = channel.create_channel(user_id)
-    member = Member(id=user_id, first_name=first_name, last_name=last_name, channel_token=channel_token)
+    member = Member(id=user_id, first_name=first_name, last_name=last_name)
     key = member.put()
 
     return key

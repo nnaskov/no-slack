@@ -48,35 +48,42 @@
     <script src="../static/bower_components/ng-sortable/dist/ng-sortable.min.js"></script>
     <script src="../static/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
     <script src="../static/bower_components/ngprogress/build/ngprogress.min.js"></script>
+    <script src="../static/bower_components/moment/moment.js"></script>
+    <script src="../static/bower_components/angular-moment/angular-moment.min.js"></script>
     
-    <!-- forked ui-iconpicker script fix DON'T CHANGE LINE 56 -->
+    <!-- forked ui-iconpicker script fix DON'T CHANGE LINE BELOW -->
     <script type="text/javascript" src="//rawgithub.com/bgospodinov/ui-iconpicker-angular/master/dist/scripts/ui-iconpicker.js"></script>
     
+
+    <script type="text/javascript" src="/_ah/channel/jsapi"></script>
     <script src="../static/js/app.js"></script>
 
+    <!-- Channel -->
+    <script type="text/javascript">
+        app.value('channelClientID', '{{ token }}'); //sent by server
+    </script>
+    
+    <!-- Services -->
+    <script src="../static/js/services/taskService.js"></script>
+    <script src="../static/js/services/memberService.js"></script>
+    <script src="../static/js/services/channelService.js"></script>
+    
     <!-- Controllers -->
+    <script src="../static/js/controllers/dashboardController.js"></script>
     <script src="../static/js/controllers/taskFormController.js"></script>
     <script src="../static/js/controllers/taskController.js"></script>
     <script src="../static/js/controllers/tasksController.js"></script>
     <script src="../static/js/controllers/houseController.js"></script>
     <script src="../static/js/controllers/analysisController.js"></script>
     
-    <!-- Services -->
-    <script src="../static/js/services/taskService.js"></script>
-    <script src="../static/js/services/memberService.js"></script>
+    
     
     <!-- Directives -->
     <script src="../static/js/directives/buttonToggle.js"></script>
     <script src="../static/js/directives/historyPopover.js"></script>
-
-    <!-- Channel -->
-    <script type="text/javascript" src="/_ah/channel/jsapi"></script>
 </head>
 
-<body>
-    <input type="hidden" name="channelClientId" value="{{token}}"><!--sent by server-->
-    
-    
+<body ng-controller="DashboardController">    
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -113,21 +120,5 @@
     <div class="container-fluid tile-container">
         <div class="mainContent" ui-view></div>
     </div>
-    <script>
-        onMessage = function(data) {
-            var json = JSON.parse(data['data']);
-            switch(json['eventType']) {
-                case 'taskFeedback':
-                    var pos = document.getElementById(json['taskId'] + "-" + "positive-feedback");
-                    var neg = document.getElementById(json['taskId'] + "-" + "negative-feedback");
-                    pos.innerHTML = json['positive'];
-                    neg.innerHTML = json['negative'];
-                    break;
-            }
-        }
-        channel = new goog.appengine.Channel('{{ token }}');
-        socket = channel.open();
-        socket.onmessage = onMessage;
-    </script>
 </body>   
 </html>
