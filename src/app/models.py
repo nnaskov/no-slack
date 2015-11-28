@@ -113,7 +113,15 @@ def add_default_task_events_and_feedback(member_keys, task_keys):
     This is a table of 6 rows (each for each task key. And 3 people do the tasks.
     E.g. for task_key[0] person (member_key[0]) has done it 6 times. So we add 6 task_events.
     """
-    task_repeat_times = [[6,0,1],[1,0,3],[2,0,0],[3,1,5],[5,4,2],[4,2,1]]
+    task_repeat_times = [[6,0,1],
+                         [1,0,3],
+                         [2,0,0],
+                         [3,1,5],
+                         [5,4,2],
+                         [4,2,1]]
+    # This means - Norbert task_events = 21
+    # Adam - task_events = 7
+    # Domini - task_events = 12
     for i in range(len(task_repeat_times)):
         for j in range(len(task_repeat_times[0])):
             for times in range(task_repeat_times[i][j]):
@@ -125,7 +133,17 @@ def add_default_task_events_and_feedback(member_keys, task_keys):
                     update_task_event_feedback_given_key(task_keys[i], True if random.randint(0,1) else False, member_keys[k])
 
 
+def delete_all_default_values():
 
+    qTasks = Task.query()
+    qTaskEvents = TaskEvent.query()
+    qEventFeedback = EventFeedback.query()
+
+    allEntities = [qTasks, qTaskEvents, qEventFeedback]
+    for qr in allEntities:
+        for entitiy in qr.iter():
+            print(entitiy)
+            entitiy.key.delete()
 
 def populate_default_values(house_key):
     """
@@ -133,6 +151,7 @@ def populate_default_values(house_key):
 
     :return:
     """
+    delete_all_default_values()
 
     # Create members in the database to the same house
     member_keys = add_default_members(house_key)
@@ -300,18 +319,30 @@ def get_task_events(task_id):
     return q.fetch(limit=100)
 
 
-def get_all_task_events_for_member(member_key):
+def get_all_task_events_count_for_member(member_key):
     """
     
     NOTE: This function relies that you cannot change your household. It must  be re written if this functionality is
     implemented because it doesn't check if the current task_events are for the same household.
-    :param member_key:
-    :return:
+    :param member_key: (ndb.Key) - the key for
+    :return: (int) - the count of all task events
     """
-    pass
+    q = TaskEvent.query(TaskEvent.completed_by == member_key)
+
+    return q.count()
 
 def get_all_members_for_household(house_key):
-    pass
+    """
+    Return a list of member keys
+    :param house_key:
+    :return:
+    """
+    membersKeys = []
+    q = Member.query(Member.household == house_key)
+    for member in q.fetch():
+        membersKeys.append(member.key)
+
+    return membersKeys
 
 
 def update_task(task_key, task_event_key):

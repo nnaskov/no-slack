@@ -56,11 +56,11 @@ class UnitTestsHandler(webapp2.RequestHandler):
      http://localhost:8080/tests
      http://no-slack.appspot.com/tests
     """
-    from app.unittests.test_models import DatastoreTestCase
+    from app.unittests.test_models import BlankDatastoreTestCase, LocalDatastoreTesetCase
     from app.unittests.jsons_test import JSONSTestCase
 
     # List of all unittest.TestCase classes to be run
-    unitTestClasses = [DatastoreTestCase, JSONSTestCase]
+    unitTestClasses = [BlankDatastoreTestCase, LocalDatastoreTesetCase, JSONSTestCase]
 
     def get(self):
         import app.external.HTMLTestRunner as HTMLTestRunner

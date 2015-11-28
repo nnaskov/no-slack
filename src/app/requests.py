@@ -179,8 +179,28 @@ class AnalysisHandler(webapp2.RequestHandler):
             charttype = self.request.GET['charttype']
 
             self.response.headers['Content-Type'] = 'application/json'
+
             if charttype == "housechart":
-                self.response.out.write("""{"house_name":"House 22","pie_elements":[{"name":"Norbert Naskov","value":10},{"name":"Ivan Naskov","value":3},{"name":"Pesho Naskov","value":18},{"name":"Adam Naskov","value":7}]}""")
+                # Get the household key
+                houseKey = models.get_household_key_for_current_user()
+
+                #Get all members
+                membersKeys = models.get_all_members_for_household(houseKey)
+
+                response = {"house_name":houseKey.get().name }
+                pie_elements = []
+                for memberKey in membersKeys:
+                    numOfTasks = models.get_all_task_events_count_for_member(memberKey)
+                    if numOfTasks > 0:
+                        element = {
+                            'name': memberKey.get().first_name,
+                            'value': numOfTasks
+                        }
+                        pie_elements.append(element)
+
+                response['pie_elements'] = pie_elements
+
+                self.response.out.write(json.dumps(response))
             elif charttype == "userchart":
                 self.response.out.write("""{"pie_elements":[{"name":"Washing up","value":10},{"name":"Cleaning","value":3},{"name":"Hoovering","value":18},{"name":"Gardening","value":7}]}""");
             elif charttype == "thumbschart":
@@ -188,10 +208,11 @@ class AnalysisHandler(webapp2.RequestHandler):
             elif charttype == "taskchart":
                 self.response.out.write("""{"pie_elements":[{"name":"Norbert Naskov","value":4},{"name":"Ivan Naskov","value":1},{"name":"Pesho Naskov","value":2},{"name":"Adam Naskov","value":6}]}""");
 
-        except:
+        except Exception as e:
             # TODO: Return errors.
             # THIS IS ERROR. The chartype must be specified !!!! But for now just send it like that
-            self.response.out.write("""{"house_name":"House 22","pie_elements":[{"name":"Norbert Naskov","value":10},{"name":"Ivan Naskov","value":3},{"name":"Pesho Naskov","value":18},{"name":"Adam Naskov","value":7}]}""")
+            print(e)
+            # self.response.out.write("""{"house_name":"House 22","pie_elements":[{"name":"Norbert Naskov","value":10},{"name":"Ivan Naskov","value":3},{"name":"Pesho Naskov","value":18},{"name":"Adam Naskov","value":7}]}""")
 
 
 class PopulateHandler(webapp2.RequestHandler):
