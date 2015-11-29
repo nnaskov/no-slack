@@ -86,7 +86,7 @@ $input-group-addon-border-color: $input-group-addon-bg;
 }
 
 .mainContent.ng-enter           { animation: slideInRight 1.2s both ease; z-index: 8888; }
-.mainContent.ng-leave           { animation: slideOutLeft 0.8s both ease; z-index: 9999; }
+.mainContent.ng-leave           { animation:  0.8s both ease; z-index: 9999; }
 
 .ng-enter, .ng-move {
     -webkit-transition:0.5s linear all;
@@ -151,6 +151,25 @@ its own definition of keyframe animation code...
     transform: translateY(-50%) !important;
 }
 
+/*Bouncy tiles*/
+.fadeInForward-1, .fadeInForward-2, .fadeInForward-3, .fadeInForward-4, .fadeInForward-5 {
+  /*remember: in the second animation u have to set the final values reached by the first one*/
+  opacity:0;
+  transform: translateZ(-5em) scale(0.75);
+  animation: fadeInForward .5s cubic-bezier(.03,.93,.43,.77) .4s normal forwards;
+}
+
+.fadeInForward-2{ animation-delay: .3s;}
+.fadeInForward-3{animation-delay: .5s;}
+.fadeInForward-4{animation-delay: .6s;}
+.fadeInForward-5{animation-delay: .7s;}
+
+
+@keyframes fadeInForward{
+  0% {transform: translateZ(-5em) scale(0); opacity:0;}
+  100% {transform: translateZ(0) scale(1); opacity:1;}
+}
+/*End animations */
 .btn.focus{
     outline-style:none;
     box-shadow:none;
