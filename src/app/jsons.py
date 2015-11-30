@@ -21,8 +21,7 @@ def get_task_json(task):
     task_dict[strings.assigned] = False
 
     if task.assigned:
-        task_dict[strings.assignedInitials] = (task.assigned.get().first_name[0] + 
-            task.assigned.get().last_name[0]).upper()
+        task_dict[strings.assignedInitials] = task.get_delagated_initials()
 
     if task.assigned == models.get_member_key():
         task_dict[strings.assigned] = True

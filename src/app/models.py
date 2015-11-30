@@ -37,6 +37,9 @@ class Task(ndb.Model):
     assigned = ndb.KeyProperty()
     style = ndb.TextProperty()
 
+    def get_delagated_initials(self):
+        return self.assigned.get().first_name[0] + self.assigned.get().last_name[0].upper()
+
 
 class TaskEvent(ndb.Model):
     task_type = ndb.KeyProperty()

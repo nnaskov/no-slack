@@ -119,6 +119,7 @@ class TaskEventHandler(webapp2.RequestHandler):
         update_json = {}
         update_json['eventType'] = 'taskEvent'
         update_json['taskId'] = task_id
+        update_json['assignedInitials'] = task.get_delagated_initials()
         json_data = json.dumps(obj)
         update_data = json.dumps(update_json)
         publisher.update_clients(models.get_members_list(), update_data)
