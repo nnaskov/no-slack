@@ -47,11 +47,15 @@ class TaskEvent(ndb.Model):
     completed_by = ndb.KeyProperty(Member)
     positive_feedback = ndb.IntegerProperty(default=0)
     negative_feedback = ndb.IntegerProperty(default=0)
+    delegated_to = ndb.KeyProperty(Member)
 
     def get_user_feedback(self):
         q = EventFeedback.query(ndb.AND(EventFeedback.user == get_member_key(),
                                         EventFeedback.task_event == self.key))
         return q.fetch(limit=1)
+
+    def user_behaved_well(self):
+        return self.delegated_to == self.completed_by
 
 
 class EventFeedback(ndb.Model):
@@ -268,10 +272,11 @@ def add_task_event_given_task_key(task_key, member_key=None):
     """
     if not member_key:
         member_key = get_member_key()
-    new_task_event = TaskEvent(task_type=task_key, completed_by=member_key)
+        task = task_key.get()
+    new_task_event = TaskEvent(task_type=task_key, completed_by=member_key, delegated_to=task.assigned)
     task_event_key = new_task_event.put()
 
-    update_task(task_key, task_event_key)
+    update_task(task, task_event_key)
     return task_event_key
 
 def update_task_event_feedback(task_id, was_positive, member_key=None):
@@ -361,6 +366,18 @@ def get_all_tasks_for_household(house_key):
 
     return tasksKeys
 
+def get_all_tasks(house_key=None):
+    """
+    Return a list of Task keys
+    :param house_key:
+    :return:
+    """
+    if not house_key:
+        house_key = get_household_key_for_current_user()
+    q = Task.query(Task.household == house_key)
+    return q.fetch(limit=100)
+
+
 def get_all_task_events_count_for_task_and_member(task_key, member_key):
     """
     Return the number of Tasks events for this member of the speicifc task.
@@ -402,29 +419,25 @@ def get_all_positive_negative_labels_for_member(member_key, task_keys = None):
 
     return {'labels': labels, 'positive':positive_feedbacks, 'negative': negative_feedbacks}
 
-def update_task(task_key, task_event_key):
-        """
-        Add task event to the Task
+def update_task(task, task_event_key):
+    """
+    Add task event to the Task
 
-        :param task_key:
-        :param task_event_key:
-        :return:
-        """
-        task = task_key.get()
-        if not task:
-            return None
-        else:
-            task.most_recent_event = task_event_key
-            task.put()
-            house = get_household_key_for_current_user().get()
-            house.total_difficulty += task.difficulty
-            house.put()
-            member_key = get_member_key()
-            member = member_key.get()
-            member.difficulty_done += task.difficulty
-            if task.assigned == member_key:
-                member.difficulty_assigned -= task.difficulty
-            member.put()
+    :param task_key:
+    :param task_event_key:
+    :return:
+    """
+    task.most_recent_event = task_event_key
+    task.put()
+    house = get_household_key_for_current_user().get()
+    house.total_difficulty += task.difficulty
+    house.put()
+    member_key = get_member_key()
+    member = member_key.get()
+    member.difficulty_done += task.difficulty
+    if task.assigned == member_key:
+        member.difficulty_assigned -= task.difficulty
+    member.put()
 
 
 

@@ -2,7 +2,8 @@ __author__ = 'dominicsmith'
 
 import webapp2
 import json
-from app import models
+import models
+import delegator
 from google.appengine.api import users
 
 class RegisterHandler(webapp2.RequestHandler):
@@ -28,6 +29,8 @@ class RegisterHandler(webapp2.RequestHandler):
         house_name = json_data.get('houseName').lower()
 
         models.register_user(first_name, last_name, house_name, needs_default_items=True)
+
+        delegator.delegate_task_loop()
 
         self.response.headers['Content-Type'] = 'application/json'
 
