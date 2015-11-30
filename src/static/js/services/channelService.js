@@ -11,6 +11,7 @@ app.factory('channelService', ['$http', '$rootScope', '$timeout', '$log' , funct
         
         service.onMessage = function(message){      
             var cleanMessage = JSON.parse(message.data);
+            console.log(cleanMessage);
             $rootScope.$broadcast(cleanMessage.eventType, cleanMessage);
             $rootScope.$apply();        
         }
