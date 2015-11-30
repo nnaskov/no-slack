@@ -24,7 +24,7 @@ app.controller('TaskController', ['$scope', '$http', '$element', 'taskService', 
     
     $scope.$on('taskEvent', function(ev, args){
         if(args.taskId === $scope.task.taskID){
-            addTaskEventCb({});
+            addTaskEventCb(args);
             $scope.$apply();
         }
     });
