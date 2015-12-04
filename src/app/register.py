@@ -28,6 +28,10 @@ class RegisterHandler(webapp2.RequestHandler):
         last_name = json_data.get('lastName')
         house_name = json_data.get('houseName').lower()
 
+        # Ensure first names and last names start with a capital letter
+        first_name = first_name[0].upper()+first_name[1:]
+        last_name = last_name[0].upper()+last_name[1:]
+
         models.register_user(first_name, last_name, house_name, needs_default_items=True)
 
         delegator.delegate_task_loop()
