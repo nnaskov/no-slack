@@ -50,70 +50,12 @@
                                 </select>
                             </div>
                             
-                            <!--
-                            <div class="col-xs-1">
-                                <input type="radio" ng-model="recurringType" name="recurringType" value="nOfPeriod">
-                            </div>
-                            -->
                         </div>
                     </div>
                     <p class="help-block" ng-show="addTaskForm.frequencyValue.$error.pattern">Please enter a valid number</p>
                 </div>
             </div>
-            <!--
-            <div class="form-group" ng-show="recurring=='Yes'">
-                <label class="col-xs-3 col-xs-offset-1 text-left control-label" for="textinput">or</label> 
-                <div class="col-xs-8">
-                    <div class="form-horizontal">
-                        <div class="form-group row">
-                            <label for="inputPassword" class="col-xs-2 control-label text-left">every</label>
-                            <div class="col-xs-4">
-                                <select class="form-control">
-                                    <option>Monday</option>
-                                    <option>Tuesday</option>
-                                    <option>Wednesday</option>
-                                    <option>Thursday</option>
-                                    <option>Friday</option>
-                                    <option>Saturday</option>
-                                    <option>Sunday</option>
-                                </select>
-                            </div>
-                            <div class="col-xs-4">
-                                <select class="form-control">
-                                    <option value="00">00:00</option>
-                                    <option value="01">01:00</option>
-                                    <option value="02">02:00</option>
-                                    <option value="03">03:00</option>
-                                    <option value="04">04:00</option>
-                                    <option value="05">05:00</option>
-                                    <option value="06">06:00</option>
-                                    <option value="07">07:00</option>
-                                    <option value="08">08:00</option>
-                                    <option value="09">09:00</option>
-                                    <option value="10">10:00</option>
-                                    <option value="11">11:00</option>
-                                    <option value="12">12:00</option>
-                                    <option value="13">13:00</option>
-                                    <option value="14">14:00</option>
-                                    <option value="15">15:00</option>
-                                    <option value="16">16:00</option>
-                                    <option value="17">17:00</option>
-                                    <option value="18">18:00</option>
-                                    <option value="19">19:00</option>
-                                    <option value="20">20:00</option>
-                                    <option value="21">21:00</option>
-                                    <option value="22">22:00</option>
-                                    <option value="23">23:00</option>
-                                </select>
-                            </div>
-                            <div class="col-xs-1">
-                                <input type="radio" ng-model="recurringType" name="recurringType" value="dayOfWeek">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            -->
+           
             <div class="form-group" ng-show="recurring=='No'">
                 <label class="col-xs-3 col-xs-offset-1 text-left control-label" for="textinput">Schedule</label> 
                 <div class="col-xs-8">
