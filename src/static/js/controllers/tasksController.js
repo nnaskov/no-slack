@@ -7,6 +7,10 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
         });
     }
     
+    $scope.sortableOptions = {
+        items: ".block-grid-item:not(.not-sortable)"
+    };
+    
     $scope.refreshDashboard = function(){
         $state.transitionTo('dashboard', {refresh:"true"}, { 
             reload: true, inherit: true, notify: true

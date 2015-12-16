@@ -37,7 +37,8 @@
     "angular-sanitize": "~1.4.8",
     "ngprogress": "~1.1.2",
     "angular-moment": "~0.10.3",
-    "moment": "~2.10.6"
+    "moment": "~2.10.6",
+    "angular-ui-sortable": "~0.13.4"
   },
   "resolutions": {
     "angular": "~1.4.7",
