@@ -75,6 +75,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                     return memberService.getHouseData();
                 }]
             }
+        })
+        .state('settings', {
+            url: "/settings",
+            templateUrl: "static/partials/settings.html",
+            controller: "SettingsController"
         });
 });
 
