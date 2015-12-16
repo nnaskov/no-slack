@@ -1,0 +1,94 @@
+/* ANIMATIONS
+============================================================================= */
+
+/* leaving animations ----------------------------------------- */
+/* rotate and fall */
+@keyframes rotateFall {
+    0%      { transform: rotateZ(0deg); }
+    20%     { transform: rotateZ(10deg); animation-timing-function: ease-out; }
+    40%     { transform: rotateZ(17deg); }
+    60%     { transform: rotateZ(16deg); }
+    100%    { transform: translateY(100%) rotateZ(17deg); }
+}
+
+@-webkit-keyframes slideOutLeft {
+    to      { transform: translateX(-100%); }
+}
+/* slide in from the bottom */
+@keyframes slideOutLeft {
+    to      { transform: translateX(-100%); }
+}
+
+/* rotate out newspaper */
+@keyframes rotateOutNewspaper {
+    to      { transform: translateZ(-3000px) rotateZ(360deg); opacity: 0; }
+}
+
+/* entering animations --------------------------------------- */
+/* scale up */
+@keyframes scaleUp {
+    from    { opacity: 0.3; -webkit-transform: scale(0.8); }
+}
+
+@-webkit-keyframes slideInRight {
+    from    { transform:translateX(100%); }
+    to      { transform: translateX(0); }
+}
+
+/* slide in from the right */
+@keyframes slideInRight {
+    from    { transform:translateX(100%); }
+    to      { transform: translateX(0); }
+}
+
+/* slide in from the bottom */
+@keyframes slideInUp {
+    from    { transform:translateY(100%); }
+    to      { transform: translateY(0); }
+}
+
+#ngProgress {
+    height: 5px!important;
+}
+
+
+.ng-leave{ 
+    animation:  slideOutLeft 0.8s both ease; 
+    z-index: 9999; 
+}
+
+.ng-enter, .ng-move {
+    animation:  fadeInForward 0.8s both ease; 
+}
+
+@mixin vertical-align($position: relative) {
+    position: $position;
+    top: 50% !important;
+    -webkit-transform: translateY(-50%) !important;
+    -ms-transform: translateY(-50%) !important;
+    transform: translateY(-50%) !important;
+}
+
+/*Bouncy tiles*/
+.fadeInForward-1, .fadeInForward-2, .fadeInForward-3, .fadeInForward-4, .fadeInForward-5 {
+    /*remember: in the second animation u have to set the final values reached by the first one*/
+    opacity:0;
+    transform: translateZ(-5em) scale(0.75);
+    animation: fadeInForward .5s cubic-bezier(.03,.93,.43,.77) .4s normal forwards;
+}
+
+.fadeInForward-2{ animation-delay: .3s;}
+.fadeInForward-3{animation-delay: .5s;}
+.fadeInForward-4{animation-delay: .6s;}
+.fadeInForward-5{animation-delay: .7s;}
+
+
+@keyframes fadeInForward{
+    0% {transform: translateZ(-5em) scale(0); opacity:0;}
+    100% {transform: translateZ(0) scale(1); opacity:1;}
+}
+/*End animations */
+
+.partial-style {
+    color: red;
+}

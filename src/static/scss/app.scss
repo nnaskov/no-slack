@@ -1,26 +1,8 @@
-//Customizing variables
-$theme-primary: #993333;
-$theme-dark: #222;
-
-$navbar-default-color: #fff;
-$navbar-default-bg: $theme-primary;
-
-$navbar-height: 60px !default;
-
-$navbar-default-link-color:                #fff !default;
-$navbar-default-link-hover-color:          #fff !default;
-$navbar-default-link-hover-bg:             darken($navbar-default-bg, 6.5%) !default;
-$navbar-default-link-active-color:         #fff !default;
-$navbar-default-link-active-bg:            darken($navbar-default-bg, 6.5%) !default;
-    
-
-$input-group-addon-bg: $theme-primary;
-$input-group-addon-border-color: $input-group-addon-bg;
-
 @import "bourbon";
 @import "bootstrap";
-@import "partial";
+@import "animations";
 @import "mixins";
+@import "variables";
 
 @import url(https://fonts.googleapis.com/css?family=Pacifico);
 @import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light);
@@ -30,97 +12,6 @@ $input-group-addon-border-color: $input-group-addon-bg;
     padding-right:0;
     padding-left:0;
 }
-
-/* ANIMATIONS
-============================================================================= */
-
-/* leaving animations ----------------------------------------- */
-/* rotate and fall */
-@keyframes rotateFall {
-    0%      { transform: rotateZ(0deg); }
-    20%     { transform: rotateZ(10deg); animation-timing-function: ease-out; }
-    40%     { transform: rotateZ(17deg); }
-    60%     { transform: rotateZ(16deg); }
-    100%    { transform: translateY(100%) rotateZ(17deg); }
-}
-
-@-webkit-keyframes slideOutLeft {
-    to      { transform: translateX(-100%); }
-}
-/* slide in from the bottom */
-@keyframes slideOutLeft {
-    to      { transform: translateX(-100%); }
-}
-
-/* rotate out newspaper */
-@keyframes rotateOutNewspaper {
-    to      { transform: translateZ(-3000px) rotateZ(360deg); opacity: 0; }
-}
-
-/* entering animations --------------------------------------- */
-/* scale up */
-@keyframes scaleUp {
-    from    { opacity: 0.3; -webkit-transform: scale(0.8); }
-}
-
-@-webkit-keyframes slideInRight {
-    from    { transform:translateX(100%); }
-    to      { transform: translateX(0); }
-}
-
-/* slide in from the right */
-@keyframes slideInRight {
-    from    { transform:translateX(100%); }
-    to      { transform: translateX(0); }
-}
-
-/* slide in from the bottom */
-@keyframes slideInUp {
-    from    { transform:translateY(100%); }
-    to      { transform: translateY(0); }
-}
-
-#ngProgress {
-    height: 5px!important;
-}
-
-
-.ng-leave{ 
-    animation:  slideOutLeft 0.8s both ease; 
-    z-index: 9999; 
-}
-
-.ng-enter, .ng-move {
-    animation:  fadeInForward 0.8s both ease; 
-}
-
-@mixin vertical-align($position: relative) {
-    position: $position;
-    top: 50% !important;
-    -webkit-transform: translateY(-50%) !important;
-    -ms-transform: translateY(-50%) !important;
-    transform: translateY(-50%) !important;
-}
-
-/*Bouncy tiles*/
-.fadeInForward-1, .fadeInForward-2, .fadeInForward-3, .fadeInForward-4, .fadeInForward-5 {
-  /*remember: in the second animation u have to set the final values reached by the first one*/
-  opacity:0;
-  transform: translateZ(-5em) scale(0.75);
-  animation: fadeInForward .5s cubic-bezier(.03,.93,.43,.77) .4s normal forwards;
-}
-
-.fadeInForward-2{ animation-delay: .3s;}
-.fadeInForward-3{animation-delay: .5s;}
-.fadeInForward-4{animation-delay: .6s;}
-.fadeInForward-5{animation-delay: .7s;}
-
-
-@keyframes fadeInForward{
-  0% {transform: translateZ(-5em) scale(0); opacity:0;}
-  100% {transform: translateZ(0) scale(1); opacity:1;}
-}
-/*End animations */
 
 
 .btn.focus{
@@ -150,19 +41,6 @@ $input-group-addon-border-color: $input-group-addon-bg;
         padding: 1px 12px;
     }
 }
-
-//Tile colours
-$color_purple: #5133AB;
-$color_red: #AC193D;
-$color_orange: #DC572E;
-$color_green: #00A600;
-$color_blue: #2672EC;
-
-
-$base_font_size: 14px;
-$base_line_height: 1.1em;
-$text_font_family: 'Lato', sans-serif;
-$display_font_family: 'Lato', sans-serif;
 
 /* centered columns styles */
 
@@ -721,8 +599,7 @@ i {
 	font-weight: 300;
 	letter-spacing: 1px;
 }
-// Extras
-// -- Highlight Color Customization
+
 ::-moz-selection {
     color: white;
     text-shadow: none;
@@ -770,48 +647,6 @@ body {
     height: auto;
     float: left;
     list-style: none;
-}
-
-@mixin block-grid ($per-row) {
-    & > .block-grid-item {
-        width: (100%/$per-row);
-
-        $nth-equation: (#{$per-row}n) + '+' +1;
-        &:nth-of-type(n) { clear: none; }
-        &:nth-of-type(#{$nth-equation}) { clear: both; }
-    }
-}
-
-@mixin block-grids($size) {
-    .block-grid-#{$size}-1  { @include block-grid(1);  }
-    .block-grid-#{$size}-2  { @include block-grid(2);  }
-    .block-grid-#{$size}-3  { @include block-grid(3);  }
-    .block-grid-#{$size}-4  { @include block-grid(4);  }
-    .block-grid-#{$size}-5  { @include block-grid(5);  }
-    .block-grid-#{$size}-6  { @include block-grid(6);  }
-    .block-grid-#{$size}-7  { @include block-grid(7);  }
-    .block-grid-#{$size}-8  { @include block-grid(8);  }
-    .block-grid-#{$size}-9  { @include block-grid(9);  }
-    .block-grid-#{$size}-10 { @include block-grid(10); }
-    .block-grid-#{$size}-11 { @include block-grid(11); }
-    .block-grid-#{$size}-12 { @include block-grid(12); }
-}
-
-@include block-grids(xs); 
-@media (min-width: $screen-sm-min) { @include block-grids(sm) }
-@media (min-width: $screen-md-min) { @include block-grids(md) }
-@media (min-width: $screen-lg-min) { @include block-grids(lg) }
-
-@mixin no-padding($side) {
-    @if $side == 'all' {
-        .no-padding {
-            padding: 0 !important;
-        }
-    } @else {
-        .no-padding-#{$side} {
-            padding-#{$side}: 0 !important;
-        }
-    }
 }
 
 @include no-padding("left");
