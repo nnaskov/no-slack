@@ -30,8 +30,6 @@ app.factory('channelService', ['$http', '$rootScope', '$timeout', '$log' , funct
                 if (error.description == 'Invalid+token.' || error.description == 'Token+timed+out.') {
                     $log.log('It should be recovered with onclose handler.');
                 } else {
-                    // In this case, we need to manually close the socket.
-                    // See also: https://code.google.com/p/googleappengine/issues/detail?id=4940
                     $log.log('Presumably it is "Unknown SID Error". Try closing the socket manually.');
                     service.socket.close();
                 }

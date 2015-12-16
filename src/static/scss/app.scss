@@ -85,8 +85,11 @@ $input-group-addon-border-color: $input-group-addon-bg;
     height: 5px!important;
 }
 
-//.mainContent.ng-enter           { animation: slideInRight 1.2s both ease; z-index: 8888; }
-.mainContent.ng-leave           { animation:  0.8s both ease; z-index: 9999; }
+
+.ng-leave{ 
+    animation:  slideOutLeft 0.8s both ease; 
+    z-index: 9999; 
+}
 
 .ng-enter, .ng-move {
     -webkit-transition:0.5s linear all;
@@ -112,6 +115,7 @@ We're using CSS keyframe animations for when
 the leave event is triggered for the element
 that has the .repeated-item class
 */
+/*
 .ng-leave {
     -webkit-animation:0.5s my_animation;
     -moz-animation:0.5s my_animation;
@@ -123,7 +127,7 @@ that has the .repeated-item class
     from { opacity:1; }
     to { opacity:0; }
 }
-
+*/
 /*
 Unfortunately each browser vendor requires
 its own definition of keyframe animation code...
@@ -170,6 +174,8 @@ its own definition of keyframe animation code...
   100% {transform: translateZ(0) scale(1); opacity:1;}
 }
 /*End animations */
+
+
 .btn.focus{
     outline-style:none;
     box-shadow:none;
