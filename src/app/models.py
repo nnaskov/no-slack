@@ -273,6 +273,9 @@ def add_task_event_given_task_key(task_key, member_key=None):
     if not member_key:
         member_key = get_member_key()
         task = task_key.get()
+    else:
+        task = task_key.get()
+        
     new_task_event = TaskEvent(task_type=task_key, completed_by=member_key, delegated_to=task.assigned)
     task_event_key = new_task_event.put()
 
