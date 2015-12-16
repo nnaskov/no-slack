@@ -169,6 +169,20 @@ class MemberHandler(webapp2.RequestHandler):
         json_data = json.dumps(json_data)
         self.response.out.write(json_data)
 
+    """
+    A user is able to update their first or last name using request handler. JSON is sent containing
+    desired first and last name. Data store then updated to refelect this.
+    """
+    def put(self):
+        json_data = json.loads(self.request.body)
+        first_name = json_data.get('firstName')
+        last_name = json_data.get('lastName')
+
+        member =models.add_member(first_name, last_name).get()
+        json_data = jsons.get_member_json(member)
+        json_data = json.dump(json_data)
+        self.response.out.write(json_data)
+
 class AnalysisHandler(webapp2.RequestHandler):
     """ type of graph and the data
     # switch statement
