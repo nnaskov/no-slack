@@ -11,6 +11,7 @@ class Member(ndb.Model):
     difficulty_done = ndb.IntegerProperty(default=0)
     difficulty_assigned = ndb.IntegerProperty(default=0)
     channel_token = ndb.StringProperty()
+    avatar = ndb.BlobProperty()
 
     def is_owner(self):
         return True if(self.household.get().owner.id() == self.key.id()) else False
@@ -467,7 +468,7 @@ def get_task_key(task_id):
 
 
 
-def add_member(first_name, last_name, user_id=None):
+def add_member(first_name, last_name, avatar=None, user_id=None):
     """
     Add a new member. If user_id is not set, then get the current Logged in user from GAE
 
@@ -481,9 +482,43 @@ def add_member(first_name, last_name, user_id=None):
         user_id = user.user_id()
 
     member = Member(id=user_id, first_name=first_name, last_name=last_name)
+    if avatar:
+        member.avatar = avatar
     key = member.put()
 
     return key
+
+
+def update_member(first_name, last_name, avatar=None):
+    """
+    Update a member. If user_id is not set, then get the current Logged in user from GAE
+
+    :param user_id: the Google Account. If None - current logged in Google Account
+    :return: ndb.Key of the new member
+    """
+
+    member = get_member_key().get()
+    member.first_name = first_name
+    member.last_name = last_name
+    if avatar:
+        member.avatar = avatar
+    member.put()
+
+    return member
+
+
+def update_house(name):
+    """
+    Update a house.
+
+    :param
+    :return:
+    """
+
+    house = get_household_key_for_current_user().get()
+    house.name = name
+    house.put()
+    return house
 
 
 def get_members_list(house_key=None, limit=12):
@@ -523,9 +558,9 @@ def register_member_from_code(first_name, last_name, house_key, user_id=None):
     usr.put()
     return user_key
 
-def register_user(first_name, last_name, house_name, user_id=None, needs_default_items=False):
+def register_user(first_name, last_name, house_name, avatar, user_id=None, needs_default_items=False):
 
-    user_key = add_member(first_name, last_name, user_id)
+    user_key = add_member(first_name, last_name, avatar, user_id)
 
     if not household_exists(house_name):
         house = add_household(house_name)

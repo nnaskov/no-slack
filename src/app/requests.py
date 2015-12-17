@@ -183,14 +183,17 @@ class MemberHandler(webapp2.RequestHandler):
 
     """
     A user is able to update their first or last name using request handler. JSON is sent containing
-    desired first and last name. Data store then updated to refelect this.
+    desired first and last name. Data store then updated to reflect this.
     """
     def put(self):
         json_data = json.loads(self.request.body)
         first_name = json_data.get('firstName')
         last_name = json_data.get('lastName')
+        house_name = json_data.get('houseName')
+        avatar = json_data.get('avatar')
 
-        member =models.add_member(first_name, last_name).get()
+        models.update_house(house_name);
+        member = models.update_member(first_name, last_name, avatar)
         json_data = jsons.get_member_json(member)
         json_data = json.dump(json_data)
         self.response.out.write(json_data)
@@ -317,6 +320,15 @@ class TokenHandler(webapp2.RequestHandler):
             }
             self.response.out.write(json.dumps(obj))
 
+class AvatarHandler(webapp2.RequestHandler):
+    def get(self, user_id=None):
+        user = models.get_member(user_id).get()
+        self.response.headers['Content-Type'] = 'image/png'
+        if user.avatar:
+            self.response.out.write(user.avatar)
+        else:
+            default_picture = open('blank-picture.jpg').read()
+            self.response.out.write(default_picture)
 
 app = webapp2.WSGIApplication([
     (r'/requests/house/?', HouseHandler),
@@ -328,5 +340,7 @@ app = webapp2.WSGIApplication([
     (r'/requests/analysis/?', AnalysisHandler),
     (r'/requests/populate/?', PopulateHandler),
     (r'/requests/token/?', TokenHandler),
+    (r'/requests/avatar/(\d+)/?', AvatarHandler),
+    (r'/requests/avatar/?', AvatarHandler),
 
 ], debug=True)
