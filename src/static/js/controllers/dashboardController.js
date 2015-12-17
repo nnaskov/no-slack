@@ -5,6 +5,7 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
     
     $scope.userName = "Loading...";
     $scope.initials = "?";
+    $scope.houseName = "Loading...";
     
     var houseData = memberService.getHouseData().then(function(data){
         if(data['users'][userID] !== undefined){
@@ -14,6 +15,7 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
             var initials = userData.initials;
             $scope.userName = firstName+" "+lastName;
             $scope.initials = initials;
+            $scope.houseName = data.name;
         }
     });
     
