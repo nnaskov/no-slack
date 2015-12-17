@@ -4,7 +4,7 @@ app.factory('memberService', function ($http, $q, $timeout) {
             var defer = $q.defer();
             $http({
                 method: 'GET',
-                url: '/requests/member'
+                url: '/requests/house'
             }).then(function successCallback(response) {
                 defer.resolve(response.data);
             }, function errorCallback(response) {
