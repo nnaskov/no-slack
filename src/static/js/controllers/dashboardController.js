@@ -4,11 +4,17 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
     //event types: addTask, deleteTask, editTask, taskEvent, taskFeedback
     
     $scope.userName = "Loading...";
+    $scope.initials = "?";
     
     var houseData = memberService.getHouseData().then(function(data){
-        var firstName = data['users'][userID].firstName;
-        var lastName = data['users'][userID].lastName;
-        $scope.userName = firstName+" "+lastName;
+        if(data['users'][userID] !== undefined){
+            var userData = data['users'][userID];
+            var firstName = userData.firstName;
+            var lastName = userData.lastName;
+            var initials = userData.initials;
+            $scope.userName = firstName+" "+lastName;
+            $scope.initials = initials;
+        }
     });
     
 }]);
