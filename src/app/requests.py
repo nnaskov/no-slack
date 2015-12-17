@@ -6,6 +6,18 @@ import publisher
 import delegator
 from google.appengine.api import channel
 
+
+class HouseHandler(webapp2.RequestHandler):
+    '''
+    GET returns name of the current house and the users in it
+    '''
+
+    def get(self):
+        self.response.headers['Content-Type'] = 'application/json'
+        house_json = jsons.get_house_json()
+        self.response.out.write(json.dumps(house_json))
+
+
 class HouseNamesHandler(webapp2.RequestHandler):
     '''
     Checks if a house exist in the name given
@@ -307,6 +319,7 @@ class TokenHandler(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
+    (r'/requests/house/?', HouseHandler),
     (r'/requests/house/check/(\w+)/?', HouseNamesHandler),
     (r'/requests/task/?', TaskHandler),
     (r'/requests/task/(\d+)/?', TaskHandler),

@@ -13,7 +13,7 @@ class Member(ndb.Model):
     channel_token = ndb.StringProperty()
 
     def is_owner(self):
-        return True if(self.household.get().owner == self.key) else False
+        return True if(self.household.get().owner.id() == self.key.id()) else False
 
 class HouseHold(ndb.Model):
     name = ndb.StringProperty(required=True)

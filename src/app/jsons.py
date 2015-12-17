@@ -99,3 +99,22 @@ def get_all_members_json(members_list):
         all_members.append(member_dict)
 
     return all_members
+
+
+def get_house_json():
+    """
+    :return: Params:
+    """
+    house_dict = {}
+    users_dict = {}
+    house = models.get_household_key_for_current_user().get()
+    house_dict['name'] = house.name
+    members = models.get_members_list()
+    for member in members:
+        user_dict = {}
+        user_dict['firstName'] = member.first_name
+        user_dict['lastName'] = member.last_name
+        user_dict['isOwner'] = member.key.id() == house.owner.id()
+        users_dict[member.key.id()] = user_dict
+    house_dict['users'] = users_dict
+    return house_dict
