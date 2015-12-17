@@ -115,7 +115,7 @@ def get_house_json():
         user_dict['firstName'] = member.first_name
         user_dict['lastName'] = member.last_name
         user_dict['isOwner'] = member.key.id() == house.owner.id()
-        user_dict['initials'] = member.first_name[1] + member.last_name[1]
+        user_dict['initials'] = (member.first_name[1] + member.last_name[1]).upper()
         users_dict[member.key.id()] = user_dict
     house_dict['users'] = users_dict
     return house_dict
