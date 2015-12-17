@@ -3,50 +3,55 @@
         <div class="col-xs-12">
             <form class="form-horizontal">
                 <fieldset>
-
                     <!-- Form Name -->
                     <legend>User Settings</legend>
 
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="textinput">Tenant Name</label>
-                        <div class="col-md-4">
-                            <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" required="">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <img src="static/img/blank-picture.jpg" alt="" width="100%">
+                        </div>
+                        <div class="col-xs-10">
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="textinput">Tenant Name</label>
+                                <div class="col-md-4">
+                                    <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" required="">
 
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="textinput">House Name</label>
+                                <div class="col-md-4">
+                                    <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md">
+
+                                </div>
+                            </div>
+
+                            <!-- Multiple Radios (inline) -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="radios">Notifications</label>
+                                <div class="col-md-4">
+                                    <label class="radio-inline" for="radios-0">
+                                        <input type="radio" name="radios" id="radios-0" value="on" checked="checked"> On
+                                    </label>
+                                    <label class="radio-inline" for="radios-1">
+                                        <input type="radio" name="radios" id="radios-1" value="off"> Off
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Button (Double) -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="button1id"></label>
+                                <div class="col-md-8">
+                                    <button id="button1id" name="button1id" class="btn btn-success">Ok</button>
+                                    <button id="button2id" name="button2id" class="btn btn-danger">Cancel</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="textinput">House Name</label>
-                        <div class="col-md-4">
-                            <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md">
-
-                        </div>
-                    </div>
-
-                    <!-- Multiple Radios (inline) -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="radios">Notifications</label>
-                        <div class="col-md-4">
-                            <label class="radio-inline" for="radios-0">
-                                <input type="radio" name="radios" id="radios-0" value="on" checked="checked"> On
-                            </label>
-                            <label class="radio-inline" for="radios-1">
-                                <input type="radio" name="radios" id="radios-1" value="off"> Off
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Button (Double) -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="button1id"></label>
-                        <div class="col-md-8">
-                            <button id="button1id" name="button1id" class="btn btn-success">Ok</button>
-                            <button id="button2id" name="button2id" class="btn btn-danger">Cancel</button>
-                        </div>
-                    </div>
-
                 </fieldset>
             </form>
         </div>
