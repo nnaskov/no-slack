@@ -6,6 +6,10 @@ app.controller('SettingsController', ['$scope', '$http', function($scope, $http)
     $scope.houseNameExists = false;
     $scope.originalHouseName = undefined;
     
+    $scope.file = "static/img/blank-picture.jpg"; //default avatar
+    
+    
+    
     $scope.$watch('$parent.userName', function(newValue, oldValue) {
         $scope.tenantName = newValue;
         if($scope.originalTenantName === undefined && newValue!=="Loading..."){
@@ -27,7 +31,7 @@ app.controller('SettingsController', ['$scope', '$http', function($scope, $http)
     });
 
     $scope.$watch('houseName', function(newValue, oldValue) {
-        if(newValue!==$scope.originalHouseName){
+        if(newValue!==$scope.originalHouseName && newValue!=="Loading..."){
             $http({
                 method: "GET",
                 url: "/requests/house/check/" + newValue,
@@ -44,6 +48,25 @@ app.controller('SettingsController', ['$scope', '$http', function($scope, $http)
             $scope.houseName = newValue;
         }
     });
+    
+    $scope.submit = function(){
+        var firstName = $scope.tenantName.split(" ")[0];
+        var lastName = $scope.tenantName.split(" ")[1];
+        var houseName = $scope.houseName;
+        var avatar;
+        
+        var data = {'firstName': firstName, 'lastName': lastName, 'houseName': houseName, avatar:undefined, notificationsOn: true};
+
+        var res = $http.put('/requests/member', data);
+
+        res.success(function(data, status, headers, config) {
+            alert("Success.");
+        });
+
+        res.error(function(data, status, headers, config) {
+            alert("The query can't be processed at the moment. Please try again later.");
+        });
+    };
     
     $scope.dismiss = function(){
         $scope.tenantName = $scope.originalTenantName;

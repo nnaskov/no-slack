@@ -53,6 +53,9 @@
     <!-- forked ui-iconpicker script fix DON'T CHANGE LINE BELOW -->
     <script type="text/javascript" src="//rawgithub.com/bgospodinov/ui-iconpicker-angular/master/dist/scripts/ui-iconpicker.js"></script>
     
+    <script src="../static/bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
+    <script src="../static/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+    
 
     <script type="text/javascript" src="/_ah/channel/jsapi"></script>
     <script src="../static/js/app.js"></script>
@@ -99,7 +102,7 @@
                 <ul class="nav navbar-nav navbar-right" >
                     <li class="dropdown" uib-dropdown>
                         <a href="#" class="dropdown-toggle" uib-dropdown-toggle data-toggle="dropdown" role="button" aria-expanded="false">
-                            <img src="static/img/blank-picture.jpg" alt="" width="32">
+                            <img src="{{'{{'}}avatar || 'static/img/blank-picture.jpg' {{'}}'}}" alt="" width="32">
                             <i class="fa fa-fw fa-bell-o"></i> {{'{{'}}userName{{'}}'}} <span class="badge">{{'{{'}}initials{{'}}'}}</span>
                         </a>
                         <ul class="dropdown-menu" uib-dropdown-menu role="menu">

@@ -1,11 +1,10 @@
 app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$log', 'channelService', 'memberService', function($scope, channelClientID, userID, $log, channelService, memberService){
-    //dispatching events down to the children
     channelService.openChannel(channelClientID);
-    //event types: addTask, deleteTask, editTask, taskEvent, taskFeedback
     
     $scope.userName = "Loading...";
     $scope.initials = "?";
     $scope.houseName = "Loading...";
+    $scope.avatar = "static/img/blank-picture.jpg";
     
     var houseData = memberService.getHouseData().then(function(data){
         if(data['users'][userID] !== undefined){
