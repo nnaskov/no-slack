@@ -118,7 +118,10 @@ def get_house_json():
         user_dict['isOwner'] = is_owner
         if is_owner:
             user_dict['notificationsOn'] = member.notifications_on
-        user_dict['initials'] = (member.first_name[0] + member.last_name[0]).upper()
+            if member.last_name:
+                user_dict['initials'] = (member.first_name[0] + member.last_name[0]).upper()
+            else:
+                user_dict['initials'] = (member.first_name[0]).upper()
         users_dict[member.key.id()] = user_dict
     house_dict['users'] = users_dict
     return house_dict

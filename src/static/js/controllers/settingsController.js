@@ -5,13 +5,13 @@ app.controller('SettingsController', ['$scope', '$http', 'Upload', function ($sc
     $scope.houseName = "Loading...";
     $scope.houseNameExists = false;
     $scope.originalHouseName = undefined;
-    
-    
+
+
 
     $scope.$watch('$parent.notificationsOn', function (newValue, oldValue) {
         $scope.notifications = (newValue === true) ? "true" : "false";
     });
-                  
+
     $scope.$watch('$parent.userName', function (newValue, oldValue) {
         $scope.tenantName = newValue;
         if ($scope.originalTenantName === undefined && newValue !== "Loading...") {
@@ -56,24 +56,41 @@ app.controller('SettingsController', ['$scope', '$http', 'Upload', function ($sc
         var houseName = $scope.houseName;
         var avatar = $scope.file;
 
-        var upload = Upload.upload({
-            url: '/requests/member',
-            method: 'PUT',
-            data: {avatar: avatar, firstName: firstName, lastName: lastName, notificationsOn: $scope.notifications, houseName: houseName}
-        });
-        
-        // returns a promise
-        upload.then(function(resp) {
-            // file is uploaded successfully
-            //console.log('file ' + resp.config.data.file.name + 'is uploaded successfully. Response: ' + resp.data);
-            $scope.$parent.notificationsOn = ($scope.notifications === 'true');
-            
-        }, function(resp) {
-            // handle error
-        }, function(evt) {
-            // progress notify
-            //console.log('progress: ' + parseInt(100.0 * evt.loaded / evt.total) + '% file :'+ evt.config.data.file.name);
-        });
+        if (avatar) {
+            var upload = Upload.upload({
+                url: '/requests/member',
+                method: 'PUT',
+                data: {
+                    avatar: avatar,
+                    firstName: firstName,
+                    lastName: lastName,
+                    notificationsOn: $scope.notifications,
+                    houseName: houseName
+                }
+            });
+            upload.then(function (resp) {
+                $scope.$parent.notificationsOn = ($scope.notifications === 'true');
+                avatar.result = resp.data;
+
+            }, function (resp) {
+                alert("There was a problem with uploading your avatar.");
+            }, function (evt) {
+                avatar.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+            });
+        }
+        else{
+            var data = {'firstName': firstName, 'lastName': lastName, 'houseName': houseName, avatar: undefined};
+
+            var res = $http.put('/requests/member', data);
+
+            res.success(function(data, status, headers, config) {
+                
+            });
+
+            res.error(function(data, status, headers, config) {
+                alert("The query can't be processed at the moment. Please try again later.");
+            });
+        }
     };
 
     $scope.dismiss = function () {
