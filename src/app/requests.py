@@ -331,7 +331,7 @@ class TokenHandler(webapp2.RequestHandler):
 
 class AvatarHandler(webapp2.RequestHandler):
     def get(self, user_id=None):
-        user = models.get_member(user_id).get()
+        user = models.get_member_key(user_id).get()
         self.response.headers['Content-Type'] = 'image/png'
         if user.avatar:
             self.response.out.write(user.avatar)
