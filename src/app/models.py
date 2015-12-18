@@ -12,6 +12,7 @@ class Member(ndb.Model):
     difficulty_assigned = ndb.IntegerProperty(default=0)
     channel_token = ndb.StringProperty()
     avatar = ndb.BlobProperty()
+    notifications_on = ndb.BooleanProperty(default=True)
 
     def is_owner(self):
         return True if(self.household.get().owner.id() == self.key.id()) else False
@@ -489,7 +490,7 @@ def add_member(first_name, last_name, avatar=None, user_id=None):
     return key
 
 
-def update_member(first_name, last_name, avatar=None):
+def update_member(first_name, last_name, notifications_on, avatar=None):
     """
     Update a member. If user_id is not set, then get the current Logged in user from GAE
 
@@ -500,6 +501,7 @@ def update_member(first_name, last_name, avatar=None):
     member = get_member_key().get()
     member.first_name = first_name
     member.last_name = last_name
+    member.notifications_on = notifications_on
     if avatar:
         member.avatar = avatar
     member.put()
