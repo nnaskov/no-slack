@@ -22,4 +22,7 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
         }
     });
     
+    $scope.refreshAvatar = function(){
+        $scope.avatar = "/requests/avatar/"+userID+"?decache="+ Math.random();
+    }
 }]);

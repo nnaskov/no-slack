@@ -71,6 +71,7 @@ app.controller('SettingsController', ['$scope', '$http', 'Upload', function ($sc
             upload.then(function (resp) {
                 $scope.$parent.notificationsOn = ($scope.notifications === 'true');
                 avatar.result = resp.data;
+                $scope.$parent.refreshAvatar();
 
             }, function (resp) {
                 alert("There was a problem with uploading your avatar.");
