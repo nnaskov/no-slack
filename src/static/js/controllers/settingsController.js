@@ -79,12 +79,18 @@ app.controller('SettingsController', ['$scope', '$http', 'Upload', function ($sc
             });
         }
         else{
-            var data = {'firstName': firstName, 'lastName': lastName, 'houseName': houseName, avatar: undefined};
+            var data = {'firstName': firstName, 'lastName': lastName, 'houseName': houseName, notificationsOn: $scope.notifications, avatar: undefined};
 
-            var res = $http.put('/requests/member', data);
+            var res = $http.put('/requests/member', data,
+            {
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                transformRequest: function(data){
+                    return $.param(data);
+                }
+            });
 
             res.success(function(data, status, headers, config) {
-                
+                $scope.$parent.notificationsOn = ($scope.notifications === 'true');
             });
 
             res.error(function(data, status, headers, config) {
