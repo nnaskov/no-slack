@@ -202,9 +202,9 @@ class MemberHandler(webapp2.RequestHandler):
         notifications_on = self.request.get('notificationsOn')
 
         models.update_house(house_name);
-        member = models.update_member(first_name, last_name, avatar, notifications_on)
+        member = models.update_member(first_name, last_name, notifications_on, avatar)
         json_data = jsons.get_member_json(member)
-        json_data = json.dump(json_data)
+        json_data = json.dumps(json_data)
         self.response.out.write(json_data)
 
 class AnalysisHandler(webapp2.RequestHandler):
