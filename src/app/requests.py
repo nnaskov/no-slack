@@ -195,12 +195,11 @@ class MemberHandler(webapp2.RequestHandler):
     desired first and last name. Data store then updated to reflect this.
     """
     def put(self):
-        json_data = json.loads(self.request.body)
-        first_name = json_data.get('firstName')
-        last_name = json_data.get('lastName')
-        house_name = json_data.get('houseName')
-        avatar = json_data.get('avatar')
-        notifications_on = json_data.get('notificationsOn')
+        first_name = self.request.get('firstName')
+        last_name = self.request.get('lastName')
+        house_name = self.request.get('houseName')
+        avatar = self.request.get('avatar')
+        notifications_on = self.request.get('notificationsOn')
 
         models.update_house(house_name);
         member = models.update_member(first_name, last_name, avatar, notifications_on)
