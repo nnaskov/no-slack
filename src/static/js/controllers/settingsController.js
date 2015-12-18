@@ -53,7 +53,7 @@ app.controller('SettingsController', ['$scope', '$http', 'Upload', function ($sc
         var upload = Upload.upload({
             url: '/requests/member',
             method: 'PUT',
-            data: {avatar: avatar, firstName: firstName, lastName: lastName, notificationsOn: true, houseName: houseName}
+            data: {avatar: avatar, firstName: firstName, lastName: lastName, notificationsOn: 'true', houseName: houseName}
         });
         
         // returns a promise
