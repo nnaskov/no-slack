@@ -15,6 +15,7 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
             $scope.userName = firstName+" "+lastName;
             $scope.initials = initials;
             $scope.houseName = data.name;
+            $scope.avatar = "/requests/avatar/"+userID;
         }
     });
     
