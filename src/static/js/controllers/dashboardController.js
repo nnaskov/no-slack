@@ -5,6 +5,7 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
     $scope.initials = "?";
     $scope.houseName = "Loading...";
     $scope.avatar = "static/img/blank-picture.jpg";
+    $scope.notificationsOn = true;
     
     var houseData = memberService.getHouseData().then(function(data){
         if(data['users'][userID] !== undefined){
@@ -12,10 +13,12 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
             var firstName = userData.firstName;
             var lastName = userData.lastName;
             var initials = userData.initials;
+            var notificationsOn = userData.notificationsOn;
             $scope.userName = firstName+" "+lastName;
             $scope.initials = initials;
             $scope.houseName = data.name;
             $scope.avatar = "/requests/avatar/"+userID;
+            $scope.notificationsOn = notificationsOn;
         }
     });
     

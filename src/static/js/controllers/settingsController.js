@@ -6,8 +6,12 @@ app.controller('SettingsController', ['$scope', '$http', 'Upload', function ($sc
     $scope.houseNameExists = false;
     $scope.originalHouseName = undefined;
     
-    $scope.notifications = "true";
+    
 
+    $scope.$watch('$parent.notificationsOn', function (newValue, oldValue) {
+        $scope.notifications = (newValue === true) ? "true" : "false";
+    });
+                  
     $scope.$watch('$parent.userName', function (newValue, oldValue) {
         $scope.tenantName = newValue;
         if ($scope.originalTenantName === undefined && newValue !== "Loading...") {
@@ -59,15 +63,17 @@ app.controller('SettingsController', ['$scope', '$http', 'Upload', function ($sc
         });
         
         // returns a promise
-        /*upload.then(function(resp) {
+        upload.then(function(resp) {
             // file is uploaded successfully
-            console.log('file ' + resp.config.data.file.name + 'is uploaded successfully. Response: ' + resp.data);
+            //console.log('file ' + resp.config.data.file.name + 'is uploaded successfully. Response: ' + resp.data);
+            $scope.$parent.notificationsOn = ($scope.notifications === 'true');
+            
         }, function(resp) {
             // handle error
         }, function(evt) {
             // progress notify
-            console.log('progress: ' + parseInt(100.0 * evt.loaded / evt.total) + '% file :'+ evt.config.data.file.name);
-        });*/
+            //console.log('progress: ' + parseInt(100.0 * evt.loaded / evt.total) + '% file :'+ evt.config.data.file.name);
+        });
     };
 
     $scope.dismiss = function () {
