@@ -6,7 +6,6 @@ import publisher
 import delegator
 from google.appengine.api import channel
 
-
 class HouseHandler(webapp2.RequestHandler):
     '''
     GET returns name of the current house and the users in it
@@ -336,7 +335,7 @@ class AvatarHandler(webapp2.RequestHandler):
         if user.avatar:
             self.response.out.write(user.avatar)
         else:
-            default_picture = open('blank-picture.jpg').read()
+            default_picture = open('app/blank-picture.jpg', 'rb').read()
             self.response.out.write(default_picture)
 
 app = webapp2.WSGIApplication([
