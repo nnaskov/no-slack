@@ -5,6 +5,8 @@ app.controller('SettingsController', ['$scope', '$http', 'Upload', function ($sc
     $scope.houseName = "Loading...";
     $scope.houseNameExists = false;
     $scope.originalHouseName = undefined;
+    
+    $scope.notifications = "true";
 
     $scope.$watch('$parent.userName', function (newValue, oldValue) {
         $scope.tenantName = newValue;
@@ -53,7 +55,7 @@ app.controller('SettingsController', ['$scope', '$http', 'Upload', function ($sc
         var upload = Upload.upload({
             url: '/requests/member',
             method: 'PUT',
-            data: {avatar: avatar, firstName: firstName, lastName: lastName, notificationsOn: 'true', houseName: houseName}
+            data: {avatar: avatar, firstName: firstName, lastName: lastName, notificationsOn: $scope.notifications, houseName: houseName}
         });
         
         // returns a promise
@@ -71,5 +73,6 @@ app.controller('SettingsController', ['$scope', '$http', 'Upload', function ($sc
     $scope.dismiss = function () {
         $scope.tenantName = $scope.originalTenantName;
         $scope.houseName = $scope.originalHouseName;
+        $scope.notifications = "true";
     }
 }]);
