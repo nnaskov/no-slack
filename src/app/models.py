@@ -501,7 +501,7 @@ def update_member(first_name, last_name, notifications_on, avatar=None):
     member = get_member_key().get()
     member.first_name = first_name
     member.last_name = last_name
-    member.notifications_on = notifications_on
+    member.notifications_on = notifications_on == 'true'
     if avatar:
         member.avatar = avatar
     member.put()
