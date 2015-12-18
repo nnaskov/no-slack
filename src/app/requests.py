@@ -191,9 +191,10 @@ class MemberHandler(webapp2.RequestHandler):
         last_name = json_data.get('lastName')
         house_name = json_data.get('houseName')
         avatar = json_data.get('avatar')
+        notifications_on = json_data.get('notificationsOn')
 
         models.update_house(house_name);
-        member = models.update_member(first_name, last_name, avatar)
+        member = models.update_member(first_name, last_name, avatar, notifications_on)
         json_data = jsons.get_member_json(member)
         json_data = json.dump(json_data)
         self.response.out.write(json_data)
