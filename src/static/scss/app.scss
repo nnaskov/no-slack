@@ -497,7 +497,7 @@ aside {
 
 
 .navbar-default {
-	background-color: $theme_primary;
+    background-image: linear-gradient(lighten($theme_primary,10%), $theme_primary);
 	border-color: transparent;
 }
 
@@ -524,14 +524,6 @@ aside {
     padding: 0;
 }
 
-.navbar-default {
-	background-color: $theme_primary;
-	border-color: transparent;
-}
-
-.navbar-default .navbar-brand {
-	color: white;
-}
 
 .navbar-default .navbar-brand:hover {
 	color: darken(white, 20%);
