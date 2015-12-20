@@ -241,22 +241,6 @@
 .center-row > .col-sm-6 {
     min-width: 460px;
 }
-.person-list {
-    
-}
-
-.person-list & .tile{
-    padding: 20px;
-}
-
-.person-list & img{
-    float: left;
-}
-
-.person-list & h2{
-    margin-left: 20px;
-    float: left;
-}
 
 .person-detail-list{
     float: left;
@@ -330,7 +314,6 @@
 }
 
 #frequency-button{
-  
     padding-left: 0px;
     line-height: 30px;
     background-color: $theme_primary !important;
@@ -389,18 +372,11 @@
 }
 
 
-
 .large-glyph {
   font-size: 28px;
     padding: 10px;
 }
 
-// Global Components
-html,
-body {
-    height: 100%;
-    width: 100%;
-}
 
 .form-container {
     padding-top: 40px;
@@ -457,11 +433,6 @@ aside {
     color: $theme-primary;
 }
 
-.no-gutter > [class*='col-'] {
-    padding-right:0;
-    padding-left:0;
-}
-
 .btn-xl {
     padding: 15px 30px;
 }
@@ -509,7 +480,26 @@ aside {
 	color: white;
 }
 
+.navbar-default .navbar-nav > li :after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 0;
+    background: transparent;
+    transition: width .5s ease, background-color .5s ease;
+    margin-top: rem(5);
+}
 
+.navbar-default .navbar-nav > li  :hover:after {
+    width: 100%;
+    background: #ffffff;
+    padding-bottom: rem(5);
+    height: rem(3);
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    color: darken(white, 20%);
+}
 
 .centered {
     text-align: center;
@@ -529,13 +519,7 @@ aside {
 	color: darken(white, 20%);
 }
 
-.navbar-default .navbar-nav > li > a {
-	color: white;
-}
 
-.navbar-default .navbar-nav > li > a:hover {
-	color: darken(white, 20%);
-}
 
 /* Helpers */
 
