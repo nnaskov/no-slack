@@ -466,46 +466,46 @@ aside {
     }
 }
 
-
-.navbar-default {
+.navbar-default{
     background-image: linear-gradient(lighten($theme_primary,10%), $theme_primary);
-	border-color: transparent;
-}
-
-.navbar-default .navbar-brand {
-	color: white;
-}
-
-.navbar-default .navbar-nav > li > a {
-	color: white;
-}
-
-.navbar-default .navbar-nav > li :after {
-    content: '';
-    display: block;
-    height: 1px;
-    width: 0;
-    background: transparent;
-    transition: width .5s ease, background-color .5s ease;
-    margin-top: rem(5);
-}
-
-.navbar-default .navbar-nav > li  :hover:after {
-    width: 100%;
-    background: #ffffff;
-    padding-bottom: rem(5);
-    height: rem(3);
-}
-
-.navbar-default .navbar-nav > li > a:hover {
-    color: darken(white, 20%);
+    border-color: transparent;
+    & .navbar-brand{
+        color: white;
+        &:hover{
+            color: darken(white, 20%);
+        }
+    }
+    .navbar-nav{
+        & li{
+            &:after{
+                content: '';
+                display: block;
+                height: 3px;
+                width: 0;
+                background: transparent;
+                transition: width .5s ease, background-color .5s ease;
+                position: absolute;
+                bottom: -1px;
+            }
+            &:hover:after, &.selected{
+                width: 100%;
+                background: #ffffff;
+            }
+            a{
+                color: white;
+                &:hover{
+                    color: darken(white, 20%);
+                }
+            }
+        }
+    }
 }
 
 .centered {
     text-align: center;
 }
 
- hr {
+hr {
     display: block;
     height: 1px;
     border: 0;
@@ -513,15 +513,6 @@ aside {
     margin: 1em 0;
     padding: 0;
 }
-
-
-.navbar-default .navbar-brand:hover {
-	color: darken(white, 20%);
-}
-
-
-
-/* Helpers */
 
 .mt {
 	margin-top: 40px;
@@ -539,7 +530,6 @@ i {
     margin-top: -80px;
     width: 100%!important;
     max-width: 1500px;
-    padding: 0px;
 }
 .vertical-center-row {
     display: table-cell;
@@ -548,23 +538,12 @@ i {
 
 /* HeaderWrap */
 #headerwrap {
-	/* background: url(../img/bg01.jpg) no-repeat center top; */
 	background-color: $theme_primary;
 	margin-top: -20px;
 	background-attachment: relative;
 	background-position: center center;
 	width: 100%;
     height: 80%;
-	
-    -webkit-background-size: 100%;
-    -moz-background-size: 100%;
-    -o-background-size: 100%;
-    background-size: 100%;
-
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
 }
 
 #headerwrap h1 {
@@ -602,12 +581,6 @@ body {
     webkit-tap-highlight-color: $theme-dark;
 }
 
-// Block Grid
-// Technique adapted from Foundation 5 for Bootstrap 3.
-// https://github.com/zurb/foundation/blob/f755d8704123f86c281ede0b171881e2672f150d/scss/foundation/components/_block-grid.scss
-// Original LESS Version by Christopher Mitchell (https://gist.github.com/ChrisTM)
-// Converted to SCSS by Rasmus Jürs (https://github.com/Jursdotme)
-
 [class*="block-grid-"] {
     display: block;
     margin: -($grid-gutter-width/2);
@@ -631,8 +604,6 @@ body {
 @include no-padding("bottom");
 @include no-padding("all");
 
-
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
 .popover{
     background-color: $theme-primary;
