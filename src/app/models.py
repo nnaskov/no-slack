@@ -38,6 +38,7 @@ class Task(ndb.Model):
     most_recent_event = ndb.KeyProperty()
     assigned = ndb.KeyProperty()
     style = ndb.TextProperty()
+    order = ndb.IntegerProperty()
 
     def get_delagated_initials(self):
         return self.assigned.get().first_name[0] + self.assigned.get().last_name[0].upper()
@@ -241,8 +242,9 @@ def add_task_given_key(house_key, task_name, difficulty, description=None, frequ
 
     :return: ndb.Key of the task
     """
+    order = Task.query(Task.household==house_key).count()
     new_task = Task(name=task_name, frequency=frequency, difficulty=difficulty, household=house_key,
-                    user_who_added=get_member_key(), style=style, description=description)
+                    user_who_added=get_member_key(), style=style, description=description, order=order)
     return new_task.put()
 
 
@@ -451,13 +453,16 @@ def delete_task(id):
 
 def edit_task(task_id, json):
     task = get_task(task_id)
-
-    task.name = json.get("name")
-    task.frequency = int(json.get("frequency"))
-    task.description = json.get("description")
-    task.difficulty = int(json.get("difficulty"))
-    task.style = json.get("iconClass")
-
+    order = None
+    order = json.get("order")
+    if order is None:
+        task.name = json.get("name")
+        task.frequency = int(json.get("frequency"))
+        task.description = json.get("description")
+        task.difficulty = int(json.get("difficulty"))
+        task.style = json.get("iconClass")
+    else:
+        task.order = order
     task.put()
     return task
 

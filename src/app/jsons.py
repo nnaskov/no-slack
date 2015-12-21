@@ -19,6 +19,7 @@ def get_task_json(task):
     task_dict[strings.taskStyle] = task.style
     task_dict[strings.everCompleted] = False
     task_dict[strings.assigned] = False
+    task_dict['order'] = task.order
 
     if task.assigned:
         task_dict[strings.assignedInitials] = task.get_delagated_initials()
