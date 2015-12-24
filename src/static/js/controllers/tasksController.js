@@ -8,7 +8,11 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
     }
     
     $scope.sortableOptions = {
-        items: ".block-grid-item:not(.not-sortable)"
+        items: ".block-grid-item:not(.not-sortable)",
+        update: function(e, ui) {
+            //the dragged tile
+            $log.log(ui.item.sortable.model)
+        }
     };
     
     $scope.refreshDashboard = function(){

@@ -3,6 +3,7 @@ from google.appengine.api import users
 import publisher
 import random
 import threading
+import logging
 
 class Member(ndb.Model):
     first_name = ndb.StringProperty()
@@ -101,6 +102,7 @@ def add_default_tasks(house_key):
 
     taskKeys.append(add_task_given_key(house_key=house_key, task_name="Take the trash", frequency=10, difficulty=1,
                        description="Every bin: bathroom, bedroom, kitchen, backyard", style="fa fa-trash"))
+    
     return taskKeys
 
 def add_default_members(house_key):
@@ -112,13 +114,13 @@ def add_default_members(house_key):
     """
     import  time
     memberKeys = []
-    memberKeys.append(register_member_from_code("Norbert","Naskov",house_key,"id1"))
-    memberKeys.append(register_member_from_code("Adam","Noakes",house_key,"id12"))
-    memberKeys.append(register_member_from_code("Dominic","Smith",house_key,"id13"))
-    memberKeys.append(register_member_from_code("Bogomil","Gospodinov",house_key,"id14"))
-    memberKeys.append(register_member_from_code("Darius","Key",house_key,"id15"))
-    memberKeys.append(register_member_from_code("Damyan","Rusinov",house_key,"id16"))
-    memberKeys.append(register_member_from_code("Richard","Bata",house_key,"id17"))
+    memberKeys.append(register_member_from_code("Norbert","Naskov",house_key,"id131"))
+    memberKeys.append(register_member_from_code("Adam","Noakes",house_key,"id122"))
+    memberKeys.append(register_member_from_code("Dominic","Smith",house_key,"id131"))
+    memberKeys.append(register_member_from_code("Bogomil","Gospodinov",house_key,"id144"))
+    memberKeys.append(register_member_from_code("Darius","Key",house_key,"id152"))
+    memberKeys.append(register_member_from_code("Damyan","Rusinov",house_key,"id163"))
+    memberKeys.append(register_member_from_code("Richard","Bata",house_key,"id171"))
     return memberKeys
 
 def add_default_task_events_and_feedback(member_keys, task_keys):
@@ -242,7 +244,8 @@ def add_task_given_key(house_key, task_name, difficulty, description=None, frequ
 
     :return: ndb.Key of the task
     """
-    order = Task.query(Task.household==house_key).count()
+    order = Task.query(Task.household == house_key).count()
+
     new_task = Task(name=task_name, frequency=frequency, difficulty=difficulty, household=house_key,
                     user_who_added=get_member_key(), style=style, description=description, order=order)
     return new_task.put()
