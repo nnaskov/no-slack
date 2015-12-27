@@ -1,5 +1,5 @@
 <div class="container-fluid tile-container">
-    <div ui-sortable="sortableOptions" ng-model="tasks" class="block-grid-lg-4 block-grid-md-3 block-grid-sm-2 block-grid-xs-1">
+    <div id="sortable" ui-sortable="sortableOptions" ng-model="tasks" class="block-grid-lg-4 block-grid-md-3 block-grid-sm-2 block-grid-xs-1">
         <!-- Show all tasks-->
         <div ng-repeat="task in tasks" class="block-grid-item">
             <div class="fadeInForward-{{task.bounceDelay}}">
@@ -36,6 +36,7 @@
                             </div>
                         </div>
                         <div class="col-xs-6 text-right">
+                            <span class="glyphicon glyphicon-resize-horizontal handler" aria-hidden="true" style="margin-right: 10px;"></span>
                             <span ng-click="addTaskEvent()" class="glyphicon glyphicon-ok glyph-button" aria-hidden="true" style="margin-right: 10px;"></span>
                             <history-popover task="task"></history-popover>
                         </div>

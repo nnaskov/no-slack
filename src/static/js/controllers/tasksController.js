@@ -14,10 +14,14 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
     $scope.sortableOptions = {
         items: ".block-grid-item:not(.not-sortable)",
         'ui-floating': 'auto',
-        tolerance: "intersect",
+        tolerance: "pointer",
         scroll: "true",
         scrollSensitivity: 1,
         placeholder: "ui-state-highlight block-grid-item tile",
+        revert: true,
+        opacity: 0.5,
+        forcePlaceholderSize: true,
+        handle: ".handler",
         update: function(e, ui) {
             //the dragged tile
             $log.log(ui.item.sortable.model)
