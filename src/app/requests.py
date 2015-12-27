@@ -133,8 +133,8 @@ class TaskEventHandler(webapp2.RequestHandler):
         update_json['assignedInitials'] = task.get_delagated_initials()
         member = models.get_member_key().get()
         update_json['doneBy'] = member.first_name + " " + member.last_name
-        if member.avatar:
-            update_json['avatar'] = member.avatar
+        #if member.avatar:
+            #update_json['avatar'] = member.avatar
         json_data = json.dumps(obj)
         update_data = json.dumps(update_json)
         publisher.update_clients(models.get_members_list(), update_data)
@@ -165,8 +165,8 @@ class TaskEventHandler(webapp2.RequestHandler):
             update_json['negative'] = task_event.negative_feedback
             member = models.get_member_key().get()
             update_json['doneBy'] = member.first_name + " " + member.last_name
-            if member.avatar:
-                update_json['avatar'] = member.avatar
+            #if member.avatar:
+                #update_json['avatar'] = member.avatar
 
             json_data = json.dumps(obj)
             update_data = json.dumps(update_json)

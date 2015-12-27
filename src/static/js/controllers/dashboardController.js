@@ -30,17 +30,21 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
     }
     
     var addNotification = function(ev, args){
+        $log.log(args);
+        
         var task;
         if(args.taskId){
-            task = $rootScope.tasks.filter(function(task){return task.taskID===args.taskId;})[0].task;    
+            task = $rootScope.tasks.filter(function(task){return task.taskID===args.taskId;})[0];    
         }
+        
+        $log.log(task);
         
         var taskName;
         if(task != undefined){
             taskName = task.taskName;
         }
         else{
-            taskName = task.taskID;
+            taskName = args.taskId;
         }
         
         if(args.eventType == "taskFeedback"){

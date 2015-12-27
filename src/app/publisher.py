@@ -1,5 +1,6 @@
 from google.appengine.api import users
 from google.appengine.api import channel
+import logging
 
 
 def update_clients(user_list, json, sender_key=None):
