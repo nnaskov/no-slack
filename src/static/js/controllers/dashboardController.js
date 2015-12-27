@@ -1,4 +1,4 @@
-app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$log', 'channelService', 'memberService', '$sce', '$rootScope', function($scope, channelClientID, userID, $log, channelService, memberService, $sce, $rootScope){
+app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$log', 'channelService', 'memberService', '$sce', '$rootScope', 'webNotification', function($scope, channelClientID, userID, $log, channelService, memberService, $sce, $rootScope, webNotification){
     channelService.openChannel(channelClientID);
     
     $scope.userName = "Loading...";
@@ -59,6 +59,14 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
                 icon = "fa-thumbs-o-down";
             }
             $scope.notifications.push({icon: "fa fa-fw "+icon, text: $sce.trustAsHtml("<b>"+args.doneBy.split(" ")[0]+"</b> "+action+" your <span class=\"badge\">Task</span> "+taskName) });    
+            
+            webNotification.showNotification('Task Feedback', {
+                body: args.doneBy.split(" ")[0]+" "+action+" your Task "+taskName,
+                icon: 'static/img/notification.png',
+                onClick: function onNotificationClicked(){},
+                autoClose: 4000 //auto close the notification after 2 seconds (you can manually close it via hide function)
+            }, function(){});
+            
         }
         else if(args.eventType == "taskEvent"){
             $scope.notifications.push({icon: "fa fa-fw fa-check", text: $sce.trustAsHtml("<b>"+args.doneBy.split(" ")[0]+"</b> completed <span class=\"badge\">Task</span> "+taskName) }); 
@@ -69,6 +77,4 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
     
     $scope.$on('taskFeedback', addNotification);
     $scope.$on('taskEvent', addNotification);
-    
-    
 }]);

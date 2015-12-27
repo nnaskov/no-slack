@@ -27,7 +27,7 @@
     "bootstrap-sass": "~3.3.5",
     "bourbon": "4.2.0",
     "angular-ui-router": "~0.2.15",
-    "angular": "~1.4.7",
+    "angular": "1.5.0-rc.0",
     "jquery": "~2.1.4",
     "angular-animate": "~1.4.7",
     "bootstrap-iconpicker": "~1.7.0",
@@ -39,10 +39,11 @@
     "moment": "~2.10.6",
     "angular-ui-sortable": "~0.13.4",
     "ng-file-upload": "~10.1.9",
-    "jqueryui-touch-punch": "*"
+    "jqueryui-touch-punch": "*",
+    "angular-web-notification": "~0.0.53"
   },
   "resolutions": {
-    "angular": "~1.4.7",
+    "angular": "1.5.0-rc.0",
     "angular-bootstrap": "~0.14.3"
   }
 }
