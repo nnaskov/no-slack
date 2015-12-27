@@ -626,3 +626,16 @@ body {
         border-bottom: none;
     }
 }
+
+.ui-state-highlight {  
+    @include calc(width, "100% - 15px");
+    height:179px !important;
+    max-height:179px;
+    display: inline-block;
+    box-sizing: border-box;		
+    margin: 0px !important;
+    padding: 15px 15px 0px 15px!important;
+    cursor: pointer; 
+    background-image: repeating-linear-gradient(45deg,white,white 10px,red 10px,red 20px);
+    background-clip:content-box;
+}
