@@ -5,6 +5,7 @@ import models
 import publisher
 import delegator
 from google.appengine.api import channel
+import logging
 
 class HouseHandler(webapp2.RequestHandler):
     '''
@@ -332,6 +333,9 @@ class AvatarHandler(webapp2.RequestHandler):
     def get(self, user_id=None):
         user = models.get_member_key(user_id).get()
         self.response.headers['Content-Type'] = 'image/png'
+        logging.error(user);
+        logging.error(user.avatar);
+        #user.avatar is sometimes string and this breaks the avatar for users who havent uploaded an image
         if user.avatar:
             self.response.out.write(user.avatar)
         else:

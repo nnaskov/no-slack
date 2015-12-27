@@ -48,14 +48,20 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
         }
         
         if(args.eventType == "taskFeedback"){
-            var isPositive = ((args.positive - task.positiveFeedback) > 0);
-            var action;
-            if(isPositive==true) action = "liked";
-            else action = "disliked";
-            $scope.notifications.push({icon: "fa fa-fw fa-thumbs-o-up", text: $sce.trustAsHtml("<b>"+args.doneBy.split(" ")[0]+"</b> "+action+" your <span class=\"badge\">Task</span> "+taskName) });    
+            var isPositive = (args.positive > (task.positiveFeedback !== undefined ? task.positiveFeedback : 0));
+            var action, icon;
+            if(isPositive==true){
+                action = "liked";
+                icon = "fa-thumbs-o-up";
+            }
+            else{
+                action = "disliked";
+                icon = "fa-thumbs-o-down";
+            }
+            $scope.notifications.push({icon: "fa fa-fw "+icon, text: $sce.trustAsHtml("<b>"+args.doneBy.split(" ")[0]+"</b> "+action+" your <span class=\"badge\">Task</span> "+taskName) });    
         }
         else if(args.eventType == "taskEvent"){
-            $scope.notifications.push({icon: "fa fa-fw fa-tag", text: $sce.trustAsHtml("<b>"+args.doneBy.split(" ")[0]+"</b> completed <span class=\"badge\">Task</span> "+taskName) }); 
+            $scope.notifications.push({icon: "fa fa-fw fa-check", text: $sce.trustAsHtml("<b>"+args.doneBy.split(" ")[0]+"</b> completed <span class=\"badge\">Task</span> "+taskName) }); 
         }
 
         $scope.notificationsStatus = true;
