@@ -96,17 +96,15 @@
             </div>
 
             <div id="navbar" class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
-                <ul class="nav navbar-nav navbar-right" >
-                    <li class="dropdown" uib-dropdown>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown" uib-dropdown is-open="notificationsStatus">
                         <a href="#" class="dropdown-toggle" uib-dropdown-toggle data-toggle="dropdown" role="button" aria-expanded="false">
                             <img ng-src="{{'{{'}}avatar || 'static/img/blank-picture.jpg' {{'}}'}}" alt="" width="32" height="32">
                             <i class="fa fa-fw fa-bell-o"></i> {{'{{'}}userName{{'}}'}} <span class="badge">{{'{{'}}initials{{'}}'}}</span>
                         </a>
-                        <ul class="dropdown-menu" uib-dropdown-menu role="menu">
-                            <li><a href="#"><i class="fa fa-fw fa-tag"></i> <span class="badge">Dominic Smith</span> liked your <span class="badge">Task</span>.</a></li>
-                            <li><a href="#"><i class="fa fa-fw fa-thumbs-o-up"></i> <span class="badge">Dominic Smith</span> liked your <span class="badge">Task</span>.</a></li>
-                            <li><a href="#"><i class="fa fa-fw fa-tag"></i> <span class="badge">Dominic Smith</span> liked your <span class="badge">Task</span>.</a></li>
-                            <li><a href="#"><i class="fa fa-fw fa-tag"></i> <span class="badge">Dominic Smith</span> liked your <span class="badge">Task</span>.</a></li>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" style="min-width: 100%;">
+                            <li ng-show="!notifications.length"><a href="#">No notifications.</a></li>
+                            <li ng-repeat="notification in notifications.slice().reverse()"><a href="#"><i class="{{'{{'}}notification.icon{{'}}'}}"></i> <span ng-bind-html="notification.text"></span></a></li>
                         </ul>
                     </li>
                     

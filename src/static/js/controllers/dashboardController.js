@@ -1,4 +1,4 @@
-app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$log', 'channelService', 'memberService', function($scope, channelClientID, userID, $log, channelService, memberService){
+app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$log', 'channelService', 'memberService', '$sce', '$rootScope', function($scope, channelClientID, userID, $log, channelService, memberService, $sce, $rootScope){
     channelService.openChannel(channelClientID);
     
     $scope.userName = "Loading...";
@@ -6,6 +6,9 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
     $scope.houseName = "Loading...";
     $scope.avatar = "static/img/blank-picture.jpg";
     $scope.notificationsOn = true;
+    $scope.notifications = [];
+    
+    $scope.notificationsStatus = false;
     
     var houseData = memberService.getHouseData().then(function(data){
         if(data['users'][userID] !== undefined){
@@ -25,4 +28,25 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
     $scope.refreshAvatar = function(){
         $scope.avatar = "/requests/avatar/"+userID+"?decache="+ Math.random();
     }
+    
+    var addNotification = function(ev, args){
+        var taskName;
+        if(args.taskId){
+            taskName = $rootScope.tasks.filter(function(task){return task.taskID===args.taskId;})[0].taskName;    
+        }
+        
+        if(args.eventType == "taskFeedback"){
+            $scope.notifications.push({icon: "fa fa-fw fa-thumbs-o-up", text: $sce.trustAsHtml("<b>"+args.doneBy.split(" ")[0]+"</b> liked your <span class=\"badge\">Task</span> "+taskName) });    
+        }
+        else if(args.eventType == "taskEvent"){
+            $scope.notifications.push({icon: "fa fa-fw fa-tag", text: $sce.trustAsHtml("<b>"+args.doneBy.split(" ")[0]+"</b> completed <span class=\"badge\">Task</span> "+taskName) }); 
+        }
+
+        $scope.notificationsStatus = true;
+    };
+    
+    $scope.$on('taskFeedback', addNotification);
+    $scope.$on('taskEvent', addNotification);
+    
+    
 }]);

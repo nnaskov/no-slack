@@ -11,7 +11,6 @@ app.factory('channelService', ['$http', '$rootScope', '$timeout', '$log' , funct
         
         service.onMessage = function(message){      
             var cleanMessage = JSON.parse(message.data);
-            console.log(cleanMessage);
             $rootScope.$broadcast(cleanMessage.eventType, cleanMessage);
             $rootScope.$apply();        
         }
@@ -43,7 +42,6 @@ app.factory('channelService', ['$http', '$rootScope', '$timeout', '$log' , funct
             
             
             $log.log('A channel was opened successfully. Will check the ping in 20 secs.');
-            //$timeout(service.checkConnection, 20000, false);
         };
 
         service.obtainNewToken = function(isRetry) {
@@ -65,30 +63,6 @@ app.factory('channelService', ['$http', '$rootScope', '$timeout', '$log' , funct
                     }
                 })
         }
-
-        /*
-        service.pingCallback = function() {
-            $log.log('Got a ping from the server.');
-            isConnectionAlive = true;
-        }
-        */
-        /*
-        service.checkConnection = function() {
-            if (isConnectionAlive) {
-                $log.log('Connection is alive.');
-                return;
-            }
-            if (service.socket == undefined) {
-                $log.log('will open a new connection in 1 sec');
-                $timeout(service.obtainNewToken, 1000, false);
-                return;
-            }
-            // Ping didn't arrive
-            // Assuming onclose handler automatically open a new channel.
-            $log.log('Not receiving a ping, closing the connection');
-            service.socket.close();
-        }
-        */
 
         return service;
 }]);

@@ -464,6 +464,13 @@ aside {
             }
         }
     }
+    
+    ul.dropdown-menu{
+        a{
+            color: black !important;
+            padding: 5px;
+        }
+    }
 }
 
 .navbar-default{
@@ -477,7 +484,7 @@ aside {
         line-height: 30px;
     }
     .navbar-nav{
-        & li{
+       & li{
             &:after{
                 content: '';
                 display: block;

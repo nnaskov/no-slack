@@ -1,4 +1,8 @@
-app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$stateParams', '$log', 'taskService', '$location', 'ngProgressFactory', '$timeout' , function($scope, $http, tasks, $state, $stateParams, $log, taskService, $location, ngProgressFactory, $timeout) {
+app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$stateParams', '$log', 'taskService', '$location', 'ngProgressFactory', '$timeout', '$rootScope', function($scope, $http, tasks, $state, $stateParams, $log, taskService, $location, ngProgressFactory, $timeout, $rootScope) {
+    
+    $scope.$watch('tasks', function (newValue, oldValue) {
+        $rootScope.tasks = newValue;
+    });
     
     $scope.refreshTasks = function(){
         taskService.getTasks().then(function(tasks){
