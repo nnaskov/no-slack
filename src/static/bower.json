@@ -40,7 +40,8 @@
     "angular-ui-sortable": "~0.13.4",
     "ng-file-upload": "~10.1.9",
     "jqueryui-touch-punch": "*",
-    "angular-web-notification": "~0.0.53"
+    "angular-web-notification": "~0.0.53",
+    "angular-css-injector": "~1.4.0"
   },
   "resolutions": {
     "angular": "1.5.0-rc.0",

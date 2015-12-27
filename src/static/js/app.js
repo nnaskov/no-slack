@@ -2,7 +2,7 @@
 
 var index_app = angular.module('app.index', []);
 
-var app = angular.module('app.dashboard', ['ui.router', 'ui.bootstrap', 'ui.bootstrap.tpls', 'ui.sortable', 'ngAnimate', 'ui-iconpicker', 'chart.js', 'ngSanitize', 'ngProgress', 'angularMoment', 'ngFileUpload', 'angular-web-notification']);
+var app = angular.module('app.dashboard', ['ui.router', 'ui.bootstrap', 'ui.bootstrap.tpls', 'ui.sortable', 'ngAnimate', 'ui-iconpicker', 'chart.js', 'ngSanitize', 'ngProgress', 'angularMoment', 'ngFileUpload', 'angular-web-notification', 'angular.css.injector']);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/dashboard");

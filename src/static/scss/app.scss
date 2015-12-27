@@ -1,5 +1,8 @@
 @import "bourbon";
-@import "bootstrap";
+
+// Core variables and mixins
+@import "bootstrap/variables", "bootstrap/mixins", "bootstrap/normalize", "bootstrap/print", "bootstrap/glyphicons", "bootstrap/scaffolding", "bootstrap/type", "bootstrap/code", "bootstrap/grid", "bootstrap/forms", "bootstrap/buttons", "bootstrap/component-animations", "bootstrap/dropdowns", "bootstrap/button-groups", "bootstrap/input-groups", "bootstrap/navs", "bootstrap/navbar", "bootstrap/labels", "bootstrap/badges", "bootstrap/thumbnails","bootstrap/alerts", "bootstrap/panels", "bootstrap/close", "bootstrap/modals", "bootstrap/tooltip", "bootstrap/popovers", "bootstrap/utilities", "bootstrap/responsive-utilities";
+
 @import "animations";
 @import "mixins";
 @import "variables";
@@ -172,44 +175,12 @@
         color: #fff;
     }
 
-    &.purple {
-        background: $color_purple;
-
-        &:hover {
-            background: darken($color_purple, 10%);
-        }		
-    }
-
     &.red {
         background: $color_red;
 
         &:hover {
             background: darken($color_red, 10%);
         }		
-    }
-
-    &.green {
-        background: $color_green;
-
-        &:hover {
-            background: darken($color_green, 10%);
-        }		
-    }
-
-    &.blue {
-        background: $color_blue;
-
-        &:hover {
-            background: darken($color_blue, 10%);
-        }	
-    }
-
-    &.orange {
-        background: $color_orange;
-
-        &:hover {
-            background: darken($color_orange, 10%);
-        }	
     }
     
     &.tile-animated {

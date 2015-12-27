@@ -1,82 +1,86 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <form class="form-horizontal" id="userForm" ng-submit="submit()" name="userForm">
-                <fieldset>
-                    <!-- Form Name -->
-                    <legend>User Settings of {{$parent.userName}}</legend>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-horizontal" id="userForm" ng-submit="submit()" name="userForm">
+                        <fieldset>
+                            <!-- Form Name -->
+                            <legend>User Settings of {{$parent.userName}}</legend>
 
-                    <div class="row">
-                        <div class="col-xs-2 col-xs-offset-1 text-center">
-                            <img ng-src="{{$parent.avatar}}" width="100%" style="margin-bottom:10px;" ng-hide="file">
-                            <img ngf-src="!file.$error && file" width="100%" style="margin-bottom:10px;" ng-show="file">
+                            <div class="row">
+                                <div class="col-xs-2 col-xs-offset-1 text-center">
+                                    <a class="thumbnail"><img ng-src="{{$parent.avatar}}" width="100%" style="margin-bottom:10px;" ng-hide="file">
+                                        <img ngf-src="!file.$error && file" width="100%" style="margin-bottom:10px;" ng-show="file"></a>
 
-                            <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 128, height: 128}" ngf-capture="'camera'">
-                                <button class="btn btn-primary">Browse...</button>
-                                <span class="progress" ng-show="file.progress >= 0">
+                                    <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 128, height: 128}" ngf-capture="'camera'">
+                                        <button class="btn btn-primary">Browse...</button>
+                                        <span class="progress" ng-show="file.progress >= 0">
                                     <div style="width:{{file.progress}}%" ng-bind="file.progress + '%'" class="ng-binding"></div>
                                 </span>
-                                <span ng-show="file.result">Upload Successful</span>
-                            </div>
-                        </div>
-                        <div class="col-xs-9">
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="textinput">Tenant Name</label>
-                                <div class="col-md-4">
-                                    <input id="tenantName" name="tenantName" type="text" placeholder="" class="form-control input-md" ng-model="tenantName" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-minlength="5" ng-maxlength="25" ng-pattern="/^([a-zA-Z]|\-|\_){2,12}\s([a-zA-Z]|\-|\_){2,12}$/" required/>
-                                    <p class="help-block" ng-show="userForm.tenantName.$valid">Tenant name ok</p>
-                                    <p class="help-block" ng-show="userForm.tenantName.$error.minlength" >Your tenant name is too short</p>
-                                    <p class="help-block" ng-show="userForm.tenantName.$error.maxlength" >Your tenant name is too long</p>
-                                    <p class="help-block" ng-show="userForm.tenantName.$error.required" >Your tenant name is required</p>
-                                    <p class="help-block" ng-show="userForm.tenantName.$error.pattern" >Invalid tenant name. Please include first and last name separated by one space.</p>
+                                        <span ng-show="file.result">Upload Successful</span>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="col-xs-9">
+                                    <!-- Text input-->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="textinput">Tenant Name</label>
+                                        <div class="col-md-4">
+                                            <input id="tenantName" name="tenantName" type="text" placeholder="" class="form-control input-md" ng-model="tenantName" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-minlength="5" ng-maxlength="25" ng-pattern="/^([a-zA-Z]|\-|\_){2,12}\s([a-zA-Z]|\-|\_){2,12}$/" required/>
+                                            <p class="help-block" ng-show="userForm.tenantName.$valid">Tenant name ok</p>
+                                            <p class="help-block" ng-show="userForm.tenantName.$error.minlength">Your tenant name is too short</p>
+                                            <p class="help-block" ng-show="userForm.tenantName.$error.maxlength">Your tenant name is too long</p>
+                                            <p class="help-block" ng-show="userForm.tenantName.$error.required">Your tenant name is required</p>
+                                            <p class="help-block" ng-show="userForm.tenantName.$error.pattern">Invalid tenant name. Please include first and last name separated by one space.</p>
+                                        </div>
+                                    </div>
 
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="textinput">House Name</label>
-                                <div class="col-md-4">
-                                    <input id="houseName" name="houseName" type="text" placeholder="" class="form-control input-md" ng-model="houseName" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-minlength="4"  ng-maxlength="20" ng-pattern="/^([a-zA-Z-_\s])*$/" validate-housename required ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }"/>
-                                    <p class="help-block" ng-show="userForm.houseName.$error.minlength" >Your house name is too short</p>
-                                    <p class="help-block" ng-show="userForm.houseName.$error.maxlength" >Your house name is too long</p>
-                                    <p class="help-block" ng-show="userForm.houseName.$error.required" >Your house name is required</p>
-                                    <p class="help-block" ng-show="userForm.houseName.$error.pattern" >Invalid house name</p>
-                                    <p class="help-block" ng-show="userForm.houseName.$pending.houseName" style="color:blue">Checking if house exists...</p>
-                                    <p class="help-block" ng-show="userForm.houseName.$dirty && userForm.houseName.$valid && !houseNameExists && houseName!=originalHouseName">{{houseName}} does not exist. Superb!</p>
-                                    <p class="help-block" ng-show="userForm.houseName.$dirty && userForm.houseName.$valid && houseNameExists" >{{houseName}} exists. Change its name.</p>
-                                </div>
-                            </div>
+                                    <!-- Text input-->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="textinput">House Name</label>
+                                        <div class="col-md-4">
+                                            <input id="houseName" name="houseName" type="text" placeholder="" class="form-control input-md" ng-model="houseName" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-minlength="4" ng-maxlength="20" ng-pattern="/^([a-zA-Z-_\s])*$/" validate-housename required ng-model-options="{ debounce: { 'default': 500, 'blur': 0 } }" />
+                                            <p class="help-block" ng-show="userForm.houseName.$error.minlength">Your house name is too short</p>
+                                            <p class="help-block" ng-show="userForm.houseName.$error.maxlength">Your house name is too long</p>
+                                            <p class="help-block" ng-show="userForm.houseName.$error.required">Your house name is required</p>
+                                            <p class="help-block" ng-show="userForm.houseName.$error.pattern">Invalid house name</p>
+                                            <p class="help-block" ng-show="userForm.houseName.$pending.houseName" style="color:blue">Checking if house exists...</p>
+                                            <p class="help-block" ng-show="userForm.houseName.$dirty && userForm.houseName.$valid && !houseNameExists && houseName!=originalHouseName">{{houseName}} does not exist. Superb!</p>
+                                            <p class="help-block" ng-show="userForm.houseName.$dirty && userForm.houseName.$valid && houseNameExists">{{houseName}} exists. Change its name.</p>
+                                        </div>
+                                    </div>
 
-                            <!-- Multiple Radios (inline) -->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="radios">Notifications</label>
-                                <div class="col-md-4">
-                                    <label class="radio-inline" for="radios-0">
-                                        <input type="radio" name="notifications" ng-model="notifications" id="radios-0" value="true"> On
-                                    </label>
-                                    <label class="radio-inline" for="radios-1">
-                                        <input type="radio" name="notifications" ng-model="notifications" id="radios-1" value="false"> Off
-                                    </label>
+                                    <!-- Multiple Radios (inline) -->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="radios">Notifications</label>
+                                        <div class="col-md-4">
+                                            <label class="radio-inline" for="radios-0">
+                                                <input type="radio" name="notifications" ng-model="notifications" id="radios-0" value="true"> On
+                                            </label>
+                                            <label class="radio-inline" for="radios-1">
+                                                <input type="radio" name="notifications" ng-model="notifications" id="radios-1" value="false"> Off
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-10 col-xs-offset-1" style="margin-top:50px;">
-                            <!-- Button (Double) -->
-                            <div class="form-group row">
-                                <div class="col-xs-4 text-right">
-                                    <button id="button1id" name="button1id" class="btn btn-success" ng-disabled="userForm.$invalid">Save</button>
-                                </div>
-                                <div class="col-xs-4 text-left">
-                                    <button id="button2id" name="button2id" class="btn btn-danger" ng-click="dismiss()">Dismiss</button>
+                            <div class="row">
+                                <div class="col-xs-10 col-xs-offset-1" style="margin-top:50px;">
+                                    <!-- Button (Double) -->
+                                    <div class="form-group row">
+                                        <div class="col-xs-4 text-right">
+                                            <button id="button1id" name="button1id" class="btn btn-success" ng-disabled="userForm.$invalid">Save</button>
+                                        </div>
+                                        <div class="col-xs-4 text-left">
+                                            <button id="button2id" name="button2id" class="btn btn-danger" ng-click="dismiss()">Dismiss</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
