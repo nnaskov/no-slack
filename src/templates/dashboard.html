@@ -36,18 +36,17 @@
 
             <div id="navbar" class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a ui-sref="dashboard">Dashboard</a></li>
                     <li class="dropdown" uib-dropdown is-open="notificationsStatus">
                         <a href="#" class="dropdown-toggle" uib-dropdown-toggle data-toggle="dropdown" role="button" aria-expanded="false">
                             <img ng-src="{{'{{'}}avatar || 'static/img/blank-picture.jpg' {{'}}'}}" alt="" width="32" height="32">
-                            <i class="fa fa-fw fa-bell-o"></i> {{'{{'}}userName{{'}}'}} <span class="badge">{{'{{'}}initials{{'}}'}}</span>
+                            <i class="fa fa-fw fa-bell-o"></i> {{'{{'}}userName{{'}}'}} <!--<span class="badge">{{'{{'}}initials{{'}}'}}</span>-->
                         </a>
                         <ul class="dropdown-menu" uib-dropdown-menu role="menu" style="min-width: 100%;">
                             <li ng-show="!notifications.length"><a href="#">No notifications.</a></li>
                             <li ng-repeat="notification in notifications.slice().reverse()"><a href="#"><i class="{{'{{'}}notification.icon{{'}}'}}"></i> <span ng-bind-html="notification.text"></span></a></li>
                         </ul>
                     </li>
-                    
-                    <li><a ui-sref="dashboard">Dashboard</a></li>
                     <li><a ui-sref="house">House</a></li>
                     <li><a ui-sref="settings"><span class="glyphicon glyphicon-cog small-glyph" aria-hidden="true"></span></a></li>
                     <li><a class="page-scroll" href="/requests/populate"><span class="glyphicon glyphicon-plus small-glyph" aria-hidden="true"></span></a></li>
