@@ -21,7 +21,7 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
             $scope.initials = initials;
             $scope.houseName = data.name;
             $scope.avatar = "/requests/avatar/" + userID;
-            $scope.notificationsOn = notificationsOn;
+            $scope.notificationsOn = ((notificationsOn != undefined) ? notificationsOn : true);
         }
     });
 

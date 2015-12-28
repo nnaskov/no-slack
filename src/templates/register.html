@@ -50,14 +50,9 @@
 
                         <div class="row form-group" ng-class="{ 'has-error': userForm.firstname.$invalid && userForm.firstname.$dirty, 'has-success': userForm.firstname.$valid && userForm.firstname.$dirty }">
                             <div class="col-md-12">
-                               
-                                
-                                    <input class="form-control input-lg" type="text" name="firstname" id="firstname" placeholder="e.g. John" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-model="firstname" ng-minlength="2" ng-maxlength="12" ng-pattern="/^([a-zA-Z]|\-|\_)*$/" required/>
-                                    
-                                
-                                
-                                <p class="help-block" ng-show="userForm.firstname.$valid">First name ok</p>
+                                <input class="form-control input-lg" type="text" name="firstname" id="firstname" placeholder="e.g. John" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-model="firstname" ng-minlength="2" ng-maxlength="12" ng-pattern="/^([a-zA-Z]|\-|\_)*$/" required/>
 
+                                <p class="help-block" ng-show="userForm.firstname.$valid">First name ok</p>
                                 <p class="help-block" ng-show="userForm.firstname.$error.minlength" >Your first name is too short</p>
                                 <p class="help-block" ng-show="userForm.firstname.$error.maxlength" >Your first name is too long</p>
                                 <p class="help-block" ng-show="userForm.firstname.$error.required" >Your first name is required</p>
@@ -112,7 +107,7 @@
 		
 		<div class="container">
 		<hr>
-		<p class="centered">Created by ECS Southampton - COMP3201 - 2013</p>
+		<p class="centered">Created by ECS Southampton - COMP3201 - 2015</p>
 	</div><!-- /container -->
     	<script src="../static/bower_components/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
         
