@@ -1,9 +1,13 @@
-app.controller("UserChartController", function ($scope, $http) {
+app.controller("UserChartController", ['$scope', '$http', 'userID', 'houseData', function ($scope, $http, userID, houseData) {
 
 
 	//For the donought chart
 	$scope.data = [];
 	$scope.labels = [];
+
+	//House Data is an Map
+	// Key = userID
+	// Value = Map of values for the user
 
 	//For the thumbs bar chart
 	$scope.seriesNames = ['Positive', 'Negative'];
@@ -14,7 +18,7 @@ app.controller("UserChartController", function ($scope, $http) {
             method: "GET",
             //The parameter userid must be the id of the loaded user.
 			//TODO Bogomil please add the userid on click from different users on house page.
-    		params: {charttype: "userchart", userid: "id1"},
+    		params: {charttype: "userchart", userid: userID},
             url: "/requests/analysis",
         }).success(function (data) {
 
@@ -49,4 +53,4 @@ app.controller("UserChartController", function ($scope, $http) {
 	//        this.showTooltip(this.segments, true);
     	//},
 	//};
-});
+}]);
