@@ -129,6 +129,11 @@ def add_default_tasks(house_key):
 
 def add_default_task_events_and_feedback(member_keys, task_keys):
 
+    import datetime
+    possible_random_dates = []
+
+    now = datetime.datetime.now()
+
     for i in range(len(task_keys)):
         for j in range(len(member_keys)):
             for times in range(random.randint(0,5)):
@@ -136,6 +141,12 @@ def add_default_task_events_and_feedback(member_keys, task_keys):
                 #j - is the number of the member
                 #times - is the number of times member[j] completes task[i]
                 task_event_key = add_task_event_given_task_key(task_keys[i],member_keys[j])
+
+
+                # Set a random completed date in the past month
+                task_event = task_event_key.get()
+                task_event.date_completed = now - datetime.timedelta(days=random.randint(1,30), hours=random.randint(-12,12), minutes=random.randint(0,60))
+                task_event.put()
 
                 # Add task feedback
                 # Get a random # of persons
