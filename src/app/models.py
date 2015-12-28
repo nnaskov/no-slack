@@ -104,51 +104,50 @@ def add_default_tasks(house_key):
                        description="Every bin: bathroom, bedroom, kitchen, backyard", style="fa fa-trash"))
     
     return taskKeys
-
-def add_default_members(house_key):
-    """
-    Add default members and return an array of members
-
-    :param house_name:
-    :return:
-    """
-    import  time
-    memberKeys = []
-    memberKeys.append(register_member_from_code("Norbert","Naskov",house_key,"id131"))
-    memberKeys.append(register_member_from_code("Adam","Noakes",house_key,"id122"))
-    memberKeys.append(register_member_from_code("Dominic","Smith",house_key,"id131"))
-    memberKeys.append(register_member_from_code("Bogomil","Gospodinov",house_key,"id144"))
-    memberKeys.append(register_member_from_code("Darius","Key",house_key,"id152"))
-    memberKeys.append(register_member_from_code("Damyan","Rusinov",house_key,"id163"))
-    memberKeys.append(register_member_from_code("Richard","Bata",house_key,"id171"))
-    return memberKeys
+#
+# def add_default_members(house_key):
+#     """
+#     Add default members and return an array of members
+#
+#     :param house_name:
+#     :return:
+#     """
+#
+#
+#     return
+#
+#     import  time
+#     memberKeys = []
+#     memberKeys.append(register_member_from_code("Norbert","Naskov",house_key,"id131"))
+#     memberKeys.append(register_member_from_code("Adam","Noakes",house_key,"id122"))
+#     memberKeys.append(register_member_from_code("Dominic","Smith",house_key,"id131"))
+#     memberKeys.append(register_member_from_code("Bogomil","Gospodinov",house_key,"id144"))
+#     memberKeys.append(register_member_from_code("Darius","Key",house_key,"id152"))
+#     memberKeys.append(register_member_from_code("Damyan","Rusinov",house_key,"id163"))
+#     memberKeys.append(register_member_from_code("Richard","Storaro",house_key,"id171"))
+#     return memberKeys
 
 def add_default_task_events_and_feedback(member_keys, task_keys):
-    """
-    This is a table of 6 rows (each for each task key. And 3 people do the tasks.
-    E.g. for task_key[0] person (member_key[0]) has done it 6 times. So we add 6 task_events.
-    """
-    task_repeat_times = [[6,0,1],
-                         [1,0,3],
-                         [2,0,0],
-                         [3,1,5],
-                         [5,4,2],
-                         [4,2,1]]
-    # This means - Norbert task_events = 21
-    # Adam - task_events = 7
-    # Domini - task_events = 12
-    for i in range(len(task_repeat_times)):
-        for j in range(len(task_repeat_times[0])):
-            for times in range(task_repeat_times[i][j]):
+
+    for i in range(len(task_keys)):
+        for j in range(len(member_keys)):
+            for times in range(random.randint(0,5)):
+                #i - is the number of the task
+                #j - is the number of the member
+                #times - is the number of times member[j] completes task[i]
                 task_event_key = add_task_event_given_task_key(task_keys[i],member_keys[j])
 
                 # Add task feedback
                 # Get a random # of persons
-                for k in range(random.randint(0,3)):
+                for k in range(random.randint(0,len(member_keys))):
                     update_task_event_feedback_given_key(task_keys[i], True if random.randint(0,1) else False, member_keys[k])
 
 
 def delete_all_default_values():
+    """
+    Delete all Tasks, TaskEvents and EventFeedback entities from the DB
+    :return:
+    """
 
     qTasks = Task.query()
     qTaskEvents = TaskEvent.query()
@@ -169,12 +168,15 @@ def populate_default_values(house_key):
     delete_all_default_values()
 
     # Create members in the database to the same house
-    member_keys = add_default_members(house_key)
+    # member_keys = add_default_members(house_key)
+
+    # Get the members
+    member_keys = get_members_list(keys_only=True)
 
     # Add default tasks
     task_keys = add_default_tasks(house_key)
 
-    #Add task events
+    # Add task events
     add_default_task_events_and_feedback(member_keys,task_keys)
 
 
@@ -531,7 +533,7 @@ def update_house(name):
     return house
 
 
-def get_members_list(house_key=None, limit=12):
+def get_members_list(house_key=None, limit=12, keys_only=False):
     """
     Returns a list of ndb.Key for each member in the house. If no house_key is specified,
     uses the current logged in user
@@ -542,7 +544,7 @@ def get_members_list(house_key=None, limit=12):
     if not house_key:
         house_key = get_household_key_for_current_user()
     q = Member.query(Member.household == house_key)
-    return q.fetch(limit)
+    return q.fetch(limit,keys_only=keys_only)
 
 
 def add_household(household_id):
