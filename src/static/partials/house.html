@@ -1,26 +1,5 @@
-
-
-<!-- container -->
 <div class="container-fluid tile-container">
-    <div><!--quick fix-->
-        <style>
-            #fileUpload {
-                position: relative;
-                overflow: hidden;
-                float: left;
-            }
-            #fileUpload input#upload {
-                position: absolute;
-                top: 0;
-                right: 0;
-                margin: 0;
-                padding: 0;
-                font-size: 20px;
-                cursor: pointer;
-                opacity: 0;
-                filter: alpha(opacity=0);
-            }
-        </style>
+    <div>
         <div class="row">
             <h1 class="house-title">{{houseData.name}}'s House Info</h1>
             <div class="hidden-xs col-sm-3 col-lg-2">
@@ -39,51 +18,13 @@
                     </div>
                 </div>
 
-                <!--<div class="person-list" ng-repeat="(id, member) in houseData.users">
-                    <div class="row" style="min-width: 470px; width: 470px; margin-left: auto; margin-right: auto;">
-                        <div id="none" class="person-tile tile dark-red">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <form id="fileUpload" action="/upload" method="post" contentType="form/multi-part" enctype="multipart/form-data" class="link">
-                            <img id="myImg" name="user_image " src="../static/img/blank-picture.jpg" height="150px" width="150px">
-                            <input id="upload" type="file" name="movieInfo" style="height: 150px;"/>
-                            </form>
-                                <script>
-                                    $(function (uploadImg) {
-                                        $(":file").change(function () {
-                                            if (this.files && this.files[0]) {
-                                                var reader = new FileReader();
-                                                reader.onload = imageIsLoaded;
-                                                reader.readAsDataURL(this.files[0]);
-                                            }
-                                        });
-                                    });
-
-                                    function imageIsLoaded(e) {
-                                        $('#myImg').attr('src', e.target.result);
-                                    };
-                                </script>
-                                </div>
-                                <div class="col-sm-8">
-                                    <h2 class="title">{{member.firstName}} {{member.lastName}}</h2>
-                                    <ul class="person-detail-list">
-                                        <li><b>Favourite task: </b>Hoovering Lounge</li>
-                                        <li><b>Last task: </b>Washing Up</li>
-                                        <li><b>Next task: </b>Gardening</li>
-                                        <li><b>Task share:</b><span style="font-size: 24px; font-weight: 100;"> 23%</span></li>
-                                        <li><b>Average Score:</b><span style="font-size: 24px; font-weight: 100;"> 80%</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
+                
             </div>
             <div class="col-sm-9 col-lg-10">
                 <div class="row">
                     <h3 style="margin-left: 12px; margin-top:0px;">Statistics</h3>
                 </div>
-                <div ng-controller="UserChartController">
+                <div>
                     <div class="row">
                         <div class="panel panel-red">
                             <div class="panel-heading">Task events per task</div>
@@ -95,32 +36,6 @@
                         </div>
                     </div>
                 </div>
-                <!--<div>
-                    <div class="task-list" ng-repeat="task in tasks">
-                        <div id="{{task.taskID}}" class="task-list-item dark-red tile-animated row" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
-                            <div class="task-list-item-content">
-                                <div class="task-list-left">
-                                    <span class="glyphicon glyphicon-tint glyph-button" aria-hidden="true" style="font-size: 1.5em;"></span>
-                                    <h3>{{task.taskName}}</h3>
-                                </div>
-                                <div class="task-list-right">
-                                    <div class="input-group">
-                                        <span class="input-group-addon" id="sizing-addon1">Frequency</span>
-                                        <input type="text" class="form-control frequency-input" value="{{task.frequency}}" aria-label="...">
-                                        <div class="input-group-btn frequency-dropdown">
-                                            <button type="button" id="frequency-button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hours<span class="caret frequency-caret"></span></button>
-                                            <ul class="dropdown-menu dropdown-menu-right">
-                                                <li><a href="#">Hours</a></li>
-                                                <li><a href="#">Days</a></li>
-                                                <li><a href="#">Weeks</a></li>
-                                            </ul>
-                                        </div><!-- /btn-group
-                                    </div><!-- /input-group
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </div>
     </div>
