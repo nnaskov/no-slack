@@ -29,18 +29,6 @@
 @media (min-width: $screen-md-min) { @include block-grids(md) }
 @media (min-width: $screen-lg-min) { @include block-grids(lg) }
 
-@mixin no-padding($side) {
-    @if $side == 'all' {
-        .no-padding {
-            padding: 0 !important;
-        }
-    } @else {
-        .no-padding-#{$side} {
-            padding-#{$side}: 0 !important;
-        }
-    }
-}
-
 
 @mixin transition-all() {
     -webkit-transition: all 0.35s;
@@ -53,47 +41,6 @@
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
-}
-
-@mixin button-variant($color, $background, $border) {
-    color: $color;
-    background-color: $background;
-    border-color: $border;
-    @include transition-all();
-
-    &:hover,
-    &:focus,
-    &.focus,
-    &:active,
-    &.active,
-    .open > .dropdown-toggle &{
-        color: $color;
-        background-color: darken($background, 5%);
-        border-color: darken($border, 7%);
-    }
-    &:active,
-    &.active,
-    .open > .dropdown-toggle &{
-        background-image: none;
-    }
-    &.disabled,
-    &[disabled],
-    fieldset[disabled] & {
-        &,
-        &:hover,
-        &:focus,
-        &.focus,
-        &:active,
-        &.active {
-            background-color: $background;
-            border-color: $border;
-        }
-    }
-
-    .badge {
-        color: $background;
-        background-color: $color;
-    }
 }
 
 @mixin sans-serif-font() {

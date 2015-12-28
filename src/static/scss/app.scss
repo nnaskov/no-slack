@@ -1,35 +1,13 @@
 @import "bourbon";
 
-// Core variables and mixins
 @import "bootstrap/variables", "bootstrap/mixins", "bootstrap/normalize", "bootstrap/print", "bootstrap/glyphicons", "bootstrap/scaffolding", "bootstrap/type", "bootstrap/code", "bootstrap/grid", "bootstrap/forms", "bootstrap/buttons", "bootstrap/component-animations", "bootstrap/dropdowns", "bootstrap/button-groups", "bootstrap/input-groups", "bootstrap/navs", "bootstrap/navbar", "bootstrap/labels", "bootstrap/badges", "bootstrap/thumbnails","bootstrap/alerts", "bootstrap/panels", "bootstrap/close", "bootstrap/modals", "bootstrap/tooltip", "bootstrap/popovers", "bootstrap/utilities", "bootstrap/responsive-utilities";
 
-@import "animations";
 @import "mixins";
 @import "variables";
+@import "animations";
 
-@import url(https://fonts.googleapis.com/css?family=Pacifico);
-@import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light);
-
-
-.no-gutter > [class*='col-'] {
-    padding-right:0;
-    padding-left:0;
-}
-
-
-.btn.focus{
-    outline-style:none;
-    box-shadow:none;
-}
-
-.boxSizingBorder {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-.text-left{
-    text-align: left !important;
+body {
+    webkit-tap-highlight-color: $theme-dark;
 }
 
 .input-group-addon, .input-group-btn{
@@ -45,22 +23,8 @@
     }
 }
 
-/* centered columns styles */
-
-.col-centered {
-    display:inline-block;
-    float:none;
-    /* reset the text-align */
-    text-align:left;
-    /* inline-block space fix */
-    margin-right:-4px;
-    min-width: 350px;
-}
-
 .delegated{
-    border-color: #0d0d5c !important;//may want to alert colour
-    border-style: solid;
-    border-width: 3px;
+    border-color: 3px solid #0d0d5c !important;
 }
 
 .tile:hover .edit-tile-icon span{
@@ -69,7 +33,6 @@
     -ms-transition:.5s!important;
     -moz-transition:.5s!important;
     -webkit-transition:.5s!important;
-    /* ...and now for the proper property */
     transition:.5s!important;
 }
 
@@ -88,19 +51,6 @@
     float: none;
 }
 
-.panel-red{
-    color: white;
-    background-color: lighten($theme-primary,5%);
-    & .panel-heading{
-        font-weight: 800;
-        color: white;
-        background-color: $theme-primary;
-        margin-bottom: 20px;
-        border-bottom: none;
-    }
-    padding-bottom: 10px;
-}
-
 .tile {  
     width: 100%;
     margin-right:10px; 
@@ -110,6 +60,7 @@
     box-sizing: border-box;		
     padding: 20px;
     cursor: pointer;
+    border: 1px solid lighten(#000,50%);
     
     a{
         color: #fff !important;    
@@ -154,7 +105,6 @@
         line-height: 1.1em;
         white-space: nowrap;
         
-        
         /* Small */
         @media(min-width:768px) and (max-width:991px){
             font-size: 20px;
@@ -170,142 +120,24 @@
             font-size: 30px;   
         }
     }
-
-    &.purple, &.blue, &.red, &.orange, &.green {
-        color: #fff;
-    }
-
+    
+    color: #fff;
+    
     &.red {
-        background: $color_red;
-
-        &:hover {
-            background: darken($color_red, 10%);
-        }		
+        background: $color_red;	
     }
     
     &.tile-animated {
         -webkit-animation-name: example; /* Chrome, Safari, Opera */
         animation-name: example;
+        &:hover{
+            @include transition-all();
+            @include filter(grayscale(50%) opacity(90%) drop-shadow(2px 2px 4px black));
+        }
     }
 
 }
 
-.house-title{
-    margin-top: 0px;
-}
-.person-tile{
-    min-height: 190px !important;
-    cursor: auto;
-}
-
-.dark-red{
-    background-color: $theme_primary;
-    color: white;
-}
-
-.center-row{
-    max-width: 1024px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.center-row > .col-sm-6 {
-    min-width: 460px;
-}
-
-.person-detail-list{
-    float: left;
-    list-style: none;
-    margin-left: -23px;
-    margin-bottom: 0px;
-    line-height: 22px;
-}
-
-.task-list{
-    min-width: 440px;
-    max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.task-list-item-content{
-    margin-left: auto;
-    margin-right: auto;
-   width: 430px;
-}
-
-.task-list-item{
-    margin: auto;
-    width: 100%;
-    display: inline-block;
-    box-sizing: border-box;		
-    padding: 10px;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-    background-color: $theme_primary;
-    color: white;
-}
-
-.task-list-item-content > .task-list-left {
-    width: 250px;
-    float: left;
-}
-
-.task-list-item-content > .task-list-right {
-    width: 180px;
-    float: left;
-}
-.task-list-item > .task-list-item-content > .task-list-left > .glyphicon{
-    float: left;
-    font-size: 1.5em;
-    line-height: 30px;
-    margin-top: 5px;
-}
-.task-list-item > .task-list-item-content > .task-list-left > h3{
-    color: white;
-    margin-top: 5px;
-    float: left;
-    margin-left: 10px;
-    line-height: 30px;
-
-}
-
-.task-list-item > .task-list-item-content > .task-list-right > .input-group {
-    line-height: 30px;
-}
-
-.task-list-item > .task-list-item-content > .task-list-right > .input-group > .input-group-addon {
-    margin-left: -10px;
-    max-width: 240px;
-    line-height: 30px;
-    background: none !important;
-}
-.task-list-item > .task-list-item-content > .task-list-right > .input-group > .input-group-btn {
-    background: none !important;
-}
-
-#frequency-button{
-    padding-left: 0px;
-    line-height: 30px;
-    background-color: $theme_primary !important;
-    color: white;
-    border-color: $theme_primary;
-}
-
-
-.frequency-caret{
-    margin-left: 5px;
-}
-
-.frequency-input{
-    background-color: darken($theme_primary, 2%);
-    color: white;
-    border-color: $theme_primary;
-    text-align: center;
-    padding: 0px;
-    width: 24px;
-    width: 24px;
-}
 .input-group-btn:last-child > .btn{
     margin-left: 2px;
 }
@@ -314,25 +146,14 @@
     font-size: 92%;
 }
 
-.glyph-button:hover{
-    opacity: 0.5;
-    cursor: pointer;
-}
-
-.glyph-button:active{
-    opacity: 1;
-}
-
-.rotate-180{
-    -ms-transform: rotate(180deg); /* IE 9 */
-    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
-    transform: rotate(180deg);
-}
-
-@keyframes example {
-    0%   {background-color:$color_green;}
-    65%   {background-color:$color_orange;}
-    100%  {background-color:$color_red;}
+.glyph-button{
+    &:hover{
+        opacity: 0.5;
+        cursor: pointer;
+    }
+    &:active{
+        opacity: 1;
+    }
 }
 
 #logo{
@@ -350,13 +171,9 @@
 
 
 .form-container {
-    padding-top: 40px;
+  padding-top: 40px;
   margin: auto;
   width: 30rem; 
-}
-
-hr.light {
-    border-color: white;
 }
 
 a {
@@ -368,57 +185,15 @@ a {
     }
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    @include sans-serif-font();
-}
-
-.bg-primary {
-    background-color: $theme-primary;
-}
-
-.bg-dark {
-    background-color: $theme-dark;
-    color: white;
-}
-
-.text-faded {
-    color: lighten(white, 70%);
-}
-
-section {
-    padding: 100px 0;
-}
-
-aside {
-    padding: 50px 0;
-}
-
-
-// Bootstrap Overrides
-.text-primary {
-    color: $theme-primary;
-}
-
-.btn-xl {
-    padding: 15px 30px;
-}
-
-//theme
-
 #signup-container{
     height: 90%;
     width: 100%;
     background-color: #f2f2f2;
+    & > .row{
+        margin-top: 50px;
+    }
 }
 
-#signup-container > .row{
-    margin-top: 50px;
-}
 
 .navbar{
     border-radius: 0px;
@@ -480,10 +255,6 @@ aside {
     }
 }
 
-.centered {
-    text-align: center;
-}
-
 hr {
     display: block;
     height: 1px;
@@ -515,7 +286,6 @@ i {
     vertical-align: middle;
 }
 
-/* HeaderWrap */
 #headerwrap {
 	background-color: $theme_primary;
 	margin-top: -20px;
@@ -523,41 +293,27 @@ i {
 	background-position: center center;
 	width: 100%;
     height: 80%;
+    h1 {
+        margin-top: 60px;
+        margin-bottom: 15px;
+        color: white;
+        font-size: 45px;
+        font-weight: 300;
+        letter-spacing: 1px;
+    }
 }
 
-#headerwrap h1 {
-	margin-top: 60px;
-	margin-bottom: 15px;
-	color: white;
-	font-size: 45px;
-	font-weight: 300;
-	letter-spacing: 1px;
-}
-
-::-moz-selection {
+@include selection {
     color: white;
     text-shadow: none;
     background: $theme-dark;
 }
 
-::selection {
-    color: white;
-    text-shadow: none;
-    background: $theme-dark;
-}
-
-img::selection {
-    color: white;
-    background: transparent;
-}
-
-img::-moz-selection {
-    color: white;
-    background: transparent;
-}
-
-body {
-    webkit-tap-highlight-color: $theme-dark;
+img{
+    @include selection(true) {
+        color: white;
+        background: transparent;
+    }
 }
 
 [class*="block-grid-"] {
@@ -576,12 +332,6 @@ body {
     float: left;
     list-style: none;
 }
-
-@include no-padding("left");
-@include no-padding("right");
-@include no-padding("top");
-@include no-padding("bottom");
-@include no-padding("all");
 
 
 .popover{
@@ -609,4 +359,5 @@ body {
     cursor: pointer; 
     background-image: repeating-linear-gradient(45deg,white,white 10px,red 10px,red 20px);
     background-clip:content-box;
+    border:none!important;
 }

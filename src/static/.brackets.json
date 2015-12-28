@@ -12,7 +12,8 @@
                 "outputDir": "../css/",
                 "imagePath": null,
                 "sourceComments": false,
-                "outputStyle": "compressed"
+                "outputStyle": "compressed",
+                "sourceMap": false
             },
             "linting.collapsed": true
         }
