@@ -523,6 +523,7 @@ def update_member(first_name, last_name, notifications_on, avatar=None):
     member.first_name = first_name
     member.last_name = last_name
     member.notifications_on = notifications_on == u'true'
+    
     if avatar:
         member.avatar = avatar
     member.put()
