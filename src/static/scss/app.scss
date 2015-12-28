@@ -8,6 +8,7 @@
 
 body {
     webkit-tap-highlight-color: $theme-dark;
+    @include sans-serif-font();
 }
 
 .input-group-addon, .input-group-btn{
@@ -309,7 +310,6 @@ img{
     float: left;
     list-style: none;
 }
-
 
 .popover{
     background-color: $theme-primary;

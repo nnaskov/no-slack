@@ -1,12 +1,18 @@
-app.controller('SettingsController', ['$scope', '$http', 'Upload', function ($scope, $http, Upload) {
+app.controller('SettingsController', ['$scope', '$http', 'Upload', '$timeout', function ($scope, $http, Upload, $timeout) {
     $scope.tenantName = "Loading...";
     $scope.originalTenantName = undefined;
 
     $scope.houseName = "Loading...";
     $scope.houseNameExists = false;
     $scope.originalHouseName = undefined;
+    
+    $scope.submitted = false;
 
-
+    $scope.$watch('submitted', function (newValue, oldValue) {
+        if(newValue===true){
+            $timeout(function(){$scope.submitted=false;}, 3000);
+        }
+    });
 
     $scope.$watch('$parent.notificationsOn', function (newValue, oldValue) {
         $scope.notifications = (newValue === true) ? "true" : "false";
@@ -77,6 +83,7 @@ app.controller('SettingsController', ['$scope', '$http', 'Upload', function ($sc
                 alert("There was a problem with uploading your avatar.");
             }, function (evt) {
                 avatar.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                $scope.submitted = true;
             });
         }
         else{
@@ -92,6 +99,7 @@ app.controller('SettingsController', ['$scope', '$http', 'Upload', function ($sc
 
             res.success(function(data, status, headers, config) {
                 $scope.$parent.notificationsOn = ($scope.notifications === 'true');
+                $scope.submitted = true;
             });
 
             res.error(function(data, status, headers, config) {

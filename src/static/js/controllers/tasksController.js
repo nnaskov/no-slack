@@ -26,6 +26,9 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
         update: function(e, ui) {
             //the dragged tile
             $log.log(ui.item.sortable.model)
+            
+            //https://github.com/angular-ui/ui-sortable/blob/master/API.md#uiitemsortable-api-documentation
+            //http://codepen.io/thgreasi/pen/MwQqdg
             /*
             position
             Type: Object
