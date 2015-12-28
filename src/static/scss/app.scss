@@ -192,6 +192,7 @@ a {
  * li elements(Dashboard, User, House, Settings cog and '+')
 */
 .navbar{
+    background-image: linear-gradient(lighten($theme_primary,10%), $theme_primary);
     border-radius: 0px;
     ul:not(.dropdown-menu){
         & > li{
@@ -372,15 +373,12 @@ img{
     border:none!important;
 }
 
-/* */
 .user-box {
-    background-color: #933;
+    background-image: linear-gradient(lighten($theme_primary,10%), $theme_primary);
+    *{
+        color: white;
+    }
     padding: 5px;
-    margin-bottom: 5px;
-    color:white;
-    height: 42px;
-    overflow: hidden;
-    max-width: 230px;
 }
 
 .house-title{
