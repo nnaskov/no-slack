@@ -23,28 +23,6 @@ body {
     }
 }
 
-.delegated{
-    border-color: 3px solid #0d0d5c !important;
-}
-
-.tile:hover .edit-tile-icon span{
-    color: white !important;
-    -o-transition:.5s!important;
-    -ms-transition:.5s!important;
-    -moz-transition:.5s!important;
-    -webkit-transition:.5s!important;
-    transition:.5s!important;
-}
-
-.edit-tile-icon{
-    margin-top: -12px;
-    margin-right: -10px;
-    color: transparent !important;
-    span{
-        color: transparent !important;
-    }
-}
-
 .vcenter {
     display: inline-block;
     vertical-align: middle;
@@ -61,6 +39,18 @@ body {
     padding: 20px;
     cursor: pointer;
     border: 1px solid lighten(#000,50%);
+    
+    &.delegated{
+        border-color: 3px solid #0d0d5c !important;
+    }
+
+    & .edit-tile-icon{
+        margin: -12px -10px 0 0;
+        color: transparent !important;
+        span{
+            color: transparent !important;
+        }
+    }
     
     a{
         color: #fff !important;    
@@ -135,15 +125,13 @@ body {
             @include filter(grayscale(50%) opacity(90%) drop-shadow(2px 2px 4px black));
         }
     }
-
-}
-
-.input-group-btn:last-child > .btn{
-    margin-left: 2px;
-}
-
-.fa-thumbs-o-down .fa-thumbs-o-up{
-    font-size: 92%;
+    
+    &:hover{
+        & .edit-tile-icon span{
+            color: white !important;
+            @include transition-duration(.5s!important);
+        }
+    }
 }
 
 .glyph-button{
@@ -162,13 +150,6 @@ body {
     color: $theme-primary;
     font-size: 26px;
 }
-
-
-.large-glyph {
-  font-size: 28px;
-    padding: 10px;
-}
-
 
 .form-container {
   padding-top: 40px;
@@ -237,7 +218,7 @@ a {
                 height: 3px;
                 width: 0;
                 background: transparent;
-                transition: width .5s ease, background-color .5s ease;
+                @include transition(width .5s ease, background-color .5s ease);
                 position: absolute;
                 bottom: -1px;
             }
