@@ -1,4 +1,4 @@
-app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$log', 'channelService', 'memberService', '$sce', '$rootScope', 'webNotification', function($scope, channelClientID, userID, $log, channelService, memberService, $sce, $rootScope, webNotification){
+app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$log', 'channelService', 'memberService', '$sce', '$rootScope', 'webNotification', function($scope, channelClientID, userID, $log, channelService, memberService, $sce, $rootScope, webNotification){                              
     channelService.openChannel(channelClientID);
     
     $scope.userName = "Loading...";

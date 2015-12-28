@@ -1,4 +1,8 @@
-app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalInstance', '$state', '$stateParams', '$log','taskService', 'task' , function ($scope, $state, $http, $uibModalInstance, $state, $stateParams, $log, taskService, task) {
+app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalInstance', '$state', '$stateParams', '$log','taskService', 'task', 'cssInjector' , function ($scope, $state, $http, $uibModalInstance, $state, $stateParams, $log, taskService, task, cssInjector) {
+    cssInjector.removeAll();
+    cssInjector.add("//rawgithub.com/angular/code.angularjs.org/master/1.4.8/angular-csp.css");
+    cssInjector.add("../static/bower_components/ui-iconpicker-angular/dist/styles/ui-iconpicker.min.css");
+    
     //typeahead
     $scope.commonTasks = ['Washing up', 'Clean kitchen', 'Hoovering', 'Rinse bathroom'];
 
