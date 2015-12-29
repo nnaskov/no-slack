@@ -16,9 +16,26 @@
     </script>
     <div class="row">
         <div class="col-xs-12 col-sm-4 col-sm-push-8">
-            <div class="row" ng-controller="HouseChartsController" >
-                <canvas id="houseChart2" class="chart chart-line" chart-data="chart2Data" chart-labels="chart2Labels" chart-series="chart2Series" chart-options="options" width="250px;" chart-legend="true"></canvas>
-                <canvas id="houseChart3" class="chart chart-radar" chart-data="chart3Data" chart-labels="chart3Labels" chart-series="chart3Series" chart-options="options" width="250px;" chart-legend="true"></canvas>
+            <div class="row" ng-controller="HouseChartsController">
+                <div class="panel panel-default">
+                    <div class="panel-heading user-box" style="height:42px; line-height:42px;">
+                        <h4 class="panel-title">Day-to-day activity</h4>
+                    </div>
+                    <div class="panel-body" style="text-align: center">
+                        <canvas id="houseChart2" class="chart chart-line" chart-data="chart2Data" chart-labels="chart2Labels" chart-series="chart2Series" chart-options="options" width="250px;" chart-legend="true"></canvas>
+                    </div>
+                </div>
+                
+                <div class="panel panel-default">
+                    <div class="panel-heading user-box" style="height:42px; line-height:42px;">
+                        <h4 class="panel-title">Overall task distribution</h4>
+                    </div>
+                    <div class="panel-body" style="text-align: center">
+                        <canvas id="houseChart3" class="chart chart-radar" chart-data="chart3Data" chart-labels="chart3Labels" chart-series="chart3Series" chart-options="options" width="250px;" chart-legend="true"></canvas>
+                    </div>
+                </div>
+                
+                
             </div>
 
         </div>
@@ -34,12 +51,12 @@
                         <div class="col-sm-6 col-xs-12">
                             <div class="panel-heading">
                                 <h4>Task events per task</h4></div>
-                            <canvas id="analysisUserChartTaskEventPerTask" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-options="options" width="250px;" chart-legend="true"></canvas>
+                                <canvas id="analysisUserChartTaskEventPerTask" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-options="options" width="250px;" chart-legend="true"></canvas>
                         </div>
                         <div class="col-sm-6 col-xs-12">
                             <div class="panel-heading">
                                 <h4>Feedback on tasks</h4></div>
-                            <canvas id="chart2" class="chart chart-bar" chart-data="dataBar" chart-labels="labelsBar" chart-series="seriesNames" chart-options="options" width="250px;" chart-legend="true" chart-colours="colorsBar"></canvas>
+                                <canvas id="chart2" class="chart chart-bar" chart-data="dataBar" chart-labels="labelsBar" chart-series="seriesNames" chart-options="options" width="250px;" chart-legend="true" chart-colours="colorsBar"></canvas>
                         </div>
                     </div>
                 </uib-accordion-group>
