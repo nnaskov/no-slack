@@ -1,5 +1,5 @@
 <div class="container-fluid tile-container">
-    <h3 class="text-center3">{{houseData.name}}'s House Info</h3>
+    <h3 style="margin-top:0px;">{{houseData.name}}'s House Info</h3>
     
     <script type="text/ng-template" id="member-statistics.html">
         <div class="panel {{panelClass || 'panel-default'}}">
@@ -11,7 +11,7 @@
                 </h4>
             </div>
             <div class="panel-collapse collapse" uib-collapse="!isOpen">
-                <div class="panel-body" style="text-align: right" ng-transclude></div>
+                <div class="panel-body" style="text-align: center" ng-transclude></div>
             </div>
         </div>
     </script>
@@ -19,10 +19,11 @@
     <uib-accordion close-others="true">
         <uib-accordion-group is-open="$first" ng-repeat="(id, member) in houseData.users" template-url="member-statistics.html">
             <uib-accordion-heading>
-                <div class="row">
+            <img ng-src="/requests/avatar/{{id}}" alt="" width="32" height="32">
+            <span>{{member.firstName}} {{member.lastName}}</span>
+                <!--<div class="row">
                     <div class="col-sm-2">
-                        <div class="row">
-                            <img ng-src="/requests/avatar/{{id}}" alt="" width="32" height="32"></div>
+                            <img ng-src="/requests/avatar/{{id}}" alt="" width="32" height="32">
                     </div>
                     <div class="col-sm-8">
                         <span>{{member.firstName}} {{member.lastName}}</span>
@@ -32,16 +33,16 @@
                             <span class="badge">{{member.initials}}</span>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </uib-accordion-heading>
 
             <div class="row" ng-controller="MemberChartsController">
                 <div class="col-sm-6 col-xs-12">
-                    <div class="panel-heading">Task events per task</div>
+                    <div class="panel-heading"><h4>Task events per task</h4></div>
                     <canvas id="analysisUserChartTaskEventPerTask" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-options="options" width="250px;" chart-legend="true"></canvas>
                 </div>
                 <div class="col-sm-6 col-xs-12">
-                    <div class="panel-heading">Feedback on tasks</div>
+                    <div class="panel-heading"><h4>Feedback on tasks</h4></div>
                     <canvas id="chart2" class="chart chart-bar" chart-data="dataBar" chart-labels="labelsBar" chart-series="seriesNames" chart-options="options" width="250px;" chart-legend="true" chart-colours="colorsBar"></canvas>
                 </div>
             </div>
