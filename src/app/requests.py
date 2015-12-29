@@ -131,7 +131,7 @@ class TaskEventHandler(webapp2.RequestHandler):
 
         update_json = {}
         update_json['eventType'] = 'taskEvent'
-        update_json[strings.taskID] = task_id
+        update_json['taskId'] = task_id
         update_json[strings.assignedInitials] = task.get_delagated_initials()
         update_json[strings.completedByInitials] = new_task_event.completed_by.get().get_initials()
 
