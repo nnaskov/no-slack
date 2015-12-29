@@ -19,11 +19,16 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('dashboard.loadTask', {
             url: "/task/load/:taskID",
-            onEnter: function ($stateParams, $state, $uibModal) {
+            onEnter: function ($stateParams, $state, $uibModal, task) {
                 var modalInstance = $uibModal.open({
                     animation: true,
                     templateUrl: 'static/partials/taskDetails.html',
-                    
+                    controller: 'TaskDetailsController',
+                    resolve: {
+                        task: function () {
+                            return task;
+                        }
+                    }
                 });
                 modalInstance.result.then(function success() {
                     //Do success things
@@ -32,6 +37,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                         $state.go("dashboard", null);
                     }
                 });
+            },
+            resolve: {
+                task: ['taskService', '$stateParams', function (taskService, $stateParams) {
+                    return taskService.getTaskByID($stateParams.taskID);
+            }]
             }
         })
         .state("dashboard.addTask", {
@@ -106,7 +116,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 app.run(function ($rootScope, ngProgressFactory) {
     $rootScope.progressbar = ngProgressFactory.createInstance();
     $rootScope.progressbar.setColor("#000");
-    
+
     $rootScope.$on("$stateChangeStart", function () {
         $rootScope.progressbar.reset();
         $rootScope.progressbar.start();
