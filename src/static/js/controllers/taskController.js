@@ -8,7 +8,7 @@ app.controller('TaskController', ['$scope', '$http', '$element', 'taskService', 
 
         $scope.task.userFeedback = null;
         $scope.task.assigned = response.assigned;
-        $scope.task.completedByInitials = response.completedByInitials;
+        $scope.task.assignedInitials = response.assignedInitials;
 
         $scope.task.everCompleted = true;
     }
