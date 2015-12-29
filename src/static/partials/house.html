@@ -1,48 +1,34 @@
 <div class="container-fluid tile-container">
-    <h3 style="margin-top:0px;">{{houseData.name}}'s House Info</h3>
-    
+    <h3 style="margin-top:0px;">{{houseData.name}}'s House Statistics</h3>
     <script type="text/ng-template" id="member-statistics.html">
         <div class="panel {{panelClass || 'panel-default'}}">
             <div class="panel-heading user-box">
-                <h4 class="panel-title" style="color:#fa39c3">
-                    <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
+                <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
+                    <h4 class="panel-title">
                         <span ng-class="{'text-muted': isDisabled}">{{heading}}</span>
-                    </a>
-                </h4>
+                    </h4>
+                </a>
             </div>
             <div class="panel-collapse collapse" uib-collapse="!isOpen">
                 <div class="panel-body" style="text-align: center" ng-transclude></div>
             </div>
         </div>
     </script>
-    
     <uib-accordion close-others="true">
         <uib-accordion-group is-open="$first" ng-repeat="(id, member) in houseData.users" template-url="member-statistics.html">
             <uib-accordion-heading>
-            <img ng-src="/requests/avatar/{{id}}" alt="" width="32" height="32">
-            <span>{{member.firstName}} {{member.lastName}}</span>
-                <!--<div class="row">
-                    <div class="col-sm-2">
-                            <img ng-src="/requests/avatar/{{id}}" alt="" width="32" height="32">
-                    </div>
-                    <div class="col-sm-8">
-                        <span>{{member.firstName}} {{member.lastName}}</span>
-                    </div>
-                    <div class="col-sm-2" style="height: 40px; overflow: hidden; line-height:1.8">
-                        <div class="row">
-                            <span class="badge">{{member.initials}}</span>
-                        </div>
-                    </div>
-                </div>-->
+                <img ng-src="/requests/avatar/{{id}}" alt="" width="32" height="32">
+                <span>{{member.firstName}} {{member.lastName}}</span>
             </uib-accordion-heading>
-
-            <div class="row" ng-controller="MemberChartsController">
+            <div class="row" ng-controller="MemberChartsController" ng-if="$parent.isOpen">
                 <div class="col-sm-6 col-xs-12">
-                    <div class="panel-heading"><h4>Task events per task</h4></div>
+                    <div class="panel-heading">
+                        <h4>Task events per task</h4></div>
                     <canvas id="analysisUserChartTaskEventPerTask" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-options="options" width="250px;" chart-legend="true"></canvas>
                 </div>
                 <div class="col-sm-6 col-xs-12">
-                    <div class="panel-heading"><h4>Feedback on tasks</h4></div>
+                    <div class="panel-heading">
+                        <h4>Feedback on tasks</h4></div>
                     <canvas id="chart2" class="chart chart-bar" chart-data="dataBar" chart-labels="labelsBar" chart-series="seriesNames" chart-options="options" width="250px;" chart-legend="true" chart-colours="colorsBar"></canvas>
                 </div>
             </div>
