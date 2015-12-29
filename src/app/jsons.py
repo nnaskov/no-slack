@@ -15,6 +15,7 @@ def get_task_json(task):
     task_dict[strings.taskName] = task.name
     task_dict[strings.description] = task.description
     task_dict[strings.dateModified] = str(task.date_modified)
+
     task_dict[strings.frequency] = task.frequency
     task_dict[strings.taskStyle] = task.style
     task_dict[strings.everCompleted] = False
@@ -45,6 +46,14 @@ def get_task_json(task):
 
         # Store the initials of the person who completed this TaskEvent
         task_dict[strings.completedByInitials] = most_recent_event.completed_by.get().get_initials()
+
+        # The date of the last event
+        task_dict[strings.dateLastTaskEvent] = str(most_recent_event.date_completed)
+    else:
+        # If there is no most recent event
+        # We just use the date_modified as the date for the last TaskEvent date.
+        task_dict[strings.dateLastTaskEvent] = str(task.date_modified)
+
     return task_dict
 
 

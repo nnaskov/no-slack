@@ -274,7 +274,7 @@ def add_task_given_key(house_key, task_name, difficulty, description=None, frequ
         order_of_tasks_in_memory = Task.query(Task.household == house_key).count()
         is_order_of_tasks_set = True
     else:
-        # Else we just increase the order with one
+        # Else we just increase the order with one=
         order_of_tasks_in_memory += 1
 
     new_task = Task(name=task_name, frequency=frequency, difficulty=difficulty, household=house_key,
@@ -490,7 +490,7 @@ def delete_task(id):
 def edit_task(task_id, json):
     task = get_task(task_id)
     order = None
-    order = int(json.get("order"))
+    order = json.get("order")
     if order is None:
         task.name = json.get("name")
         task.frequency = int(json.get("frequency"))
