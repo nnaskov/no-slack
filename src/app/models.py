@@ -18,6 +18,9 @@ class Member(ndb.Model):
     def is_owner(self):
         return True if(self.household.get().owner.id() == self.key.id()) else False
 
+    def get_initials(self):
+        return self.first_name[0].upper() + self.last_name[0].upper()
+
 class HouseHold(ndb.Model):
     name = ndb.StringProperty(required=True)
     owner = ndb.KeyProperty()
@@ -42,7 +45,7 @@ class Task(ndb.Model):
     order = ndb.IntegerProperty()
 
     def get_delagated_initials(self):
-        return self.assigned.get().first_name[0] + self.assigned.get().last_name[0].upper()
+        return self.assigned.get().get_initials()
 
 
 class TaskEvent(ndb.Model):
