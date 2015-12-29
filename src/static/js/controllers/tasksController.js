@@ -5,13 +5,6 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
         $rootScope.tasks = newValue;
     });
     
-    $scope.refreshTasks = function(){
-        taskService.getTasks().then(function(tasks){
-            $scope.tasks = tasks;
-            $location.search({});
-        });
-    }
-    
     $scope.sortableOptions = {
         items: ".block-grid-item:not(.not-sortable)",
         'ui-floating': 'auto',
@@ -41,22 +34,16 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
         }
     };
     
-    $scope.refreshDashboard = function(){
-        $state.transitionTo('dashboard', {refresh:"true"}, { 
-            reload: true, inherit: true, notify: true
-        });
-    }
-    
     $scope.$on('addTask', function(ev, args){
-        $scope.refreshDashboard();
+        $scope.$parent.refreshDashboard();
     });
     
     $scope.$on('deleteTask', function(ev, args){
-        $scope.refreshDashboard();
+        $scope.$parent.refreshDashboard();
     });
     
     if($stateParams.refresh==="true"){
-        $scope.refreshTasks();
+        $scope.$parent.refreshTasks();
     }
     else{
         $scope.tasks=tasks;  

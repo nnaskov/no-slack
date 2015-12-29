@@ -1,6 +1,19 @@
-app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$log', 'channelService', 'memberService', '$sce', '$rootScope', 'webNotification', function ($scope, channelClientID, userID, $log, channelService, memberService, $sce, $rootScope, webNotification) {
+app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$log', 'channelService', 'memberService', '$sce', '$rootScope', 'webNotification','$http', '$location', 'taskService', '$state', function ($scope, channelClientID, userID, $log, channelService, memberService, $sce, $rootScope, webNotification, $http, $location, taskService, $state) {
     channelService.openChannel(channelClientID);
 
+    $scope.refreshTasks = function(){
+        taskService.getTasks().then(function(tasks){
+            $scope.tasks = tasks;
+            $location.search({});
+        });
+    }
+    
+    $scope.refreshDashboard = function(){
+        $state.transitionTo('dashboard', {refresh:"true"}, { 
+            reload: true, inherit: true, notify: true
+        });
+    }
+    
     $scope.userName = "Loading...";
     $scope.initials = "?";
     $scope.houseName = "Loading...";
@@ -25,6 +38,15 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
         }
     });
 
+    $scope.populate = function(){
+        $rootScope.progressbar.reset();
+        $rootScope.progressbar.start();
+        $http.get('/requests/populate', {}).then(function(){
+            $rootScope.progressbar.complete();
+            $scope.refreshDashboard();
+        });
+    }
+    
     $scope.refreshAvatar = function () {
         $scope.avatar = "/requests/avatar/" + userID + "?decache=" + Math.random();
     }
