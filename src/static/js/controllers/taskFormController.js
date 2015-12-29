@@ -6,11 +6,6 @@ app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalIns
     //typeahead
     $scope.commonTasks = ['Washing up', 'Clean kitchen', 'Hoovering', 'Rinse bathroom'];
 
-    $scope.recurringOptions = ["Yes", "No"];
-    $scope.recurring = "Yes";
-
-    $scope.recurringType = "nOfPeriod";
-
     $scope.today = function() {
         $scope.dt = new Date();
     };
@@ -28,6 +23,10 @@ app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalIns
     
     $scope.title = "Create new task";
     
+    $scope.frequencyUnitOptions = [ {name: 'hours', value: 'hours'}, {name: 'days', value: 'days'}, {name: 'weeks', value: 'weeks'}, {name: 'months', value: 'months'}]; 
+    $scope.frequencyUnit = $scope.frequencyUnitOptions[0].value;
+    
+    
     if(task != null){
         $scope.title = "Edit task "+task.taskName;
         $scope.edit = true;
@@ -35,31 +34,56 @@ app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalIns
         $scope.descriptionField = task.description;
         $scope.iconClass = task.taskStyle;
         $scope.defaultIcon = task.taskStyle;
-        $scope.recurring = "Yes";
-        $scope.frequencyValue = task.frequency;
+
+        var frequency = task.frequency;
+        if(frequency % (24*30) === 0){
+            $scope.frequencyValue = frequency / (24*30);
+            $scope.frequencyUnit = "months";
+        }
+        else if(frequency % (24*7) === 0){
+            $scope.frequencyValue = frequency / (24*7);
+            $scope.frequencyUnit = "weeks";
+        }
+        else if(frequency % 24 === 0){
+            $scope.frequencyValue = frequency / 24;
+            $scope.frequencyUnit = "days";
+        }
+        else{
+            $scope.frequencyValue = frequency;
+            $scope.frequencyUnit = "hours";
+        }
     }
     
     $scope.open = function($event) {
         $scope.status.opened = true;
     };
     
-    $scope.frequencyUnitOptions = [ {name: 'hours', value: 'hours'}, {name: 'days', value: 'days'}, {name: 'weeks', value: 'weeks'}, {name: 'months', value: 'months'}]; 
-    $scope.frequencyUnit = $scope.frequencyUnitOptions[0].value;
-        
-    $scope.ok = function () {
+    var convertToHours = function(value, type){
         var frequency = undefined;
-        switch($scope.frequencyUnit) {
+        switch(type) {
+            case 'hours':
+                frequency = value;
+                break;
             case 'days':
-                frequency = $scope.frequencyValue*24;
+                frequency = value*24;
                 break;
             case 'weeks':
-                frequency = $scope.frequencyValue*24*7;
+                frequency = value*24*7;
+                break;
+            case 'months':
+                frequency = value*24*30;
                 break;
             default:
-                frequency = $scope.frequencyValue;
+                frequency = value;
                 break;
         }
+        return frequency;
+    }
+    
+    
         
+    $scope.ok = function () {
+        var frequency = convertToHours($scope.frequencyValue,$scope.frequencyUnit);
         taskService.sendTask(undefined, $scope.nameField, $scope.iconClass, $scope.descriptionField, frequency).then(function (response) {
             $uibModalInstance.dismiss('cancel');
             $state.transitionTo('dashboard', {refresh:"true"}, { 
@@ -69,19 +93,7 @@ app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalIns
     };
 
     $scope.update = function (){
-        var frequency = undefined;
-        switch($scope.frequencyUnit) {
-            case 'days':
-                frequency = $scope.frequencyValue*24;
-                break;
-            case 'weeks':
-                frequency = $scope.frequencyValue*24*7;
-                break;
-            default:
-                frequency = $scope.frequencyValue;
-                break;
-        }
-        
+        var frequency = convertToHours($scope.frequencyValue,$scope.frequencyUnit);
         taskService.sendTask(task.taskID, $scope.nameField, $scope.iconClass, $scope.descriptionField, frequency).then(function (response) {
             $uibModalInstance.dismiss('cancel');
             $state.transitionTo('dashboard', {refresh:"true"}, { 
