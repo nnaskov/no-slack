@@ -310,6 +310,7 @@ class PopulateHandler(webapp2.RequestHandler):
     def get(self):
 
         models.populate_default_values(models.get_household_key_for_current_user())
+        delegator.delegate_task_loop()
         self.response.out.write("All the data has been populated. <br> NOTE: If you open this URL again, it will be added again.")
         # JSON object containing info variable called redirect whose values is where
         # we are going to redirect the person
