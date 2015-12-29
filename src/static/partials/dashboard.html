@@ -1,7 +1,7 @@
 <div class="container-fluid tile-container">
     <div id="sortable" ui-sortable="sortableOptions" ng-model="tasks" class="block-grid-lg-4 block-grid-md-3 block-grid-sm-2 block-grid-xs-1">
         <!-- Show all tasks-->
-        <div ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}" ng-repeat="task in tasks" class="block-grid-item">
+        <div ng-repeat="task in tasks | orderBy:'+order'" class="block-grid-item">
             <div class="fadeInForward-{{task.bounceDelay}}" ui-sref="dashboard.loadTask({taskID: task.taskID})">
                 <div ng-controller="TaskController" ng-init="task=task" id="{{task.taskID}}" ng-class="{delegated: task.assigned}" class="tile red tile-animated" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
                     <!-- Each Task Tile -->
