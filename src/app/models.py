@@ -133,28 +133,32 @@ def add_default_tasks(house_key):
 def add_default_task_events_and_feedback(member_keys, task_keys):
 
     import datetime
-    possible_random_dates = []
 
-    now = datetime.datetime.now()
 
     for i in range(len(task_keys)):
-        for j in range(len(member_keys)):
-            for times in range(random.randint(0,5)):
-                #i - is the number of the task
-                #j - is the number of the member
-                #times - is the number of times member[j] completes task[i]
-                task_event_key = add_task_event_given_task_key(task_keys[i],member_keys[j])
 
+        # This is the number of times this task will be executed by the users
+        timesEachTask = len(member_keys)*3
 
-                # Set a random completed date in the past month
-                task_event = task_event_key.get()
-                task_event.date_completed = now - datetime.timedelta(days=random.randint(1,30), hours=random.randint(-12,12), minutes=random.randint(0,60))
-                task_event.put()
+        # For each task the dates of the taskEvents must be ordered by date completed
+        # So we start with a date and then randomly incrementally add some time to it
+        # To achieve a well distributed random dates we use the number of users as a base
+        last_date = datetime.datetime.now() - datetime.timedelta(days=timesEachTask/2)
 
-                # Add task feedback
-                # Get a random # of persons
-                for k in range(random.randint(0,len(member_keys))):
-                    update_task_event_feedback_given_key(task_keys[i], True if random.randint(0,1) else False, member_keys[k])
+        for j in range(timesEachTask):
+
+            task_event_key = add_task_event_given_task_key(task_keys[i], random.choice(member_keys))
+
+            # Set a random completed date in the past month
+            task_event = task_event_key.get()
+            last_date = last_date + datetime.timedelta(hours=random.randint(4, 11), minutes=random.randint(0, 60))
+            task_event.date_completed = last_date
+            task_event.put()
+
+            # Add task feedback
+            # Get a random # of persons
+            for k in range(random.randint(0,len(member_keys))):
+                update_task_event_feedback_given_key(task_keys[i], True if random.randint(0,1) else False, member_keys[k])
 
 
 def delete_all_default_values():
