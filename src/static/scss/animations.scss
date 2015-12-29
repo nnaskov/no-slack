@@ -1,9 +1,9 @@
+/*Animation for the color of the tiles. */
 @include keyframes(example) {
     0%   {background-color:$color_green;}
     65%   {background-color:$color_orange;}
     100%  {background-color:$color_red;}
 }
-
 @include keyframes(slideOutLeft) {
     to      { @include transform(translateX(-100%)); }
 }

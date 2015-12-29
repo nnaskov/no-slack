@@ -231,6 +231,7 @@ a {
         }
         line-height: 30px;
     }
+    /* Loading bar underneath the menu li elements*/
     .navbar-nav{
        & li{
             &:after{
@@ -258,7 +259,7 @@ a {
     }
 }
 
-/* Draw a line for */
+/* Draw a line for the notifications dropdown*/
 hr {
     display: block;
     height: 1px;
@@ -274,13 +275,12 @@ hr {
 	margin-bottom: 40px;
 }
 
-/* */
+/* Style the notification bell into blue */
 i {
 	margin: 8px;
 	color: #3498db; 
 }
 
-/* */
 .container-table {
     display: table;
     height: 100%;
@@ -289,13 +289,11 @@ i {
     max-width: 1500px;
 }
 
-/* */
 .vertical-center-row {
     display: table-cell;
     vertical-align: middle;
 }
 
-/* */
 #headerwrap {
 	background-color: $theme_primary;
 	margin-top: -20px;
@@ -325,14 +323,14 @@ img{
         background: transparent;
     }
 }
-/* */
+/* Block grid class, representing the way the task events should appear*/
 [class*="block-grid-"] {
     display: block;
     margin: -($grid-gutter-width/2);
     padding: 0;
     @include clearfix();
 }
-/* */
+
 .block-grid-item {
     display: inline;
     margin: 0;
@@ -358,7 +356,6 @@ img{
     }
 }
 
-/* */
 .ui-state-highlight {  
     @include calc(width, "100% - 15px");
     height:179px !important;
