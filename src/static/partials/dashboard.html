@@ -22,8 +22,9 @@
                         </div>
                     </div><!-- End top Row-->
                     <div class="row">
-                        <span ng-show="task.assignedInitials" class="badge" style="margin-left: 24px; margin-bottom 2px;">{{task.assignedInitials}}</span>
-                        <span ng-show="!task.assignedInitials" class="badge" style="margin-left: 24px; margin-bottom 2px;">?</span>
+                        <span ng-show="task.assignedInitials" class="badge" style="margin-left: 24px; margin-bottom 2px; background: red;">{{task.assignedInitials != undefined ? task.assignedInitials : "?" }}</span>
+                        <span ng-show="task.completedByInitials" class="badge" style="margin-left: 24px; margin-bottom 2px; background: green;">{{task.completedByInitials != undefined ? task.completedByInitials : "?" }}</span>
+                        
                     </div>
                     <div class="row"><!-- Bottom Row-->
                         <div class="col-xs-6">
