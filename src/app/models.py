@@ -253,6 +253,12 @@ def get_household_tasks(limit = 100):
     q = Task.query(Task.household == household).order(Task.date_created)
     return q.fetch(limit)
 
+"""
+This variable is used for ordering the new tasks. Task.query(Task.household == house_key).count() doesn't return correct
+value since put() is async.
+"""
+order_of_tasks_in_memory = None
+is_order_of_tasks_set = False
 
 def add_task_given_key(house_key, task_name, difficulty, description=None, frequency=None, style="glyphicon glyphicon-remove-circle"):
     """
@@ -260,10 +266,19 @@ def add_task_given_key(house_key, task_name, difficulty, description=None, frequ
 
     :return: ndb.Key of the task
     """
-    order = Task.query(Task.household == house_key).count()
+    global order_of_tasks_in_memory
+    global is_order_of_tasks_set
+
+    if not is_order_of_tasks_set:
+        # If the app is just started we set the order_of_tasks to equal the current count of Tasks
+        order_of_tasks_in_memory = Task.query(Task.household == house_key).count()
+        is_order_of_tasks_set = True
+    else:
+        # Else we just increase the order with one
+        order_of_tasks_in_memory += 1
 
     new_task = Task(name=task_name, frequency=frequency, difficulty=difficulty, household=house_key,
-                    user_who_added=get_member_key(), style=style, description=description, order=order)
+                    user_who_added=get_member_key(), style=style, description=description, order=order_of_tasks_in_memory)
     return new_task.put()
 
 
@@ -285,6 +300,8 @@ def add_task_event(task_id,  member_key=None):
     """
     task_key = ndb.Key("Task", task_id)
     return add_task_event_given_task_key(task_key, member_key)
+
+
 
 def add_task_event_given_task_key(task_key, member_key=None):
     """
@@ -473,7 +490,7 @@ def delete_task(id):
 def edit_task(task_id, json):
     task = get_task(task_id)
     order = None
-    order = json.get("order")
+    order = int(json.get("order"))
     if order is None:
         task.name = json.get("name")
         task.frequency = int(json.get("frequency"))

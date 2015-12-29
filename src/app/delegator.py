@@ -41,6 +41,9 @@ def delegate_task_loop():
         least_full = 1000
         zero_diff = total_diff == 0
 
+        # Assign a default member
+        assign_key = members[0].key
+
         for member in members:
             member_key = member.key
             if zero_diff:
