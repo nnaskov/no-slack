@@ -18,20 +18,19 @@
                             </div>
                             <div class="text-right" style="margin-top: -5px;">
                                 <h2 class="title">{{task.taskName}}</h2>
-                                <span>{{task.description}}</span>
+                                <span style="font-size:13px;">{{task.description}}</span>
                             </div>
                         </div>
                     </div>
                     <!-- End top Row-->
                     <div class="row clearfix" style="margin-bottom:5px;">
-                        <div class="col-xs-6" style="white-space: nowrap;">
+                        <div class="col-xs-6 text-left" style="white-space: nowrap;">
                             <span style="font-size:12px;">Currently doing: </span>
-                            <span ng-show="task.assignedInitials" class="badge" style="margin-bottom 2px; background: red;">{{task.assignedInitials != undefined ? task.assignedInitials : "?" }}</span>
-
+                            <span class="badge" style="margin-bottom 2px; background: red;">{{task.assignedInitials || "?" }}</span>
                         </div>
                         <div class="col-xs-6 text-right" style="white-space: nowrap;">
                             <span style="font-size:12px;">Last completed: </span>
-                            <span ng-show="task.completedByInitials" class="badge" style="margin-bottom 2px; background: green;">{{task.completedByInitials != undefined ? task.completedByInitials : "?" }}</span>
+                            <span class="badge" style="margin-bottom 2px; background: green;">{{task.completedByInitials || "?" }}</span>
                         </div>
                     </div>
                     <div class="row">
