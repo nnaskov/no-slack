@@ -19,8 +19,8 @@
             <div class="form-group">
                 <label class="col-xs-3 col-xs-offset-1 text-left control-label" for="textarea">Description</label>
                 <div class="col-xs-7">                     
-                    <textarea ng-model="descriptionField" class="form-control boxSizingBorder" style="width:100%;" ng-maxlength="45" maxlength="45" ng-trim="false" name="textarea"></textarea>
-                    <span class="help-block">How would you describe the task? {{descriptionField.length || 0}}/45</span> 
+                    <textarea ng-model="descriptionField" class="form-control boxSizingBorder" style="width:100%;" ng-maxlength="60" maxlength="60" ng-trim="false" name="textarea"></textarea>
+                    <span class="help-block">How would you describe the task? {{descriptionField.length || 0}}/60</span> 
                 </div>
             </div>
                         
@@ -48,7 +48,7 @@
 
 </div>
 <div class="modal-footer">
-    <button ng-if="edit" class="btn btn-primary" type="button" ng-disabled="addTaskForm.$invalid" ng-click="delete()" style="float: left; background-color: darkred;">Delete</button>
+    <button ng-if="edit" class="btn btn-primary" type="button" ng-click="delete()" style="float: left; background-color: darkred;">Delete</button>
     <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
     <button ng-if="!edit" class="btn btn-primary" type="button" ng-disabled="addTaskForm.$invalid" ng-click="ok()">OK</button>
     <button ng-if="edit" class="btn btn-primary" type="button" ng-disabled="addTaskForm.$invalid" ng-click="update()">Update</button>
