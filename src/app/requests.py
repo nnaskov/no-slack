@@ -248,7 +248,13 @@ class AnalysisHandler(webapp2.RequestHandler):
 
                 response['pie_elements'] = self.get_pie_elements(membersKeys,models.get_all_task_events_count_for_member, 'first_name')
 
-                self.response.out.write(json.dumps(response))
+
+                #TODO This is hacked. Should be made in production
+
+                response = """{"chart2":{"data":[[2,0,0,3,4],[0,3,5,1,0],[1,1,2,5,1]],"labels":["10.12.2015","11.12.2015","12.12.2015","13.12.2015","14.12.2015"],"series":["user1","user2","user3"]},"chart3":{"data":[[2,0,0,3,4],[0,3,5,1,0],[1,1,2,5,1]],"labels":["Task1","Task2","Task3","Task4","Task5"],"series":["user1","user2","user3"]}}"""
+
+                #self.response.out.write(json.dumps(response))
+                self.response.out.write(response)
 
             elif charttype == "userchart":
 
