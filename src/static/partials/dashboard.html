@@ -2,7 +2,7 @@
     <div id="sortable" ui-sortable="sortableOptions" ng-model="tasks" class="block-grid-lg-4 block-grid-md-3 block-grid-sm-2 block-grid-xs-1">
         <!-- Show all tasks-->
         <div ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}" ng-repeat="task in tasks" class="block-grid-item">
-            <div class="fadeInForward-{{task.bounceDelay}}">
+            <div class="fadeInForward-{{task.bounceDelay}}" ui-sref="dashboard.loadTask({taskID: task.taskID})">
                 <div ng-controller="TaskController" ng-init="task=task" id="{{task.taskID}}" ng-class="{delegated: task.assigned}" class="tile red tile-animated" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
                     <!-- Each Task Tile -->
                     <div class="row" style="min-height: 95px"><!-- Top Row-->
@@ -44,7 +44,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Add Task Tile -->
         <div class="block-grid-item fadeInForward-3 not-sortable">
             <a ui-sref="dashboard.addTask">
