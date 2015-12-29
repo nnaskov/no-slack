@@ -5,13 +5,14 @@
             <div class="fadeInForward-{{task.bounceDelay}}" ui-sref="dashboard.loadTask({taskID: task.taskID})">
                 <div ng-controller="TaskController" ng-init="task=task" id="{{task.taskID}}" ng-class="{delegated: task.assigned}" class="tile red tile-animated" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
                     <!-- Each Task Tile -->
-                    <div class="row" style="min-height: 95px"><!-- Top Row-->
+                    <div class="row" style="min-height: 95px">
+                        <!-- Top Row-->
                         <div class="col-xs-2" style="padding-left: 10px">
                             <div class="glyph-box {{task.taskStyle}}" style="font-size: 60px; margin-top: 15px;"></div>
                         </div>
                         <div class="col-xs-9 col-xs-offset-1">
                             <div class="text-right edit-tile-icon">
-                                <a class="edit-tile" ui-sref="dashboard.editTask({taskID: task.taskID})">
+                                <a class="edit-tile" ng-click="$event.stopPropagation()" ui-sref="dashboard.editTask({taskID: task.taskID})">
                                     <span class="fa fa-pencil glyph-button"></span>
                                 </a>
                             </div>
@@ -20,28 +21,30 @@
                                 <span>{{task.description}}</span>
                             </div>
                         </div>
-                    </div><!-- End top Row-->
-                    <div class="row">
-                        <span ng-show="task.assignedInitials" class="badge" style="margin-left: 24px; margin-bottom 2px; background: red;">{{task.assignedInitials != undefined ? task.assignedInitials : "?" }}</span>
-                        <span ng-show="task.completedByInitials" class="badge" style="margin-left: 24px; margin-bottom 2px; background: green;">{{task.completedByInitials != undefined ? task.completedByInitials : "?" }}</span>
-                        
                     </div>
-                    <div class="row"><!-- Bottom Row-->
+                    <!-- End top Row-->
+                    <div class="row">
+                        Assigned to: <span ng-show="task.assignedInitials" class="badge" style="margin-left: 24px; margin-bottom 2px; background: red;">{{task.assignedInitials != undefined ? task.assignedInitials : "?" }}</span> Completed by: <span ng-show="task.completedByInitials" class="badge" style="margin-left: 24px; margin-bottom 2px; background: green;">{{task.completedByInitials != undefined ? task.completedByInitials : "?" }}</span>
+
+                    </div>
+                    <div class="row">
+                        <!-- Bottom Row-->
                         <div class="col-xs-6">
                             <div ng-show="task.everCompleted">
-                                <span id="thumbs-up" ng-click="addFeedback(true)" class="glyph-button" ng-class="{'fa fa-thumbs-up': task.userFeedback == true, 'fa-thumbs-o-up fa': !task.userFeedback}" aria-hidden="true"></span>
+                                <span id="thumbs-up" ng-click="$event.stopPropagation(); addFeedback(true)" class="glyph-button" ng-class="{'fa fa-thumbs-up': task.userFeedback == true, 'fa-thumbs-o-up fa': !task.userFeedback}" aria-hidden="true"></span>
                                 <span id="positive-feedback" ng-bind-html="feedback.positive"></span>
-                           
-                                <span id="thumbs-down" ng-click="addFeedback(false)" class="glyph-button" ng-class="{'fa fa-thumbs-down': task.userFeedback == false, 'fa-thumbs-o-down fa': (task.userFeedback == true || task.userFeedback == null) }" aria-hidden="true"></span>
+
+                                <span id="thumbs-down" ng-click="$event.stopPropagation(); addFeedback(false)" class="glyph-button" ng-class="{'fa fa-thumbs-down': task.userFeedback == false, 'fa-thumbs-o-down fa': (task.userFeedback == true || task.userFeedback == null) }" aria-hidden="true"></span>
                                 <span id="negative-feedback" ng-bind-html="feedback.negative"></span>
                             </div>
                         </div>
                         <div class="col-xs-6 text-right">
-                            <span class="glyphicon glyphicon-resize-horizontal handler glyph-button" aria-hidden="true" style="margin-right: 10px;"></span>
-                            <span ng-click="addTaskEvent()" class="glyphicon glyphicon-ok glyph-button" aria-hidden="true" style="margin-right: 10px;"></span>
-                            <history-popover task="task"></history-popover>
+                            <span ng-click="$event.stopPropagation()" class="glyphicon glyphicon-resize-horizontal handler glyph-button" aria-hidden="true" style="margin-right: 10px;"></span>
+                            <span ng-click="$event.stopPropagation(); addTaskEvent()" class="glyphicon glyphicon-ok glyph-button" aria-hidden="true" style="margin-right: 10px;"></span>
+                            <history-popover ng-click="$event.stopPropagation()" task="task"></history-popover>
                         </div>
-                    </div><!-- End bottom Row-->
+                    </div>
+                    <!-- End bottom Row-->
                 </div>
             </div>
         </div>
