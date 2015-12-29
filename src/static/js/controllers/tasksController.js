@@ -32,9 +32,9 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
             targetIndex = ui.item.index();
             targetTask = angular.element(ui.item).parent().children().eq(sourceIndex).scope().task;
             
-            targetTask.order = sourceIndex;
-            sourceTask.order = targetIndex;
-            $scope.$parent.refreshTasks();
+            $http.put('/requests/taskorder/', {oldOrder: sourceIndex}, {newOrder: targetIndex}).success(function(){
+                $scope.$parent.refreshTasks();
+            });
         }
     };
     
