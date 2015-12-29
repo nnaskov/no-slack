@@ -6,6 +6,7 @@ import publisher
 import delegator
 from google.appengine.api import channel
 import logging
+import strings
 
 class HouseHandler(webapp2.RequestHandler):
     '''
@@ -122,7 +123,7 @@ class TaskEventHandler(webapp2.RequestHandler):
     '''
     def post(self, task_id):
         task_id = int(task_id)
-        models.add_task_event(task_id)
+        new_task_event = models.add_task_event(task_id).get()
         task = models.get_task(task_id)
         task = delegator.delegate_task(task)
 
@@ -130,8 +131,10 @@ class TaskEventHandler(webapp2.RequestHandler):
 
         update_json = {}
         update_json['eventType'] = 'taskEvent'
-        update_json['taskId'] = task_id
-        update_json['assignedInitials'] = task.get_delagated_initials()
+        update_json[strings.taskID] = task_id
+        update_json[strings.assignedInitials] = task.get_delagated_initials()
+        update_json[strings.completedByInitials] = new_task_event.completed_by.get().get_initials()
+
         member = models.get_member_key().get()
         update_json['doneBy'] = member.first_name + " " + member.last_name
         #if member.avatar:

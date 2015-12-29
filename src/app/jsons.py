@@ -29,15 +29,22 @@ def get_task_json(task):
 
     if task.most_recent_event:
         task_dict[strings.everCompleted] = True
+        # Get the most recent TaskEvent of this Task
         most_recent_event = task.most_recent_event.get()
+
+        # Store the feedbacks for that Event
         task_dict[strings.positiveFeedback] = most_recent_event.positive_feedback
         task_dict[strings.negativeFeedback] = most_recent_event.negative_feedback
+
+        # Store the personal feedback for that most recent TaskEvent
         user_feedback = most_recent_event.get_user_feedback()
         if len(user_feedback):
             task_dict[strings.userFeedback] = user_feedback[0].was_positive
         else:
             task_dict[strings.userFeedback] = None
 
+        # Store the initials of the person who completed this TaskEvent
+        task_dict[strings.completedByInitials] = most_recent_event.completed_by.get().get_initials()
     return task_dict
 
 
