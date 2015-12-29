@@ -84,5 +84,5 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
     };
 
     $scope.$on('taskFeedback', addNotification);
-    $scope.$on('taskEvent', addNotification);
+    //$scope.$on('taskEvent', addNotification);
 }]);
