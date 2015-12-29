@@ -35,7 +35,7 @@ class RegisterHandler(webapp2.RequestHandler):
 
         models.register_user(first_name, last_name, house_name, avatar, needs_default_items=True)
 
-        #delegator.delegate_task_loop()
+        delegator.delegate_task_loop()
 
         self.response.headers['Content-Type'] = 'application/json'
 
