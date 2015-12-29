@@ -7,7 +7,7 @@ app.factory('taskService', ['$http', '$q', '$timeout', '$log', 'moment', functio
                 
                 data.forEach(function(datum){
                     datum.duration = (datum.frequency * 60 * 60) + "s";
-                    datum.delay = ((moment(datum.dateModified).toDate().getTime() - now)/1000) + "s";
+                    datum.delay = ((moment(datum.dateLastTaskEvent).toDate().getTime() - now)/1000) + "s";
                     datum.bounceDelay = Math.floor((Math.random()*5)+1);
                 });
                 
