@@ -135,4 +135,8 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
     $scope.$on('taskEvent', addNotification);
     $scope.$on('addTask', addNotification);
     $scope.$on('deleteTask', addNotification);
+    
+    $scope.$on('populatedEvent', function(ev, args){
+        $scope.refreshDashboard();
+    });
 }]);

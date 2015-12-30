@@ -54,10 +54,6 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
         $scope.$parent.refreshDashboard();
     });
     
-    $scope.$on('populatedEvent', function(ev, args){
-        $scope.$parent.refreshDashboard();
-    });
-    
     $scope.$on('orderChangedEvent', function(ev, args){
         $scope.$parent.refreshDashboard();
     });
