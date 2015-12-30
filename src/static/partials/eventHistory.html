@@ -1,11 +1,14 @@
+<!--History popover-->
 <div>
     <div ng-show="taskEvents.length > 0">
+        <!--Order completed events by date and display relevant data-->
         <div ng-repeat="event in taskEvents | orderBy:'-date'">
             <div>
                 <b>{{event.name}}</b> completed the task on {{event.date | date:'dd/MM/yyyy HH:mm'}} (+{{event.positiveFeedback}} -{{event.negativeFeedback}})
             </div>
         </div>
     </div>
+    <!--If a task has not been completed for once-->
     <div ng-show="taskEvents.length == 0">
         No history related to the task.
     </div>

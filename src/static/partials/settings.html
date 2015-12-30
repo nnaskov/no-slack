@@ -1,3 +1,4 @@
+<!--Settings page-->
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
@@ -8,13 +9,13 @@
                         <fieldset>
                             <!-- Form Name -->
                             <legend>User Settings of {{$parent.userName}}</legend>
-
                             <div class="row">
                                 <div class="col-xs-2 col-xs-offset-1 text-center">
+                                    <!--Avatar image of user-->
                                     <a class="thumbnail"><img ng-src="{{$parent.avatar}}" width="100%" style="margin-bottom:10px;" ng-hide="file">
                                         <img ngf-src="!file.$error && file" width="100%" style="margin-bottom:10px;" ng-show="file"></a>
-
                                     <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 128, height: 128}" ngf-capture="'camera'">
+                                        <!--Browse button for avatar change and display progress upon saving-->
                                         <button class="btn btn-primary">Browse...</button>
                                         <span class="progress" ng-show="file.progress >= 0">
                                     <div style="width:{{file.progress}}%" ng-bind="file.progress + '%'" class="ng-binding"></div>
@@ -22,8 +23,8 @@
                                         <span ng-show="file.result">Upload Successful</span>
                                     </div>
                                 </div>
+                                <!--Form validation for Tenant Name-->
                                 <div class="col-xs-9">
-                                    <!-- Text input-->
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="textinput">Tenant Name</label>
                                         <div class="col-md-4">
@@ -35,8 +36,9 @@
                                             <p class="help-block" ng-show="userForm.tenantName.$error.pattern">Invalid tenant name. Please include first and last name separated by one space.</p>
                                         </div>
                                     </div>
+                                    <!--End of Form validation for Tenant Name-->
 
-                                    <!-- Text input-->
+                                    <!--Form validation for House Name-->
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="textinput">House Name</label>
                                         <div class="col-md-4">
@@ -50,6 +52,7 @@
                                             <p class="help-block" ng-show="userForm.houseName.$dirty && userForm.houseName.$valid && houseNameExists">{{houseName}} exists. Change its name.</p>
                                         </div>
                                     </div>
+                                    <!--Form validation for House Name-->
 
                                     <!-- Multiple Radios (inline) -->
                                     <div class="form-group">
