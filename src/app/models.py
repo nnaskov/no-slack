@@ -167,6 +167,12 @@ def delete_all_default_values():
     :return:
     """
 
+    global order_of_tasks_in_memory
+    global is_order_of_tasks_set 
+
+    order_of_tasks_in_memory = None
+    is_order_of_tasks_set = False
+
     qTasks = Task.query()
     qTaskEvents = TaskEvent.query()
     qEventFeedback = EventFeedback.query()
@@ -371,8 +377,12 @@ def update_task_event_feedback_given_key(task_key, was_positive, member_key=None
 
 def get_task_events(task_id):
     task = get_task(task_id)
-    q = TaskEvent.query(TaskEvent.task_type == task.key)
-    return q.fetch(limit=100)
+
+    if task:
+        q = TaskEvent.query(TaskEvent.task_type == task.key)
+        return q.fetch(limit=100)
+    else:
+        return []
 
 
 def get_all_task_events_count_for_member(member_key):
