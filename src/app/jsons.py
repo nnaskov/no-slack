@@ -14,7 +14,7 @@ def get_task_json(task):
     task_dict[strings.taskID] = task.key.integer_id()
     task_dict[strings.taskName] = task.name
     task_dict[strings.description] = task.description
-    task_dict[strings.dateModified] = str(task.date_modified)
+    task_dict[strings.dateModified] = get_compatible_date_str(task.date_modified)
 
     task_dict[strings.frequency] = task.frequency
     task_dict[strings.taskStyle] = task.style
@@ -48,11 +48,11 @@ def get_task_json(task):
         task_dict[strings.completedByInitials] = most_recent_event.completed_by.get().get_initials()
 
         # The date of the last event
-        task_dict[strings.dateLastTaskEvent] = str(most_recent_event.date_completed)
+        task_dict[strings.dateLastTaskEvent] = get_compatible_date_str(most_recent_event.date_completed)
     else:
         # If there is no most recent event
         # We just use the current time as the date for the last TaskEvent date.
-        task_dict[strings.dateLastTaskEvent] = str(datetime.datetime.now())
+        task_dict[strings.dateLastTaskEvent] = get_compatible_date_str(datetime.datetime.now())
 
     return task_dict
 
@@ -67,6 +67,8 @@ def get_all_tasks_json(tasks_list):
 
     return datastore_tasks
 
+def get_compatible_date_str(date):
+    return str(date).replace(" ", "T")
 
 def get_event_json(event):
     """
@@ -76,7 +78,9 @@ def get_event_json(event):
     """
     event_dict = {}
     event_dict[strings.name] = event.completed_by.get().first_name
-    event_dict[strings.date] = str(event.date_completed)
+    # We replace the " " with a "T" for compatability with Firefox/Safari
+    event_dict[strings.date] = get_compatible_date_str(event.date_completed)
+
     event_dict[strings.positiveFeedback] = event.positive_feedback
     event_dict[strings.negativeFeedback] = event.negative_feedback
     return event_dict
