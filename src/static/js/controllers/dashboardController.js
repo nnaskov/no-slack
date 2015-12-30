@@ -128,8 +128,6 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
                     autoClose: 4000 
                 }, function () {});
             }
-
-            
         }
     };
 
