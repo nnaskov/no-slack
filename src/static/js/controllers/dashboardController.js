@@ -106,8 +106,21 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
                     text: $sce.trustAsHtml("<span class=\"badge\">Task</span> <b>" + args.task.taskName + "</b> was added to the schedule. ")
                 });
 
-                webNotification.showNotification('Task Event', {
+                webNotification.showNotification('Task Added', {
                     body: args.task.taskName + " was added to the schedule.",
+                    icon: 'static/img/notification.png',
+                    autoClose: 4000 
+                }, function () {});
+            }
+            else if (args.eventType == "deleteTask") {
+                args;
+                $scope.notifications.push({
+                    icon: "fa fa-fw fa-times",
+                    text: $sce.trustAsHtml("<span class=\"badge\">Task</span> <b>" +task.taskName + "</b> was deleted from the schedule. ")
+                });
+
+                webNotification.showNotification('Task Deleted', {
+                    body: task.taskName + " was deleted from the schedule.",
                     icon: 'static/img/notification.png',
                     autoClose: 4000 
                 }, function () {});
@@ -120,4 +133,5 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
     $scope.$on('taskFeedback', addNotification);
     $scope.$on('taskEvent', addNotification);
     $scope.$on('addTask', addNotification);
+    $scope.$on('deleteTask', addNotification);
 }]);
