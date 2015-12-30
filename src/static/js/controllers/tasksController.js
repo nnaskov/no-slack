@@ -20,16 +20,17 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
         handle: ".handler",
         start: function (event, ui) {
             sourceTask = angular.element(ui.item).scope().task;
-            sourceIndex = sourceTask.order;
+            sourceIndex = ui.item.index();
             
             $("[class*=fadeInForward]").removeClass(function(index, css){
                 return (css.match (/(^|\s)fadeInForward-\S+/g) || []).join(' ');
             });
         },
-        stop: function(e, ui) {
+        beforeStop: function(e, ui) {
             targetIndex = ui.item.index();
-            targetTask = angular.element(ui.item).parent().children().eq(sourceIndex).scope().task;
-            $http.put('/requests/taskorder/', {oldOrder: sourceIndex, newOrder: targetIndex}, {});
+            targetTask = angular.element(ui.item).parent().find(".block-grid-item.ng-scope").eq(targetIndex+1).scope().task
+            
+            $http.put('/requests/taskorder/', {oldOrder: sourceTask.order, newOrder: targetTask.order}, {});
         }
     };
     
@@ -43,6 +44,7 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
     
     if($stateParams.refresh==="true"){
         $scope.$parent.refreshTasks();
+        $scope.$parent.notificationsStatus=true;
     }
     else{
         $scope.tasks=tasks;  
