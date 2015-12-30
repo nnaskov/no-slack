@@ -409,7 +409,7 @@ class TaskOrderHandler(webapp2.RequestHandler):
         oldOrderTask.put()
 
         update_json = {}
-        update_json['eventType'] = 'taskOrderChanged'
+        update_json['eventType'] = 'orderChangedEvent'
         update_json['taskChangedName'] = oldOrderTask.name
         member = models.get_member_key().get()
         update_json['doneBy'] = member.first_name + " " + member.last_name
