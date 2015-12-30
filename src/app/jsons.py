@@ -7,7 +7,7 @@ throughout the code.
 
 import models
 import strings
-
+import datetime
 def get_task_json(task):
 
     task_dict = {}
@@ -51,8 +51,8 @@ def get_task_json(task):
         task_dict[strings.dateLastTaskEvent] = str(most_recent_event.date_completed)
     else:
         # If there is no most recent event
-        # We just use the date_modified as the date for the last TaskEvent date.
-        task_dict[strings.dateLastTaskEvent] = str(task.date_modified)
+        # We just use the current time as the date for the last TaskEvent date.
+        task_dict[strings.dateLastTaskEvent] = str(datetime.datetime.now())
 
     return task_dict
 
