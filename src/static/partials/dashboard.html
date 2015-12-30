@@ -1,21 +1,27 @@
 <div class="container-fluid tile-container">
+    <!--block-grid classes representing the area where a tile sits-->
     <div id="sortable" ui-sortable="sortableOptions" ng-model="tasks" class="block-grid-lg-4 block-grid-md-3 block-grid-sm-2 block-grid-xs-1">
         <!-- Show all tasks-->
         <div ng-repeat="task in tasks" class="block-grid-item">
+            <!--Load the task based on its ID-->
             <div class="fadeInForward-{{task.bounceDelay}}" ui-sref="dashboard.loadTask({taskID: task.taskID})">
+                
                 <div ng-controller="TaskController" ng-init="task=task" id="{{task.taskID}}" ng-class="{delegated: task.assigned}" class="tile red tile-animated" style="animation-duration: {{task.duration}}; animation-delay: {{task.delay}};">
                     <!-- Each Task Tile -->
                     <div class="row" style="min-height: 95px">
                         <!-- Top Row-->
                         <div class="col-xs-2" style="padding-left: 10px">
+                            <!-- Logo of the task -->
                             <div class="glyph-box {{task.taskStyle}}" style="font-size: 60px; margin-top: 15px;"></div>
                         </div>
+                        <!--Edit a Task Tile-->
                         <div class="col-xs-9 col-xs-offset-1">
                             <div class="text-right edit-tile-icon">
                                 <a class="edit-tile" ng-click="$event.stopPropagation()" ui-sref="dashboard.editTask({taskID: task.taskID})">
                                     <span class="fa fa-pencil glyph-button"></span>
                                 </a>
                             </div>
+                            <!--Display task name and description-->
                             <div class="text-right" style="margin-top: -5px;">
                                 <h2 class="title">{{task.taskName}}</h2>
                                 <span style="font-size:13px;">{{task.description}}</span>
@@ -23,6 +29,7 @@
                         </div>
                     </div>
                     <!-- End top Row-->
+                    <!--Middle Row (Completed and to be completed by elements)-->
                     <div class="row clearfix" style="margin-bottom:5px;">
                         <div class="col-xs-6 text-left" style="white-space: nowrap;">
                             <span style="font-size:12px;">Last by: </span>
@@ -33,20 +40,27 @@
                             <span class="badge" style="margin-bottom 2px; background: cornflowerblue;">{{task.assignedInitials|| "?" }}</span>
                         </div>
                     </div>
+                    <!--End of Middle Row-->
                     <div class="row">
                         <!-- Bottom Row-->
                         <div class="col-xs-6">
+                            <!--Feedback representation-->
                             <div ng-show="task.everCompleted">
+                                <!--Thumbs up-->
                                 <span id="thumbs-up" ng-click="$event.stopPropagation(); addFeedback(true)" class="glyph-button" ng-class="{'fa fa-thumbs-up': task.userFeedback == true, 'fa-thumbs-o-up fa': !task.userFeedback}" aria-hidden="true"></span>
                                 <span id="positive-feedback" ng-bind-html="feedback.positive"></span>
-
+                                <!--Thumbs down-->
                                 <span id="thumbs-down" ng-click="$event.stopPropagation(); addFeedback(false)" class="glyph-button" ng-class="{'fa fa-thumbs-down': task.userFeedback == false, 'fa-thumbs-o-down fa': (task.userFeedback == true || task.userFeedback == null) }" aria-hidden="true"></span>
                                 <span id="negative-feedback" ng-bind-html="feedback.negative"></span>
                             </div>
                         </div>
+                        <!--Break the listeners from the parent Tile and add a new Task Event for every button inside the Task Tile-->
                         <div class="col-xs-6 text-right">
+                            <!--For the 'resize' button-->
                             <span ng-click="$event.stopPropagation()" class="glyphicon glyphicon-resize-horizontal handler glyph-button" aria-hidden="true" style="margin-right: 10px;"></span>
+                            <!--For the completed button-->
                             <span ng-click="$event.stopPropagation(); addTaskEvent()" class="glyphicon glyphicon-ok glyph-button" aria-hidden="true" style="margin-right: 10px;"></span>
+                            <!--For the history popover-->
                             <history-popover ng-click="$event.stopPropagation()" task="task"></history-popover>
                         </div>
                     </div>
@@ -62,5 +76,6 @@
                 </div>
             </a>
         </div>
+    <!--End of block grid classes-->    
     </div>
 </div>
