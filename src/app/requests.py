@@ -350,12 +350,63 @@ class AvatarHandler(webapp2.RequestHandler):
             default_picture = open('app/blank-picture.jpg', 'rb').read()
             self.response.out.write(default_picture)
 
+class TaskOrderHandler(webapp2.RequestHandler):
+    """
+    This handler handles the changes with the task order.
+    It receives oldorder (index) and neworder (index) which represent the current (old) order of the task and the new one
+    """
+    def put(self):
+
+        json_data = json.loads(self.request.body)
+
+        newOrder = json_data['newOrder']
+        oldOrder = json_data['oldOrder']
+        # If the new order (index) is bigger, this means that the task was moved down the list.
+        # Hence, all the tasks in between must have their order decreased by 1
+
+        movedTask = models.Task.query(models.Task.order == oldOrder).fetch()[0]
+
+        if newOrder > oldOrder:
+
+            q = models.Task.query(models.Task.order > oldOrder, models.Task.order <= newOrder)
+            tasks = q.fetch()
+            for task in tasks:
+                task.order -= 1
+                task.put()
+
+
+
+        # Else the new order (index) is smaller, this means that the task was moved up the list.
+        # Hence, all the tasks in between must have their order increased by 1
+        else:
+
+            q = models.Task.query(models.Task.order >= newOrder, models.Task.order < oldOrder)
+            tasks = q.fetch()
+            for task in tasks:
+                task.order += 1
+                task.put()
+
+
+        movedTask.order = newOrder
+
+        update_json = {}
+        update_json['eventType'] = 'taskOrderChanged'
+        update_json['taskChangedName'] = movedTask.name
+        member = models.get_member_key().get()
+        update_json['doneBy'] = member.first_name + " " + member.last_name
+
+        update_data = json.dumps(update_json)
+        publisher.update_clients(models.get_members_list(), update_data)
+        self.response.out.write("")
+
+
 app = webapp2.WSGIApplication([
     (r'/requests/house/?', HouseHandler),
     (r'/requests/house/check/(\w+)/?', HouseNamesHandler),
     (r'/requests/task/?', TaskHandler),
     (r'/requests/task/(\d+)/?', TaskHandler),
     (r'/requests/task/(\d+)/taskevent/?', TaskEventHandler),
+    (r'/requests/taskorder/?', TaskOrderHandler),
     (r'/requests/member/?', MemberHandler),
     (r'/requests/analysis/?', AnalysisHandler),
     (r'/requests/populate/?', PopulateHandler),

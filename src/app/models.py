@@ -168,7 +168,7 @@ def delete_all_default_values():
     """
 
     global order_of_tasks_in_memory
-    global is_order_of_tasks_set 
+    global is_order_of_tasks_set
 
     order_of_tasks_in_memory = None
     is_order_of_tasks_set = False
