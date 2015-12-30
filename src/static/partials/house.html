@@ -27,7 +27,7 @@
         </div>
         <div class="col-xs-12 col-sm-8 col-sm-pull-4">
             <uib-accordion close-others="true">
-                <uib-accordion-group is-open="$first" ng-repeat="(id, member) in houseData.users" template-url="member-statistics.html">
+                <uib-accordion-group is-open="$first" ng-repeat="(id, member) in users" template-url="member-statistics.html">
                     <uib-accordion-heading>
                         <img ng-src="/requests/avatar/{{id}}" alt="" width="32" height="32">
                         <span>{{member.firstName}} {{member.lastName}}</span>
@@ -35,14 +35,14 @@
                     <div class="row" ng-controller="MemberChartsController" ng-if="$parent.isOpen">
                         <div class="col-sm-6 col-xs-12">
                             <div class="panel-heading">
-                                <h4>Task events per task</h4>
+                                <h4>Tasks completed by {{member.firstName}}</h4>
                             </div>
                             <canvas id="analysisUserChartTaskEventPerTask" ng-if="data.length>0" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-options="options" width="250px;" chart-legend="true"></canvas>
                             <div ng-show="data.length==0">No data available</div>
                         </div>
                         <div class="col-sm-6 col-xs-12">
                             <div class="panel-heading">
-                                <h4>Feedback on tasks</h4>
+                                <h4>Feedback received on {{member.firstName}}'s tasks</h4>
                             </div>
                             <canvas id="chart2" class="chart chart-bar" ng-if="dataBar.length>0" chart-data="dataBar" chart-labels="labelsBar" chart-series="seriesNames" chart-options="options" width="250px;" chart-legend="true" chart-colours="colorsBar"></canvas>
                             <div ng-show="dataBar.length==0">No data available</div>
