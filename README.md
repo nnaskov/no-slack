@@ -35,7 +35,7 @@ bower install <name-of-component> --save
 
 ## How to count the lines of code
 
-On 28/12/2015 we had **2665**/4400 LOC.
+On 30/12/2015 we had **2858**/4400 LOC.
 
 We need to use **cloc** to count the lines of code. You can download it from [here](http://cloc.sourceforge.net/).
 
