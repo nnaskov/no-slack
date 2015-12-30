@@ -47,7 +47,7 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
         });
     }
     
-    $scope.refreshAvatar = function () {
+    $scope.refreshAvatar = function(){
         $scope.avatar = "/requests/avatar/" + userID + "?decache=" + Math.random();
     }
 
@@ -85,10 +85,10 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
                 webNotification.showNotification('Task Feedback', {
                     body: args.doneBy.split(" ")[0] + " " + action + " your Task " + taskName,
                     icon: 'static/img/notification.png',
-                    autoClose: 4000 //auto close the notification after 2 seconds (you can manually close it via hide function)
+                    autoClose: 4000 
                 }, function () {});
 
-            } else if (args.eventType == "taskEvent") {
+            } else if(args.eventType == "taskEvent") {
                 $scope.notifications.push({
                     icon: "fa fa-fw fa-check",
                     text: $sce.trustAsHtml("<b>" + args.doneBy.split(" ")[0] + "</b> completed <span class=\"badge\">Task</span> " + taskName)
@@ -97,7 +97,19 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
                 webNotification.showNotification('Task Event', {
                     body: args.doneBy.split(" ")[0] + " completed Task " + taskName,
                     icon: 'static/img/notification.png',
-                    autoClose: 4000 //auto close the notification after 2 seconds (you can manually close it via hide function)
+                    autoClose: 4000 
+                }, function () {});
+            }
+            else if (args.eventType == "addTask") {
+                $scope.notifications.push({
+                    icon: "glyphicon glyphicon-plus small-glyph",
+                    text: $sce.trustAsHtml("<span class=\"badge\">Task</span> <b>" + args.task.taskName + "</b> was added to the schedule. ")
+                });
+
+                webNotification.showNotification('Task Event', {
+                    body: args.task.taskName + " was added to the schedule.",
+                    icon: 'static/img/notification.png',
+                    autoClose: 4000 
                 }, function () {});
             }
 
@@ -107,4 +119,5 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
 
     $scope.$on('taskFeedback', addNotification);
     $scope.$on('taskEvent', addNotification);
+    $scope.$on('addTask', addNotification);
 }]);

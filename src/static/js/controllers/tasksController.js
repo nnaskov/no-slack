@@ -1,9 +1,11 @@
-app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$stateParams', '$log', 'taskService', '$location', 'ngProgressFactory', '$timeout', '$rootScope', 'cssInjector', function($scope, $http, tasks, $state, $stateParams, $log, taskService, $location, ngProgressFactory, $timeout, $rootScope, cssInjector) {
+app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$stateParams', '$log', 'taskService', '$location', 'ngProgressFactory', '$timeout', '$rootScope', 'cssInjector', '$filter', function($scope, $http, tasks, $state, $stateParams, $log, taskService, $location, ngProgressFactory, $timeout, $rootScope, cssInjector, $filter) {
     cssInjector.removeAll();  
     
     $scope.$watch('tasks', function (newValue, oldValue) {
         $rootScope.tasks = newValue;
     });
+    
+    var sourceIndex, sourceTask, targetIndex, targetTask;
     
     $scope.sortableOptions = {
         items: ".block-grid-item:not(.not-sortable)",
@@ -16,21 +18,18 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
         opacity: 0.5,
         forcePlaceholderSize: true,
         handle: ".handler",
-        update: function(e, ui) {
-            //the dragged tile
-            $log.log(ui.item.sortable.model)
+        start: function (event, ui) {
+            sourceTask = angular.element(ui.item).scope().task;
+            sourceIndex = sourceTask.order;
             
-            //https://github.com/angular-ui/ui-sortable/blob/master/API.md#uiitemsortable-api-documentation
-            //http://codepen.io/thgreasi/pen/MwQqdg
-            /*
-            position
-            Type: Object
-            The current position of the helper represented as { top, left }.
-            
-            originalPosition
-            Type: Object
-            The original position of the element represented as { top, left }
-            */
+            $("[class*=fadeInForward]").removeClass(function(index, css){
+                return (css.match (/(^|\s)fadeInForward-\S+/g) || []).join(' ');
+            });
+        },
+        stop: function(e, ui) {
+            targetIndex = ui.item.index();
+            targetTask = angular.element(ui.item).parent().children().eq(sourceIndex).scope().task;
+            $http.put('/requests/taskorder/', {oldOrder: sourceIndex}, {newOrder: targetIndex});
         }
     };
     
@@ -47,5 +46,6 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
     }
     else{
         $scope.tasks=tasks;  
+        $scope.tasks = $filter('orderBy')($scope.tasks, 'order', false);
     }
 }]);
