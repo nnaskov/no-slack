@@ -28,8 +28,17 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
         },
         beforeStop: function(e, ui) {
             targetIndex = ui.item.index();
-            targetTask = angular.element(ui.item).parent().find(".block-grid-item.ng-scope").eq(targetIndex+1).scope().task
-            $http.put('/requests/taskorder/', {oldOrder: sourceTask.order, newOrder: targetTask.order}, {});
+            if(targetIndex!=sourceIndex){
+                var target;
+                if(sourceIndex>targetIndex){
+                    target = targetIndex+1;
+                }
+                else{
+                    target = targetIndex-1;
+                }
+                targetTask = angular.element(ui.item).parent().find(".block-grid-item.ng-scope").eq(target).scope().task;
+                $http.put('/requests/taskorder/', {oldOrder: sourceTask.order, newOrder: targetTask.order}, {});
+            }
         }
     };
     

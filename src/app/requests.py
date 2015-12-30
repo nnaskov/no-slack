@@ -379,7 +379,6 @@ class TaskOrderHandler(webapp2.RequestHandler):
         oldOrderTask = models.Task.query(models.Task.order == oldOrder).fetch()[0]
 
         if newOrder > oldOrder:
-
             q = models.Task.query(models.Task.order > oldOrder, models.Task.order <= newOrder)
             tasks = q.fetch()
             for task in tasks:
@@ -391,7 +390,6 @@ class TaskOrderHandler(webapp2.RequestHandler):
         # Else the new order (index) is smaller, this means that the task was moved up the list.
         # Hence, all the tasks in between must have their order increased by 1
         else:
-
             q = models.Task.query(models.Task.order >= newOrder, models.Task.order < oldOrder)
             tasks = q.fetch()
             for task in tasks:
