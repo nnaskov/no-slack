@@ -282,8 +282,9 @@ class AnalysisHandler(webapp2.RequestHandler):
 
                     self.response.out.write(json.dumps(response))
 
-            elif charttype == "taskchart":
+            elif charttype == "tilechart":
                 if not 'taskid' in self.request.GET.keys():
+
                     #TODO return an error
                     self.response.out.write("ERROR: taskid must be present")
                     pass
@@ -301,11 +302,12 @@ class AnalysisHandler(webapp2.RequestHandler):
 
                     response['pie_elements'] = self.get_pie_elements(membersKeys, get_all_task_events_for_member, 'first_name')
 
+
+                    response = """{"chart1":{"data":[2,0,0,3,4],"labels":["user1","user2","user3"]}}"""
+
+
                     self.response.out.write(json.dumps(response))
 
-
-            elif charttype == "thumbschart":
-                self.response.out.write("""{"pie_elements":[{"name":"thumbs_up","value":4},{"name":"thumbs_down","value":1}]}""");
 
         except Exception as e:
             # TODO: Return errors.
