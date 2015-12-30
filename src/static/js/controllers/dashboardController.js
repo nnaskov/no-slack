@@ -88,6 +88,7 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
                     icon: 'static/img/notification.png',
                     autoClose: 4000 
                 }, function () {});
+                $scope.notificationsStatus = true;
 
             } else if(args.eventType == "taskEvent") {
                 $scope.notifications.push({
@@ -100,6 +101,7 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
                     icon: 'static/img/notification.png',
                     autoClose: 4000 
                 }, function () {});
+                $scope.notificationsStatus = true;
             }
             else if (args.eventType == "addTask") {
                 $scope.notifications.push({
@@ -126,8 +128,6 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
                     autoClose: 4000 
                 }, function () {});
             }
-
-            $scope.notificationsStatus = true;
         }
     };
 

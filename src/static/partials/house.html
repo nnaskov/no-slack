@@ -24,8 +24,12 @@
                 <uib-accordion-group heading="Day-to-day activity" ng-init="isOpen = true" is-open="isOpen" template-url="member-statistics.html">
                     <canvas ng-if="$parent.isOpen" id="houseChart2" class="chart chart-line" chart-data="chart2Data" chart-labels="chart2Labels" chart-series="chart2Series" chart-options="options" width="250px;" chart-legend="true"></canvas>
                 </uib-accordion-group>
+<<<<<<< HEAD
                 <!--Overall task distribution accordion-->
                 <uib-accordion-group heading="Overall task distribution" template-url="member-statistics.html">
+=======
+                <uib-accordion-group heading="Overall task distribution" ng-init="isOpen = true" is-open="isOpen" template-url="member-statistics.html">
+>>>>>>> d72f05743684a94329c02ca3b6acb5f9ab007575
                     <canvas ng-if="$parent.isOpen" id="houseChart3" class="chart chart-radar" chart-data="chart3Data" chart-labels="chart3Labels" chart-series="chart3Series" chart-options="options" width="250px;" chart-legend="true"></canvas>
                 <!--End of task distribution accordion-->
                 </uib-accordion-group>
@@ -46,13 +50,17 @@
                         <!--Display task events per tasks and Feedback on tasks-->
                         <div class="col-sm-6 col-xs-12">
                             <div class="panel-heading">
-                                <h4>Task events per task</h4></div>
-                                <canvas id="analysisUserChartTaskEventPerTask" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-options="options" width="250px;" chart-legend="true"></canvas>
+                                <h4>Task events per task</h4>
+                            </div>
+                            <canvas id="analysisUserChartTaskEventPerTask" ng-if="data.length>0" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-options="options" width="250px;" chart-legend="true"></canvas>
+                            <div ng-show="data.length==0">No data available</div>
                         </div>
                         <div class="col-sm-6 col-xs-12">
                             <div class="panel-heading">
-                                <h4>Feedback on tasks</h4></div>
-                                <canvas id="chart2" class="chart chart-bar" chart-data="dataBar" chart-labels="labelsBar" chart-series="seriesNames" chart-options="options" width="250px;" chart-legend="true" chart-colours="colorsBar"></canvas>
+                                <h4>Feedback on tasks</h4>
+                            </div>
+                            <canvas id="chart2" class="chart chart-bar" ng-if="dataBar.length>0" chart-data="dataBar" chart-labels="labelsBar" chart-series="seriesNames" chart-options="options" width="250px;" chart-legend="true" chart-colours="colorsBar"></canvas>
+                            <div ng-show="dataBar.length==0">No data available</div>
                         </div>
                         <!--End feedback on tasks accordion-->
                     </div>
