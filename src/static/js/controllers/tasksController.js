@@ -29,7 +29,6 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
         beforeStop: function(e, ui) {
             targetIndex = ui.item.index();
             targetTask = angular.element(ui.item).parent().find(".block-grid-item.ng-scope").eq(targetIndex+1).scope().task
-            
             $http.put('/requests/taskorder/', {oldOrder: sourceTask.order, newOrder: targetTask.order}, {});
         }
     };
@@ -48,6 +47,6 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
     }
     else{
         $scope.tasks=tasks;  
-        $scope.tasks = $filter('orderBy')($scope.tasks, 'order', false);
+        $scope.tasks = $filter('orderBy')($scope.tasks, '+order');
     }
 }]);

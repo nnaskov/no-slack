@@ -1,9 +1,10 @@
-app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$log', 'channelService', 'memberService', '$sce', '$rootScope', 'webNotification','$http', '$location', 'taskService', '$state', function ($scope, channelClientID, userID, $log, channelService, memberService, $sce, $rootScope, webNotification, $http, $location, taskService, $state) {
+app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$log', 'channelService', 'memberService', '$sce', '$rootScope', 'webNotification','$http', '$location', 'taskService', '$state', '$filter', function ($scope, channelClientID, userID, $log, channelService, memberService, $sce, $rootScope, webNotification, $http, $location, taskService, $state, $filter) {
     channelService.openChannel(channelClientID);
 
     $scope.refreshTasks = function(){
         taskService.getTasks().then(function(tasks){
             $scope.tasks = tasks;
+            $scope.tasks = $filter('orderBy')($scope.tasks, '+order');
             $location.search({});
         });
     }
