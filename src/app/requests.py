@@ -320,6 +320,15 @@ class PopulateHandler(webapp2.RequestHandler):
 
         models.populate_default_values(models.get_household_key_for_current_user())
         delegator.delegate_task_loop()
+
+        # Send an event to everyone that table was repopulated
+        update_json = {}
+        update_json['eventType'] = 'populatedEvent'
+        member = models.get_member_key().get()
+        update_json['doneBy'] = member.first_name + " " + member.last_name
+        update_data = json.dumps(update_json)
+        publisher.update_clients(models.get_members_list(), update_data)
+
         self.response.out.write("All the data has been populated. <br> NOTE: If you open this URL again, it will be added again.")
         # JSON object containing info variable called redirect whose values is where
         # we are going to redirect the person

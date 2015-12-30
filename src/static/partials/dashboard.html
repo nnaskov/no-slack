@@ -25,12 +25,12 @@
                     <!-- End top Row-->
                     <div class="row clearfix" style="margin-bottom:5px;">
                         <div class="col-xs-6 text-left" style="white-space: nowrap;">
-                            <span style="font-size:12px;">Currently doing: </span>
-                            <span class="badge" style="margin-bottom 2px; background: red;">{{task.assignedInitials || "?" }}</span>
+                            <span style="font-size:12px;">Last by: </span>
+                            <span class="badge" style="margin-bottom 2px; background: mediumseagreen;">{{task.completedByInitials || "?" }}</span>
                         </div>
                         <div class="col-xs-6 text-right" style="white-space: nowrap;">
-                            <span style="font-size:12px;">Last completed: </span>
-                            <span class="badge" style="margin-bottom 2px; background: green;">{{task.completedByInitials || "?" }}</span>
+                            <span style="font-size:12px;">Next by: </span>
+                            <span class="badge" style="margin-bottom 2px; background: cornflowerblue;">{{task.assignedInitials|| "?" }}</span>
                         </div>
                     </div>
                     <div class="row">
