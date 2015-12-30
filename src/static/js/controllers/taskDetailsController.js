@@ -1,5 +1,6 @@
 app.controller('TaskDetailsController', ['$scope', '$state', '$http', '$uibModalInstance', '$state', '$stateParams', '$log','taskService', 'task', 'cssInjector' , function ($scope, $state, $http, $uibModalInstance, $state, $stateParams, $log, taskService, task, cssInjector) {
     cssInjector.removeAll();
+    cssInjector.add("../static/bower_components/angular-chart.js/dist/angular-chart.min.css"); 
     
     $scope.title = task.taskName;
     

@@ -303,10 +303,11 @@ class AnalysisHandler(webapp2.RequestHandler):
                     response['pie_elements'] = self.get_pie_elements(membersKeys, get_all_task_events_for_member, 'first_name')
 
 
-                    response = """{"chart1":{"data":[2,0,0,3,4],"labels":["user1","user2","user3"]}}"""
+                    response = """{"chart1":{"data":[2,3,5],"labels":["user1","user2","user3"]}}"""
 
 
-                    self.response.out.write(json.dumps(response))
+                    #self.response.out.write(json.dumps(response))
+                    self.response.out.write(response)
 
 
         except Exception as e:
