@@ -37,7 +37,11 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
                     target = targetIndex-1;
                 }
                 targetTask = angular.element(ui.item).parent().find(".block-grid-item.ng-scope").eq(target).scope().task;
-                $http.put('/requests/taskorder/', {oldOrder: sourceTask.order, newOrder: targetTask.order}, {});
+                var newOrder = targetTask.order;
+                var oldOrder = sourceTask.order;
+                
+                $http.put('/requests/taskorder/', {oldOrder: oldOrder, newOrder: newOrder}, {});
+                $scope.$parent.refreshDashboard();
             }
         }
     };
