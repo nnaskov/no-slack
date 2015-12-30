@@ -361,43 +361,52 @@ class TaskOrderHandler(webapp2.RequestHandler):
 
         newOrder = json_data['newOrder']
         oldOrder = json_data['oldOrder']
-        # If the new order (index) is bigger, this means that the task was moved down the list.
-        # Hence, all the tasks in between must have their order decreased by 1
 
-        movedTask = models.Task.query(models.Task.order == oldOrder).fetch()[0]
+        oldOrderTask = models.Task.query(models.Task.order == oldOrder).fetch()[0]
+        oldOrderTask.order = newOrder
 
-        if newOrder > oldOrder:
+        newOrderTask = models.Task.query(models.Task.order == newOrder).fetch()[0]
+        newOrderTask.order = oldOrder
 
-            q = models.Task.query(models.Task.order > oldOrder, models.Task.order <= newOrder)
-            tasks = q.fetch()
-            for task in tasks:
-                task.order -= 1
-                task.put()
+        oldOrderTask.put()
+        newOrderTask.put()
+
+        # # If the new order (index) is bigger, this means that the task was moved down the list.
+        # # Hence, all the tasks in between must have their order decreased by 1
+        #
+        # movedTask = models.Task.query(models.Task.order == oldOrder).fetch()[0]
+        #
+        # if newOrder > oldOrder:
+        #
+        #     q = models.Task.query(models.Task.order > oldOrder, models.Task.order <= newOrder)
+        #     tasks = q.fetch()
+        #     for task in tasks:
+        #         task.order -= 1
+        #         task.put()
+        #
+        #
+        #
+        # # Else the new order (index) is smaller, this means that the task was moved up the list.
+        # # Hence, all the tasks in between must have their order increased by 1
+        # else:
+        #
+        #     q = models.Task.query(models.Task.order >= newOrder, models.Task.order < oldOrder)
+        #     tasks = q.fetch()
+        #     for task in tasks:
+        #         task.order += 1
+        #         task.put()
 
 
-
-        # Else the new order (index) is smaller, this means that the task was moved up the list.
-        # Hence, all the tasks in between must have their order increased by 1
-        else:
-
-            q = models.Task.query(models.Task.order >= newOrder, models.Task.order < oldOrder)
-            tasks = q.fetch()
-            for task in tasks:
-                task.order += 1
-                task.put()
-
-
-        movedTask.order = newOrder
 
         update_json = {}
         update_json['eventType'] = 'taskOrderChanged'
-        update_json['taskChangedName'] = movedTask.name
+        update_json['taskChangedName'] = oldOrderTask.name
         member = models.get_member_key().get()
         update_json['doneBy'] = member.first_name + " " + member.last_name
 
         update_data = json.dumps(update_json)
         publisher.update_clients(models.get_members_list(), update_data)
-        self.response.out.write("")
+        self.response.out.write(oldOrderTask.name + ": last order " + str(oldOrder) + "   new order:" + str(newOrder))
 
 
 app = webapp2.WSGIApplication([
