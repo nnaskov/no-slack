@@ -39,6 +39,7 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
         }
     });
 
+    /* Populate dashboard with Task Tiles*/
     $scope.populate = function(){
         $rootScope.progressbar.reset();
         $rootScope.progressbar.start();
@@ -52,6 +53,7 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
         $scope.avatar = "/requests/avatar/" + userID + "?decache=" + Math.random();
     }
 
+    
     var addNotification = function (ev, args) {
         if ($scope.notificationsOn === true) {
             var task;
