@@ -41,7 +41,9 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
                 var oldOrder = sourceTask.order;
                 
                 $http.put('/requests/taskorder/', {oldOrder: oldOrder, newOrder: newOrder}, {});
-                $scope.$parent.refreshDashboard();
+                $timeout(function(){
+                    $scope.$parent.refreshDashboard();
+                },2000);
             }
         }
     };
@@ -55,7 +57,9 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
     });
     
     $scope.$on('orderChangedEvent', function(ev, args){
-        $scope.$parent.refreshDashboard();
+        $timeout(function(){
+            $scope.$parent.refreshDashboard();
+        },2000);
     });
     
     if($stateParams.refresh==="true"){
