@@ -394,7 +394,24 @@ def get_all_task_events_count_for_member(member_key):
     :return: (int) - the count of all task events
     """
     q = TaskEvent.query(TaskEvent.completed_by == member_key)
+    return q.count()
 
+def get_all_task_events_count_for_member_for_date(member_key, date):
+    """
+
+    NOTE: This function relies that you cannot change your household. It must  be re written if this functionality is
+    implemented because it doesn't check if the current task_events are for the same household.
+    :param member_key: (ndb.Key) - the key for
+    :param date: (Date)
+    :return: (int) - the count of all task events
+    """
+    import datetime
+    # Make two dates from the given date at 00:00 and 24:00, so we can filter on them
+    delta = datetime.timedelta(minutes=date.minute, seconds=date.second, microseconds=date.microsecond, hours=date.hour)
+    dateAt00 = date - delta
+    dateAt24 = dateAt00 + datetime.timedelta(days=1)
+
+    q = TaskEvent.query(TaskEvent.completed_by == member_key, TaskEvent.date_completed >= dateAt00, TaskEvent.date_completed < dateAt24)
     return q.count()
 
 def get_all_members_for_household(house_key):

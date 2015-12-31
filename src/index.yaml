@@ -14,3 +14,8 @@ indexes:
   properties:
   - name: household
   - name: date_created
+
+- kind: TaskEvent
+  properties:
+  - name: completed_by
+  - name: date_completed

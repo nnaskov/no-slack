@@ -7,6 +7,7 @@ import delegator
 from google.appengine.api import channel
 import logging
 import strings
+import datetime
 
 class HouseHandler(webapp2.RequestHandler):
     '''
@@ -218,17 +219,7 @@ class AnalysisHandler(webapp2.RequestHandler):
     # self.response.out.write(json_data)
     """
 
-    def get_pie_elements(self,keys, method, name_attribute_of_key):
-        pie_elements = []
-        for key in keys:
-            numOfTasks = method(key)
-            if numOfTasks > 0:
-                element = {
-                    'name': getattr(key.get(),name_attribute_of_key ),
-                    'value': numOfTasks
-                }
-                pie_elements.append(element)
-        return pie_elements
+
 
     def get(self):
 
@@ -244,17 +235,87 @@ class AnalysisHandler(webapp2.RequestHandler):
                 #Get all members
                 membersKeys = models.get_all_members_for_household(houseKey)
 
-                response = {"house_name":houseKey.get().name }
+                # response = {"house_name":houseKey.get().name }
+                #
+                response = {}
 
-                response['pie_elements'] = self.get_pie_elements(membersKeys,models.get_all_task_events_count_for_member, 'first_name')
+                # Array of Arrays with each data point
+                data = []
+                # Array of Date Strings
+                labels = []
+                # Array of member Names
+                series = []
 
 
-                #TODO This is hacked. Should be made in production
+                # Chart 2 - Activity in the last 7 days
 
-                response = """{"chart2":{"data":[[2,0,0,3,4],[0,3,5,1,0],[1,1,2,5,1]],"labels":["10.12.2015","11.12.2015","12.12.2015","13.12.2015","14.12.2015"],"series":["user1","user2","user3"]},"chart3":{"data":[[2,0,0,3,4],[0,3,5,1,0],[1,1,2,5,1]],"labels":["Task1","Task2","Task3","Task4","Task5"],"series":["user1","user2","user3"]}}"""
+                dateBefore7Days = datetime.datetime.now() - datetime.timedelta(days=6)
 
-                #self.response.out.write(json.dumps(response))
-                self.response.out.write(response)
+                # Add the labels as weekdays
+                for j in range(5):
+                        day = dateBefore7Days + datetime.timedelta(days=j)
+                        labels.append(str(day.strftime("%a")))
+                # Add Yesterday and Today as labels
+
+                labels.append("Yesterday")
+                labels.append("Today")
+
+
+                # For 7 days
+                for i in range(len(membersKeys)):
+                    memberData = []
+                    series.append(membersKeys[i].get().first_name)
+                    for j in range(7):
+                        day = dateBefore7Days + datetime.timedelta(days=j)
+                        memberData.append(models.get_all_task_events_count_for_member_for_date(membersKeys[i],day))
+
+                    data.append(memberData)
+
+
+                response["chart2"]= {
+                    "data": data,
+                    "labels" : labels,
+                    "series": series
+                }
+
+                # Chart 3 - Overall task distribution
+
+
+                # Array of Arrays with each data point
+                data = []
+                # Array of Tasks
+                labels = []
+                # Array of member Names
+                series = []
+
+                # Get the household key
+                houseKey = models.get_household_key_for_current_user()
+
+                #Get all members
+                taskKeys = models.get_all_tasks_for_household(houseKey)
+
+
+                for taskKey in taskKeys:
+                    labels.append(taskKey.get().name)
+
+                # For 7 days
+                for i in range(len(membersKeys)):
+
+                    memberData = []
+                    series.append(membersKeys[i].get().first_name)
+                    for taskKey in taskKeys:
+                        memberData.append(models.get_all_task_events_count_for_task_and_member(taskKey, membersKeys[i]))
+
+                    data.append(memberData)
+
+
+                response["chart3"]= {
+                    "data": data,
+                    "labels" : labels,
+                    "series": series
+                }
+
+                self.response.out.write(json.dumps(response))
 
             elif charttype == "userchart":
 
@@ -271,11 +332,19 @@ class AnalysisHandler(webapp2.RequestHandler):
                     taskKeys = models.get_all_tasks_for_household(houseKey)
 
                     response = {}
+                    taskEventsPerTask = []
 
-                    def get_all_task_events_for_this_task(taskKey):
-                        return models.get_all_task_events_count_for_task_and_member(taskKey, memberKey)
+                    for taskKey in taskKeys:
+                        numOfTasks = models.get_all_task_events_count_for_task_and_member(taskKey, memberKey)
+                        if numOfTasks > 0:
+                            element = {
+                                'name': taskKey.get().name ,
+                                'value': numOfTasks
+                            }
+                            taskEventsPerTask.append(element)
 
-                    response['taskeventspertask'] = self.get_pie_elements(taskKeys, get_all_task_events_for_this_task , 'name')
+
+                    response['taskeventspertask'] = taskEventsPerTask
 
 
                     response['feedbackevents'] = models.get_all_positive_negative_labels_for_member(memberKey, taskKeys)
@@ -297,17 +366,22 @@ class AnalysisHandler(webapp2.RequestHandler):
                     membersKeys = models.get_all_members_for_household(houseKey)
                     response = {}
 
-                    def get_all_task_events_for_member(memberKey):
-                        return models.get_all_task_events_count_for_task_and_member(taskKey, memberKey)
+                    # Array of data points
+                    data = []
+                    # Array of Member names
+                    labels = []
 
-                    response['pie_elements'] = self.get_pie_elements(membersKeys, get_all_task_events_for_member, 'first_name')
+                    for i in range(len(membersKeys)):
+                        labels.append(membersKeys[i].get().first_name)
+                        data.append(models.get_all_task_events_count_for_task_and_member(taskKey, membersKeys[i]))
+
+                    response["chart1"]= {
+                        "data": data,
+                        "labels" : labels
+                    }
 
 
-                    response = """{"chart1":{"data":[2,3,5],"labels":["user1","user2","user3"]}}"""
-
-
-                    #self.response.out.write(json.dumps(response))
-                    self.response.out.write(response)
+                    self.response.out.write(json.dumps(response))
 
 
         except Exception as e:
