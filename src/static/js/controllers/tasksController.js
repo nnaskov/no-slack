@@ -37,7 +37,13 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
                     target = targetIndex-1;
                 }
                 targetTask = angular.element(ui.item).parent().find(".block-grid-item.ng-scope").eq(target).scope().task;
-                $http.put('/requests/taskorder/', {oldOrder: sourceTask.order, newOrder: targetTask.order}, {});
+                var newOrder = targetTask.order;
+                var oldOrder = sourceTask.order;
+                
+                $http.put('/requests/taskorder/', {oldOrder: oldOrder, newOrder: newOrder}, {});
+                $timeout(function(){
+                    $scope.$parent.refreshDashboard();
+                },2000);
             }
         }
     };
@@ -50,12 +56,10 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
         $scope.$parent.refreshDashboard();
     });
     
-    $scope.$on('populatedEvent', function(ev, args){
-        $scope.$parent.refreshDashboard();
-    });
-    
     $scope.$on('orderChangedEvent', function(ev, args){
-        $scope.$parent.refreshDashboard();
+        $timeout(function(){
+            $scope.$parent.refreshDashboard();
+        },2000);
     });
     
     if($stateParams.refresh==="true"){
