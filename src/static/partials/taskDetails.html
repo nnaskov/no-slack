@@ -3,6 +3,7 @@
 </div>
 <div class="modal-body">
     <canvas id="chart2" class="chart chart-pie" ng-if="chart1Data.length>0" chart-data="chart1Data" chart-labels="chart1Labels" chart-options="options" width="250px;" chart-legend="true" chart-colours="colorsBar"></canvas>
+    <div ng-show="chart1Data.length==0">No data available</div>
 </div>
 <div class="modal-footer">
     <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>

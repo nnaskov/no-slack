@@ -374,8 +374,12 @@ class AnalysisHandler(webapp2.RequestHandler):
 
 
                     for i in range(len(membersKeys)):
-                        labels.append(membersKeys[i].get().first_name)
-                        data.append(models.get_all_task_events_count_for_task_and_member(taskKey, membersKeys[i]))
+                        taskEventsCnt = models.get_all_task_events_count_for_task_and_member(taskKey, membersKeys[i])
+                        if taskEventsCnt >0:
+                            # Only add the data point if it is bigger 0
+                            labels.append(membersKeys[i].get().first_name)
+                            data.append(taskEventsCnt)
+
 
                     response["chart1"]= {
                         "data": data,

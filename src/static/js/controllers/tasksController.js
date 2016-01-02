@@ -59,7 +59,7 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
     $scope.$on('orderChangedEvent', function(ev, args){
         $timeout(function(){
             $scope.$parent.refreshDashboard();
-        },2000);
+        },1000);
     });
     
     if($stateParams.refresh==="true"){

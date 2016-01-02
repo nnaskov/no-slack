@@ -464,10 +464,11 @@ def get_all_positive_negative_labels_for_member(member_key, task_keys = None):
     positive_feedbacks = []
     negative_feedbacks = []
     labels = []
+
     # For each task we sum up all negative and positive feedbacks
     for taskKey in task_keys:
         task = taskKey.get()
-        labels.append(task.name)
+
         # Get the TaskEvents of this specific member.
         q = TaskEvent.query(TaskEvent.completed_by == member_key, TaskEvent.task_type == taskKey)
         positive = 0; negative = 0
@@ -475,8 +476,11 @@ def get_all_positive_negative_labels_for_member(member_key, task_keys = None):
         for event in q.fetch():
             positive += event.positive_feedback
             negative += event.negative_feedback
-        positive_feedbacks.append(positive)
-        negative_feedbacks.append(negative)
+
+        if positive > 0 or negative > 0:
+            positive_feedbacks.append(positive)
+            negative_feedbacks.append(negative)
+            labels.append(task.name)
 
     return {'labels': labels, 'positive':positive_feedbacks, 'negative': negative_feedbacks}
 
