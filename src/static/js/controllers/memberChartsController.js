@@ -1,12 +1,13 @@
 app.controller('MemberChartsController', ['$scope', '$http', function($scope, $http) {
     $scope.memberID = $scope.$parent.id;
-    $scope.data = [];
-    $scope.labels = [];
+
+    $scope.chart1Data = [];
+    $scope.chart1Labels = [];
     
     //For the thumbs bar chart
-    $scope.seriesNames = ['Positive', 'Negative'];
-    $scope.labelsBar = [];
-    $scope.dataBar = [];
+    $scope.chart2Series= ['Positive', 'Negative'];
+    $scope.chart2Labels= [];
+    $scope.chart2Data = [];
 
     $scope.colorsBar = ['#42A76B', '#8A0801'];
     
@@ -17,13 +18,13 @@ app.controller('MemberChartsController', ['$scope', '$http', function($scope, $h
     }).success(function (data) {
         //For the donought chart
         for(var i = 0; i < data.taskeventspertask.length; i ++){
-            $scope.data[i] = data.taskeventspertask[i].value;
-            $scope.labels[i] = data.taskeventspertask[i].name;
+            $scope.chart1Data[i] = data.taskeventspertask[i].value;
+            $scope.chart1Labels[i] = data.taskeventspertask[i].name;
         }
 
         //For the bar chart
-        $scope.labelsBar = data.feedbackevents.labels;
-        $scope.dataBar = [data.feedbackevents.positive, data.feedbackevents.negative]
+        $scope.chart2Labels = data.feedbackevents.labels;
+        $scope.chart2Data = [data.feedbackevents.positive, data.feedbackevents.negative]
     });
     
 }]);

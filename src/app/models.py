@@ -414,19 +414,6 @@ def get_all_task_events_count_for_member_for_date(member_key, date):
     q = TaskEvent.query(TaskEvent.completed_by == member_key, TaskEvent.date_completed >= dateAt00, TaskEvent.date_completed < dateAt24)
     return q.count()
 
-def get_all_members_for_household(house_key):
-    """
-    Return a list of member keys
-    :param house_key:
-    :return:
-    """
-    membersKeys = []
-    q = Member.query(Member.household == house_key)
-    for member in q.fetch():
-        membersKeys.append(member.key)
-
-    return membersKeys
-
 def get_all_tasks_for_household(house_key):
     """
     Return a list of Task keys
@@ -606,7 +593,8 @@ def get_members_list(house_key=None, limit=12, keys_only=False):
     """
     if not house_key:
         house_key = get_household_key_for_current_user()
-    q = Member.query(Member.household == house_key)
+    q = Member.query(Member.household == house_key).order(Member.first_name)
+
     return q.fetch(limit,keys_only=keys_only)
 
 

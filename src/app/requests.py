@@ -233,7 +233,7 @@ class AnalysisHandler(webapp2.RequestHandler):
                 houseKey = models.get_household_key_for_current_user()
 
                 #Get all members
-                membersKeys = models.get_all_members_for_household(houseKey)
+                membersKeys = models.get_members_list(houseKey,keys_only=True)
 
                 # response = {"house_name":houseKey.get().name }
                 #
@@ -363,13 +363,15 @@ class AnalysisHandler(webapp2.RequestHandler):
                     houseKey = models.get_household_key_for_current_user()
 
                     #Get all members
-                    membersKeys = models.get_all_members_for_household(houseKey)
+                    membersKeys = models.get_members_list(houseKey, keys_only=True)
                     response = {}
 
                     # Array of data points
                     data = []
                     # Array of Member names
                     labels = []
+
+
 
                     for i in range(len(membersKeys)):
                         labels.append(membersKeys[i].get().first_name)
