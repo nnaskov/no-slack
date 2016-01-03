@@ -251,7 +251,14 @@ class AnalysisHandler(webapp2.RequestHandler):
 
                 members = models.get_members_list(houseKey, keys_only=False)
 
+                for member in members:
+                    labels.append(member.first_name)
+                    data.append(member.total_difficulty_done_assigned)
 
+                response["chart1"]= {
+                    "data": data,
+                    "labels" : labels
+                }
 
                 # Chart 2 - Activity in the last 7 days
 
@@ -415,7 +422,6 @@ class PopulateHandler(webapp2.RequestHandler):
     def get(self):
 
         models.populate_default_values(models.get_household_key_for_current_user())
-        delegator.delegate_task_loop()
 
         # Send an event to everyone that table was repopulated
         update_json = {}

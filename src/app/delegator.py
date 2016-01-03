@@ -66,7 +66,9 @@ import models
 def delegate_task_loop():
     tasks = models.get_all_tasks()
     for task in tasks:
-        delegate_task(task)
+        if not task.assigned:
+            delegate_task(task)
+            task.put()
 
 def get_member_with_highest_feedback_score(memberList, task):
     """
@@ -95,6 +97,7 @@ def get_member_with_highest_feedback_score(memberList, task):
 def delegate_task(task):
     """
     Assign the task to the next member who should complete it, based on a smart and fair algorithm.
+    NOTE: The caller is responsible for saving the task back to the database
 
     The algorithm assigns the tasks based on the difficulty of each task and the sum of all the difficulties of all
         tasks that the member has completed.
@@ -147,7 +150,5 @@ def delegate_task(task):
     finalAsignee.put()
 
     task.assigned = finalAsignee.key
-    task.put()
-
 
     return task

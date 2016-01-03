@@ -30,26 +30,33 @@ def get_task_json(task):
         task_dict[strings.assigned] = True
 
     if task.most_recent_event:
-        task_dict[strings.everCompleted] = True
         # Get the most recent TaskEvent of this Task
         most_recent_event = task.most_recent_event.get()
 
-        # Store the feedbacks for that Event
-        task_dict[strings.positiveFeedback] = most_recent_event.positive_feedback
-        task_dict[strings.negativeFeedback] = most_recent_event.negative_feedback
+        if most_recent_event:
+            task_dict[strings.everCompleted] = True
 
-        # Store the personal feedback for that most recent TaskEvent
-        user_feedback = most_recent_event.get_user_feedback()
-        if len(user_feedback):
-            task_dict[strings.userFeedback] = user_feedback[0].was_positive
+            # Store the feedbacks for that Event
+            task_dict[strings.positiveFeedback] = most_recent_event.positive_feedback
+            task_dict[strings.negativeFeedback] = most_recent_event.negative_feedback
+
+            # Store the personal feedback for that most recent TaskEvent
+            user_feedback = most_recent_event.get_user_feedback()
+            if len(user_feedback):
+                task_dict[strings.userFeedback] = user_feedback[0].was_positive
+            else:
+                task_dict[strings.userFeedback] = None
+
+            # Store the initials of the person who completed this TaskEvent
+            task_dict[strings.completedByInitials] = most_recent_event.completed_by.get().get_initials()
+
+            # The date of the last event
+            task_dict[strings.dateLastTaskEvent] = get_compatible_date_str(most_recent_event.date_completed)
+        
         else:
-            task_dict[strings.userFeedback] = None
-
-        # Store the initials of the person who completed this TaskEvent
-        task_dict[strings.completedByInitials] = most_recent_event.completed_by.get().get_initials()
-
-        # The date of the last event
-        task_dict[strings.dateLastTaskEvent] = get_compatible_date_str(most_recent_event.date_completed)
+            # If there is no most recent event
+            # We just use the current time as the date for the last TaskEvent date.
+            task_dict[strings.dateLastTaskEvent] = get_compatible_date_str(datetime.datetime.now())
     else:
         # If there is no most recent event
         # We just use the current time as the date for the last TaskEvent date.

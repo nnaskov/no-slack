@@ -27,8 +27,6 @@ class Member(ndb.Model):
 class HouseHold(ndb.Model):
     name = ndb.StringProperty(required=True)
     owner = ndb.KeyProperty()
-    total_difficulty = ndb.IntegerProperty(default=0)
-
 
 class Task(ndb.Model):
     """
@@ -58,15 +56,12 @@ class TaskEvent(ndb.Model):
     completed_by = ndb.KeyProperty(Member)
     positive_feedback = ndb.IntegerProperty(default=0)
     negative_feedback = ndb.IntegerProperty(default=0)
-    delegated_to = ndb.KeyProperty(Member)
 
     def get_user_feedback(self):
         q = EventFeedback.query(ndb.AND(EventFeedback.user == get_member_key(),
                                         EventFeedback.task_event == self.key))
         return q.fetch(limit=1)
 
-    def user_behaved_well(self):
-        return self.delegated_to == self.completed_by
 
 
 class EventFeedback(ndb.Model):
@@ -338,7 +333,7 @@ def add_task_event_given_task_key(task_key, member_key=None):
     else:
         task = task_key.get()
         
-    new_task_event = TaskEvent(task_type=task_key, completed_by=member_key, delegated_to=task.assigned)
+    new_task_event = TaskEvent(task_type=task_key, completed_by=member_key)
     task_event_key = new_task_event.put()
 
     update_task(task, task_event_key)
@@ -510,12 +505,6 @@ def update_task(task, task_event_key):
     :return:
     """
     task.most_recent_event = task_event_key
-    task.put()
-    house = get_household_key_for_current_user().get()
-    house.total_difficulty += task.difficulty
-    house.put()
-
-
 
     # We need to handle the difficulties - increase the total difficulty for that user with the current task's
     # difficulty
@@ -533,7 +522,7 @@ def update_task(task, task_event_key):
         assigned_member.put()
 
     # Finally we need to delegate the task again
-    delegator.delegate_task(task)
+    delegator.delegate_task(task).put()
 
 
 def delete_task(id):
