@@ -1,10 +1,34 @@
 'use strict';
+/**
+ * bootstrapping the index pre-authentication module which takes the user
+ * through the registration process
+ * see templates/register.html
+ */
 var index_app = angular.module('app.index', []);
 
+/**
+ * bootstrapping the dashboard post-authentication module 
+ * which contains the rest of the app functionality
+ * see templates/dashboard.html
+ */
 var app = angular.module('app.dashboard', ['ui.router', 'ui.bootstrap', 'ui.bootstrap.tpls', 'ui.sortable', 'ngAnimate', 'ui-iconpicker', 'chart.js', 'ngSanitize', 'ngProgress', 'angularMoment', 'ngFileUpload', 'angular-web-notification', 'angular.css.injector']);
 
+/**
+ * Configure the routing of the angular app
+ * see https://github.com/angular-ui/ui-router
+ */
 app.config(function ($stateProvider, $urlRouterProvider) {
+    //if route is unrecognised redirect to #/dashboard by default
     $urlRouterProvider.otherwise("/dashboard");
+    /**
+     * Here we define all the routes:
+     * 1) dashboard is the index page where we load all the task tiles in a house
+     * 2) dashboard.loadTask is the task details page which opens a modal when you click on a task tile
+     * 3) dashboard.addTask loads a modal with the "add new task" form
+     * 4) dashboard.editTask loads a modal with the "edit task x" form
+     * 5) dashboard.house loads charts containing overall and member specific statistics
+     * 6) dashboard.settings loads a form where a user can change his settings
+     */
     $stateProvider
         .state('dashboard', {
             url: "/dashboard?refresh",
@@ -113,6 +137,9 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         });
 });
 
+/**
+ * This makes sure that progress bar will be launched every time we change a route
+ */
 app.run(function ($rootScope, ngProgressFactory) {
     $rootScope.progressbar = ngProgressFactory.createInstance();
     $rootScope.progressbar.setColor("#000");

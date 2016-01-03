@@ -1,3 +1,7 @@
+/**
+* Task Service is responsible for retrieving, updating, adding and deleting tasks
+* self-commented
+*/
 app.factory('taskService', ['$http', '$q', '$timeout', '$log', 'moment', function($http, $q, $timeout, $log, moment) {
     return {
         getTasks: function() {
