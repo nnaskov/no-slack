@@ -79,7 +79,7 @@
                         <div class="row form-group" ng-class="{ 'has-error': userForm.housename.$invalid && userForm.housename.$dirty, 'has-success': userForm.housename.$valid && userForm.housename.$dirty && !houseNameExists, 'has-warning': userForm.housename.$valid && userForm.housename.$dirty && houseNameExists}">
                             <div class="col-md-12">
                                 
-                                    <input class="sign-up-item form-control input-lg" type="text" name="housename" id="housename" placeholder="e.g. TheMayflowerBoys" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-model="housename" ng-minlength="4"  ng-maxlength="20" ng-pattern="/^([a-zA-Z]|\-|\_)*$/" validate-housename required/>
+                                    <input class="sign-up-item form-control input-lg" type="text" name="housename" id="housename" placeholder="e.g. TheMayflowerBoys" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-model="housename" ng-minlength="4"  ng-maxlength="20" ng-pattern="/^([a-zA-Z ]|\-|\_)*$/" validate-housename required/>
                             
                                 <p class="help-block" ng-show="userForm.housename.$error.minlength" >Your house name is too short</p>
                                 <p class="help-block" ng-show="userForm.housename.$error.maxlength" >Your house name is too long</p>

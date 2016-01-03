@@ -504,7 +504,7 @@ class TaskOrderHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     (r'/requests/house/?', HouseHandler),
-    (r'/requests/house/check/(\w+)/?', HouseNamesHandler),
+    (r'/requests/house/check/(.+)/?', HouseNamesHandler),
     (r'/requests/task/?', TaskHandler),
     (r'/requests/task/(\d+)/?', TaskHandler),
     (r'/requests/task/(\d+)/taskevent/?', TaskEventHandler),

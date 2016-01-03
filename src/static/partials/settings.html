@@ -42,7 +42,7 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="textinput">House Name</label>
                                         <div class="col-md-4">
-                                            <input id="houseName" name="houseName" type="text" placeholder="" class="form-control input-md" ng-model="houseName" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-minlength="4" ng-maxlength="20" ng-pattern="/^([a-zA-Z-]*)$/" validate-housename required ng-model-options="{ debounce: { 'default': 300, 'blur': 0 } }" />
+                                            <input id="houseName" name="houseName" type="text" placeholder="" class="form-control input-md" ng-model="houseName" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-minlength="4" ng-maxlength="20" ng-pattern="/^([a-zA-Z- ]*)$/" validate-housename required ng-model-options="{ debounce: { 'default': 300, 'blur': 0 } }" />
                                             <p class="help-block" ng-show="userForm.houseName.$error.minlength">Your house name is too short</p>
                                             <p class="help-block" ng-show="userForm.houseName.$error.maxlength">Your house name is too long</p>
                                             <p class="help-block" ng-show="userForm.houseName.$error.required">Your house name is required</p>
