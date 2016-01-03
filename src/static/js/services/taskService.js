@@ -52,11 +52,11 @@ app.factory('taskService', ['$http', '$q', '$timeout', '$log', 'moment', functio
             return deferred.promise;
         },
         
-        sendTask: function(taskID, nameField, iconClass, descriptionField, frequency){
+        sendTask: function(taskID, nameField, iconClass, descriptionField, frequency, difficulty){
             var deferred = $q.defer();
             $http({
                 method: (taskID ? 'PUT' : 'POST'),
-                data: {'taskID': taskID, 'name': nameField, 'iconClass': iconClass, 'description': descriptionField, 'frequency': frequency, 'difficulty': 1},
+                data: {'taskID': taskID, 'name': nameField, 'iconClass': iconClass, 'description': descriptionField, 'frequency': frequency, 'difficulty': difficulty},
                 url: '/requests/task/'
             }).success(function(response) {
                 deferred.resolve(response);

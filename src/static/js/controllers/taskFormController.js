@@ -31,6 +31,18 @@ app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalIns
     $scope.maxDate = new Date(2020, 5, 22);
     $scope.format = 'dd-MM-yyyy';
     
+    /**
+    * Default difficulty using ui.bootstrap.rating
+    */
+    $scope.difficulty = 5;
+    $scope.max = 10;
+    $scope.isReadonly = false;
+    $scope.hoveringOver = function(value) {
+        $scope.overStar = value;
+        $scope.percent = value * 10;
+    };
+    
+    
     //title of the modal
     $scope.title = "Create new task";
     
@@ -50,6 +62,7 @@ app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalIns
         $scope.descriptionField = task.description;
         $scope.iconClass = task.taskStyle;
         $scope.defaultIcon = task.taskStyle;
+        $scope.difficulty = task.difficulty;
 
         /**
         * we are automatically determining the frequency unit type by the value
@@ -104,7 +117,7 @@ app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalIns
     //this method is called when we add a new task
     $scope.ok = function () {
         var frequency = convertToHours($scope.frequencyValue,$scope.frequencyUnit);
-        taskService.sendTask(undefined, $scope.nameField, $scope.iconClass, $scope.descriptionField, frequency).then(function (response) {
+        taskService.sendTask(undefined, $scope.nameField, $scope.iconClass, $scope.descriptionField, frequency, $scope.difficulty).then(function (response) {
             $uibModalInstance.dismiss('cancel');
             $state.transitionTo('dashboard', {refresh:"true"}, { 
                 reload: true, inherit: true, notify: true
@@ -115,7 +128,7 @@ app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalIns
     //this method is called when we edit an existing task
     $scope.update = function (){
         var frequency = convertToHours($scope.frequencyValue,$scope.frequencyUnit);
-        taskService.sendTask(task.taskID, $scope.nameField, $scope.iconClass, $scope.descriptionField, frequency).then(function (response) {
+        taskService.sendTask(task.taskID, $scope.nameField, $scope.iconClass, $scope.descriptionField, frequency, $scope.difficulty).then(function (response) {
             $uibModalInstance.dismiss('cancel');
             $state.transitionTo('dashboard', {refresh:"true"}, { 
                 reload: true, inherit: true, notify: true

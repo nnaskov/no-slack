@@ -7,7 +7,7 @@
 <div class="modal-body">
     <form name="addTaskForm" class="form-horizontal">
         <fieldset>  
-            <!--Name fieldset-->         
+            <!--Name -->         
             <div class="form-group">
                 <label class="col-xs-3 col-xs-offset-1 text-left control-label" for="textinput">Name <span style="color: red">*</span></label>  
                 <div class="col-xs-7">
@@ -18,18 +18,18 @@
                         </span>
                     </div>
                 </div>
-            <!--End of Name fieldset-->   
+            <!--End of Name -->   
             </div>
-            <!--Description fieldset-->   
+            <!--Description -->   
             <div class="form-group">
                 <label class="col-xs-3 col-xs-offset-1 text-left control-label" for="textarea">Description</label>
                 <div class="col-xs-7">                     
                     <textarea ng-model="descriptionField" class="form-control boxSizingBorder" style="width:100%;" ng-maxlength="60" maxlength="60" ng-trim="false" name="textarea"></textarea>
                     <span class="help-block">How would you describe the task? {{descriptionField.length || 0}}/60</span> 
                 </div>
-            <!--End of Description fieldset-->   
+            <!--End of Description -->   
             </div>
-            <!--Frequency fieldset-->             
+            <!--Frequency -->             
             <div class="form-group">
                 <label class="col-xs-3 col-xs-offset-1 text-left control-label" for="textinput">Frequency <span style="color: red">*</span></label> 
                 <div class="col-xs-8">
@@ -49,8 +49,23 @@
                     <!--Frequency Form Validation-->
                     <p class="help-block" ng-show="addTaskForm.frequencyValue.$error.pattern">Please enter a valid number</p>
                 </div>
-            <!--End if Frequency fieldset-->      
             </div> 
+            <!--End if Frequency -->      
+            <!--Difficulty rating-->             
+            <div class="form-group">
+                <label class="col-xs-3 col-xs-offset-1 text-left control-label" for="textinput">Difficulty <span style="color: red">*</span></label> 
+                <div class="col-xs-8">
+                    <div class="form-horizontal">
+                        <div class="form-group row">
+                            <uib-rating ng-model="difficulty" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null" aria-labelledby="default-rating"></uib-rating>
+                            <span class="label" ng-class="{'label-danger': overStar>=7, 'label-warning': overStar>3 && overStar<7, 'label-success': overStar<=3}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+                        </div>
+                    </div>
+                    <!--Frequency Form Validation-->
+                    <p class="help-block" ng-show="addTaskForm.frequencyValue.$error.pattern">Please select difficulty</p>
+                </div>
+            </div> 
+            <!--End difficulty rating-->  
         </fieldset>
     </form>
 <!--Form body end-->
