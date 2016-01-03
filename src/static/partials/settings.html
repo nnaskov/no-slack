@@ -10,7 +10,7 @@
                             <!-- Form Name -->
                             <legend>User Settings of {{$parent.userName}}</legend>
                             <div class="row">
-                                <div class="col-xs-2 col-xs-offset-1 text-center">
+                                <div class="col-sm-6 col-md-2 col-md-offset-1 col-xs-12 text-center">
                                     <!--Avatar image of user-->
                                     <a class="thumbnail"><img ng-src="{{$parent.avatar}}" width="100%" style="margin-bottom:10px;" ng-hide="file">
                                         <img ngf-src="!file.$error && file" width="100%" style="margin-bottom:10px;" ng-show="file"></a>
@@ -24,7 +24,7 @@
                                     </div>
                                 </div>
                                 <!--Form validation for Tenant Name-->
-                                <div class="col-xs-9">
+                                <div class="col-sm-6 col-md-9 col-xs-12">
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="textinput">Tenant Name</label>
                                         <div class="col-md-4">
@@ -42,7 +42,7 @@
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="textinput">House Name</label>
                                         <div class="col-md-4">
-                                            <input id="houseName" name="houseName" type="text" placeholder="" class="form-control input-md" ng-model="houseName" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-minlength="4" ng-maxlength="20" ng-pattern="/^([a-zA-Z-]*)$/" validate-housename required ng-model-options="{ debounce: { 'default': 300, 'blur': 0 } }" />
+                                            <input id="houseName" name="houseName" type="text" placeholder="" class="form-control input-md" ng-model="houseName" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="off" ng-minlength="4" ng-maxlength="20" ng-pattern="/^([a-zA-Z- ]*)$/" validate-housename required ng-model-options="{ debounce: { 'default': 300, 'blur': 0 } }" />
                                             <p class="help-block" ng-show="userForm.houseName.$error.minlength">Your house name is too short</p>
                                             <p class="help-block" ng-show="userForm.houseName.$error.maxlength">Your house name is too long</p>
                                             <p class="help-block" ng-show="userForm.houseName.$error.required">Your house name is required</p>

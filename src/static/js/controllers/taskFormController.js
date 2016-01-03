@@ -32,7 +32,8 @@ app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalIns
     $scope.format = 'dd-MM-yyyy';
     
     /**
-    * Default difficulty using ui.bootstrap.rating
+    * Difficulty slider implemented using ui.bootstrap.rating
+    * Default is 5 out of 10
     */
     $scope.difficulty = 5;
     $scope.max = 10;
@@ -41,7 +42,6 @@ app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalIns
         $scope.overStar = value;
         $scope.percent = value * 10;
     };
-    
     
     //title of the modal
     $scope.title = "New Task";

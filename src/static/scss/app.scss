@@ -9,6 +9,7 @@
 body {
     webkit-tap-highlight-color: $theme-dark;
     @include sans-serif-font();
+    min-width: 375px;
 }
 
 /* Input group button control styling */
@@ -192,6 +193,7 @@ a {
  * li elements(Dashboard, User, House, Settings cog and '+')
 */
 .navbar{
+    text-align: center;
     background-image: linear-gradient(lighten($theme_primary,10%), $theme_primary);
     border-radius: 0px;
     ul:not(.dropdown-menu){

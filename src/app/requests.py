@@ -8,6 +8,7 @@ from google.appengine.api import channel
 import logging
 import strings
 import datetime
+import urllib
 
 class HouseHandler(webapp2.RequestHandler):
     '''
@@ -26,8 +27,7 @@ class HouseNamesHandler(webapp2.RequestHandler):
     '''
 
     def get(self, house_name):
-        house_exists = models.household_exists(house_name.lower())
-
+        house_exists = models.household_exists(urllib.unquote_plus(house_name).lower())
         self.response.headers['Content-Type'] = 'application/json'
 
         obj = {
@@ -200,7 +200,7 @@ class MemberHandler(webapp2.RequestHandler):
     def put(self):
         first_name = self.request.get('firstName')
         last_name = self.request.get('lastName')
-        house_name = self.request.get('houseName')
+        house_name = self.request.get('houseName').lower()
         avatar = self.request.get('avatar')
         notifications_on = self.request.get('notificationsOn')
 
@@ -517,7 +517,7 @@ class TaskOrderHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     (r'/requests/house/?', HouseHandler),
-    (r'/requests/house/check/(\w+)/?', HouseNamesHandler),
+    (r'/requests/house/check/(.+)/?', HouseNamesHandler),
     (r'/requests/task/?', TaskHandler),
     (r'/requests/task/(\d+)/?', TaskHandler),
     (r'/requests/task/(\d+)/taskevent/?', TaskEventHandler),
