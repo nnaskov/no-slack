@@ -10,7 +10,7 @@ app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalIns
     cssInjector.add("../static/bower_components/ui-iconpicker-angular/dist/styles/ui-iconpicker.min.css");
     
     //list of common tasks to be loaded in the typeahead as suggestions when the user starts typing in the task name field in the form
-    $scope.commonTasks = ['Washing up', 'Clean kitchen', 'Hoovering', 'Rinse bathroom'];
+    $scope.commonTasks = ['Washing up', 'Clean kitchen', 'Hoovering', 'Rinse bathroom', 'Do the dishes', 'Unclog the sink', 'Unclog the toilet', 'Empty the bin', 'Clear the fridge', 'Tidy up living room', 'Tidy up hallway', , 'Tidy up lounge'];
 
     //loading today's date in the datepicker field
     $scope.today = function() {
