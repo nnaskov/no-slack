@@ -33,7 +33,7 @@ app.directive('historyPopover', ['$http', '$log', function($http, $log) {
         '      popover-trigger="click" ' +
         '      popover-append-to-body="true" ' +
         '      popover-title="{{task.taskName}}: History" ' +
-        '      class="glyphicon glyphicon-list glyph-button" aria-hidden="true">' +
+        '      class="glyphicon glyphicon-list glyph-button" aria-hidden="true" uib-tooltip="Task History" tooltip-trigger="mouseenter" tooltip-placement="bottom">' +
         '</span>',
         /**
         * Retrieves the required task history and replaces it
