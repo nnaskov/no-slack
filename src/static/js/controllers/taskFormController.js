@@ -44,7 +44,7 @@ app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalIns
     
     
     //title of the modal
-    $scope.title = "Create new task";
+    $scope.title = "New Task";
     
     //loading the frequency options and the default unit
     $scope.frequencyUnitOptions = [ {name: 'hours', value: 'hours'}, {name: 'days', value: 'days'}, {name: 'weeks', value: 'weeks'}, {name: 'months', value: 'months'}]; 
