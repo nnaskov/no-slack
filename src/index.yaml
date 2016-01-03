@@ -15,6 +15,11 @@ indexes:
   - name: household
   - name: first_name
 
+- kind: Member
+  properties:
+  - name: household
+  - name: total_difficulty_done_assigned
+
 - kind: Task
   properties:
   - name: household
