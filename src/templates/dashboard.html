@@ -1,5 +1,7 @@
+<!-- Inspired by http://blacktie.co/demo/flatty/ -->
 <!doctype html>
 <html ng-app="app.dashboard">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +11,7 @@
     <title>Dashboard - No Slack</title>
     <!-- Custom Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800|Merriweather:400,300,300italic,400italic,700,700italic,900,900italic|Pacifico|Shadows+Into+Light' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="../static/bower_components/bootstrap-iconpicker/icon-fonts/font-awesome-4.2.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../static/bower_components/bootstrap-iconpicker/icon-fonts/font-awesome-4.2.0/css/font-awesome.min.css" />
     <!--No-Slack Official Fav Icon(green house)-->
     <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEACABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAA////APv8+wD2+fcAUIpgAJe5oACau6MAx9nMAGuceQCcvaYAd6SEACxyQABilnEAWZBpAFqQaQBEglYAL3RDAGGVcAArcT8ALnNCAFSMZABPiWAAbJx6ADF1RQB4pIUALXJBANPi1wBFglcA/P38AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABcSEhISEhISEhcAAAAAAAASCxMSEhISEwsSAAAAAAAAEgUBDRISDQEFEgAAAAAAABIFAQ4SEg4BBRIAAAAAAAASBQEUEhIUAQUSAAAAAAkREgUBGgcHGgEFEhEJAAASEhcGAQEBAQEBBhcSEgAAEhkDHAEBAQEBARwDGRIAABgSGxwBAQEBAQEcGxIKAAAAFhIEHAEBAQEcBBIIAAAAAAASEhUcAQEcBBIMAAAAAAAAEhISDwICGxIMAAAAAAAAABISEBIZGRIIAAAAAAAAAAASEgAYEhIKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AADgBwAA4AcAAOAHAADgBwAA4AcAAIABAACAAQAAgAEAAIABAADAAwAA4AcAAOAPAADgHwAA5D8AAP//AAA=" rel="icon" type="image/x-icon" />
 
@@ -23,11 +25,12 @@
 </head>
 
 <!--Main dashboard page-->
-<body ng-controller="DashboardController">    
+
+<body ng-controller="DashboardController">
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed"  ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <button type="button" class="navbar-toggle collapsed" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -35,10 +38,10 @@
                 </button>
                 <a class="navbar-brand" ui-sref="dashboard"><b>No Slack</b></a>
             </div>
-            
+
             <!-- Dashboard, Name, Housing, Settings and '+ populate' navbar-->
-            <div id="navbar" class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
-                <ul class="nav navbar-nav navbar-right">
+            <div id="navbar" class="collapse navbar-collapse" ng-class="{in: navCollapsed}">
+                <ul class="nav navbar-nav navbar-right" ng-click="navCollapsed = false">
                     <li><a ui-sref="dashboard">Dashboard</a></li>
                     <li class="dropdown" uib-dropdown is-open="notificationsStatus">
                         <a href="#" class="dropdown-toggle" uib-dropdown-toggle data-toggle="dropdown" role="button" aria-expanded="false">
@@ -54,7 +57,7 @@
                     <li><a ui-sref="settings"><span class="glyphicon glyphicon-cog small-glyph" aria-hidden="true"></span></a></li>
                     <li ng-click="populate()"><a class="page-scroll" href="javascript:void(0);"><span class="glyphicon glyphicon-plus small-glyph" aria-hidden="true"></span></a></li>
                 </ul>
-            <!-- End of Dashboard, Name, Housing, Settings and '+ populate' navbar-->    
+                <!-- End of Dashboard, Name, Housing, Settings and '+ populate' navbar-->
             </div>
 
         </div>
@@ -62,7 +65,7 @@
     <div class="container-fluid tile-container">
         <div class="mainContent" ui-view></div>
     </div>
-    
+
     <script src="../static/bower_components/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="../static/bower_components/jquery-ui/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="../static/bower_components/jqueryui-touch-punch/jquery.ui.touch-punch.min.js" type="text/javascript" charset="utf-8"></script>
@@ -83,7 +86,8 @@
     <!-- forked ui-iconpicker script fix DON'T CHANGE LINE BELOW -->
     <script type="text/javascript" src="//rawgithub.com/bgospodinov/ui-iconpicker-angular/master/dist/scripts/ui-iconpicker.js"></script>
 
-    <script src="../static/bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
+    <script src="../static/bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+    <!-- for no html5 browsers support -->
     <script src="../static/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 
     <script type="text/javascript" src="../static/bower_components/HTML5-Desktop-Notifications2/desktop-notify.js"></script>
@@ -118,5 +122,6 @@
 
     <!-- Directives -->
     <script src="../static/js/directives/historyPopover.js"></script>
-</body>   
+</body>
+
 </html>
