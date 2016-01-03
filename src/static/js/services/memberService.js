@@ -1,3 +1,7 @@
+/**
+* The Member service retrieves basic house data for each user
+* including house name, flatmates name, profile picture etc
+*/
 app.factory('memberService', function ($http, $q, $timeout) {
     return {
         getHouseData: function () {
