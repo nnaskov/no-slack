@@ -126,7 +126,6 @@ class TaskEventHandler(webapp2.RequestHandler):
         task_id = int(task_id)
         new_task_event = models.add_task_event(task_id).get()
         task = models.get_task(task_id)
-        task = delegator.delegate_task(task)
 
         obj = jsons.get_task_json(task)
 
@@ -239,6 +238,9 @@ class AnalysisHandler(webapp2.RequestHandler):
                 #
                 response = {}
 
+
+                # Chart 1 - Total amount of Difficulty Done and Assigned (TDDA) for each member
+
                 # Array of Arrays with each data point
                 data = []
                 # Array of Date Strings
@@ -247,7 +249,18 @@ class AnalysisHandler(webapp2.RequestHandler):
                 series = []
 
 
+                members = models.get_members_list(houseKey, keys_only=False)
+
+
+
                 # Chart 2 - Activity in the last 7 days
+
+                 # Array of Arrays with each data point
+                data = []
+                # Array of Date Strings
+                labels = []
+                # Array of member Names
+                series = []
 
                 dateBefore7Days = datetime.datetime.now() - datetime.timedelta(days=6)
 

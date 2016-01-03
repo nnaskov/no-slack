@@ -4,12 +4,15 @@ import publisher
 import random
 import threading
 import logging
+import delegator
 
 class Member(ndb.Model):
     first_name = ndb.StringProperty()
     last_name = ndb.StringProperty()
     household = ndb.KeyProperty()
-    difficulty_done = ndb.IntegerProperty(default=0)
+    # difficulty_done - the sum of the difficulties of all completed tasks by the user + the difficulties of all
+    #                   assigned tasks
+    total_difficulty_done_assigned = ndb.IntegerProperty(default=0)
     difficulty_assigned = ndb.IntegerProperty(default=0)
     channel_token = ndb.StringProperty()
     avatar = ndb.BlobProperty()
@@ -45,7 +48,8 @@ class Task(ndb.Model):
     order = ndb.IntegerProperty()
 
     def get_delagated_initials(self):
-        return self.assigned.get().get_initials()
+        if self.assigned:
+            return self.assigned.get().get_initials()
 
 
 class TaskEvent(ndb.Model):
@@ -88,19 +92,19 @@ def add_default_tasks(house_key):
     
     """
     taskKeys = []
-    taskKeys.append(add_task_given_key(house_key=house_key, task_name="Washing up", frequency=2, difficulty=1,
+    taskKeys.append(add_task_given_key(house_key=house_key, task_name="Washing up", frequency=2, difficulty=3,
                        description="Please clean the dirty plates and dishes",  style="fa fa-database"))
 
-    taskKeys.append(add_task_given_key(house_key=house_key, task_name="Clean kitchen", frequency=2, difficulty=1,
+    taskKeys.append(add_task_given_key(house_key=house_key, task_name="Clean kitchen", frequency=2, difficulty=6,
                        description="Floor mop, dishes, fridge, dust drawers.",  style="fa fa-cutlery"))
 
-    taskKeys.append(add_task_given_key(house_key=house_key, task_name="Rinse bathroom", frequency=2, difficulty=1,
+    taskKeys.append(add_task_given_key(house_key=house_key, task_name="Rinse bathroom", frequency=2, difficulty=8,
                        description="Clean the bath, the toilet and the sink",  style="glyphicon glyphicon-tint"))
 
-    taskKeys.append(add_task_given_key(house_key=house_key, task_name="Hoover hallway", frequency=2, difficulty=1,
+    taskKeys.append(add_task_given_key(house_key=house_key, task_name="Hoover hallway", frequency=2, difficulty=2,
                        description="The hallway + the stairs",  style="fa fa-sign-in"))
 
-    taskKeys.append(add_task_given_key(house_key=house_key, task_name="Tidy lounge", frequency=10, difficulty=1,
+    taskKeys.append(add_task_given_key(house_key=house_key, task_name="Tidy lounge", frequency=10, difficulty=4,
                        description="Dust, clean windows, remove toys", style="fa fa-users"))
 
     taskKeys.append(add_task_given_key(house_key=house_key, task_name="Take the trash", frequency=10, difficulty=1,
@@ -177,10 +181,14 @@ def delete_all_default_values():
     qTaskEvents = TaskEvent.query()
     qEventFeedback = EventFeedback.query()
 
+    members = get_members_list()
+    for member in members:
+        member.total_difficulty_done_assigned = 0
+        member.put()
+
     allEntities = [qTasks, qTaskEvents, qEventFeedback]
     for qr in allEntities:
         for entitiy in qr.iter():
-            print(entitiy)
             entitiy.key.delete()
 
 def populate_default_values(house_key):
@@ -189,6 +197,7 @@ def populate_default_values(house_key):
 
     :return:
     """
+
     delete_all_default_values()
 
     # Create members in the database to the same house
@@ -199,6 +208,9 @@ def populate_default_values(house_key):
 
     # Add default tasks
     task_keys = add_default_tasks(house_key)
+
+    # Assign the tasks
+    delegator.delegate_task_loop()
 
     # Add task events
     add_default_task_events_and_feedback(member_keys,task_keys)
@@ -303,7 +315,7 @@ def add_task(task_name, difficulty, description=None, frequency=None, style=None
 
 def add_task_event(task_id,  member_key=None):
     """
-    Add TaskEvent given Task id
+    Add TaskEvent given Task id. Note this automatically delegates the task
 
     :param task_id:
     :return: ndb.Key for the new TaskEvent
@@ -315,7 +327,7 @@ def add_task_event(task_id,  member_key=None):
 
 def add_task_event_given_task_key(task_key, member_key=None):
     """
-    Add TaskEvent given ndb.Key of a Task
+    Add TaskEvent given ndb.Key of a Task. Note this automatically delegates the task
 
     :param task_key: ndb.Key of a Task
     :return: ndb.Key for the new TaskEvent
@@ -469,13 +481,7 @@ def get_all_positive_negative_labels_for_member(member_key, task_keys = None):
     for taskKey in task_keys:
         task = taskKey.get()
 
-        # Get the TaskEvents of this specific member.
-        q = TaskEvent.query(TaskEvent.completed_by == member_key, TaskEvent.task_type == taskKey)
-        positive = 0; negative = 0
-        # Sum up all positive and negative feedbacks
-        for event in q.fetch():
-            positive += event.positive_feedback
-            negative += event.negative_feedback
+        positive, negative = get_positive_negative_feedback(member_key,taskKey)
 
         if positive > 0 or negative > 0:
             positive_feedbacks.append(positive)
@@ -484,9 +490,20 @@ def get_all_positive_negative_labels_for_member(member_key, task_keys = None):
 
     return {'labels': labels, 'positive':positive_feedbacks, 'negative': negative_feedbacks}
 
+def get_positive_negative_feedback(member_key, taskKey):
+    # Get the TaskEvents of this specific member.
+    q = TaskEvent.query(TaskEvent.completed_by == member_key, TaskEvent.task_type == taskKey)
+    positive = 0; negative = 0
+    # Sum up all positive and negative feedbacks
+    for event in q.fetch():
+        positive += event.positive_feedback
+        negative += event.negative_feedback
+
+    return (positive, negative)
+
 def update_task(task, task_event_key):
     """
-    Add task event to the Task
+    Add task event for the Task
 
     :param task_key:
     :param task_event_key:
@@ -497,13 +514,26 @@ def update_task(task, task_event_key):
     house = get_household_key_for_current_user().get()
     house.total_difficulty += task.difficulty
     house.put()
+
+
+
+    # We need to handle the difficulties - increase the total difficulty for that user with the current task's
+    # difficulty
     member_key = get_member_key()
     member = member_key.get()
-    member.difficulty_done += task.difficulty
-    if task.assigned == member_key:
-        member.difficulty_assigned -= task.difficulty
+    member.total_difficulty_done_assigned += task.difficulty
     member.put()
 
+    # Also, we need to subtract the current task's difficulty from the total of it's assignee, since we have already
+    # added it, when we assigned it to him
+
+    if task.assigned:
+        assigned_member = task.assigned.get()
+        assigned_member.total_difficulty_done_assigned -= task.difficulty
+        assigned_member.put()
+
+    # Finally we need to delegate the task again
+    delegator.delegate_task(task)
 
 
 def delete_task(id):
@@ -587,7 +617,7 @@ def update_house(name):
     return house
 
 
-def get_members_list(house_key=None, limit=12, keys_only=False):
+def get_members_list(house_key=None, limit=12, keys_only=False, orderBy=Member.first_name):
     """
     Returns a list of ndb.Key for each member in the house. If no house_key is specified,
     uses the current logged in user
@@ -597,7 +627,7 @@ def get_members_list(house_key=None, limit=12, keys_only=False):
     """
     if not house_key:
         house_key = get_household_key_for_current_user()
-    q = Member.query(Member.household == house_key).order(Member.first_name)
+    q = Member.query(Member.household == house_key).order(orderBy)
 
     return q.fetch(limit,keys_only=keys_only)
 
