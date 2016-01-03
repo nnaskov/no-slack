@@ -1,3 +1,7 @@
+/**
+* The Member Charts Controller retrieves and displays the data on the stats page for the
+* per user Task Completed and Feedback received charts
+**/
 app.controller('MemberChartsController', ['$scope', '$http', function($scope, $http) {
     $scope.memberID = $scope.$parent.id;
 
@@ -11,6 +15,7 @@ app.controller('MemberChartsController', ['$scope', '$http', function($scope, $h
 
     $scope.colorsBar = ['#42A76B', '#8A0801'];
     
+    //retrieved the necessary data
     $http({
         method: "GET",
         params: {charttype: "userchart", userid: $scope.memberID},
@@ -21,11 +26,9 @@ app.controller('MemberChartsController', ['$scope', '$http', function($scope, $h
             $scope.chart1Data[i] = data.taskeventspertask[i].value;
             $scope.chart1Labels[i] = data.taskeventspertask[i].name;
         }
-
         //For the bar chart
         $scope.chart2Labels = data.feedbackevents.labels;
         $scope.chart2Data = [data.feedbackevents.positive, data.feedbackevents.negative]
     });
-    
 }]);
 
