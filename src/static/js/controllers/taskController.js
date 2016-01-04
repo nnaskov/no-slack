@@ -46,7 +46,7 @@ app.controller('TaskController', ['$scope', '$http', '$element', 'taskService', 
         $scope.task.completedByInitials = response.completedByInitials;
 
         $scope.task.everCompleted = true;
-    }
+    };
     
     /**
     * Listens to the task feedback event broadcasted from the root scope

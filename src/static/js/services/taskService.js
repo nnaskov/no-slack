@@ -91,5 +91,5 @@ app.factory('taskService', ['$http', '$q', '$timeout', '$log', 'moment', functio
             });
             return deferred.promise;
         }
-    }
+    };
 }]);

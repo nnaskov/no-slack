@@ -52,7 +52,7 @@ def get_task_json(task):
 
             # The date of the last event
             task_dict[strings.dateLastTaskEvent] = get_compatible_date_str(most_recent_event.date_completed)
-        
+
         else:
             # If there is no most recent event
             # We just use the current time as the date for the last TaskEvent date.
