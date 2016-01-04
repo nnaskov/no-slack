@@ -19,7 +19,8 @@ class HomePageHandler(webapp2.RequestHandler):
             if user_model:
                 template_values = {
                     'token' : user_model.channel_token,
-                    'userId' : models.get_member_id()
+                    'userId' : models.get_member_id(),
+                    'logout' : users.create_logout_url('/')
                 }
                 template = JINJA_ENVIRONMENT.get_template('dashboard.html')
                 self.response.out.write(template.render(template_values))
