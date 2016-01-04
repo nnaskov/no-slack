@@ -152,7 +152,7 @@ def add_default_task_events_and_feedback(member_keys, task_keys):
             task_event = task_event_key.get()
             last_date = last_date + datetime.timedelta(hours=random.randint(4, 11), minutes=random.randint(0, 60))
             task_event.date_completed = last_date
-            task_event.put()
+            task_event.put_async()
 
             # Add task feedback
             # Get a random # of persons
@@ -336,7 +336,7 @@ def add_task_event_given_task_key(task_key, member_key=None):
     new_task_event = TaskEvent(task_type=task_key, completed_by=member_key)
     task_event_key = new_task_event.put()
 
-    update_task(task, task_event_key)
+    update_task(task, task_event_key, member_key)
     return task_event_key
 
 def update_task_event_feedback(task_id, was_positive, member_key=None):
@@ -496,33 +496,36 @@ def get_positive_negative_feedback(member_key, taskKey):
 
     return (positive, negative)
 
-def update_task(task, task_event_key):
+def update_task(task, task_event_key, member_key):
     """
     Add task event for the Task
 
     :param task_key:
     :param task_event_key:
+    :param member_key: the member that completed this task.
     :return:
     """
     task.most_recent_event = task_event_key
 
-    # We need to handle the difficulties - increase the total difficulty for that user with the current task's
-    # difficulty
-    member_key = get_member_key()
-    member = member_key.get()
-    member.total_difficulty_done_assigned += task.difficulty
-    member.put()
 
-    # Also, we need to subtract the current task's difficulty from the total of it's assignee, since we have already
-    # added it, when we assigned it to him
+    if task.assigned != member_key:
+        # If the assignee is not the same we need to handle the difficulties - increase the total difficulty for that
+        # user with the current task's difficulty
+        member = member_key.get()
+        member.total_difficulty_done_assigned += task.difficulty
+        member.put()
 
-    if task.assigned:
-        assigned_member = task.assigned.get()
-        assigned_member.total_difficulty_done_assigned -= task.difficulty
-        assigned_member.put()
+        # Also, we need to subtract the current task's difficulty from the total of it's assignee, since we have already
+        # added it, when we assigned it to him
+
+        if task.assigned:
+            assigned_member = task.assigned.get()
+            assigned_member.total_difficulty_done_assigned -= task.difficulty
+            assigned_member.put()
+        # Else we do nothing because the assigned difficulty is already added
 
     # Finally we need to delegate the task again
-    delegator.delegate_task_loop()
+    delegator.delegate_task_loop(task)
 
 
 def delete_task(id):
