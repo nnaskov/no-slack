@@ -24,7 +24,7 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
                 angular.element('#backdrop').remove();
             }, 0);
         });
-    }
+    };
 
     /**
      * refreshes the entire dashboard route (see app.js; state: dashboard) forcing the controller to refresh
@@ -40,7 +40,7 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
             inherit: true,
             notify: true
         });
-    }
+    };
 
     /**
      * Default values (placeholders) to be printed in the dashboard layout navbar before the actual data is loaded from the database
@@ -74,8 +74,8 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
      * It also loads his current settings details s.a. whether notifications are switched on or off
      */
     var houseData = memberService.getHouseData().then(function (data) {
-        if (data['users'][userID] !== undefined) {
-            var userData = data['users'][userID];
+        if (data.users[userID] !== undefined) {
+            var userData = data.users[userID];
             var firstName = userData.firstName;
             var lastName = userData.lastName;
             var initials = userData.initials;
@@ -84,7 +84,7 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
             $scope.initials = initials;
             $scope.houseName = data.name;
             $scope.avatar = "/requests/avatar/" + userID;
-            $scope.notificationsOn = ((notificationsOn != undefined) ? notificationsOn : true);
+            $scope.notificationsOn = ((notificationsOn !== undefined) ? notificationsOn : true);
         }
     });
 
@@ -101,7 +101,7 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
             $rootScope.progressbar.complete();
             $scope.refreshDashboard();
         });
-    }
+    };
 
     /**
      * This method generated decached image paths to the avatars of users
@@ -113,7 +113,7 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
      */
     $scope.refreshAvatar = function () {
         $scope.avatar = "/requests/avatar/" + userID + "?decache=" + Math.random();
-    }
+    };
 
     /**
      * This processes events received by the rootscope from the channel service
@@ -134,7 +134,7 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
 
             //try to retrieve the task name of the task in question or if you fail just return its ID
             var taskName;
-            if (task != undefined) {
+            if (task !== undefined) {
                 taskName = task.taskName;
             } else {
                 taskName = args.taskId;
@@ -148,7 +148,7 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
                 
                 //based on that decide what kind of an icon and an action verb you are going to use in the notification message
                 var action, icon;
-                if (isPositive == true) {
+                if (isPositive === true) {
                     action = "liked";
                     icon = "fa-thumbs-o-up";
                 } else {

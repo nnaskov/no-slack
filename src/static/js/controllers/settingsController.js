@@ -163,5 +163,5 @@ app.controller('SettingsController', ['$scope', '$http', 'Upload', '$timeout', f
         $scope.tenantName = $scope.originalTenantName;
         $scope.houseName = $scope.originalHouseName;
         $scope.notifications = "true";
-    }
+    };
 }]);

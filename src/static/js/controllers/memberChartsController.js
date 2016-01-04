@@ -28,7 +28,7 @@ app.controller('MemberChartsController', ['$scope', '$http', function($scope, $h
         }
         //For the bar chart
         $scope.chart2Labels = data.feedbackevents.labels;
-        $scope.chart2Data = [data.feedbackevents.positive, data.feedbackevents.negative]
+        $scope.chart2Data = [data.feedbackevents.positive, data.feedbackevents.negative];
     });
 }]);
 

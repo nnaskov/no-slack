@@ -26,7 +26,7 @@ app.factory('channelService', ['$http', '$rootScope', '$timeout', '$log', functi
     service.onOpened = function () {
         isConnectionAlive = true;
         $log.log("Connected to Channel API");
-    }
+    };
     
     /**
     * When a message is received from the server it is broadcasted from the root scope
@@ -36,7 +36,7 @@ app.factory('channelService', ['$http', '$rootScope', '$timeout', '$log', functi
         var cleanMessage = JSON.parse(message.data);
         $rootScope.$broadcast(cleanMessage.eventType, cleanMessage);
         $rootScope.$apply();
-    }
+    };
 
     /**
     * This is the bootstrap function of the service. It binds all the Channel API events
@@ -86,11 +86,11 @@ app.factory('channelService', ['$http', '$rootScope', '$timeout', '$log', functi
             .error(function (data, status) {
                 $log.log('Can not retrieve a clientId');
                 if (status != 403 && retryCount <= MAX_RETRY_COUNT) {
-                    $log.log('Retrying to obtain a client id')
+                    $log.log('Retrying to obtain a client id');
                     service.obtainNewToken(true);
                 }
-            })
-    }
+            });
+    };
 
     return service;
 }]);

@@ -55,7 +55,7 @@ app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalIns
     * we are editing the respective task instead of adding a new one
     * here we change the template accordingly
     */
-    if(task != null){
+    if(task !== null){
         $scope.title = "Edit task "+task.taskName;
         $scope.edit = true;
         $scope.nameField = task.taskName;
@@ -93,7 +93,7 @@ app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalIns
     
     //converts the frequency input from the form from days/months/weeks/days to hours
     var convertToHours = function(value, type){
-        var frequency = undefined;
+        var frequency;
         switch(type) {
             case 'hours':
                 frequency = value;
@@ -112,7 +112,7 @@ app.controller('TaskFormController', ['$scope', '$state', '$http', '$uibModalIns
                 break;
         }
         return frequency;
-    }
+    };
     
     //this method is called when we add a new task
     $scope.ok = function () {
