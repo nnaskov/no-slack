@@ -90,7 +90,6 @@ app.controller('TasksController', ['$scope', '$http', 'tasks', '$state', '$state
     
     if($stateParams.refresh==="true"){
         $scope.$parent.refreshTasks();
-        $scope.$parent.notificationsStatus=true;
     }
     else{
         $scope.tasks=tasks;  

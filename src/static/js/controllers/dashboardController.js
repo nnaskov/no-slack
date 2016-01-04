@@ -3,7 +3,7 @@
  * templates/dashboard.html
  * It makes sure the dashboard of the app is personalised according to the user who logged in into it
  **/
-app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$log', 'channelService', 'memberService', '$sce', '$rootScope', 'webNotification', '$http', '$location', 'taskService', '$state', '$filter', function ($scope, channelClientID, userID, $log, channelService, memberService, $sce, $rootScope, webNotification, $http, $location, taskService, $state, $filter) {
+app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$log', 'channelService', 'memberService', '$sce', '$rootScope', 'webNotification', '$http', '$location', 'taskService', '$state', '$filter', '$timeout', function ($scope, channelClientID, userID, $log, channelService, memberService, $sce, $rootScope, webNotification, $http, $location, taskService, $state, $filter, $timeout) {
     /**
      * the Channel API service opens a new socket and obtains a new token if necessary
      **/
@@ -18,6 +18,9 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
             $scope.tasks = tasks;
             $scope.tasks = $filter('orderBy')($scope.tasks, '+order');
             $location.search({});
+            $timeout(function() {
+                $scope.notificationsStatus = true;
+            }, 0);
         });
     }
 

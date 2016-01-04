@@ -1,5 +1,7 @@
+/* using bourbon mixins for cross-browser compatibility */
 @import "bourbon";
 
+/* only using the boostrap libraries we need */
 @import "bootstrap/variables", "bootstrap/mixins", "bootstrap/normalize", "bootstrap/print", "bootstrap/glyphicons", "bootstrap/scaffolding", "bootstrap/type", "bootstrap/code", "bootstrap/grid", "bootstrap/forms", "bootstrap/buttons", "bootstrap/component-animations", "bootstrap/dropdowns", "bootstrap/button-groups", "bootstrap/input-groups", "bootstrap/navs", "bootstrap/navbar", "bootstrap/labels", "bootstrap/badges", "bootstrap/thumbnails","bootstrap/alerts", "bootstrap/panels", "bootstrap/close", "bootstrap/modals", "bootstrap/tooltip", "bootstrap/popovers", "bootstrap/utilities", "bootstrap/responsive-utilities";
 
 @import "mixins";
