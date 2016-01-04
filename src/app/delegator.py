@@ -63,12 +63,21 @@ import models
 #     for member in members:
 #         member.put()
 
-def delegate_task_loop():
-    tasks = models.get_all_tasks()
-    for task in tasks:
-        if not task.assigned:
-            delegate_task(task)
-            task.put()
+def delegate_task_loop(specificTask = None):
+    memberList = models.get_members_list(orderBy=models.Member.total_difficulty_done_assigned)
+
+    if specificTask:
+        delegate_task(specificTask, memberList)
+        specificTask.put()
+    else:
+        tasks = models.get_all_tasks()
+        for task in tasks:
+            if not task.assigned:
+                delegate_task(task, memberList)
+                task.put()
+
+    for member in memberList:
+        member.put()
 
 def get_member_with_highest_feedback_score(memberList, task):
     """
@@ -94,10 +103,10 @@ def get_member_with_highest_feedback_score(memberList, task):
     #   feedbackscore
     return sorted(membersWithScore)[0][1]
 
-def delegate_task(task):
+def delegate_task(task, membersList):
     """
     Assign the task to the next member who should complete it, based on a smart and fair algorithm.
-    NOTE: The caller is responsible for saving the task back to the database
+    NOTE: The caller is responsible for saving the task and the membersList back to the database
 
     The algorithm assigns the tasks based on the difficulty of each task and the sum of all the difficulties of all
         tasks that the member has completed.
@@ -121,7 +130,7 @@ def delegate_task(task):
 
     # Fairness of the algorithm
     # members are sorted by TDDA in ascending order
-    members = models.get_members_list(orderBy=models.Member.total_difficulty_done_assigned)
+    members = sorted(membersList, key=lambda member: member.total_difficulty_done_assigned)
 
 
     # Smartness of the algorithm
@@ -147,8 +156,6 @@ def delegate_task(task):
     # We have add the difficulty of the current task to the TDDA of the asignee
 
     finalAsignee.total_difficulty_done_assigned += task.difficulty
-    finalAsignee.put()
-
     task.assigned = finalAsignee.key
 
     return task

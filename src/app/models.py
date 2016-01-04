@@ -522,7 +522,7 @@ def update_task(task, task_event_key):
         assigned_member.put()
 
     # Finally we need to delegate the task again
-    delegator.delegate_task(task).put()
+    delegator.delegate_task_loop()
 
 
 def delete_task(id):
