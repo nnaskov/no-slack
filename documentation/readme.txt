@@ -21,7 +21,7 @@ The files have been submitted in the format:
 │   ├── javascript
 │   ├── misc
 │   └── python
-└── readme
+└── readme.txt
 
 Where each folder javascript, misc and python are representative of the root directory
 of the application, with only the files that should be in relevant SourceA/ SourceB/ 

@@ -24,9 +24,6 @@ handlers:
 - url: /static
   static_dir: static
 
-- url: /tests/?
-  script: main.app
-
 - url: /.*
   script: main.app
 

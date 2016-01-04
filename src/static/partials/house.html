@@ -21,7 +21,7 @@
         <!--Right-most accordion statistics-->
         <div class="col-xs-12 col-sm-6 col-sm-push-6 col-md-4 col-md-push-8" ng-controller="HouseChartsController">
             <uib-accordion close-others="false">
-                <uib-accordion-group heading="TDDA per user" ng-init="isOpen = true" is-open="isOpen" template-url="member-statistics.html">
+                <uib-accordion-group heading="No Slack Score" ng-init="isOpen = true" is-open="isOpen" template-url="member-statistics.html">
                     <canvas ng-if="$parent.isOpen" id="houseChart1" class="chart chart-polar-area" chart-data="chart1Data" chart-labels="chart1Labels" chart-options="options" width="250px;" chart-legend="true"></canvas>
                 </uib-accordion-group>
                 <uib-accordion-group heading="Day-to-day Activity" ng-init="isOpen = true" is-open="isOpen" template-url="member-statistics.html">
