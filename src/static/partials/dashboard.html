@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <!-- End top Row-->
-                    <!-- progress bar for task completion -->
+                    <!-- progress bar for task completion 
                     <div class="row clearfix" style="min-height:25px;">
                         <div class="col-xs-12">
                             <uib-progressbar ng-if="task.remaining>0" class="progress-striped active" max="task.total" value="task.remaining" type="{{task.progressType}}">
@@ -36,9 +36,9 @@
                             </uib-progressbar>
                         </div>
                     </div>
-                    <!-- end of progress bar for task completion -->
+                    end of progress bar for task completion -->
                     <!--Middle Row (Completed and to be completed by elements)-->
-                    <div class="row clearfix" style="margin-bottom:10px;">
+                    <div class="row clearfix" style="margin-bottom:5px;">
                         <div class="col-xs-6 text-left" style="white-space: nowrap;">
                             <span style="font-size:12px;">Last by: </span>
                             <span class="badge" style="margin-bottom 2px; background: mediumseagreen;" uib-tooltip="Who was the last to complete the task?" tooltip-trigger="mouseenter" tooltip-placement="bottom" tooltip-append-to-body="true">{{task.completedByInitials || "?" }}</span>
