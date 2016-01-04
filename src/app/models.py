@@ -1,9 +1,6 @@
 from google.appengine.ext import ndb
 from google.appengine.api import users
-import publisher
 import random
-import threading
-import logging
 import delegator
 
 class Member(ndb.Model):
