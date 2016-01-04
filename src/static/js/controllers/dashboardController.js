@@ -8,7 +8,7 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
      * the Channel API service opens a new socket and obtains a new token if necessary
      **/
     channelService.openChannel(channelClientID);
-
+    
     /**
      * This method refreshes the data presented in task tiles on the main page without refreshing
      * the page and orders them by their priority (called "order" in this case)
@@ -20,6 +20,8 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
             $location.search({});
             $timeout(function() {
                 $scope.notificationsStatus = true;
+                //remove repopulation backdrop if active
+                angular.element('#backdrop').remove();
             }, 0);
         });
     }
@@ -93,6 +95,8 @@ app.controller('DashboardController', ['$scope', 'channelClientID', 'userID', '$
     $scope.populate = function () {
         $rootScope.progressbar.reset();
         $rootScope.progressbar.start();
+        angular.element('<div id="backdrop"></div>').appendTo(document.body);
+        angular.element("#backdrop").append("<div class=\"alert alert-info\" role=\"alert\"><b>Tasks are repopulated.</b> Please wait...</div>");
         $http.get('/requests/populate', {}).then(function () {
             $rootScope.progressbar.complete();
             $scope.refreshDashboard();
