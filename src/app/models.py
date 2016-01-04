@@ -2,6 +2,7 @@ from google.appengine.ext import ndb
 from google.appengine.api import users
 import random
 import delegator
+import datetime
 
 class Member(ndb.Model):
     first_name = ndb.StringProperty()
@@ -54,8 +55,10 @@ class TaskEvent(ndb.Model):
     positive_feedback = ndb.IntegerProperty(default=0)
     negative_feedback = ndb.IntegerProperty(default=0)
 
-    def get_user_feedback(self):
-        q = EventFeedback.query(ndb.AND(EventFeedback.user == get_member_key(),
+    def get_user_feedback(self, member_key=None):
+        if not member_key:
+            member_key = get_member_key()
+        q = EventFeedback.query(ndb.AND(EventFeedback.user == member_key,
                                         EventFeedback.task_event == self.key))
         return q.fetch(limit=1)
 
@@ -103,32 +106,8 @@ def add_default_tasks(house_key):
                        description="Every bin: bathroom, bedroom, kitchen, backyard", style="fa fa-trash"))
     
     return taskKeys
-#
-# def add_default_members(house_key):
-#     """
-#     Add default members and return an array of members
-#
-#     :param house_name:
-#     :return:
-#     """
-#
-#
-#     return
-#
-#     import  time
-#     memberKeys = []
-#     memberKeys.append(register_member_from_code("Norbert","Naskov",house_key,"id131"))
-#     memberKeys.append(register_member_from_code("Adam","Noakes",house_key,"id122"))
-#     memberKeys.append(register_member_from_code("Dominic","Smith",house_key,"id131"))
-#     memberKeys.append(register_member_from_code("Bogomil","Gospodinov",house_key,"id144"))
-#     memberKeys.append(register_member_from_code("Darius","Key",house_key,"id152"))
-#     memberKeys.append(register_member_from_code("Damyan","Rusinov",house_key,"id163"))
-#     memberKeys.append(register_member_from_code("Richard","Storaro",house_key,"id171"))
-#     return memberKeys
 
 def add_default_task_events_and_feedback(member_keys, task_keys):
-
-    import datetime
 
 
     for i in range(len(task_keys)):
@@ -149,12 +128,23 @@ def add_default_task_events_and_feedback(member_keys, task_keys):
             task_event = task_event_key.get()
             last_date = last_date + datetime.timedelta(hours=random.randint(4, 11), minutes=random.randint(0, 60))
             task_event.date_completed = last_date
-            task_event.put_async()
+
 
             # Add task feedback
             # Get a random # of persons
             for k in range(random.randint(0,len(member_keys))):
-                update_task_event_feedback_given_key(task_keys[i], True if random.randint(0,1) else False, member_keys[k])
+                current_member = member_keys[k]
+                was_positive = True if random.randint(0,1) else False
+
+                if was_positive:
+                    task_event.positive_feedback += 1
+                else:
+                    task_event.negative_feedback += 1
+
+                new_event_feedback = EventFeedback(task_event=task_event.key, user=current_member, was_positive=was_positive)
+                new_event_feedback.put_async()
+
+            task_event.put_async()
 
 
 def delete_all_default_values():
@@ -190,6 +180,8 @@ def populate_default_values(house_key):
     :return:
     """
 
+    start = datetime.datetime.now()
+    print("Popualate start")
     delete_all_default_values()
 
     # Create members in the database to the same house
@@ -206,6 +198,8 @@ def populate_default_values(house_key):
 
     # Add task events
     add_default_task_events_and_feedback(member_keys,task_keys)
+
+    print("Popualate finish:" + str(datetime.datetime.now()-start))
 
 
 def get_member_id():
@@ -356,7 +350,7 @@ def update_task_event_feedback_given_key(task_key, was_positive, member_key=None
         task_event = task.most_recent_event.get()
         if not member_key:
             member_key = get_member_key()
-        event_feedback = task_event.get_user_feedback()
+        event_feedback = task_event.get_user_feedback(member_key)
 
         if len(event_feedback):
             event_feedback = event_feedback[0]
@@ -409,7 +403,6 @@ def get_all_task_events_count_for_member_for_date(member_key, date):
     :param date: (Date)
     :return: (int) - the count of all task events
     """
-    import datetime
     # Make two dates from the given date at 00:00 and 24:00, so we can filter on them
     delta = datetime.timedelta(minutes=date.minute, seconds=date.second, microseconds=date.microsecond, hours=date.hour)
     dateAt00 = date - delta
