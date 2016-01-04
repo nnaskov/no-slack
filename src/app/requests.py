@@ -253,7 +253,10 @@ class AnalysisHandler(webapp2.RequestHandler):
 
                 for member in members:
                     labels.append(member.first_name)
-                    data.append(member.total_difficulty_done_assigned)
+                    tdda = member.total_difficulty_done_assigned
+                    if tdda < 0:
+                        tdda = 0
+                    data.append(tdda)
 
                 response["chart1"]= {
                     "data": data,
