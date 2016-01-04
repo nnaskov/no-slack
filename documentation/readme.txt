@@ -1,9 +1,12 @@
 SourceB file comments
 ______________________
 
-./templates/index.html 
+./templates/index.html
+└─> Landing page template originally theme/index.html from http://bit.ly/1Uubres 
+    only minor changes to the content.
 
 ./static/bower_components/dist/scripts/ui-iconpicker.js
+└─> Line 156 modified to fix bug in library. 
 
 Setup instructions
 ——————————————————————
@@ -61,12 +64,16 @@ The directory/ file structure for the application should be set out as follows:
 │   └── scss
 └── templates
 
+The following commands should be used to build the folder structure automatically:
+mkdir src
+rsync -a --remove-source-files SourceA/javascript/ SourceA/python/ SourceA/misc/ SourceB/javascript/ SourceB/python/ SourceB/misc/ SourceC/javascript/ SourceC/python/ SourceC/misc/ src
+
 In order to install the dependant JavaScript libraries defined in bower.json, the
 bower package manager must be used:
-	cd ./app/static
+	cd app/static
 	bower install
 
 
-Potential commands to automate file structure build:
-mkdir src
-rsync -a --remove-source-files SourceA/javascript/ SourceA/python/ SourceA/misc/ SourceB/javascript/ SourceB/python/ SourceB/misc/ SourceC/javascript/ SourceC/python/ SourceC/misc/ src
+List of External Libraries and Sources
+——————————————————————————————————————
+Flatty http://bit.ly/1Uubres
