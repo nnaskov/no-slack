@@ -153,3 +153,12 @@ app.run(function ($rootScope, ngProgressFactory) {
         $rootScope.progressbar.complete();
     });
 });
+
+/**
+* Filter to convert seconds to javascript Date object
+*/
+app.filter('secondsToDateTime', [function() {
+    return function(seconds) {
+        return new Date(1970, 0, 1).setSeconds(seconds);
+    };
+}])

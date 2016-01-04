@@ -2,7 +2,7 @@
 @import "bourbon";
 
 /* only using the boostrap libraries we need */
-@import "bootstrap/variables", "bootstrap/mixins", "bootstrap/normalize", "bootstrap/print", "bootstrap/glyphicons", "bootstrap/scaffolding", "bootstrap/type", "bootstrap/code", "bootstrap/grid", "bootstrap/forms", "bootstrap/buttons", "bootstrap/component-animations", "bootstrap/dropdowns", "bootstrap/button-groups", "bootstrap/input-groups", "bootstrap/navs", "bootstrap/navbar", "bootstrap/labels", "bootstrap/badges", "bootstrap/thumbnails","bootstrap/alerts", "bootstrap/panels", "bootstrap/close", "bootstrap/modals", "bootstrap/tooltip", "bootstrap/popovers", "bootstrap/utilities", "bootstrap/responsive-utilities";
+@import "bootstrap/variables", "bootstrap/mixins", "bootstrap/normalize", "bootstrap/print", "bootstrap/glyphicons", "bootstrap/scaffolding", "bootstrap/type", "bootstrap/code", "bootstrap/grid", "bootstrap/forms", "bootstrap/buttons", "bootstrap/component-animations", "bootstrap/dropdowns", "bootstrap/button-groups", "bootstrap/input-groups", "bootstrap/navs", "bootstrap/navbar", "bootstrap/labels", "bootstrap/badges", "bootstrap/thumbnails","bootstrap/alerts", "bootstrap/panels", "bootstrap/close", "bootstrap/modals", "bootstrap/tooltip", "bootstrap/popovers", "bootstrap/utilities", "bootstrap/responsive-utilities", "bootstrap/progress-bars";
 
 @import "mixins";
 @import "variables";
@@ -41,8 +41,8 @@ body {
 .tile {  
     width: 100%;
     margin-right:10px; 
-    height:169px !important;
-    max-height:169px;
+    height: $tile_height !important;
+    max-height:$tile_height;
     display: inline-block;
     box-sizing: border-box;		
     padding: 20px;
@@ -362,8 +362,8 @@ img{
 
 .ui-state-highlight {  
     @include calc(width, "100% - 15px");
-    height:184px !important;
-    max-height:184px;
+    height:$tile_height+15 !important;
+    max-height:$tile_height+15;
     display: inline-block;
     box-sizing: border-box;		
     margin: 0px !important;
@@ -409,3 +409,15 @@ img{
         transform: translate(-50%, -50%);   
     }
 }
+
+.progress{
+    height: 15px;
+    margin-bottom: 10px;
+    *{
+        color:#fff;
+        &.black{
+            color: black!important;
+        }
+    }
+}
+

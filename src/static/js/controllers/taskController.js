@@ -2,7 +2,29 @@
 * The task controller manages the scope for every task tile on the dashboard
 * It manages all the task-related event such as task completion and task feedback
 */
-app.controller('TaskController', ['$scope', '$http', '$element', 'taskService', function($scope, $http, $element, taskService) {    
+app.controller('TaskController', ['$scope', '$http', '$element', 'taskService', '$interval', function($scope, $http, $element, taskService, $interval) {   
+    /**
+    * Calculating total and remaining time to finish the task
+    */
+    $scope.task.total = $scope.task.duration.replace('s','');
+    $scope.task.remaining = $scope.task.total - Math.round($scope.task.delay.replace('s','')*-1);
+    $scope.task.proportion = ($scope.task.remaining/$scope.task.total);
+    $scope.task.progressType = 'success';
+    
+    $interval(function(){
+        $scope.task.remaining--;
+        $scope.task.proportion = ($scope.task.remaining/$scope.task.total);
+        if($scope.task.proportion > 0.7){
+            $scope.task.progressType = 'success';
+        }
+        else if($scope.task.proportion > 0.3 && $scope.task.proportion <= 0.7){
+            $scope.task.progressType = 'warning';
+        }
+        else if($scope.task.proportion <= 0.3){
+            $scope.task.progressType = 'danger';
+        }
+    },1000);
+    
     /**
     * This callback is called every time the user completes a task
     * It puts the user's initials on the tile to signify he is the last one who completed the task
@@ -15,6 +37,8 @@ app.controller('TaskController', ['$scope', '$http', '$element', 'taskService', 
 
         $scope.feedback.positive = 0;
         $scope.feedback.negative = 0;
+        
+        $scope.task.remaining = $scope.task.total;
 
         $scope.task.userFeedback = null;
         $scope.task.assigned = response.assigned;
