@@ -79,20 +79,20 @@ def get_member_with_highest_feedback_score(memberList, task):
     :return: a member Entity
     """
 
-    # Array of tuples. Each tuple is feedbackscore and member entity
-    membersWithScore = []
+    # Array of tuples. Each tuple is feedback_score and member entity
+    members_with_score = []
 
     for member in memberList:
         positive, negative =  models.get_positive_negative_feedback(member.key,task.key)
         if positive + negative > 0:
-            feedbackscore = (positive - negative ) / (positive + negative)
+            feedback_score = (positive - negative ) / (positive + negative)
         else:
-            feedbackscore = 0
-        membersWithScore.append((feedbackscore,member))
+            feedback_score = 0
+        members_with_score.append((feedback_score,member))
 
     # We return the member entitiy of the sorted array of tuples. It sorts by the first element of the tuple -
-    #   feedbackscore
-    return sorted(membersWithScore)[0][1]
+    #   feedback_score
+    return sorted(members_with_score)[0][1]
 
 def delegate_task(task):
     """
@@ -125,30 +125,30 @@ def delegate_task(task):
 
 
     # Smartness of the algorithm
-    # equalMembers - a list of members, which have TDDA within the range of >=min(TDDA) <= min(TDDA) + task.difficulty
+    # equal_members - a list of members, which have TDDA within the range of >=min(TDDA) <= min(TDDA) + task.difficulty
     # This way we consider all members with relatively similar TDDA, to be equal for this tasks and we assign it to the
     # member with the highest Feedback score
-    equalMembers = [members[0]]
-    rangeBottom = members[0].total_difficulty_done_assigned
-    rangeTop = rangeBottom + task.difficulty
+    equal_members = [members[0]]
+    range_bottom = members[0].total_difficulty_done_assigned
+    range_top = range_bottom + task.difficulty
     for member in members[1:]:
-        if member.total_difficulty_done_assigned > rangeTop:
+        if member.total_difficulty_done_assigned > range_top:
             # The members are sorted, so if the current member's TDDA is higher we can safely break
             break
         else:
-            equalMembers.append(member)
+            equal_members.append(member)
 
-    if len(equalMembers)>1:
+    if len(equal_members)>1:
         # Only if there are more than 1 equal members
-        finalAsignee = get_member_with_highest_feedback_score(equalMembers,task)
+        final_asignee = get_member_with_highest_feedback_score(equal_members,task)
     else:
-        finalAsignee = equalMembers[0]
+        final_asignee = equal_members[0]
 
     # We have add the difficulty of the current task to the TDDA of the asignee
 
-    finalAsignee.total_difficulty_done_assigned += task.difficulty
-    finalAsignee.put()
+    final_asignee.total_difficulty_done_assigned += task.difficulty
+    final_asignee.put()
 
-    task.assigned = finalAsignee.key
+    task.assigned = final_asignee.key
 
     return task
