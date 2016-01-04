@@ -49,6 +49,17 @@ body {
     cursor: pointer;
     border: 1px solid lighten(#000,50%);
     
+    &:hover .progress-striped{
+        display: block!important;
+    }
+    
+    .tile-progress{
+        min-height:25px;
+        & .progress-striped{
+            display: none;
+        }
+    }
+    
     /* Style tile border(black) */
     &.delegated{
         border: 3px solid #0d0d5c !important;
