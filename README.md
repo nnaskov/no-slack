@@ -1,4 +1,4 @@
-# cloudapplicationdev
+# No-Slack app
 
 ## How to install
 
@@ -33,6 +33,40 @@ bower install <name-of-component> --save
 ```
 
 
+
+
+
+##  Code Structure
+
+### Front-end
+The AngularJS code is in:
+
+```
+src/static/js
+```
+* controllers/
+* directives/
+* services/
+
+The Main HTML templates are in:
+```
+src/templates
+```
+The Main HTML are then populated with partials from:
+```
+src/static/partials
+```
+
+We use SCSS, which can be found in:
+```
+src/static/scss
+```
+
+
+### Back-end
+This app is intended to be run on Google App Engine. 
+
+
 ## How to count the lines of code
 
 On 30/12/2015 we had **2858**/4400 LOC.
@@ -44,9 +78,10 @@ You can try the following command for Windows:
 cloc.exe cloudapplicationdev --exclude-dir=external,lib,unittests,bower_components,css,fonts,img
 ```
 
+Don't forget to add cloc.exe to the PATH for windows or to put cloc immediately outside the cloudapplicationdev folder.
+
+
 and for Mac:
 ```
 cloc cloudapplicationdev --exclude-dir=external,lib,unittests,bower_components,css,fonts,img
 ```
-
-Don't forget to add cloc.exe to the PATH for windows or to put cloc immediately outside the cloudapplicationdev folder.
