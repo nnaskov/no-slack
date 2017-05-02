@@ -1,4 +1,23 @@
+
 # No-Slack app
+
+## How to run
+1. Go to [no-slack.appspot.com](https://no-slack.appspot.com)
+2. Log in with your google account
+2. Once you are logged in, you should see a nav bar. In the top right corner there will be a "+" (plus sign). Press it to populate dummy data
+3. WAIT! Population may take a minute or 2
+4. Once it has finished you can play around
+
+## Story
+
+LIVING IN SHARED HOUSEHOLD IS HARD
+
+Who should throw away the trash today? Who should hover the hallway? How do you get reports on who has done what? 
+
+No-slack solves exactly this - you can create tasks and assign who should do it next. You can keep track of who has done what and who is slacking off.
+
+With a few clicks you can delegate all the tasks to the right people and finally achieve harmony at your shared house.
+
 
 ## How to install
 
@@ -39,14 +58,19 @@ bower install <name-of-component> --save
 ##  Code Structure
 
 ### Front-end
+Technologies used:
+* AngularJS
+* Bootstrap 3
+* SCSS
+
 The AngularJS code is in:
 
 ```
 src/static/js
 ```
-* controllers/
-* directives/
-* services/
+- controllers/
+- directives/
+- services/
 
 The Main HTML templates are in:
 ```
@@ -64,6 +88,10 @@ src/static/scss
 
 
 ### Back-end
+Technologies used:
+* Google App Engine
+* Python
+
 This app is intended to be run on Google App Engine. 
 
 
